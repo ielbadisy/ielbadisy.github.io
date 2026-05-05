@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.24">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>The Unseen Influence: Quantifying Missing Data Impact Through Partial Dependence Plots – Imad EL BADISY</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-html-eb71d4f0124c4d5ff63526840ab633f6.min.css" rel="stylesheet" append-hash="true" data-mode="light">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<style>html{ scroll-behavior: smooth; }</style>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body>
+
+
+<header id="title-block-header">
+<h1 class="title">The Unseen Influence: Quantifying Missing Data Impact Through Partial Dependence Plots</h1>
+
+</header>
+
+
+<p>Creating a full mathematical proof for the effectiveness of using Partial Dependence Plots (PDPs) to quantify the impact of missing data involves several steps and assumptions. A complete proof would require establishing a theoretical framework that defines the relationship between the missing data mechanism, the use of PDPs, and the inference accuracy. Below is an outline of how such a proof could be structured, including key concepts and components that would need to be rigorously defined and proven. Note that this is a conceptual guide rather than a complete, detailed proof, as the full development of such a proof would be highly complex and beyond the scope of this response.</p>
+<h3 id="define-the-problem-and-objectives" class="anchored">1. Define the Problem and Objectives</h3>
+<ul>
+<li><strong>Objective</strong>: Prove that Partial Dependence Plots can reliably quantify the impact of missing data on the accuracy of inference, under specific conditions or assumptions.</li>
+</ul>
+<h3 id="preliminaries-and-assumptions" class="anchored">2. Preliminaries and Assumptions</h3>
+<ul>
+<li><strong>Define Missing Data Mechanisms</strong>: Adopt Rubin’s framework (MCAR, MAR, MNAR) for classifying missing data mechanisms.</li>
+<li><strong>Model Assumptions</strong>: Clearly state the assumptions about the data generation process, the distribution of missing data, and the model used for inference.</li>
+<li><strong>Partial Dependence Plots (PDPs)</strong>: Formally define what PDPs are and how they are calculated, including any assumptions specific to their use in this context.</li>
+</ul>
+<h3 id="theoretical-framework" class="anchored">3. Theoretical Framework</h3>
+<ul>
+<li><strong>Impact of Missing Data on Inference</strong>: Establish a theoretical model that describes how missing data affects the accuracy of model predictions and inference, possibly incorporating bias and variance components.</li>
+<li><strong>Role of PDP in Identifying Impact</strong>: Develop a theoretical basis for how PDPs can be used to visualize and quantify the effect of missing data on the predictive model.</li>
+</ul>
+<h3 id="mathematical-proof" class="anchored">4. Mathematical Proof</h3>
+<ul>
+<li><strong>Step 1</strong>: Prove that the presence of missing data alters the distribution or relationships captured by the PDP under certain conditions (e.g., when data is MAR or MNAR).</li>
+<li><strong>Step 2</strong>: Demonstrate that changes in the PDP due to missing data can be quantitatively linked to the accuracy of inference, possibly through bias-variance decomposition or a similar approach.</li>
+<li><strong>Step 3</strong>: Show under what conditions (or for what types of missing data and models) the PDP method provides a reliable measure of the impact of missing data on inference.</li>
+</ul>
+<h3 id="limitations-and-conditions" class="anchored">5. Limitations and Conditions</h3>
+<ul>
+<li><strong>Scope of Applicability</strong>: Clearly delineate the conditions under which the proof holds. This includes types of data distributions, models, and missing data mechanisms where the use of PDPs is theoretically justified.</li>
+<li><strong>Limitations</strong>: Acknowledge any limitations of the proof, including assumptions that may not hold in all practical scenarios.</li>
+</ul>
+<h3 id="conclusion" class="anchored">6. Conclusion</h3>
+<ul>
+<li>Summarize the main findings of the proof, emphasizing the conditions under which PDPs can be effectively used to assess the impact of missing data on inference.</li>
+</ul>
+<h3 id="implementation-note" class="anchored">Implementation Note</h3>
+<p>Implementing this proof in a real-world scenario would likely require empirical validation in addition to theoretical development. This might involve simulations or case studies where data is artificially removed according to different mechanisms (MCAR, MAR, MNAR) and the effectiveness of PDPs in detecting and quantifying the impact of this missing data is assessed.</p>
+<p>Given the complexity and specificity of such a proof, collaboration with a statistician or a researcher with expertise in missing data analysis and machine learning interpretability methods would be highly beneficial. If you’re proceeding with this research, I recommend detailed consultation of existing literature on missing data, PDPs, and statistical proofs related to inference accuracy in the presence of incomplete datasets.</p>
+<p>Developing the first point deeply involves rigorously defining the presence of missing data and its effects on Partial Dependence Plots (PDPs), under the assumption that data is Missing At Random (MAR) or Missing Not At Random (MNAR). This development requires a careful examination of the theoretical implications of missing data on the estimation process used in generating PDPs. Let’s delve into this aspect.</p>
+<h3 id="objective-impact-of-missing-data-on-pdp-estimation" class="anchored">Objective: Impact of Missing Data on PDP Estimation</h3>
+<p>The objective here is to rigorously explore how missing data, specifically under MAR and MNAR conditions, influences the estimation of PDPs and, subsequently, the interpretability and reliability of these plots in reflecting the true relationship between features and the target variable in a predictive model.</p>
+<h3 id="missing-data-mechanisms-mar-and-mnar" class="anchored">Missing Data Mechanisms: MAR and MNAR</h3>
+<ul>
+<li><strong>Missing Completely at Random (MCAR)</strong>: The probability of missingness is the same for all observations. The missingness of data under MCAR does not depend on the data itself.</li>
+<li><strong>Missing At Random (MAR)</strong>: The probability of missingness is the same within groups defined by the observed data. MAR allows the missingness to depend on observed data but not on the missing data.</li>
+<li><strong>Missing Not At Random (MNAR)</strong>: The probability of missingness depends on the unobserved data. The missingness is related to the reasons that led to the data being missing.</li>
+</ul>
+<p>For PDPs, the distinction between MAR and MNAR is crucial because it directly influences how we interpret the effects of missing data on the estimation of the relationship between features and the outcome.</p>
+<h3 id="theoretical-basis" class="anchored">Theoretical Basis</h3>
+<ol type="1">
+<li><p><strong>PDP Under Complete Data</strong>: A PDP aims to show the effect of a single or a set of features on the predicted outcome, averaged over the joint distribution of the other features. Mathematically, if (X_s) is the set of features of interest and (X_c) the complement set, the PDP is defined as:</p>
+<p>[ PDP(X_s) = E_{X_c}[f(X_s, X_c)] ]</p>
+<p>where (f) is the predictive model.</p></li>
+<li><p><strong>PDP Estimation with Missing Data</strong>: When data is missing, especially under MAR or MNAR, the joint distribution of (X_c) that is used to compute the expectation in the PDP is no longer accurately represented in the dataset. This distortion can lead to biased estimates of the PDP.</p></li>
+<li><p><strong>Impact of MAR on PDP</strong>: Under MAR, the missingness can be modeled based on the observed data. For estimation, techniques like imputation or weighted sampling that account for the probability of observing certain patterns of data can be used to adjust the estimation of the PDP. This adjustment attempts to recreate the joint distribution of (X_c) as if the data were complete.</p></li>
+<li><p><strong>Impact of MNAR on PDP</strong>: MNAR presents a greater challenge since the missingness depends on unobserved data. Without making additional assumptions or having external information about the missingness mechanism, it is difficult to correct for the bias in PDP estimation. Any attempt to estimate the PDP under MNAR conditions inherently involves speculation about the nature of the missing data.</p></li>
+</ol>
+<h3 id="mathematical-exploration-for-mar" class="anchored">Mathematical Exploration for MAR</h3>
+<p>To explore this mathematically, let’s consider a simplified model where we can express the probability of missingness for a feature (X_j) in (X_c) as a function of observed data. For MAR, this could be expressed as (P(M_j | X_{obs})), where (M_j) indicates missingness in feature (X_j) and (X_{obs}) represents observed features.</p>
+<p>The corrected PDP estimation would then involve integrating over the distribution of (X_c), weighted by the inverse of the probability of missingness, to approximate the expectation under the complete data scenario. This can be formally represented as:</p>
+<p>[ PDP_{MAR}(X_s) = _{X_c} dP(X_c) ]</p>
+<h3 id="challenges-and-considerations" class="anchored">Challenges and Considerations</h3>
+<ul>
+<li><strong>Modeling Missingness</strong>: Accurately modeling the probability of missingness, especially under MAR, requires careful consideration and robust statistical methods.</li>
+<li><strong>Estimation Bias</strong>: Even with adjustments, the estimation of PDPs in the presence of missing data may still be biased if the assumptions about the missingness mechanism are incorrect or if the model for missingness is inadequately specified.</li>
+<li><strong>Complexity in MNAR</strong>: Addressing MNAR conditions theoretically and mathematically is more challenging due to the need for assumptions or external information about the nature of the missingness.</li>
+</ul>
+<p>This exploration provides a foundational understanding of how missing data, particularly under MAR and MNAR conditions, can impact the estimation and interpretation of Partial Dependence Plots. Addressing these impacts requires a combination of theoretical insights, robust statistical methods, and careful consideration of the assumptions made about the nature of th</p>
+<p>To develop the formula for estimating the Partial Dependence Plot (PDP) under the Missing At Random (MAR) condition in a more mathematical manner, let’s first clarify the notation and the setup. We’re dealing with a scenario where we want to adjust the PDP estimation to account for missing data, specifically when this missingness is assumed to be MAR.</p>
+<h3 id="setting-and-notation" class="anchored">Setting and Notation:</h3>
+<ul>
+<li>Let (f) be our predictive model.</li>
+<li>(X_s) represents the subset of features for which we want to estimate the PDP.</li>
+<li>(X_c) represents the complement subset of features, some of which may have missing values.</li>
+<li>(M_j) is an indicator for missingness in feature (X_j) in (X_c), with (M_j = 1) if (X_j) is missing and (M_j = 0) otherwise.</li>
+<li>(P(M_j | X_{obs})) is the probability of missingness for feature (X_j), conditional on the observed data (X_{obs}).</li>
+<li>The goal is to estimate (PDP_{MAR}(X_s)), the PDP of (X_s) under MAR conditions.</li>
+</ul>
+<h3 id="original-pdp-estimation" class="anchored">Original PDP Estimation:</h3>
+<p>Under complete data, the PDP for feature(s) (X_s) is defined as:</p>
+<p>[ PDP(X_s) = E_{X_c}[f(X_s, X_c)] ]</p>
+<p>This expectation averages the effect of (X_s) on the prediction across all values of (X_c), holding (X_s) constant.</p>
+<h3 id="adjusted-pdp-estimation-under-mar" class="anchored">Adjusted PDP Estimation Under MAR:</h3>
+<p>To adjust for missingness under MAR, we aim to estimate (PDP(X_s)) as if the missing data were observed, leveraging the MAR assumption. We introduce a weight (w(X_c)) for each observation in the dataset that inversely adjusts for the likelihood of being observed given the missingness pattern. This weight is crucial for correcting the bias introduced by the missing data.</p>
+<p>Given (P(M_j | X_{obs})) as the probability that the data is observed (not missing), the weight (w(X_c)) can be defined as the inverse of this probability, ensuring that observations with higher likelihoods of being missing are up-weighted in the estimation of the PDP:</p>
+<p>[ w(X_c) = ]</p>
+<p>The adjusted PDP estimation under MAR, (PDP_{MAR}(X_s)), then incorporates these weights:</p>
+<p>[ PDP_{MAR}(X_s) = _{X_c} f(X_s, X_c) w(X_c) , dP(X_c) ]</p>
+<p>However, this formula simplifies the complex nature of handling multiple features with missing values. In practice, (w(X_c)) needs to account for the multidimensional nature of (X_c) and the corresponding missingness patterns. For a simplified case where missingness is independent across features, the weight could be the product of the inverse probabilities for each feature:</p>
+<p>[ w(X_c) = _{j X_c} ]</p>
+<h3 id="implementation-note-1" class="anchored">Implementation Note:</h3>
+<p>Implementing this approach requires:</p>
+<ol type="1">
+<li><p><strong>Estimating (P(M_j | X_{obs}))</strong>: This involves modeling the missingness mechanism. For each feature (X_j) with missing values, a model (e.g., logistic regression) is fitted to predict the probability of missingness based on observed data.</p></li>
+<li><p><strong>Calculating Weights</strong>: For each observation, calculate (w(X_c)) using the estimated probabilities from the missingness models.</p></li>
+<li><p><strong>Estimating (PDP_{MAR}(X_s))</strong>: Compute the weighted average of (f(X_s, X_c)) over the dataset, using the calculated weights to adjust for missingness.</p></li>
+</ol>
+<p>This adjusted approach to estimating PDPs under MAR allows for more accurate interpretations of feature importance and relationships in the presence of missing data, provided the MAR assumption holds and the missingness can be adequately modeled.</p>
+<p>To implement the adjusted Partial Dependence Plot (PDP) estimation under Missing At Random (MAR) conditions in R, we’ll use a simulated dataset. This approach involves several steps, including simulating data with missing values, modeling the probability of missingness, calculating weights, and finally, estimating and plotting the adjusted PDP.</p>
+<p>For this example, let’s assume a simple scenario where our dataset has two features, (X_1) and (X_2), and a target variable (Y), with (X_2) having missing values.</p>
+<h3 id="step-1-install-and-load-necessary-packages" class="anchored">Step 1: Install and Load Necessary Packages</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"missForest"</span>, <span class="st">"randomForest"</span>, <span class="st">"ggplot2"</span>, <span class="st">"pdp"</span>))</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(missForest) <span class="co"># For handling missing data</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(randomForest) <span class="co"># For predictive modeling</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2) <span class="co"># For plotting</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pdp) <span class="co"># For Partial Dependence Plots</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<h3 id="step-2-simulate-data" class="anchored">Step 2: Simulate Data</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>) <span class="co"># For reproducibility</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">200</span> <span class="co"># Number of observations</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>X1 <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="sc">-</span><span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>X2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> X1 <span class="sc">-</span> X2<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Introduce missing values in X2</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>missing_indices <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span>n, n<span class="sc">/</span><span class="dv">4</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>X2[missing_indices] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">X1 =</span> X1, <span class="at">X2 =</span> X2, <span class="at">Y =</span> Y)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<h3 id="step-3-model-the-probability-of-missingness-for-x_2" class="anchored">Step 3: Model the Probability of Missingness for (X_2)</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a binary variable indicating missingness of X2</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>Missing_X2 <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(data<span class="sc">$</span>X2), <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit a logistic regression model for missingness</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>miss_model <span class="ot">&lt;-</span> <span class="fu">glm</span>(Missing_X2 <span class="sc">~</span> X1, <span class="at">family =</span> <span class="st">"binomial"</span>, <span class="at">data =</span> data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<h3 id="step-4-calculate-weights-based-on-missingness" class="anchored">Step 4: Calculate Weights Based on Missingness</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict the probability of observing each value of X2</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>Prob_Obs_X2 <span class="ot">&lt;-</span> <span class="fu">predict</span>(miss_model, <span class="at">newdata =</span> data, <span class="at">type =</span> <span class="st">"response"</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate weights as the inverse of the probability of missingness</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>Weights <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(data<span class="sc">$</span>X2), <span class="dv">1</span> <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> data<span class="sc">$</span>Prob_Obs_X2), <span class="dv">1</span> <span class="sc">/</span> data<span class="sc">$</span>Prob_Obs_X2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<h3 id="step-5-impute-missing-values-and-fit-a-predictive-model" class="anchored">Step 5: Impute Missing Values and Fit a Predictive Model</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use missForest to impute missing values</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>imputed_data <span class="ot">&lt;-</span> <span class="fu">missForest</span>(data[, <span class="fu">c</span>(<span class="st">"X1"</span>, <span class="st">"X2"</span>, <span class="st">"Y"</span>)])<span class="sc">$</span>ximp</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">randomForest</span>(Y <span class="sc">~</span> ., <span class="at">data =</span> imputed_data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<h3 id="step-6-estimate-and-plot-the-adjusted-pdp" class="anchored">Step 6: Estimate and Plot the Adjusted PDP</h3>
+<p>For the adjusted PDP, you need to manually adjust the PDP values based on the weights calculated earlier. Currently, the <code>pdp</code> package does not directly support weighted PDP calculations. However, you can use the model predictions and manually calculate the weighted averages for different values of (X_1) or (X_2).</p>
+<p>As an alternative, for demonstration, we’ll plot a standard PDP using the <code>pdp</code> package, but keep in mind this won’t incorporate the weights directly:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>pdp_obj <span class="ot">&lt;-</span> <span class="fu">partial</span>(model, <span class="at">pred.var =</span> <span class="st">"X1"</span>, <span class="at">grid.resolution =</span> <span class="dv">20</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pdp_obj, <span class="at">xlab =</span> <span class="st">"X1"</span>, <span class="at">ylab =</span> <span class="st">"Predicted Y"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This code demonstrates the steps up to estimating and plotting a standard PDP. To fully adjust the PDP based on the calculated weights, you would need to modify the aggregation process in the PDP estimation to account for these weights, which might involve custom coding beyond what is directly supported by the <code>pdp</code> package.</p>
+<p>The key takeaway is that by understanding and modeling the missingness, and then applying weights, you are taking informed steps to mitigate the bias that missing data could introduce to your model’s understanding of the relationship between features and the target variable.</p>
+<p>Incorporating weights into the Partial Dependence Plot (PDP) calculation requires a custom approach, as standard PDP functions typically do not account for observation weights directly. We’ll adjust the methodology to manually calculate the PDP, considering the weights derived from the probability of missingness. This approach involves generating predictions across a range of values for the feature of interest while accounting for the weights during averaging.</p>
+<h3 id="custom-weighted-pdp-calculation" class="anchored">Custom Weighted PDP Calculation</h3>
+<p>This R code snippet demonstrates how you might perform these calculations manually for a feature of interest, say (X_1), using a weighted average where the weights correct for the missingness in (X_2).</p>
+<p>First, ensure you’ve imputed the missing values in <code>X2</code> and built your predictive model, as shown in the previous steps.</p>
+<h3 id="step-7-manually-calculate-weighted-pdp-for-x_1" class="anchored">Step 7: Manually Calculate Weighted PDP for (X_1)</h3>
+<p>Assuming <code>model</code> is your trained predictive model (e.g., a random forest model) and <code>imputed_data</code> is the dataset with <code>X2</code> imputed:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Assuming imputed_data and data have the same ordering</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Prepare a sequence of values for X1 over its range for which we want to plot the PDP</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>X1_values <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(imputed_data<span class="sc">$</span>X1), <span class="fu">max</span>(imputed_data<span class="sc">$</span>X1), <span class="at">length.out =</span> <span class="dv">100</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Prepare a dataframe to store the PDP calculations</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>pdp_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">X1 =</span> <span class="fu">rep</span>(X1_values, <span class="at">each =</span> <span class="fu">nrow</span>(imputed_data)),</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>                       <span class="at">X2 =</span> <span class="fu">rep</span>(imputed_data<span class="sc">$</span>X2, <span class="at">times =</span> <span class="fu">length</span>(X1_values)),</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>                       <span class="at">Weights =</span> <span class="fu">rep</span>(data<span class="sc">$</span>Weights, <span class="at">times =</span> <span class="fu">length</span>(X1_values)))</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Use the model to predict Y for each combination of X1 and X2</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>pdp_data<span class="sc">$</span>Predicted_Y <span class="ot">&lt;-</span> <span class="fu">predict</span>(model, <span class="at">newdata =</span> pdp_data)</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the weighted average of Predicted_Y for each value of X1</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>pdp_results <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(Predicted_Y <span class="sc">~</span> X1, <span class="at">data =</span> pddp_data, <span class="at">FUN =</span> <span class="cf">function</span>(x, w) {</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>                         <span class="fu">weighted.mean</span>(x, w)}, <span class="at">w =</span> pdp_data<span class="sc">$</span>Weights)</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the Weighted PDP</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pdp_results, <span class="fu">aes</span>(<span class="at">x =</span> X1, <span class="at">y =</span> Predicted_Y)) <span class="sc">+</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Weighted Partial Dependence Plot for X1"</span>,</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"X1"</span>,</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Predicted Y"</span>) <span class="sc">+</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<h3 id="explanation" class="anchored">Explanation:</h3>
+<ul>
+<li><strong>Step 7</strong>: We generate a grid of values for (X_1) and create a new dataset (<code>pdp_data</code>) that contains every combination of these (X_1) values and the original (or imputed) (X_2) values. We also replicate the weights for each combination to maintain their association with the correct observations.</li>
+<li><strong>Prediction</strong>: For each row in <code>pdp_data</code>, we use the model to predict (Y) based on the current values of (X_1) and (X_2).</li>
+<li><strong>Weighted Average Calculation</strong>: We then group these predictions by the (X_1) value and calculate a weighted average of the predictions within each group, using the weights that correspond to the inverse probability of missingness. This step effectively adjusts the PDP calculation to account for the missing data.</li>
+<li><strong>Plotting</strong>: Finally, we plot these weighted averages against the (X_1) values to visualize the adjusted PDP.</li>
+</ul>
+<h3 id="note" class="anchored">Note:</h3>
+<p>This manual approach allows for the integration of weights into the PDP calculation, providing a more accurate representation of the feature’s effect on the prediction when considering the impact of missing data. It’s adaptable to other features or models by adjusting the feature values and the predictive model used.</p>
+<p>To compare the weighted PDP (accounting for missing data) against the unweighted PDP and the PDP from the completely observed data (without any missingness), we need to follow a structured approach. This involves calculating three sets of PDPs:</p>
+<ol type="1">
+<li><strong>Weighted PDP</strong> - Adjusts for missingness using weights derived from the probability of missingness.</li>
+<li><strong>Unweighted PDP</strong> - Ignores missingness and does not use weights.</li>
+<li><strong>PDP from Completely Observed Data</strong> - Uses only the subset of data without any missing values.</li>
+</ol>
+<p>Below is an R code that demonstrates how to calculate and plot these three PDPs for comparison:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(randomForest)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Assume 'imputed_data' is your dataset with imputed missing values for X2</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Assume 'data' contains the original data with a 'Weights' column for missingness weights</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Assume 'model' is your predictive model trained on 'imputed_data'</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a sequence of values for X1 over its range for plotting the PDP</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>X1_values <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(imputed_data<span class="sc">$</span>X1), <span class="fu">max</span>(imputed_data<span class="sc">$</span>X1), <span class="at">length.out =</span> <span class="dv">100</span>)</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Function to calculate PDP</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>calculate_pdp <span class="ot">&lt;-</span> <span class="cf">function</span>(data, model, X1_values, <span class="at">weights =</span> <span class="cn">NULL</span>) {</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>  pdp_data <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">X1 =</span> X1_values, <span class="at">X2 =</span> <span class="fu">unique</span>(data<span class="sc">$</span>X2))</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.null</span>(weights)) {</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    pdp_data<span class="sc">$</span>Weights <span class="ot">&lt;-</span> weights</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>  pdp_data<span class="sc">$</span>Predicted_Y <span class="ot">&lt;-</span> <span class="fu">predict</span>(model, <span class="at">newdata =</span> pdp_data)</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.null</span>(weights)) {</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="fu">data.frame</span>(<span class="at">X1 =</span> X1_values, <span class="at">Predicted_Y =</span> <span class="fu">tapply</span>(pdp_data<span class="sc">$</span>Predicted_Y, pdp_data<span class="sc">$</span>X1, mean)))</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Calculate weighted mean</span></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>    pdp_results <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(Predicted_Y <span class="sc">~</span> X1, <span class="at">data =</span> pdp_data, <span class="at">FUN =</span> <span class="cf">function</span>(x, w) <span class="fu">weighted.mean</span>(x, w, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">w =</span> pdp_data<span class="sc">$</span>Weights)</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(pdp_results)</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the three PDPs</span></span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>weighted_pdp <span class="ot">&lt;-</span> <span class="fu">calculate_pdp</span>(imputed_data, model, X1_values, <span class="at">weights =</span> data<span class="sc">$</span>Weights)</span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>unweighted_pdp <span class="ot">&lt;-</span> <span class="fu">calculate_pdp</span>(imputed_data, model, X1_values)</span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>completely_observed_pdp <span class="ot">&lt;-</span> <span class="fu">calculate_pdp</span>(data[<span class="sc">!</span><span class="fu">is.na</span>(data<span class="sc">$</span>X2), ], model, X1_values)</span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine the PDPs for plotting</span></span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>weighted_pdp<span class="sc">$</span>Type <span class="ot">&lt;-</span> <span class="st">"Weighted"</span></span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>unweighted_pdp<span class="sc">$</span>Type <span class="ot">&lt;-</span> <span class="st">"Unweighted"</span></span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>completely_observed_pdp<span class="sc">$</span>Type <span class="ot">&lt;-</span> <span class="st">"Completely Observed"</span></span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>combined_pdp <span class="ot">&lt;-</span> <span class="fu">rbind</span>(weighted_pdp, unweighted_pdp, completely_observed_pdp)</span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the PDPs</span></span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(combined_pdp, <span class="fu">aes</span>(<span class="at">x =</span> X1, <span class="at">y =</span> Predicted_Y, <span class="at">color =</span> Type)) <span class="sc">+</span></span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Comparison of PDPs"</span>, <span class="at">x =</span> <span class="st">"X1"</span>, <span class="at">y =</span> <span class="st">"Predicted Y"</span>) <span class="sc">+</span></span>
+<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Weighted"</span> <span class="ot">=</span> <span class="st">"blue"</span>, <span class="st">"Unweighted"</span> <span class="ot">=</span> <span class="st">"red"</span>, <span class="st">"Completely Observed"</span> <span class="ot">=</span> <span class="st">"green"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<h3 id="explanation-1" class="anchored">Explanation:</h3>
+<ul>
+<li><strong>Function <code>calculate_pdp</code></strong>: This function calculates the PDP for a given dataset, model, and set of (X_1) values. It can adjust for weights if provided, allowing for both weighted and unweighted calculations.</li>
+<li><strong>Three PDP Calculations</strong>: We calculate the weighted PDP using the weights, the unweighted PDP without considering weights, and the PDP from the completely observed dataset (without missing (X_2) values).</li>
+<li><strong>Plotting</strong>: We combine these PDP datasets, label them accordingly, and plot them using <code>ggplot2</code>. This visualization enables a direct comparison of how missing data, and its treatment, affects the perceived relationship between (X_1) and the predicted outcome (Y).</li>
+</ul>
+<p>This approach illustrates the potential impact of missing data on model interpretations and highlights the importance of appropriately handling missingness in your analyses.</p>
+<p>Accumulated Local Effects (ALE) plots are a tool for interpreting what a machine learning model has learned about the relationship between a feature (or features) and the prediction. Unlike Partial Dependence Plots (PDPs), ALE plots focus on the local effects of features, accounting for the average changes within small intervals, thus avoiding the introduction of unlikely data combinations and reducing computational cost for high-dimensional data. They are particularly useful for identifying complex interactions and nonlinear relationships in your model’s predictions.</p>
+<p>Here, I’ll guide you through creating a simple ALE plot for a single continuous feature from scratch using R. This example will be basic, illustrating the core concept of ALE plots. For a more comprehensive implementation, especially for categorical features or feature interactions, consider looking into existing libraries or a more detailed algorithmic approach.</p>
+<h3 id="step-1-simulate-some-data-and-fit-a-model" class="anchored">Step 1: Simulate Some Data and Fit a Model</h3>
+<p>First, let’s create some synthetic data and fit a model to it:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">200</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>X1 <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="sc">-</span><span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>X2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> X1<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> <span class="fu">sin</span>(X2) <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="at">sd =</span> <span class="fl">0.1</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">X1 =</span> X1, <span class="at">X2 =</span> X2, <span class="at">Y =</span> Y)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit a model</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(randomForest)</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">randomForest</span>(Y <span class="sc">~</span> X1 <span class="sc">+</span> X2, <span class="at">data =</span> data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<h3 id="step-2-implementing-ale-calculation-for-a-single-feature" class="anchored">Step 2: Implementing ALE Calculation for a Single Feature</h3>
+<p>For simplicity, we’ll focus on calculating ALE for <code>X1</code>. The steps are:</p>
+<ol type="1">
+<li><strong>Divide the range of <code>X1</code> into intervals</strong>.</li>
+<li><strong>For each interval, calculate the difference in predictions that results from changing <code>X1</code> within that interval, keeping all other features constant</strong>.</li>
+<li><strong>Accumulate these differences to get the ALE values</strong>.</li>
+</ol>
+<p>Here’s how you could implement it:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ALE calculation for X1</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>calculate_ale <span class="ot">&lt;-</span> <span class="cf">function</span>(data, model, feature, <span class="at">n_intervals =</span> <span class="dv">10</span>) {</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Create intervals</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  breaks <span class="ot">&lt;-</span> <span class="fu">quantile</span>(data[[feature]], <span class="at">probs =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">length.out =</span> n_intervals <span class="sc">+</span> <span class="dv">1</span>))</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  ale_values <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n_intervals)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Calculate ALE</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(n_intervals)) {</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Subset data for the current interval</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    interval_data <span class="ot">&lt;-</span> data[data[[feature]] <span class="sc">&gt;=</span> breaks[i] <span class="sc">&amp;</span> data[[feature]] <span class="sc">&lt;</span> breaks[i <span class="sc">+</span> <span class="dv">1</span>], ]</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">nrow</span>(interval_data) <span class="sc">&gt;</span> <span class="dv">1</span>) {</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Perturb feature within the interval</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>      min_val <span class="ot">&lt;-</span> <span class="fu">min</span>(interval_data[[feature]])</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>      max_val <span class="ot">&lt;-</span> <span class="fu">max</span>(interval_data[[feature]])</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Copy data to calculate differences</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>      perturbed_data_min <span class="ot">&lt;-</span> interval_data</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>      perturbed_data_max <span class="ot">&lt;-</span> interval_data</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>      perturbed_data_min[[feature]] <span class="ot">&lt;-</span> min_val</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>      perturbed_data_max[[feature]] <span class="ot">&lt;-</span> max_val</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Calculate differences in predictions</span></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>      preds_min <span class="ot">&lt;-</span> <span class="fu">predict</span>(model, <span class="at">newdata =</span> perturbed_data_min)</span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>      preds_max <span class="ot">&lt;-</span> <span class="fu">predict</span>(model, <span class="at">newdata =</span> perturbed_data_max)</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>      diff <span class="ot">&lt;-</span> <span class="fu">mean</span>(preds_max <span class="sc">-</span> preds_min)</span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Accumulate ALE values</span></span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>      ale_values[i] <span class="ot">&lt;-</span> diff <span class="sc">/</span> (max_val <span class="sc">-</span> min_val)</span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Convert differences to accumulated values</span></span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>  ale_values <span class="ot">&lt;-</span> <span class="fu">cumsum</span>(ale_values) <span class="sc">-</span> <span class="fu">mean</span>(<span class="fu">cumsum</span>(ale_values)) <span class="co"># Centering ALE</span></span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(<span class="at">breaks =</span> breaks, <span class="at">ale_values =</span> ale_values)</span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate ALE for X1</span></span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a>ale_result <span class="ot">&lt;-</span> <span class="fu">calculate_ale</span>(data, model, <span class="st">"X1"</span>, <span class="at">n_intervals =</span> <span class="dv">10</span>)</span>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting the ALE plot for X1</span></span>
+<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> <span class="fu">data.frame</span>(<span class="at">X1 =</span> ale_result<span class="sc">$</span>breaks[<span class="sc">-</span><span class="fu">length</span>(ale_result<span class="sc">$</span>breaks)], <span class="at">ALE =</span> ale_result<span class="sc">$</span>ale_values), </span>
+<span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">x =</span> X1, <span class="at">y =</span> ALE)) <span class="sc">+</span></span>
+<span id="cb10-46"><a href="#cb10-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"ALE Plot for X1"</span>, <span class="at">x =</span> <span class="st">"X1"</span>, <span class="at">y =</span> <span class="st">"Accumulated Local Effect"</span>) <span class="sc">+</span></span>
+<span id="cb10-47"><a href="#cb10-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<h3 id="understanding-the-implementation" class="anchored">Understanding the Implementation</h3>
+<p>This implementation divides the range of <code>X1</code> into quantiles, calculates the average effect of <code>X1</code> changing within each of those intervals on the prediction, and then accumulates these effects. The resulting plot shows how changes in <code>X1</code> locally affect the predictions, offering insight into the relationship modeled by your machine learning algorithm.</p>
+<p>This basic example is a starting point. For real-world applications or more complex models, you’d need to consider optimizations, handling categorical features, interactions between features, and utilizing more sophisticated libraries designed for interpretability, such as <code>DALEX</code> or <code>iml</code> in R.</p>
+
+
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+    tabsets.forEach(function(tabset) {
+      const tabby = new Tabby('#' + tabset.id);
+    });
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'light-border',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+
+
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
