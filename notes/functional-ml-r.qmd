@@ -1,0 +1,43 @@
+---
+title: "Functional machine learning workflows in R"
+date: "2026"
+format: html
+---
+
+<ul class="menu">
+  <li><a href="../index.qmd">Home</a></li>
+  <li><a href="index.qmd">Notes</a></li>
+</ul>
+
+<hr>
+
+A functional machine learning workflow emphasizes explicit verbs, stable objects, and reproducible transitions between modeling steps.
+
+## Design principle
+
+The main idea is to keep the workflow readable:
+
+```r
+fit()
+evaluate()
+tune()
+compare_learners()
+interpret()
+estimate()
+```
+
+Each verb should return an object with a clear class, predictable print and summary methods, and enough metadata to reproduce the analysis.
+
+## Why it matters
+
+For applied health data science, the modeling interface should make validation, tuning, comparison, and interpretation visible. A compact functional interface can reduce friction while preserving statistical transparency.
+
+## Boundary
+
+Preprocessing should remain explicit and separate from model fitting. This makes it easier to audit transformations and avoid hidden data leakage.
+
+<hr>
+
+<footer>
+<a href="index.qmd">Back to notes</a>
+</footer>
