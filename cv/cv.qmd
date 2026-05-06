@@ -30,7 +30,7 @@ format:
 \href{https://elbadisyimad.com}{elbadisyimad.com} $\cdot$
 \href{https://github.com/ielbadisy}{github.com/ielbadisy} $\cdot$
 \href{https://scholar.google.com/scholar?q=Imad+EL+BADISY}{Google Scholar} $\cdot$
-\href{https://ma.linkedin.com/in/imad-el-badisy-360018281}{LinkedIn}
+\href{https://www.linkedin.com/in/imad-el-badisy-360018281/}{LinkedIn}
 \end{center}
 \vspace{6pt}
 
@@ -41,7 +41,7 @@ format:
 \end{large}
 \vspace{4pt}
 
-Research Engineer in Biostatistics working at the interface of computational biostatistics and machine learning. My work focuses on developing reproducible analytical workflows, supporting biomedical research projects, and building methodological tools for health data science. I develop open-source R packages for survival analysis, missing data, and interpretable machine learning, and contribute as a consultant and trainer in biostatistics and applied data science.
+Research Engineer in Biostatistics working at the interface of computational biostatistics and machine learning. My work focuses building methodological tools for health data science supporting biomedical research projects. I develop open-source R packages for survival analysis, missing data, and interpretable machine learning, and contribute as a consultant and trainer in biostatistics and health data science.
 
 \vspace{6pt}
 
@@ -62,10 +62,8 @@ Research Engineer in Biostatistics working at the interface of computational bio
 \begin{flushright}Nov. 2021 – Present\end{flushright}
 \end{multicols}
 \vspace{-0.16cm}
-* Contributing to the structuring of an emerging AI and Data Science service
-* Conducting methodological and applied research in health (oncology, fertility, biomedical domains)
-* Providing methodological support in computational biostatistics, statistical modeling, and machine learning
-* Developing reproducible workflows for health data science and biomedical research projects
+* Leading the structuring of an emerging AI and Data Science service
+* Conducting methodological and applied research in health (oncology, fertility, other biomedical domains)
 
 \vspace{3pt}
 
@@ -81,7 +79,6 @@ Research Engineer in Biostatistics working at the interface of computational bio
 \vspace{-0.16cm}
 * Designed and delivered training programs in data science for global health
 * Developed educational material and course content for data science learners
-* Contributed to capacity building in applied data science within a public health context
 
 \vspace{3pt}
 
@@ -97,7 +94,6 @@ Research Engineer in Biostatistics working at the interface of computational bio
 \vspace{-0.16cm}
 * Conducted statistical analyses of national health data (SNDS-based analyses)
 * Implemented automated and reproducible data workflows
-* Supported applied research in health data, epidemiology, and statistical modeling
 
 \vspace{3pt}
 
@@ -112,7 +108,6 @@ Research Engineer in Biostatistics working at the interface of computational bio
 \end{multicols}
 \vspace{-0.16cm}
 * Conducted cost-effectiveness evaluation of a clinical protocol on ketamine for chronic pain
-* Contributed to statistical and health-economic analyses in a clinical research setting
 
 \vspace{3pt}
 
@@ -127,7 +122,6 @@ Research Engineer in Biostatistics working at the interface of computational bio
 \end{multicols}
 \vspace{-0.16cm}
 * Conducted a systematic review and meta-analysis on health utilities in cancer patients
-* Contributed to evidence synthesis and health economics research
 
 \vspace{6pt}
 
@@ -200,7 +194,7 @@ Thesis: Missing Data and Machine Learning Methods for Survival Analysis · Super
 \begin{flushright}CRAN · v0.7.1\end{flushright}
 \end{multicols}
 \vspace{-0.16cm}
-* 19 learners, 7 evaluation metrics, 8 interpretability methods · Maintainer
+* 19 Survival learners, 7 evaluation metrics, 8 interpretability methods · Maintainer
 
 \vspace{2pt}
 
@@ -209,7 +203,7 @@ Thesis: Missing Data and Machine Learning Methods for Survival Analysis · Super
 \begin{flushright}R-universe\end{flushright}
 \end{multicols}
 \vspace{-0.16cm}
-* Unified framework for functional data learning in R · Maintainer
+* Unified framework for functional machine learning in R · Maintainer
 
 \vspace{2pt}
 
@@ -245,7 +239,7 @@ Thesis: Missing Data and Machine Learning Methods for Survival Analysis · Super
 \begin{flushright}R-universe\end{flushright}
 \end{multicols}
 \vspace{-0.16cm}
-* Functional approach to simulation studies in R · Maintainer
+* Functional approach to monte carlo simulation studies in R · Maintainer
 
 \vspace{2pt}
 
@@ -295,7 +289,7 @@ Khalis M., Toure A.B., **El Badisy I.**, et al. (2022). Meteorological parameter
 \begin{flushright}2022 – Present\end{flushright}
 \end{multicols}
 \vspace{-0.16cm}
-* Machine learning methods, NLP, applied AI for public health · Master's students
+* Machine learning methods and NLP for public health · Master's students
 
 \vspace{2pt}
 
@@ -309,20 +303,15 @@ Khalis M., Toure A.B., **El Badisy I.**, et al. (2022). Meteorological parameter
 \vspace{2pt}
 
 \begin{multicols}{2}
-\begin{flushleft}{\bf Methods in Health Data Science with R} — University Mohammed VI of Health Sciences (UM6SS)\end{flushleft}
-\begin{flushright}2023 – Present\end{flushright}
-\end{multicols}
-\vspace{-0.16cm}
-* Survival analysis, ML workflows, reproducible research in R
-
-\vspace{2pt}
-
-\begin{multicols}{2}
 \begin{flushleft}{\bf Health Data Analysis and Machine Learning} — Institut Mines-Télécom, IMT Atlantique\end{flushleft}
 \begin{flushright}2020 – Present\end{flushright}
 \end{multicols}
 \vspace{-0.16cm}
 * ML fundamentals, quantitative epidemiology, supervised and unsupervised learning · 21+ hours/year
+
+\vspace{2pt}
+
+*Outside working hours:* {\bf Methods in Health Data Science with R} — an independent course covering survival analysis, ML workflows, and reproducible research in R. \href{https://elbadisyimad.com/MHDSR-combined-syllabus.pdf}{Syllabus}
 
 \vspace{6pt}
 
@@ -360,4 +349,4 @@ Khalis M., Toure A.B., **El Badisy I.**, et al. (2022). Meteorological parameter
 
 **Methodological:** Statistical methodology · Biostatistics and epidemiology · Survival analysis · Missing data methods · Meta-analysis · Interpretable machine learning · Computational biostatistics · High-performance computing (Slurm)
 
-**Technical:** R (statistical and ML package development) · Python · Julia · Quarto / R Markdown / LaTeX · Git and GitHub · Reproducible research workflows
+**Technical:** R (statistical and ML package development) · Python · Julia · Quarto / LaTeX · Git and GitHub · Reproducible research workflows

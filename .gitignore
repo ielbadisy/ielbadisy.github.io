@@ -3,3 +3,6 @@ notes/ARCHIVED/
 *_cache/
 *.knit.md
 *.utf8.md
+
+/.quarto/
+**/*.quarto_ipynb

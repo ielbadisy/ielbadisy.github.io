@@ -107,40 +107,13 @@ Specialization in health econometrics and economic evaluation.
 
 ## Teaching
 
-### Lecturer and Mentor, AI for Public Health  
-**Aix-Marseille University, SESSTIM**  
-Marseille, France  
-**2022 – Present**
+| Course | Institution | Period |
+|---|---|---|
+| AI for Public Health (ML, NLP, applied AI) | Aix-Marseille University, SESSTIM | 2022 – present |
+| Introduction to Biostatistics | University Mohammed VI of Health Sciences (UM6SS) | 2021 – present |
+| Health Data Analysis and Machine Learning | Institut Mines-Télécom, IMT Atlantique | 2020 – present |
 
-Mentorship and teaching activities for Master's students in public health and AI for health (https://college-doctoral.univ-amu.fr/fr/inscrit/2343)
-
-- Machine learning methods
-- Natural language processing
-- Applied AI for public health
-
-
-
-### Lecturer, Introduction to Biostatistics  
-**University Mohammed VI of Health Sciences, UM6SS**  
-Casablanca, Morocco  
-**2021 – Present**
-
-Course delivered to undergraduate health students, with more than 100 teaching hours annually.
-
-- Descriptive statistics
-- Inferential statistics
-- Statistical reasoning for health sciences
-
-### Lecturer, Health Data Analysis and Machine Learning  
-**Institut Mines-Télécom, IMT Atlantique**  
-Brest, France  
-**2020 – Present**
-
-Course delivered to second- and third-year engineering students. 
-
-- Fundamentals of machine learning (https://moodle.imt-atlantique.fr/enrol/index.php?id=459)
-- Quantitative epidemiology
-
+*Outside working hours:* Methods in Health Data Science with R — an independent course covering survival analysis, ML workflows, and reproducible research in R. [Syllabus →](../MHDSR-combined-syllabus.pdf)
 
 ---
 
