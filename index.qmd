@@ -1,0 +1,138 @@
+---
+title: "Imad EL BADISY"
+format: html
+---
+
+<ul class="menu">
+  <li><a href="#about">About</a></li>
+  <li><a href="#research">Research</a></li>
+  <li><a href="#software">Software</a></li>
+  <li><a href="#publications">Publications</a></li>
+  <li><a href="#teaching">Teaching</a></li>
+  <li><a href="#notes">Notes</a></li>
+  <li><a href="#contact">Contact</a></li>
+  <li><a href="cv/cv.pdf">CV</a></li>
+</ul>
+
+<hr>
+
+<div class="identity">
+  <img class="profile-photo" src="profile.png" alt="Portrait of Imad EL BADISY">
+  <p class="role">Research Engineer in Biostatistics</p>
+  <p class="subtitle">
+    Survival Analysis · Machine Learning · Missing Data · Scientific Computing for Health Research
+  </p>
+  <p class="affiliation">
+    Aix–Marseille Université · SESSTIM / QuanTIM<br>
+    Mohammed VI Center for Research and Innovation · AI & Data Science
+  </p>
+  <p class="links">
+    <a href="mailto:elbadisyimad@gmail.com">Email</a> ·
+    <a href="https://github.com/ielbadisy">GitHub</a> ·
+    <a href="https://ma.linkedin.com/in/imad-el-badisy-360018281">LinkedIn</a> ·
+    <a href="cv/cv.pdf">CV</a>
+  </p>
+</div>
+
+## About {#about}
+
+I work at the intersection of biostatistics, survival analysis, machine learning, and reproducible health data science. My work focuses on methodological and computational frameworks for clinical data analysis, with particular interest in survival prediction, missing data, interpretability, and software for statistical learning in R.
+
+I am a Research Engineer in Biostatistics at the Mohammed VI Center for Research and Innovation (CM6RI), and a Ph.D. candidate at Aix-Marseille University (SESSTIM). I develop open-source R packages and frameworks for computational biostatistics, and contribute as a consultant and trainer in biostatistics and machine learning.
+
+## Research {#research}
+
+- **Survival machine learning** — Individualized survival prediction, neural survival models, survival curves, RMST-based summaries, and trajectory phenotyping.
+- **Missing data** — Evaluation of imputation strategies for estimation, prediction, calibration, and interpretability in health studies.
+- **Interpretable ML** — Explanation workflows aligned with clinical reasoning, including SHAP-style attributions, PDP/ICE/ALE, and stability diagnostics.
+- **Scientific computing** — Reproducible R packages, Quarto-based research workflows, benchmarking, and CLI-driven analytical systems.
+
+**Research projects:**
+
+- *Interpretable survival machine learning* (ongoing) — Design and development of modular R tools for survival analysis integrating interpretable machine learning methods.
+- *AI-based clinical decision support for pregnancy complications* (2024–2025) — Co-investigator on a project developing an AI-based clinical decision support system for predicting pregnancy complications, in collaboration with EISP-UM6SS, Morocco, funded by GAIN MENA, Lebanon.
+- *Deep learning application for otosclerosis prediction* (2023) — Co-investigator on a deep learning web application for otosclerosis prediction, in collaboration with Cheikh Khalifa Hospital, Otorhinolaryngology Service, Morocco.
+
+## Software {#software}
+
+| Package | Purpose | Link |
+|---|---|---|
+| `survalis` | Interpretable survival machine learning framework | [CRAN](https://CRAN.R-project.org/package=survalis) |
+| `survdnn` | Deep neural networks for survival analysis (R torch) | [CRAN](https://CRAN.R-project.org/package=survdnn) |
+| `funcml` | Functional machine learning workflows | [CRAN](https://CRAN.R-project.org/package=funcml) |
+| `unsurv` | Unsupervised clustering of individualized survival curves | [CRAN](https://CRAN.R-project.org/package=unsurv) |
+| `tvrmst` | Time-varying RMST from survival matrices | [CRAN](https://CRAN.R-project.org/package=tvrmst) |
+| `mcstatsim` | Monte Carlo statistical simulation (functional approach) | [CRAN](https://CRAN.R-project.org/package=mcstatsim) |
+| `missCforest` | Ensemble conditional trees for missing data imputation | [CRAN](https://CRAN.R-project.org/package=missCforest) |
+
+All packages on [CRAN](https://CRAN.R-project.org/search/?query=el+badisy) · also available via [R-universe](https://ielbadisy.r-universe.dev)
+
+## Selected Publications {#publications}
+
+- **El Badisy I.**, Assarag B., & Belrhiti Z. (2026). Interpretable clinical decision support systems in high-risk pregnancy: A scoping review of models, methods, and implementation. *BMC Pregnancy and Childbirth*.
+
+- Kadi C., Ahmadi N., Houdou A., **El Badisy I.**, et al. (2025). Differentiating latent tuberculosis from active tuberculosis through activation phenotypes and chemokine markers HLA-DR, CD38, MCP-1, and RANTES: A systematic review and meta-analysis. *Biomarker Insights*, 20, 11772719241312776.
+
+- **El Badisy I.**, Graffeo N., Khalis M., & Giorgi R. (2024). Multi-metric comparison of machine learning imputation methods with application to breast cancer survival. *BMC Medical Research Methodology*, 24(1), 191.
+
+- **El Badisy I.**, BenBrahim Z., Khalis M., et al. (2024). Risk factors affecting patient survival with colorectal cancer in Morocco: Survival analysis using an interpretable machine learning approach. *Scientific Reports*, 14(1), 3556.
+
+- Houdou A., **El Badisy I.**, Khomsi K., et al. (2024). Interpretable machine learning approaches for forecasting and predicting air pollution: A systematic review. *Aerosol and Air Quality Research*, 24(1), 230151.
+
+- Zbiri S., Belghiti Alaoui A., **El Badisy I.**, et al. (2024). Private hospitals in low- and middle-income countries: A typology using the cluster method, the case of Morocco. *BMC Health Services Research*, 24(1), 1231.
+
+- Blom I.M., Eissa M., Mattijsen J.C., **El Badisy I.**, et al. (2023). Effectiveness of greenhouse gas mitigation interventions for health-care systems: A systematic review. *Bulletin of the World Health Organization*, 102(3), 159.
+
+- Khalis M., Toure A.B., **El Badisy I.**, et al. (2022). Relationship between meteorological and air quality parameters and COVID-19 in the Casablanca region, Morocco. *International Journal of Environmental Research and Public Health*, 19(9), 4989.
+
+Full list: [Google Scholar](https://scholar.google.com/scholar?q=Imad+EL+BADISY)
+
+**Selected talks:**
+
+- **El Badisy I.** et al. (2023). Comparison of missing data imputation methods in Cox regression with time-varying and non-linear covariate effects. *ISCB 2023*, Rome.
+- **El Badisy I.** et al. (2023). Missing data imputation using a meta-algorithm, metaCART: A simulation study under MCAR. *EpiClin 2023*, Nancy.
+
+## Teaching {#teaching}
+
+| Course | Institution | Period |
+|---|---|---|
+| AI for Public Health (ML, NLP, applied AI) | Aix-Marseille University, SESSTIM | 2022 – present |
+| Introduction to Biostatistics | University Mohammed VI of Health Sciences (UM6SS) | 2021 – present |
+| Health Data Analysis and Machine Learning | Institut Mines-Télécom, IMT Atlantique | 2020 – present |
+
+: {tbl-colwidths="[45,40,15]"}
+
+*Outside working hours:* Methods in Health Data Science with R — an independent course covering survival analysis, ML workflows, and reproducible research in R. [Syllabus →](MHDSR-combined-syllabus.pdf)
+
+## Notes {#notes}
+
+Technical notes on survival analysis, machine learning, missing data, and reproducible health data science.
+
+| Date | Note | Topic |
+|---|---|---|
+| 2026 | [Building survival-trajectory phenotypes from individualized survival curves](notes/survival-trajectory-phenotypes.qmd) | Survival ML |
+| 2026 | [Dynamic RMST as an interpretable summary for predicted survival curves](notes/dynamic-rmst.qmd) | RMST |
+| 2026 | [Functional machine learning workflows in R](notes/functional-ml-r.qmd) | R / ML |
+| 2026 | [ALE from scratch: accumulated local effects for model interpretation](notes/ALE from the scratch.qmd) | Interpretable ML |
+| 2026 | [The unseen influence: quantifying missing data impact through partial dependence plots](notes/The Unseen Influence_ Quantifying Missing Data Impact Through Partial Dependence Plots.qmd) | Missing Data |
+
+[View all notes →](notes/index.qmd)
+
+## Contact {#contact}
+
+For collaboration, methodological support, or consulting requests, please reach out by email.
+
+| | |
+|---|---|
+| Email | [elbadisyimad@gmail.com](mailto:elbadisyimad@gmail.com) |
+| GitHub | [github.com/ielbadisy](https://github.com/ielbadisy) |
+| Google Scholar | [Imad EL BADISY](https://scholar.google.com/scholar?q=Imad+EL+BADISY) |
+| LinkedIn | [imad-el-badisy-360018281](https://ma.linkedin.com/in/imad-el-badisy-360018281) |
+
+: {tbl-colwidths="[20,80]"}
+
+<hr>
+
+<footer>
+© 2026 Imad EL BADISY · Built with <a href="https://quarto.org">Quarto</a>
+</footer>
