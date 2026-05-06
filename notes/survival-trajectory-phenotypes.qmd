@@ -1,0 +1,41 @@
+---
+title: "Building survival-trajectory phenotypes from individualized survival curves"
+date: "2026"
+format: html
+---
+
+<ul class="menu">
+  <li><a href="../index.qmd">Home</a></li>
+  <li><a href="index.qmd">Notes</a></li>
+</ul>
+
+<hr>
+
+This note outlines a compact workflow for deriving survival-trajectory phenotypes from individualized survival predictions.
+
+## Core idea
+
+Instead of clustering patients directly on baseline covariates, the analyst first estimates an individualized survival curve for each patient, then clusters the predicted curves over a clinically meaningful time horizon.
+
+## Minimal workflow
+
+1. Fit a survival model capable of producing individualized survival probabilities.
+2. Predict survival curves on a fixed time grid.
+3. Assemble the predictions into an `n × m` survival matrix.
+4. Truncate the matrix at a clinically meaningful horizon, such as 24 months.
+5. Cluster rows of the truncated survival matrix.
+6. Relabel clusters using an interpretable survival summary, such as RMST.
+
+## Why it is useful
+
+This approach groups patients by predicted survival behavior rather than by isolated covariate patterns. The resulting phenotypes are often easier to interpret clinically when they are summarized with survival probabilities, median survival, or restricted mean survival time.
+
+## Caution
+
+These phenotypes are descriptive unless the full analysis is embedded in a causal design. Treatment-stratified summaries should therefore be presented as exploratory rather than causal effects.
+
+<hr>
+
+<footer>
+<a href="index.qmd">Back to notes</a>
+</footer>

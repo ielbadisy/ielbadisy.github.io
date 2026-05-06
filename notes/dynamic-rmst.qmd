@@ -1,0 +1,40 @@
+---
+title: "Dynamic RMST as an interpretable summary for predicted survival curves"
+date: "2026"
+format: html
+---
+
+<ul class="menu">
+  <li><a href="../index.qmd">Home</a></li>
+  <li><a href="index.qmd">Notes</a></li>
+</ul>
+
+<hr>
+
+Restricted mean survival time is a useful way to summarize survival information on a time scale that is directly interpretable.
+
+## Definition
+
+For a survival function `S(t)`, the restricted mean survival time up to horizon `tau` is the area under the survival curve from zero to `tau`.
+
+$$
+\mathrm{RMST}(\tau) = \int_0^\tau S(t)\,dt
+$$
+
+## Dynamic use
+
+Instead of choosing a single horizon, one can evaluate RMST over several horizons. This gives a dynamic view of how separation between groups evolves over time.
+
+## Interpretation
+
+A difference in RMST between two groups can be read as a difference in expected event-free time up to a fixed horizon. This is often clearer than a hazard ratio when proportional hazards is questionable or when survival curves separate non-uniformly.
+
+## Practical note
+
+When RMST is computed from predicted survival curves, the time grid, interpolation method, and maximum horizon should be stated explicitly.
+
+<hr>
+
+<footer>
+<a href="index.qmd">Back to notes</a>
+</footer>
