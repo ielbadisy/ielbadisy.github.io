@@ -36,22 +36,23 @@ format: html
 
 ## About {#about}
 
-I work at the intersection of biostatistics, survival analysis, machine learning, and reproducible health data science. My work focuses on methodological and computational frameworks for clinical data analysis, with particular interest in survival prediction, missing data, interpretability, and software for statistical learning in R.
-
-I am a Research Engineer in Biostatistics at the Mohammed VI Center for Research and Innovation (CM6RI), and a Ph.D. candidate at Aix-Marseille University (SESSTIM). I develop open-source R packages and frameworks for computational biostatistics, and contribute as a consultant and trainer in biostatistics and machine learning.
+Research Engineer in Biostatistics working at the interface of computational biostatistics and machine learning. My work focuses building methodological tools for health data science supporting biomedical research projects. I develop open-source R packages for survival analysis, missing data, and interpretable machine learning, and contribute as a consultant and trainer in biostatistics and health data science.
 
 ## Research {#research}
 
-- **Survival machine learning** — Individualized survival prediction, neural survival models, survival curves, RMST-based summaries, and trajectory phenotyping.
-- **Missing data** — Evaluation of imputation strategies for estimation, prediction, calibration, and interpretability in health studies.
-- **Interpretable ML** — Explanation workflows aligned with clinical reasoning, including SHAP-style attributions, PDP/ICE/ALE, and stability diagnostics.
-- **Scientific computing** — Reproducible R packages, Quarto-based research workflows, benchmarking, and CLI-driven analytical systems.
+- **Survival machine learning**: Individualized survival prediction | neural survival models | RMST-based summaries, and trajectory phenotyping.
+- **Missing data**: Evaluation of imputation strategies
+- **Interpretable ML**: Explanation workflows aligned with clinical reasoning, including SHAP-style attributions, PDP/ICE/ALE, and stability diagnostics.
+- **Scientific computing**: Reproducible R packages, benchmarking, and CLI-driven analytical systems.
 
 **Research projects:**
 
-- *Interpretable survival machine learning* (ongoing) — Design and development of modular R tools for survival analysis integrating interpretable machine learning methods.
-- *AI-based clinical decision support for pregnancy complications* (2024–2025) — Co-investigator on a project developing an AI-based clinical decision support system for predicting pregnancy complications, in collaboration with EISP-UM6SS, Morocco, funded by GAIN MENA, Lebanon.
-- *Deep learning application for otosclerosis prediction* (2023) — Co-investigator on a deep learning web application for otosclerosis prediction, in collaboration with Cheikh Khalifa Hospital, Otorhinolaryngology Service, Morocco.
+- *Interpretable survival machine learning* (2024-2026): Design and development of modular R tools for survival analysis integrating interpretable machine learning methods.
+
+- *AI-based clinical decision support for pregnancy complications* (2024-2025): Co-investigator on a project developing an AI-based clinical decision support system for predicting pregnancy complications, in collaboration with EISP-UM6SS, Morocco, funded by GAIN MENA, Lebanon.
+
+- *Deep learning application for otosclerosis prediction* (2023-2024): Co-investigator on a deep learning web application for otosclerosis prediction, in collaboration with Cheikh Khalifa Hospital, Otorhinolaryngology Service, Morocco.
+
 
 ## Software {#software}
 
