@@ -1,0 +1,363 @@
+---
+format:
+  pdf:
+    documentclass: article
+    geometry:
+      - top=14mm
+      - left=15mm
+      - right=15mm
+      - bottom=10mm
+      - heightrounded
+    fontfamily: libertine
+    colorlinks: true
+    fontsize: '11'
+    include-in-header:
+      text: |
+        \usepackage{multicol}
+        \usepackage{hyperref}
+        \usepackage{libertine}
+        \pagestyle{empty}
+        \setlength{\multicolsep}{2pt plus 1.0pt minus 0.75pt}
+        \setlength{\columnsep}{3em}
+---
+
+<!-- TITLE -->
+\begin{huge}\begin{center}{\bf Imad EL BADISY}\end{center}\end{huge}
+
+<!-- CONTACT INFO -->
+\begin{center}
+\href{mailto:elbadisyimad@gmail.com}{elbadisyimad@gmail.com} $\cdot$
+\href{https://elbadisyimad.com}{elbadisyimad.com} $\cdot$
+\href{https://github.com/ielbadisy}{github.com/ielbadisy} $\cdot$
+\href{https://scholar.google.com/scholar?q=Imad+EL+BADISY}{Google Scholar} $\cdot$
+\href{https://ma.linkedin.com/in/imad-el-badisy-360018281}{LinkedIn}
+\end{center}
+\vspace{6pt}
+
+<!-- PROFILE -->
+\begin{large}{\bf PROFILE}
+\vspace{3pt}
+\hrule
+\end{large}
+\vspace{4pt}
+
+Research Engineer in Biostatistics working at the interface of computational biostatistics and machine learning. My work focuses on developing reproducible analytical workflows, supporting biomedical research projects, and building methodological tools for health data science. I develop open-source R packages for survival analysis, missing data, and interpretable machine learning, and contribute as a consultant and trainer in biostatistics and applied data science.
+
+\vspace{6pt}
+
+<!-- EXPERIENCE -->
+\begin{large}{\bf EXPERIENCE}
+\vspace{3pt}
+\hrule
+\end{large}
+\vspace{4pt}
+
+\begin{multicols}{2}
+\begin{flushleft}{\bf Mohammed VI Center for Research and Innovation (CM6RI)}\end{flushleft}
+\begin{flushright}Rabat, Morocco\end{flushright}
+\end{multicols}
+\vspace{-0.17cm}
+\begin{multicols}{2}
+\begin{flushleft}\textit{Research Engineer in Biostatistics}\end{flushleft}
+\begin{flushright}Nov. 2021 – Present\end{flushright}
+\end{multicols}
+\vspace{-0.16cm}
+* Contributing to the structuring of an emerging AI and Data Science service
+* Conducting methodological and applied research in health (oncology, fertility, biomedical domains)
+* Providing methodological support in computational biostatistics, statistical modeling, and machine learning
+* Developing reproducible workflows for health data science and biomedical research projects
+
+\vspace{3pt}
+
+\begin{multicols}{2}
+\begin{flushleft}{\bf The GRAPH Network}\end{flushleft}
+\begin{flushright}Switzerland / Remote\end{flushright}
+\end{multicols}
+\vspace{-0.17cm}
+\begin{multicols}{2}
+\begin{flushleft}\textit{Data Science Education Officer}\end{flushleft}
+\begin{flushright}Sep. 2023 – Dec. 2023\end{flushright}
+\end{multicols}
+\vspace{-0.16cm}
+* Designed and delivered training programs in data science for global health
+* Developed educational material and course content for data science learners
+* Contributed to capacity building in applied data science within a public health context
+
+\vspace{3pt}
+
+\begin{multicols}{2}
+\begin{flushleft}{\bf Institut Mines-Télécom, IMT Atlantique}\end{flushleft}
+\begin{flushright}Brest, France\end{flushright}
+\end{multicols}
+\vspace{-0.17cm}
+\begin{multicols}{2}
+\begin{flushleft}\textit{Research Engineer in Applied Statistics}\end{flushleft}
+\begin{flushright}Sep. 2019 – Sep. 2021\end{flushright}
+\end{multicols}
+\vspace{-0.16cm}
+* Conducted statistical analyses of national health data (SNDS-based analyses)
+* Implemented automated and reproducible data workflows
+* Supported applied research in health data, epidemiology, and statistical modeling
+
+\vspace{3pt}
+
+\begin{multicols}{2}
+\begin{flushleft}{\bf INSERM}\end{flushleft}
+\begin{flushright}Clermont-Ferrand, France\end{flushright}
+\end{multicols}
+\vspace{-0.17cm}
+\begin{multicols}{2}
+\begin{flushleft}\textit{Biostatistician}\end{flushleft}
+\begin{flushright}Jan. 2019 – Jun. 2019\end{flushright}
+\end{multicols}
+\vspace{-0.16cm}
+* Conducted cost-effectiveness evaluation of a clinical protocol on ketamine for chronic pain
+* Contributed to statistical and health-economic analyses in a clinical research setting
+
+\vspace{3pt}
+
+\begin{multicols}{2}
+\begin{flushleft}{\bf Université de Sherbrooke}\end{flushleft}
+\begin{flushright}Sherbrooke, Quebec, Canada\end{flushright}
+\end{multicols}
+\vspace{-0.17cm}
+\begin{multicols}{2}
+\begin{flushleft}\textit{Health Economist Intern}\end{flushleft}
+\begin{flushright}Feb. 2017 – Sep. 2017\end{flushright}
+\end{multicols}
+\vspace{-0.16cm}
+* Conducted a systematic review and meta-analysis on health utilities in cancer patients
+* Contributed to evidence synthesis and health economics research
+
+\vspace{6pt}
+
+<!-- EDUCATION -->
+\begin{large}{\bf EDUCATION}
+\vspace{3pt}
+\hrule
+\end{large}
+\vspace{4pt}
+
+\begin{multicols}{2}
+\begin{flushleft}{\bf Aix-Marseille University, SESSTIM}\end{flushleft}
+\begin{flushright}Marseille, France\end{flushright}
+\end{multicols}
+\vspace{-0.17cm}
+\begin{multicols}{2}
+\begin{flushleft}\textit{Ph.D. Candidate in Biostatistics}\end{flushleft}
+\begin{flushright}2021 – 2025\end{flushright}
+\end{multicols}
+\vspace{-0.1cm}
+Thesis: Missing Data and Machine Learning Methods for Survival Analysis · Supervisor: Roch Giorgi
+
+\vspace{3pt}
+
+\begin{multicols}{2}
+\begin{flushleft}{\bf Aix-Marseille University, SESSTIM}\end{flushleft}
+\begin{flushright}Marseille, France\end{flushright}
+\end{multicols}
+\vspace{-0.17cm}
+\begin{multicols}{2}
+\begin{flushleft}\textit{Master 2 in Quantitative Methods for Health Research}\end{flushleft}
+\begin{flushright}2018 – 2019\end{flushright}
+\end{multicols}
+
+\vspace{3pt}
+
+\begin{multicols}{2}
+\begin{flushleft}{\bf Université Clermont Auvergne}\end{flushleft}
+\begin{flushright}Clermont-Ferrand, France\end{flushright}
+\end{multicols}
+\vspace{-0.17cm}
+\begin{multicols}{2}
+\begin{flushleft}\textit{Master 1 in Applied Mathematics and Statistics}\end{flushleft}
+\begin{flushright}2017 – 2018\end{flushright}
+\end{multicols}
+
+\vspace{3pt}
+
+\begin{multicols}{2}
+\begin{flushleft}{\bf Université Clermont Auvergne, CERDI}\end{flushleft}
+\begin{flushright}Clermont-Ferrand, France\end{flushright}
+\end{multicols}
+\vspace{-0.17cm}
+\begin{multicols}{2}
+\begin{flushleft}\textit{Master in Health Economics}\end{flushleft}
+\begin{flushright}2017\end{flushright}
+\end{multicols}
+
+\vspace{6pt}
+
+<!-- SOFTWARE -->
+\begin{large}{\bf SOFTWARE (R PACKAGES)}
+\vspace{3pt}
+\hrule
+\end{large}
+\vspace{4pt}
+
+\begin{multicols}{2}
+\begin{flushleft}{\bf \href{https://cran.r-project.org/web/packages/survalis/index.html}{survalis}} — Interpretable Survival Machine Learning Framework\end{flushleft}
+\begin{flushright}CRAN · v0.7.1\end{flushright}
+\end{multicols}
+\vspace{-0.16cm}
+* 19 learners, 7 evaluation metrics, 8 interpretability methods · Maintainer
+
+\vspace{2pt}
+
+\begin{multicols}{2}
+\begin{flushleft}{\bf \href{https://ielbadisy.r-universe.dev/funcml}{funcml}} — Functional Machine Learning Framework\end{flushleft}
+\begin{flushright}R-universe\end{flushright}
+\end{multicols}
+\vspace{-0.16cm}
+* Unified framework for functional data learning in R · Maintainer
+
+\vspace{2pt}
+
+\begin{multicols}{2}
+\begin{flushleft}{\bf \href{https://ielbadisy.r-universe.dev/survdnn}{survdnn}} — Deep Neural Networks for Survival Analysis (R torch)\end{flushleft}
+\begin{flushright}R-universe\end{flushright}
+\end{multicols}
+\vspace{-0.16cm}
+* Cox, AFT, and discrete-time neural survival models · Maintainer
+
+\vspace{2pt}
+
+\begin{multicols}{2}
+\begin{flushleft}{\bf \href{https://ielbadisy.r-universe.dev/tvrmst}{tvrmst}} — Time-Varying RMST from Survival Matrices\end{flushleft}
+\begin{flushright}R-universe\end{flushright}
+\end{multicols}
+\vspace{-0.16cm}
+* Dynamic RMST summaries for individualized survival curves · Maintainer
+
+\vspace{2pt}
+
+\begin{multicols}{2}
+\begin{flushleft}{\bf \href{https://ielbadisy.r-universe.dev/unsurv}{unsurv}} — Unsupervised Clustering of Individualized Survival Curves\end{flushleft}
+\begin{flushright}R-universe\end{flushright}
+\end{multicols}
+\vspace{-0.16cm}
+* Phenotyping patients from predicted survival curves · Maintainer
+
+\vspace{2pt}
+
+\begin{multicols}{2}
+\begin{flushleft}{\bf \href{https://ielbadisy.r-universe.dev/mcstatsim}{mcstatsim}} — Monte Carlo Statistical Simulation Tools\end{flushleft}
+\begin{flushright}R-universe\end{flushright}
+\end{multicols}
+\vspace{-0.16cm}
+* Functional approach to simulation studies in R · Maintainer
+
+\vspace{2pt}
+
+\begin{multicols}{2}
+\begin{flushleft}{\bf \href{https://ielbadisy.r-universe.dev/missCforest}{missCforest}} — Ensemble Conditional Trees for Missing Data Imputation\end{flushleft}
+\begin{flushright}R-universe\end{flushright}
+\end{multicols}
+\vspace{-0.16cm}
+* Missing data imputation using conditional forest ensembles · Maintainer
+
+\vspace{6pt}
+
+<!-- PUBLICATIONS -->
+\begin{large}{\bf SELECTED PUBLICATIONS}
+\vspace{3pt}
+\hrule
+\end{large}
+\vspace{4pt}
+
+**El Badisy I.**, Assarag B., Belrhiti Z. (2026). Interpretable clinical decision support in high-risk pregnancy: A scoping review. *BMC Pregnancy and Childbirth*.
+
+Kadi C., Ahmadi N., Houdou A., **El Badisy I.**, et al. (2025). Differentiating latent from active tuberculosis through activation phenotypes and chemokine markers. *Biomarker Insights*, 20, 11772719241312776.
+
+**El Badisy I.**, Graffeo N., Khalis M., Giorgi R. (2024). Multi-metric comparison of ML imputation methods: application to breast cancer survival. *BMC Medical Research Methodology*, 24(1):191.
+
+**El Badisy I.**, BenBrahim Z., Khalis M., et al. (2024). Risk factors for colorectal cancer survival in Morocco: interpretable ML approach. *Scientific Reports*, 14(1):3556.
+
+Houdou A., **El Badisy I.**, Khomsi K., et al. (2024). Interpretable ML for forecasting air pollution: a systematic review. *Aerosol and Air Quality Research*, 24(1):230151.
+
+Zbiri S., Belghiti Alaoui A., **El Badisy I.**, et al. (2024). Private hospitals in LMICs: a typology using cluster methods — Morocco. *BMC Health Services Research*, 24(1):1231.
+
+Blom I.M., Eissa M., Mattijsen J.C., **El Badisy I.**, et al. (2023). Greenhouse gas mitigation interventions for health-care systems. *Bulletin of the World Health Organization*, 102(3):159.
+
+Khalis M., Toure A.B., **El Badisy I.**, et al. (2022). Meteorological parameters and COVID-19 in Casablanca, Morocco. *Int. J. Environmental Research and Public Health*, 19(9):4989.
+
+\vspace{6pt}
+
+<!-- TEACHING -->
+\begin{large}{\bf TEACHING}
+\vspace{3pt}
+\hrule
+\end{large}
+\vspace{4pt}
+
+\begin{multicols}{2}
+\begin{flushleft}{\bf AI for Public Health} — Aix-Marseille University, SESSTIM\end{flushleft}
+\begin{flushright}2022 – Present\end{flushright}
+\end{multicols}
+\vspace{-0.16cm}
+* Machine learning methods, NLP, applied AI for public health · Master's students
+
+\vspace{2pt}
+
+\begin{multicols}{2}
+\begin{flushleft}{\bf Introduction to Biostatistics} — University Mohammed VI of Health Sciences (UM6SS)\end{flushleft}
+\begin{flushright}2021 – Present\end{flushright}
+\end{multicols}
+\vspace{-0.16cm}
+* Descriptive and inferential statistics, statistical reasoning for health sciences · 100+ hours/year
+
+\vspace{2pt}
+
+\begin{multicols}{2}
+\begin{flushleft}{\bf Methods in Health Data Science with R} — University Mohammed VI of Health Sciences (UM6SS)\end{flushleft}
+\begin{flushright}2023 – Present\end{flushright}
+\end{multicols}
+\vspace{-0.16cm}
+* Survival analysis, ML workflows, reproducible research in R
+
+\vspace{2pt}
+
+\begin{multicols}{2}
+\begin{flushleft}{\bf Health Data Analysis and Machine Learning} — Institut Mines-Télécom, IMT Atlantique\end{flushleft}
+\begin{flushright}2020 – Present\end{flushright}
+\end{multicols}
+\vspace{-0.16cm}
+* ML fundamentals, quantitative epidemiology, supervised and unsupervised learning · 21+ hours/year
+
+\vspace{6pt}
+
+<!-- TALKS -->
+\begin{large}{\bf SELECTED TALKS}
+\vspace{3pt}
+\hrule
+\end{large}
+\vspace{4pt}
+
+\begin{multicols}{2}
+\begin{flushleft}Comparison of missing data imputation methods in Cox regression with time-varying effects\end{flushleft}
+\begin{flushright}2023\end{flushright}
+\end{multicols}
+\vspace{-0.1cm}
+\textit{ISCB 2023, Rome} · El Badisy I. et al.
+
+\vspace{3pt}
+
+\begin{multicols}{2}
+\begin{flushleft}Missing data imputation using a meta-algorithm metaCART: simulation under MCAR\end{flushleft}
+\begin{flushright}2023\end{flushright}
+\end{multicols}
+\vspace{-0.1cm}
+\textit{EpiClin 2023, Nancy} · El Badisy I. et al.
+
+\vspace{6pt}
+
+<!-- SKILLS -->
+\begin{large}{\bf SKILLS}
+\vspace{3pt}
+\hrule
+\end{large}
+\vspace{4pt}
+
+**Methodological:** Statistical methodology · Biostatistics and epidemiology · Survival analysis · Missing data methods · Meta-analysis · Interpretable machine learning · Computational biostatistics · High-performance computing (Slurm)
+
+**Technical:** R (statistical and ML package development) · Python · Julia · Quarto / R Markdown / LaTeX · Git and GitHub · Reproducible research workflows
