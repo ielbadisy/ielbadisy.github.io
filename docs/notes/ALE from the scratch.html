@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.24">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>ALE from the scratch – Imad EL BADISY</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-html-eb71d4f0124c4d5ff63526840ab633f6.min.css" rel="stylesheet" append-hash="true" data-mode="light">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<style>html{ scroll-behavior: smooth; }</style>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body>
+
+
+<header id="title-block-header">
+<h1 class="title">ALE from the scratch</h1>
+
+</header>
+
+
+<p>Accumulated Local Effects (ALE) plots provide a way to understand how features influence the prediction of a machine learning model, focusing on the local changes within small intervals of the feature values. Unlike Partial Dependence Plots (PDPs) that consider the global average effect of a feature, ALE plots look at the local main effects and are less influenced by correlated features.</p>
+<h3 id="ale-formula-for-a-single-continuous-feature" class="anchored">ALE Formula for a Single Continuous Feature</h3>
+<p>The ALE of a single feature (X_s) is calculated as follows:</p>
+<ol type="1">
+<li><p><strong>Partition the Range of (X_s)</strong>: Divide the range of the feature (X_s) into (K) intervals based on its quantiles or regular intervals, (k = 1, , K). Each interval is denoted as ([x_{s,k}, x_{s,k+1}]).</p></li>
+<li><p><strong>Calculate the Local Effect within Each Interval</strong>: For each interval (k), calculate the difference in the model’s predictions when varying (X_s) within this interval, while keeping all other features fixed. This is done by averaging the partial derivatives of the model’s prediction function with respect to (X_s) over the interval. The local effect for interval (k) is given by:</p>
+<p>[ <em>k = </em>{i:x_{s,i} } ( f(x_{s,i+1}, X_{s}) - f(x_{s,i}, X_{s}) ) ]</p>
+<p>Here, (n_k) is the number of observations in interval (k), (f()) is the prediction function, (x_{s,i}) and (x_{s,i+1}) are consecutive observations of (X_s) in the interval, and (X_{s}) represents all other features.</p></li>
+<li><p><strong>Accumulate the Local Effects</strong>: To get the ALE value at a particular point (x_s) within its interval, accumulate the local effects from the first interval up to the interval that contains (x_s), and then subtract the overall mean to center the ALE values:</p>
+<p>[ (x_s) = _{k=1}^{K(x_s)} <em>k - </em>{k=1}^{K} _k ]</p>
+<p>(K(x_s)) is the interval index that contains (x_s).</p></li>
+</ol>
+<h3 id="interpretation" class="anchored">Interpretation</h3>
+<ul>
+<li><p><strong>Local Effects</strong>: The ALE plot shows how the prediction changes locally as (X_s) varies, providing insights into the feature’s effect on the model output within specific regions of (X_s).</p></li>
+<li><p><strong>Centering</strong>: Subtracting the overall mean centers the ALE values around zero, making the plot easier to interpret. When the ALE value is zero, it indicates that at that specific feature value, the feature’s effect on the prediction is average. Positive or negative ALE values indicate above-average or below-average effects, respectively.</p></li>
+<li><p><strong>Advantages over PDP</strong>: ALE plots avoid the pitfalls of PDPs in the presence of correlated features by focusing on local changes and not assuming independence between features.</p></li>
+</ul>
+<h3 id="implementation-note" class="anchored">Implementation Note</h3>
+<p>Calculating ALE values involves estimating or calculating the partial derivatives of the model’s prediction function, which can be straightforward for some models (like linear regression) but may require numerical approximation for complex models (like random forests or neural networks). In practice, for non-differential models, the difference in predictions (f(x_{s,i+1}, X_{s}) - f(x_{s,i}, X_{s})) serves as a proxy for the derivative, making ALE plots applicable to a wide range of models.</p>
+<p>Computing partial derivatives is essential for various tasks in mathematics, physics, engineering, and machine learning, especially for understanding how changes in input variables affect the output of a function. In the context of machine learning, partial derivatives are crucial for interpreting models (like calculating Accumulated Local Effects (ALE)) and in optimization algorithms (like gradient descent).</p>
+<h3 id="basics-of-partial-derivatives" class="anchored">Basics of Partial Derivatives</h3>
+<p>Given a multivariable function (f(x_1, x_2, , x_n)), the partial derivative of (f) with respect to (x_i) measures how (f) changes as (x_i) changes, holding all other variables constant. It’s denoted as ().</p>
+<h4 id="example" class="anchored">Example:</h4>
+<p>For (f(x, y) = x^2y + y^2 + 3x),</p>
+<ul>
+<li>The partial derivative with respect to (x) is ( = 2xy + 3).</li>
+<li>The partial derivative with respect to (y) is ( = x^2 + 2y).</li>
+</ul>
+<h3 id="computing-partial-derivatives-for-machine-learning-models" class="anchored">Computing Partial Derivatives for Machine Learning Models</h3>
+<ol type="1">
+<li><p><strong>Analytical Approach</strong>: If the model is simple or differentiable with a known functional form (e.g., linear regression, logistic regression), you can compute partial derivatives directly using calculus rules.</p></li>
+<li><p><strong>Numerical Approximation</strong>: For complex models where the functional form is not easily differentiable (e.g., random forests, neural networks), you can approximate partial derivatives numerically.</p></li>
+</ol>
+<h4 id="numerical-approximation-method" class="anchored">Numerical Approximation Method</h4>
+<p>One common method for numerically approximating partial derivatives is the finite difference method, which can be done using forward, backward, or central differences. Central difference is often preferred for its balance of accuracy and computational stability.</p>
+<p>Given a function (f(x)) and a small step (h), the central difference approximation of the derivative of (f) at (x) with respect to (x_i) is:</p>
+<p>[ ]</p>
+<h4 id="example-in-machine-learning-context" class="anchored">Example in Machine Learning Context</h4>
+<p>Consider a machine learning model (M) with input features (X = (x_1, x_2, , x_n)) and a prediction (y). To approximate the partial derivative of (y) with respect to (x_i), you can:</p>
+<ol type="1">
+<li><p><strong>Select a Small Value for (h)</strong>: Choose a small value for (h), such as (1e-5) or (1e-6), to balance accuracy and numerical stability.</p></li>
+<li><p><strong>Perturb (x_i)</strong>: For a specific input vector (X), create two new vectors (X^+) and (X^-) where (x_i) is increased by (h) in (X^+) and decreased by (h) in (X^-), while all other components remain unchanged.</p></li>
+<li><p><strong>Compute the Model’s Predictions</strong>: Use the model to compute predictions for (X^+) and (X^-), denoted as (y^+) and (y^-), respectively.</p></li>
+<li><p><strong>Calculate the Approximate Partial Derivative</strong>:</p></li>
+</ol>
+<p>[ ]</p>
+<p>This method can be applied to each feature in your dataset to compute the gradient of the model’s prediction with respect to each feature, which is useful for ALE calculation, model interpretation, and understanding feature importance.</p>
+<h3 id="practical-considerations" class="anchored">Practical Considerations</h3>
+<ul>
+<li><strong>Choice of (h)</strong>: The value of (h) is crucial; too large can lead to inaccurate approximations, while too small can cause floating-point arithmetic errors.</li>
+<li><strong>Model Complexity</strong>: For very complex models, this computation can be time-consuming, especially if you need to compute derivatives with respect to many features.</li>
+<li><strong>Parallelization</strong>: To speed up computations, consider parallelizing the derivative computations, especially when dealing with large datasets or complex models.</li>
+</ul>
+<p>Yes, Accumulated Local Effects (ALE) can be computed for categorical covariates, but the approach differs slightly from the continuous case. For categorical features, the ALE computation doesn’t rely on partial derivatives or intervals but instead focuses on the differences in the prediction when each category is present versus the average prediction.</p>
+<h3 id="computing-ale-for-categorical-features" class="anchored">Computing ALE for Categorical Features</h3>
+<p>Given a categorical feature (X_c) with (N) categories, the steps to compute ALE for (X_c) are as follows:</p>
+<ol type="1">
+<li><p><strong>Compute the Baseline Prediction</strong>: Calculate the average prediction across all data points. This serves as the baseline against which the effect of each category will be measured. Denote this average prediction as ({f}).</p></li>
+<li><p><strong>Category-specific Effect</strong>: For each category (n) in (X_c), calculate the average prediction for data points where (X_c = n). Subtract the baseline prediction ({f}) from this average to determine the effect of category (n) relative to the average. This difference represents the local effect of having category (n) versus the average effect of all categories.</p></li>
+<li><p><strong>Accumulated Effect</strong>: The ALE value for a category is simply its computed category-specific effect, as there’s no accumulation process like in the continuous case. ALE values for categorical features are typically centered by subtracting the mean of all category-specific effects so that the ALE effects sum up to zero.</p></li>
+</ol>
+<h3 id="example-and-interpretation" class="anchored">Example and Interpretation</h3>
+<p>If (X_c) is a categorical feature representing color with categories ({“Red”, “Blue”, “Green”}), and the average predictions for “Red”, “Blue”, and “Green” are higher than the overall average prediction ({f}), the ALE plot will show positive values for these categories. This indicates that items of these colors tend to have higher predicted values compared to the average prediction across all colors.</p>
+<h3 id="practical-considerations-1" class="anchored">Practical Considerations</h3>
+<ul>
+<li><strong>Centering</strong>: Like with continuous features, ALE values for categorical features are often centered. This means adjusting the ALE values so that their average is zero across all categories, enhancing interpretability by focusing on the deviation from the average effect.</li>
+<li><strong>Implementation</strong>: To implement ALE for categorical features, you can loop over each category to calculate its specific effect and then adjust these effects by their overall mean. This process is typically more straightforward computationally than the ALE computation for continuous features since it doesn’t require estimating derivatives or accumulating effects over intervals.</li>
+</ul>
+<h3 id="conclusion" class="anchored">Conclusion</h3>
+<p>While the intuition and calculation behind ALE for categorical features are somewhat different from continuous features, the goal is the same: to provide insight into how each feature—categorical or continuous—affects the model’s predictions. ALE plots for categorical features can be particularly useful for understanding the impact of different categories on the model output, offering a clear and interpretable visualization of this effect.</p>
+<p>Accumulated Local Effects (ALE) plots can indeed be adapted for categorical features, although the concept and computation differ slightly from continuous features. For categorical features, the idea is to measure the effect of each category by comparing the predictions with a category to the average prediction over all data, rather than calculating gradients or differences over intervals.</p>
+<p>Given a categorical feature (X_c) with categories (c_1, c_2, , c_m), the ALE value for category (c_j) is computed by taking the difference between the average prediction for observations in (c_j) and the average prediction over all observations. This approach captures the local effect of being in category (c_j) compared to the average.</p>
+<h3 id="example-implementation-for-categorical-ale" class="anchored">Example Implementation for Categorical ALE</h3>
+<p>Let’s implement an ALE calculation for a categorical feature using R. We’ll continue with the synthetic dataset and model from previous examples, modifying the dataset to include a categorical feature.</p>
+<h4 id="step-1-simulate-data-with-a-categorical-feature" class="anchored">Step 1: Simulate Data with a Categorical Feature</h4>
+<p>We’ll modify our dataset to include a categorical feature <code>X_cat</code>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">200</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>X1 <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="sc">-</span><span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>X2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>X_cat <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>), n, <span class="at">replace =</span> <span class="cn">TRUE</span>)  <span class="co"># Categorical feature</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> X1<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> <span class="fu">sin</span>(X2) <span class="sc">+</span> <span class="fu">ifelse</span>(X_cat <span class="sc">==</span> <span class="st">"A"</span>, <span class="dv">1</span>, <span class="fu">ifelse</span>(X_cat <span class="sc">==</span> <span class="st">"B"</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>)) <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="at">sd =</span> <span class="fl">0.1</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">X1 =</span> X1, <span class="at">X2 =</span> X2, <span class="at">X_cat =</span> <span class="fu">as.factor</span>(X_cat), <span class="at">Y =</span> Y)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit a model considering the categorical feature</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(randomForest)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">randomForest</span>(Y <span class="sc">~</span> X1 <span class="sc">+</span> X2 <span class="sc">+</span> X_cat, <span class="at">data =</span> data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<h4 id="step-2-compute-ale-for-the-categorical-feature" class="anchored">Step 2: Compute ALE for the Categorical Feature</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>calculate_ale_categorical <span class="ot">&lt;-</span> <span class="cf">function</span>(model, data, feature) {</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  categories <span class="ot">&lt;-</span> <span class="fu">levels</span>(data[[feature]])</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  overall_mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">predict</span>(model, <span class="at">newdata =</span> data))</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  ale_values <span class="ot">&lt;-</span> <span class="fu">sapply</span>(categories, <span class="cf">function</span>(cat) {</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    cat_data <span class="ot">&lt;-</span> data[data[[feature]] <span class="sc">==</span> cat, ]</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    cat_mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">predict</span>(model, <span class="at">newdata =</span> cat_data))</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    cat_mean <span class="sc">-</span> overall_mean</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>(ale_values) <span class="ot">&lt;-</span> categories</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(ale_values)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate ALE for the categorical feature X_cat</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>ale_values_cat <span class="ot">&lt;-</span> <span class="fu">calculate_ale_categorical</span>(model, data, <span class="st">"X_cat"</span>)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the ALE values for each category</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(ale_values_cat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<h4 id="explanation" class="anchored">Explanation</h4>
+<ul>
+<li>This function computes the ALE values for a categorical feature by first calculating the overall mean prediction across all data.</li>
+<li>Then, for each category, it calculates the mean prediction for observations within that category and computes the difference from the overall mean prediction.</li>
+<li>The resulting ALE values represent the local effect of each category on the model’s predictions relative to the average effect across all observations.</li>
+</ul>
+<h4 id="visualization" class="anchored">Visualization</h4>
+<p>For a quick visualization of the ALE effects of the categorical feature:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(ale_values_cat, <span class="at">main =</span> <span class="st">"ALE Values for Categorical Feature X_cat"</span>,</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">"ALE Value"</span>, <span class="at">xlab =</span> <span class="st">"Category"</span>, <span class="at">col =</span> <span class="fu">rainbow</span>(<span class="fu">length</span>(ale_values_cat)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This plot will show the difference in effect of each category of <code>X_cat</code> on the predicted outcome, relative to the average prediction.</p>
+<p>Yes, Accumulated Local Effects (ALE) plots can be computed for categorical covariates, though the interpretation and calculation method differ slightly from those for continuous features. For categorical features, ALE plots focus on comparing the effect of each category to the average prediction over the dataset, offering insights into how the presence of each category influences the model’s predictions.</p>
+<h3 id="how-ale-plots-for-categorical-features-work" class="anchored">How ALE Plots for Categorical Features Work:</h3>
+<ul>
+<li><strong>Grouping by Category</strong>: Instead of creating intervals as in continuous features, the dataset is grouped by the categories of the feature.</li>
+<li><strong>Calculating Differences</strong>: For each category, calculate the difference between the average prediction for observations within that category and the overall average prediction across the entire dataset.</li>
+<li><strong>Accumulated Effect</strong>: The ALE value for each category is the calculated difference, showing the local effect of each category on the prediction.</li>
+</ul>
+<h3 id="implementation-for-categorical-features" class="anchored">Implementation for Categorical Features:</h3>
+<p>Let’s say we have a model and a categorical feature <code>X_cat</code> in our dataset. The following is a simplified R implementation for computing and plotting ALE for a categorical feature:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Assuming 'model' is your trained model, and 'data' is your dataset</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 'X_cat' is the name of the categorical feature, and 'Y' is the target variable</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the overall average prediction</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>overall_avg_pred <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">predict</span>(model, <span class="at">newdata =</span> data))</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate average prediction for each category</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>cat_avgs <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(<span class="fu">predict</span>(model, <span class="at">newdata =</span> data) <span class="sc">~</span> data[[X_cat]], <span class="at">FUN =</span> mean)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(cat_avgs) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Category"</span>, <span class="st">"Avg_Pred"</span>)</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the ALE values (difference from the overall average)</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>cat_avgs<span class="sc">$</span>ALE <span class="ot">&lt;-</span> cat_avgs<span class="sc">$</span>Avg_Pred <span class="sc">-</span> overall_avg_pred</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting the ALE values for each category</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(cat_avgs, <span class="fu">aes</span>(<span class="at">x =</span> Category, <span class="at">y =</span> ALE, <span class="at">fill =</span> Category)) <span class="sc">+</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>) <span class="sc">+</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"ALE Plot for Categorical Feature X_cat"</span>,</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Category"</span>,</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Accumulated Local Effect"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<h3 id="interpretation-1" class="anchored">Interpretation:</h3>
+<ul>
+<li><strong>ALE Value Significance</strong>: Positive ALE values indicate that a category has a higher than average effect on the model’s predictions, whereas negative ALE values suggest a lower than average effect.</li>
+<li><strong>Comparing Categories</strong>: By comparing the ALE values across categories, you can identify which categories are most and least influential in affecting the model’s output.</li>
+<li><strong>Impact on Decision Making</strong>: Understanding how each category influences predictions can help in decision-making processes, such as targeting specific groups more effectively or identifying biases in model predictions.</li>
+</ul>
+<h3 id="considerations" class="anchored">Considerations:</h3>
+<ul>
+<li><strong>Reference Level</strong>: For linear models or models that inherently treat one category as a reference (intercept), the ALE values should be interpreted in relation to this reference. The effect of the reference category is typically normalized to zero.</li>
+<li><strong>Model Complexity</strong>: For more complex models, such as ensemble methods or neural networks, the interpretation of ALE plots remains the same, but the insights can be more nuanced due to interactions and nonlinear effects captured by the model.</li>
+</ul>
+<p>ALE plots for categorical variables provide a straightforward and interpretable way to assess the impact of each category on model predictions, enhancing model transparency and aiding in the interpretation of complex machine learning models.</p>
+<p>The error you’re encountering, <code>Error in .subset2(x, i, exact = exact) : no such index at level 1</code>, typically arises when attempting to access a data frame column in a way that R doesn’t recognize or when trying to use a variable that doesn’t exist in the scope of the function. This can happen due to various reasons, such as misspelling the variable name or not properly referencing the column in the data frame.</p>
+<p>Given the context of computing ALE for categorical variables and the specific line of code you’ve shared, let’s correct and break down the implementation step by step for a hypothetical categorical variable. Assuming we’re dealing with a categorical feature named <code>X_cat</code> and you want to compute the average prediction for each category, here’s a more detailed and corrected approach:</p>
+<h3 id="correcting-the-aggregate-function-usage" class="anchored">Correcting the Aggregate Function Usage</h3>
+<p>First, ensure <code>X_cat</code> is the name of your categorical variable, and it’s correctly specified as a string. If <code>X_cat</code> is a variable containing the name of your categorical column, ensure it’s defined before using it in your function call.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>X_cat <span class="ot">&lt;-</span> <span class="st">"YourCategoricalVariableName"</span> <span class="co"># Replace with your actual variable name</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Next, use the aggregate function by directly referencing the column of the data frame. If <code>data</code> is your data frame and <code>model</code> is your fitted model object, you can calculate the average predictions for each category as follows:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Assuming 'model' is your fitted model and 'data' your data frame</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Ensure your categorical variable is correctly named in 'data'</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Correct approach to use aggregate with a dynamic column name</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>cat_avgs <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(<span class="fu">predict</span>(model, <span class="at">newdata =</span> data) <span class="sc">~</span> <span class="fu">get</span>(X_cat, data), data, <span class="at">FUN =</span> mean)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Alternatively, if X_cat is a column name in string format:</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>cat_avgs <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(<span class="fu">predict</span>(model, <span class="at">newdata =</span> data) <span class="sc">~</span> data[[X_cat]], data, <span class="at">FUN =</span> mean)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<h3 id="explanation-1" class="anchored">Explanation</h3>
+<ul>
+<li>The aggregate function is used here to group the predictions by categories of the variable <code>X_cat</code> and then compute the mean prediction for each category.</li>
+<li><code>predict(model, newdata = data)</code> generates predictions for each row in your dataset based on the fitted model <code>model</code>.</li>
+<li>The <code>~ get(X_cat, data)</code> or <code>~ data[[X_cat]]</code> part specifies the grouping variable for aggregation. It’s where the error likely occurred due to a misunderstanding of how to dynamically reference a data frame column based on a variable.</li>
+<li>The <code>FUN = mean</code> part specifies that you want to calculate the average (mean) prediction for each group.</li>
+</ul>
+<h3 id="common-pitfalls" class="anchored">Common Pitfalls</h3>
+<ul>
+<li><strong>Variable Scope</strong>: Ensure that <code>X_cat</code> is defined and available in the scope where the aggregate function is called.</li>
+<li><strong>Data Frame Access</strong>: Use <code>data[[X_cat]]</code> to dynamically access a column in <code>data</code> when <code>X_cat</code> is a variable containing the column name as a string.</li>
+</ul>
+<p>If you continue to encounter issues, double-check the variable names for typos and ensure that your data frame (<code>data</code>) and the model (<code>model</code>) are correctly specified and accessible at the point where you’re trying to aggregate the predictions.</p>
+
+
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+    tabsets.forEach(function(tabset) {
+      const tabby = new Tabby('#' + tabset.id);
+    });
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'light-border',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+
+
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
