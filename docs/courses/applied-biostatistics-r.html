@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2026-01-01">
 
-<title>Building survival-trajectory phenotypes from individualized survival curves – Imad El Badisy</title>
+<title>Applied Biostatistics with R – Imad El Badisy</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -44,41 +43,67 @@ ul.task-list li input[type="checkbox"] {
 
 
 <header id="title-block-header">
-<h1 class="title">Building survival-trajectory phenotypes from individualized survival curves</h1>
+<h1 class="title">Applied Biostatistics with R</h1>
 
-<p class="date">2026-01-01</p>
 </header>
 
 
-<ul class="menu">
-<li>
-<a href="../index.html">Home</a>
-</li>
-<li>
-<a href="../notes/index.html">Notes</a>
-</li>
+<h1 id="applied-biostatistics-with-r">Applied Biostatistics with R</h1>
+<p>This course introduces practical biostatistical methods using R, with a focus on clinical and health data analysis.</p>
+<h2 id="target-audience" class="anchored">Target Audience</h2>
+<p>Clinicians, biomedical researchers, PhD students, public health professionals, and analysts who need a practical foundation in statistical analysis with R.</p>
+<h2 id="practical-information" class="anchored">Practical Information</h2>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Item</th>
+<th>Information</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Format</td>
+<td>Online</td>
+</tr>
+<tr class="even">
+<td>Schedule</td>
+<td>Monday, Wednesday, Friday</td>
+</tr>
+<tr class="odd">
+<td>Time</td>
+<td>17:00-19:00 Morocco time</td>
+</tr>
+<tr class="even">
+<td>Price</td>
+<td>1500 DH</td>
+</tr>
+<tr class="odd">
+<td>Seats</td>
+<td>20 participants maximum</td>
+</tr>
+<tr class="even">
+<td>Registration</td>
+<td>Opens 10 days before course start</td>
+</tr>
+</tbody>
+</table>
+<h2 id="learning-objectives" class="anchored">Learning Objectives</h2>
+<p>By the end of this course, participants will be able to:</p>
+<ul>
+<li>import, clean, and summarize health datasets in R;</li>
+<li>choose appropriate statistical tests;</li>
+<li>fit and interpret regression models;</li>
+<li>produce reproducible tables and figures;</li>
+<li>prepare analysis outputs for reports and manuscripts.</li>
 </ul>
-<hr>
-<p>This note outlines a compact workflow for deriving survival-trajectory phenotypes from individualized survival predictions.</p>
-<h2 id="core-idea" class="anchored">Core idea</h2>
-<p>Instead of clustering patients directly on baseline covariates, the analyst first estimates an individualized survival curve for each patient, then clusters the predicted curves over a clinically meaningful time horizon.</p>
-<h2 id="minimal-workflow" class="anchored">Minimal workflow</h2>
-<ol type="1">
-<li>Fit a survival model capable of producing individualized survival probabilities.</li>
-<li>Predict survival curves on a fixed time grid.</li>
-<li>Assemble the predictions into an <code>n × m</code> survival matrix.</li>
-<li>Truncate the matrix at a clinically meaningful horizon, such as 24 months.</li>
-<li>Cluster rows of the truncated survival matrix.</li>
-<li>Relabel clusters using an interpretable survival summary, such as RMST.</li>
-</ol>
-<h2 id="why-it-is-useful" class="anchored">Why it is useful</h2>
-<p>This approach groups patients by predicted survival behavior rather than by isolated covariate patterns. The resulting phenotypes are often easier to interpret clinically when they are summarized with survival probabilities, median survival, or restricted mean survival time.</p>
-<h2 id="caution" class="anchored">Caution</h2>
-<p>These phenotypes are descriptive unless the full analysis is embedded in a causal design. Treatment-stratified summaries should therefore be presented as exploratory rather than causal effects.</p>
-<hr>
-<footer>
-<a href="../notes/index.html">Back to notes</a>
-</footer>
+<h2 id="registration" class="anchored">Registration</h2>
+<p>Please complete the pre-registration form first.</p>
+<p><a href="GOOGLE_FORM_LINK_TO_REPLACE" class="btn btn-secondary">Pre-register</a></p>
+<h2 id="payment" class="anchored">Payment</h2>
+<p>Final registration is confirmed after payment.</p>
+<p><a href="PAYPAL_LINK_TO_REPLACE" class="btn btn-primary">Pay with PayPal</a></p>
+<h2 id="questions" class="anchored">Questions</h2>
+<p>For questions about the course, please use the <a href="../contact.html">contact page</a>.</p>
 
 
 <script id="quarto-html-after-body" type="application/javascript">

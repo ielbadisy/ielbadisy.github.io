@@ -9,6 +9,9 @@ format: html
   <li><a href="#software">Software</a></li>
   <li><a href="#publications">Publications</a></li>
   <li><a href="#teaching">Teaching</a></li>
+  <li><a href="courses.qmd">Courses</a></li>
+  <li><a href="calendar.qmd">Calendar</a></li>
+  <li><a href="register.qmd">Register</a></li>
   <li><a href="#notes">Notes</a></li>
   <li><a href="#contact">Contact</a></li>
   <li><a href="cv/cv.pdf">CV</a></li>
@@ -103,7 +106,7 @@ Full list: [Google Scholar](https://scholar.google.com/scholar?q=Imad+EL+BADISY)
 
 : {tbl-colwidths="[45,40,15]"}
 
-*Outside working hours:* Methods in Health Data Science with R — an independent course covering survival analysis, ML workflows, and reproducible research in R. [Syllabus →](MHDSR-combined-syllabus.pdf)
+*Outside working hours:* Methods in Health Data Science with R — an independent course covering survival analysis, ML workflows, and reproducible research in R. [Syllabus →](MHDSR-combined-syllabus.pdf) · [Course pathway →](courses.qmd)
 
 ## Notes {#notes}
 

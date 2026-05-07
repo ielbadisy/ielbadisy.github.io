@@ -1,0 +1,45 @@
+---
+title: "Courses"
+---
+
+# Methods in Health Data Science with R
+
+This training pathway is designed for clinicians, researchers, PhD students, public health professionals, and data analysts who want to use R for health data analysis.
+
+The courses are delivered online in small cohorts, with applied examples, reproducible workflows, and regular participant support.
+
+## Available Courses
+
+### Applied Biostatistics with R
+
+Foundations of statistical analysis for clinical and biomedical research.
+
+[View course](courses/applied-biostatistics-r.qmd){.btn .btn-primary}
+
+### Machine Learning with R
+
+Practical machine learning workflows for health data science using R.
+
+[View course](courses/machine-learning-r.qmd){.btn .btn-primary}
+
+### Survival Analysis for Clinical Research with R
+
+Time-to-event analysis, Kaplan-Meier curves, Cox models, prediction, and interpretation.
+
+[View course](courses/survival-analysis-r.qmd){.btn .btn-primary}
+
+### Meta-Analysis with R
+
+Systematic review synthesis, effect sizes, heterogeneity, forest plots, and reproducible meta-analysis.
+
+[View course](courses/meta-analysis-r.qmd){.btn .btn-primary}
+
+## Registration Workflow
+
+1. Review the course calendar.
+2. Complete the pre-registration form.
+3. Wait for final registration to open 10 days before the course start.
+4. Pay through the PayPal course link.
+5. Receive confirmation and cohort communication details by email.
+
+[View calendar](calendar.qmd){.btn .btn-secondary} [Pre-register](register.qmd){.btn .btn-primary}
