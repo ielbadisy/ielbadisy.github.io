@@ -6,10 +6,6 @@ project:
     - MHDSR-combined-syllabus.pdf
   render:
     - index.qmd
-    - about.qmd
-    - courses.qmd
-    - contact.qmd
-    - automation.qmd
     - cv/cv.qmd
     - notes/index.qmd
     - notes/survival-trajectory-phenotypes.qmd
@@ -25,21 +21,8 @@ project:
     - notes/2022-11-02-hypothesis-testing-by-example/index.qmd
 
 website:
-  title: "Imad El Badisy"
-  navbar:
-    left:
-      - text: "Home"
-        href: index.qmd
-      - text: "About"
-        href: about.qmd
-      - text: "Courses"
-        href: courses.qmd
-      - text: "Notes"
-        href: notes/index.qmd
-      - text: "Contact"
-        href: contact.qmd
-      - text: "CV"
-        href: cv/cv.qmd
+  title: "Imad EL BADISY"
+  navbar: false
 
 format:
   html:
