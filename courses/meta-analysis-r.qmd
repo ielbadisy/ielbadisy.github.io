@@ -1,0 +1,48 @@
+---
+title: "Meta-Analysis with R"
+---
+
+# Meta-Analysis with R
+
+This course introduces reproducible meta-analysis workflows in R for systematic reviews and evidence synthesis.
+
+## Target Audience
+
+Clinicians, researchers, PhD students, public health professionals, and analysts preparing systematic reviews, meta-analyses, or evidence synthesis reports.
+
+## Practical Information
+
+| Item | Information |
+|---|---|
+| Format | Online |
+| Schedule | Monday, Wednesday, Friday |
+| Time | 17:00-19:00 Morocco time |
+| Price | 1500 DH |
+| Seats | 20 participants maximum |
+| Registration | Opens 10 days before course start |
+
+## Learning Objectives
+
+By the end of this course, participants will be able to:
+
+- prepare extracted study data for meta-analysis;
+- compute and interpret common effect sizes;
+- assess heterogeneity and model choice;
+- create forest plots and summary tables;
+- document reproducible evidence synthesis workflows in R.
+
+## Registration
+
+Please complete the pre-registration form first.
+
+[Pre-register](GOOGLE_FORM_LINK_TO_REPLACE){.btn .btn-secondary}
+
+## Payment
+
+Final registration is confirmed after payment.
+
+[Pay with PayPal](PAYPAL_LINK_TO_REPLACE){.btn .btn-primary}
+
+## Questions
+
+For questions about the course, please use the [contact page](../contact.qmd).

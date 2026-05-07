@@ -1,0 +1,11 @@
+---
+title: "About"
+---
+
+# About
+
+Imad EL BADISY is a research engineer in biostatistics working at the interface of computational biostatistics and machine learning for health research.
+
+His work focuses on survival analysis, missing data, interpretable machine learning, reproducible R packages, and applied health data science training.
+
+For a full overview of research, software, teaching, and publications, visit the [homepage](index.qmd).

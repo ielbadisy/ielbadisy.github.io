@@ -1,0 +1,40 @@
+courses:
+  - id: "applied-biostatistics-r"
+    title: "Applied Biostatistics with R"
+    price: "1500 DH"
+    format: "Online"
+    days: "Monday, Wednesday, Friday"
+    time: "17:00-19:00 Morocco time"
+    seats: 20
+    payment_link: "PAYPAL_LINK_TO_REPLACE"
+    form_link: "GOOGLE_FORM_LINK_TO_REPLACE"
+
+  - id: "machine-learning-r"
+    title: "Machine Learning with R"
+    price: "1500 DH"
+    format: "Online"
+    days: "Monday, Wednesday, Friday"
+    time: "17:00-19:00 Morocco time"
+    seats: 20
+    payment_link: "PAYPAL_LINK_TO_REPLACE"
+    form_link: "GOOGLE_FORM_LINK_TO_REPLACE"
+
+  - id: "survival-analysis-r"
+    title: "Survival Analysis for Clinical Research with R"
+    price: "1500 DH"
+    format: "Online"
+    days: "Monday, Wednesday, Friday"
+    time: "17:00-19:00 Morocco time"
+    seats: 20
+    payment_link: "PAYPAL_LINK_TO_REPLACE"
+    form_link: "GOOGLE_FORM_LINK_TO_REPLACE"
+
+  - id: "meta-analysis-r"
+    title: "Meta-Analysis with R"
+    price: "1500 DH"
+    format: "Online"
+    days: "Monday, Wednesday, Friday"
+    time: "17:00-19:00 Morocco time"
+    seats: 20
+    payment_link: "PAYPAL_LINK_TO_REPLACE"
+    form_link: "GOOGLE_FORM_LINK_TO_REPLACE"

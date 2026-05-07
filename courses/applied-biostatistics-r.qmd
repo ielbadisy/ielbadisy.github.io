@@ -1,0 +1,48 @@
+---
+title: "Applied Biostatistics with R"
+---
+
+# Applied Biostatistics with R
+
+This course introduces practical biostatistical methods using R, with a focus on clinical and health data analysis.
+
+## Target Audience
+
+Clinicians, biomedical researchers, PhD students, public health professionals, and analysts who need a practical foundation in statistical analysis with R.
+
+## Practical Information
+
+| Item | Information |
+|---|---|
+| Format | Online |
+| Schedule | Monday, Wednesday, Friday |
+| Time | 17:00-19:00 Morocco time |
+| Price | 1500 DH |
+| Seats | 20 participants maximum |
+| Registration | Opens 10 days before course start |
+
+## Learning Objectives
+
+By the end of this course, participants will be able to:
+
+- import, clean, and summarize health datasets in R;
+- choose appropriate statistical tests;
+- fit and interpret regression models;
+- produce reproducible tables and figures;
+- prepare analysis outputs for reports and manuscripts.
+
+## Registration
+
+Please complete the pre-registration form first.
+
+[Pre-register](GOOGLE_FORM_LINK_TO_REPLACE){.btn .btn-secondary}
+
+## Payment
+
+Final registration is confirmed after payment.
+
+[Pay with PayPal](PAYPAL_LINK_TO_REPLACE){.btn .btn-primary}
+
+## Questions
+
+For questions about the course, please use the [contact page](../contact.qmd).
