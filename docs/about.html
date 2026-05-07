@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2026-01-01">
 
-<title>Building survival-trajectory phenotypes from individualized survival curves – Imad El Badisy</title>
+<title>About – Imad El Badisy</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -25,60 +24,34 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-html/tabby.min.js"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-html-eb71d4f0124c4d5ff63526840ab633f6.min.css" rel="stylesheet" append-hash="true" data-mode="light">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-html/tabby.min.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-html-eb71d4f0124c4d5ff63526840ab633f6.min.css" rel="stylesheet" append-hash="true" data-mode="light">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <style>html{ scroll-behavior: smooth; }</style>
 
 
-<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
 
 <header id="title-block-header">
-<h1 class="title">Building survival-trajectory phenotypes from individualized survival curves</h1>
+<h1 class="title">About</h1>
 
-<p class="date">2026-01-01</p>
 </header>
 
 
-<ul class="menu">
-<li>
-<a href="../index.html">Home</a>
-</li>
-<li>
-<a href="../notes/index.html">Notes</a>
-</li>
-</ul>
-<hr>
-<p>This note outlines a compact workflow for deriving survival-trajectory phenotypes from individualized survival predictions.</p>
-<h2 id="core-idea" class="anchored">Core idea</h2>
-<p>Instead of clustering patients directly on baseline covariates, the analyst first estimates an individualized survival curve for each patient, then clusters the predicted curves over a clinically meaningful time horizon.</p>
-<h2 id="minimal-workflow" class="anchored">Minimal workflow</h2>
-<ol type="1">
-<li>Fit a survival model capable of producing individualized survival probabilities.</li>
-<li>Predict survival curves on a fixed time grid.</li>
-<li>Assemble the predictions into an <code>n × m</code> survival matrix.</li>
-<li>Truncate the matrix at a clinically meaningful horizon, such as 24 months.</li>
-<li>Cluster rows of the truncated survival matrix.</li>
-<li>Relabel clusters using an interpretable survival summary, such as RMST.</li>
-</ol>
-<h2 id="why-it-is-useful" class="anchored">Why it is useful</h2>
-<p>This approach groups patients by predicted survival behavior rather than by isolated covariate patterns. The resulting phenotypes are often easier to interpret clinically when they are summarized with survival probabilities, median survival, or restricted mean survival time.</p>
-<h2 id="caution" class="anchored">Caution</h2>
-<p>These phenotypes are descriptive unless the full analysis is embedded in a causal design. Treatment-stratified summaries should therefore be presented as exploratory rather than causal effects.</p>
-<hr>
-<footer>
-<a href="../notes/index.html">Back to notes</a>
-</footer>
+<h1 id="about">About</h1>
+<p>Imad EL BADISY is a research engineer in biostatistics working at the interface of computational biostatistics and machine learning for health research.</p>
+<p>His work focuses on survival analysis, missing data, interpretable machine learning, reproducible R packages, and applied health data science training.</p>
+<p>For a full overview of research, software, teaching, and publications, visit the <a href="./index.html">homepage</a>.</p>
 
 
 <script id="quarto-html-after-body" type="application/javascript">
@@ -489,5 +462,5 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+<script src="site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>
