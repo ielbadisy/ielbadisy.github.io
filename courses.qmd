@@ -4,42 +4,101 @@ title: "Courses"
 
 # Methods in Health Data Science with R
 
-This training pathway is designed for clinicians, researchers, PhD students, public health professionals, and data analysts who want to use R for health data analysis.
+This page groups the full training pathway, course calendar, pre-registration, payment links, and participant instructions in one place.
 
-The courses are delivered online in small cohorts, with applied examples, reproducible workflows, and regular participant support.
+The pathway is designed for clinicians, researchers, PhD students, public health professionals, and data analysts who want to use R for health data analysis.
 
-## Available Courses
+All courses are delivered online on Monday, Wednesday, and Friday, from 17:00 to 19:00 Morocco time. Each cohort is limited to 20 participants.
+
+## Course Pathway
+
+| Course | Focus | Price | Seats |
+|---|---|---:|---:|
+| Applied Biostatistics with R | Foundations of statistical analysis for clinical and biomedical research | 1500 DH | 20 |
+| Machine Learning with R | Practical machine learning workflows for health data science using R | 1500 DH | 20 |
+| Survival Analysis for Clinical Research with R | Kaplan-Meier curves, Cox models, prediction, and interpretation | 1500 DH | 20 |
+| Meta-Analysis with R | Effect sizes, heterogeneity, forest plots, and reproducible evidence synthesis | 1500 DH | 20 |
+
+## Course Details
 
 ### Applied Biostatistics with R
 
-Foundations of statistical analysis for clinical and biomedical research.
-
-[View course](courses/applied-biostatistics-r.qmd){.btn .btn-primary}
+Participants learn to import, clean, summarize, analyze, and report health datasets in R. The course covers statistical tests, regression models, reproducible tables, figures, and manuscript-ready outputs.
 
 ### Machine Learning with R
 
-Practical machine learning workflows for health data science using R.
-
-[View course](courses/machine-learning-r.qmd){.btn .btn-primary}
+Participants learn practical supervised learning workflows for health data, including data preparation, model training, validation, performance evaluation, and interpretation.
 
 ### Survival Analysis for Clinical Research with R
 
-Time-to-event analysis, Kaplan-Meier curves, Cox models, prediction, and interpretation.
-
-[View course](courses/survival-analysis-r.qmd){.btn .btn-primary}
+Participants learn to structure time-to-event data, estimate Kaplan-Meier curves, fit Cox models, check assumptions, and communicate survival results for clinical research.
 
 ### Meta-Analysis with R
 
-Systematic review synthesis, effect sizes, heterogeneity, forest plots, and reproducible meta-analysis.
+Participants learn to prepare extracted study data, compute effect sizes, assess heterogeneity, choose models, create forest plots, and document reproducible meta-analysis workflows.
 
-[View course](courses/meta-analysis-r.qmd){.btn .btn-primary}
+## Calendar
 
-## Registration Workflow
+Final registration opens 10 days before the start of each course and is confirmed after payment.
 
-1. Review the course calendar.
-2. Complete the pre-registration form.
-3. Wait for final registration to open 10 days before the course start.
-4. Pay through the PayPal course link.
-5. Receive confirmation and cohort communication details by email.
+Replace the iframe below with the Google Calendar embed code.
 
-[View calendar](calendar.qmd){.btn .btn-secondary} [Pre-register](register.qmd){.btn .btn-primary}
+```{=html}
+<iframe
+  src="GOOGLE_CALENDAR_EMBED_URL_TO_REPLACE"
+  style="border: 0"
+  width="100%"
+  height="700"
+  frameborder="0"
+  scrolling="no">
+</iframe>
+```
+
+## Registration
+
+Please complete the pre-registration form before payment.
+
+[Open Pre-Registration Form](GOOGLE_FORM_LINK_TO_REPLACE){.btn .btn-primary}
+
+The form should collect full name, email, phone number, country, selected course, preferred messaging channel, current background, motivation, payment status, and questions or comments.
+
+## Payment
+
+Each course costs **1500 DH**. Payment is handled externally through PayPal links or PayPal buttons.
+
+| Course | Price | Payment |
+|---|---:|---|
+| Applied Biostatistics with R | 1500 DH | [Pay with PayPal](PAYPAL_LINK_TO_REPLACE) |
+| Machine Learning with R | 1500 DH | [Pay with PayPal](PAYPAL_LINK_TO_REPLACE) |
+| Survival Analysis for Clinical Research with R | 1500 DH | [Pay with PayPal](PAYPAL_LINK_TO_REPLACE) |
+| Meta-Analysis with R | 1500 DH | [Pay with PayPal](PAYPAL_LINK_TO_REPLACE) |
+
+## After Payment
+
+After payment, participants should receive a confirmation email with the course name, payment confirmation, next steps, communication channel invitation, course start date, and support contact.
+
+If payment and pre-registration use different email addresses, please mention this in the pre-registration form or contact by email.
+
+## Automation Structure
+
+The operational workflow is:
+
+```text
+Quarto website
+↓
+Google Form pre-registration
+↓
+Google Sheets participant database
+↓
+PayPal payment
+↓
+Payment confirmation
+↓
+Google Sheets update
+↓
+Gmail/gmailr confirmation email
+↓
+Discord/Telegram invitation
+```
+
+The recommended Google Sheets schema and R automation placeholders are documented in [Registration Automation](automation.qmd).
