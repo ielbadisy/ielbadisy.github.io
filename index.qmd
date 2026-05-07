@@ -10,8 +10,6 @@ format: html
   <li><a href="#publications">Publications</a></li>
   <li><a href="#teaching">Teaching</a></li>
   <li><a href="courses.qmd">Courses</a></li>
-  <li><a href="calendar.qmd">Calendar</a></li>
-  <li><a href="register.qmd">Register</a></li>
   <li><a href="#notes">Notes</a></li>
   <li><a href="#contact">Contact</a></li>
   <li><a href="cv/cv.pdf">CV</a></li>
