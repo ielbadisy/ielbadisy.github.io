@@ -8,15 +8,8 @@ project:
     - index.qmd
     - about.qmd
     - courses.qmd
-    - calendar.qmd
-    - register.qmd
-    - payment.qmd
     - contact.qmd
     - automation.qmd
-    - courses/applied-biostatistics-r.qmd
-    - courses/machine-learning-r.qmd
-    - courses/survival-analysis-r.qmd
-    - courses/meta-analysis-r.qmd
     - cv/cv.qmd
     - notes/index.qmd
     - notes/survival-trajectory-phenotypes.qmd
@@ -41,12 +34,6 @@ website:
         href: about.qmd
       - text: "Courses"
         href: courses.qmd
-      - text: "Calendar"
-        href: calendar.qmd
-      - text: "Register"
-        href: register.qmd
-      - text: "Payment"
-        href: payment.qmd
       - text: "Notes"
         href: notes/index.qmd
       - text: "Contact"
