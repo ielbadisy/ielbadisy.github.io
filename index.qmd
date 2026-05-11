@@ -19,9 +19,7 @@ format: html
 <div class="identity">
   <img class="profile-photo" src="profile.png" alt="Portrait of Imad EL BADISY">
   <p class="role">Research Engineer in Biostatistics and Machine Learning, PhD</p>
-  <p class="subtitle">
-    Biostatistics · Survival Analysis · Missing Data · Interpretable Machine Learning
-  </p>
+
   <p class="affiliation">
     Mohammed VI Center for Research and Innovation · AI & Data Science
   </p>
@@ -95,8 +93,6 @@ All packages on [CRAN](https://CRAN.R-project.org/search/?query=el+badisy) · al
 *Outside working hours:* I organize **Methods in Health Data Science with R**, an independent online course pathway covering applied biostatistics, survival analysis, machine learning, and meta-analysis with R. [Course website →](https://mhdsr.com)
 
 ## Notes {#notes}
-
-Technical notes on survival analysis, machine learning, missing data, and reproducible health data science.
 
 | Date | Note | Topic |
 |---|---|---|
