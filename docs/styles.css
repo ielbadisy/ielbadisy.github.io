@@ -120,6 +120,7 @@ h2 {
   margin-bottom: 0.55rem;
   padding-bottom: 0.16rem;
   border-bottom: 1px solid var(--border);
+  text-align: center;
 }
 
 h3 {
