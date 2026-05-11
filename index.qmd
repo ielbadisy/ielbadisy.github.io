@@ -18,12 +18,11 @@ format: html
 
 <div class="identity">
   <img class="profile-photo" src="profile.png" alt="Portrait of Imad EL BADISY">
-  <p class="role">Research Engineer in Biostatistics</p>
+  <p class="role">Research Engineer in Biostatistics and Machine Learning, PhD</p>
   <p class="subtitle">
-    Survival Analysis · Machine Learning · Missing Data · Scientific Computing for Health Research
+    Biostatistics · Survival Analysis · Missing Data · Interpretable Machine Learning
   </p>
   <p class="affiliation">
-    Aix–Marseille Université · SESSTIM / QuanTIM<br>
     Mohammed VI Center for Research and Innovation · AI & Data Science
   </p>
   <p class="links">
@@ -36,22 +35,14 @@ format: html
 
 ## About {#about}
 
-Research Engineer in Biostatistics working at the interface of computational biostatistics and machine learning. My work focuses building methodological tools for health data science supporting biomedical research projects. I develop open-source R packages for survival analysis, missing data, and interpretable machine learning, and contribute as a consultant and trainer in biostatistics and health data science.
+Research Engineer in Biostatistics and Machine Learning, PhD, working at the interface of computational biostatistics and machine learning. Moroccan and French national, husband and father. I hold a PhD from Aix-Marseille University (SESSTIM laboratory) on missing data and machine learning imputation methods for survival analysis. My work focuses on building methodological tools for health data science supporting biomedical research projects. I develop open-source R packages for survival analysis, missing data, and interpretable machine learning, and contribute as a consultant and trainer in biostatistics and health data science.
 
 ## Research {#research}
 
 - **Survival machine learning**: Individualized survival prediction | neural survival models | RMST-based summaries, and trajectory phenotyping.
 - **Missing data**: Evaluation of imputation strategies
 - **Interpretable ML**: Explanation workflows aligned with clinical reasoning, including SHAP-style attributions, PDP/ICE/ALE, and stability diagnostics.
-- **Scientific computing**: Reproducible R packages, benchmarking, and CLI-driven analytical systems.
-
-**Research projects:**
-
-- *Interpretable survival machine learning* (2024-2026): Design and development of modular R tools for survival analysis integrating interpretable machine learning methods.
-
-- *AI-based clinical decision support for pregnancy complications* (2024-2025): Co-investigator on a project developing an AI-based clinical decision support system for predicting pregnancy complications, in collaboration with EISP-UM6SS, Morocco, funded by GAIN MENA, Lebanon.
-
-- *Deep learning application for otosclerosis prediction* (2023-2024): Co-investigator on a deep learning web application for otosclerosis prediction, in collaboration with Cheikh Khalifa Hospital, Otorhinolaryngology Service, Morocco.
+- **Agentic data science**: Increasingly focused on the agentic data science paradigm — building systems where autonomous agents orchestrate analytical workflows for health research.
 
 
 ## Software {#software}
@@ -86,8 +77,6 @@ All packages on [CRAN](https://CRAN.R-project.org/search/?query=el+badisy) · al
 
 - Khalis M., Toure A.B., **El Badisy I.**, et al. (2022). Relationship between meteorological and air quality parameters and COVID-19 in the Casablanca region, Morocco. *International Journal of Environmental Research and Public Health*, 19(9), 4989.
 
-Full list: [Google Scholar](https://scholar.google.com/scholar?q=Imad+EL+BADISY)
-
 **Selected talks:**
 
 - **El Badisy I.** et al. (2023). Comparison of missing data imputation methods in Cox regression with time-varying and non-linear covariate effects. *ISCB 2023*, Rome.
@@ -99,11 +88,11 @@ Full list: [Google Scholar](https://scholar.google.com/scholar?q=Imad+EL+BADISY)
 |---|---|---|
 | AI for Public Health (ML, NLP, applied AI) | Aix-Marseille University, SESSTIM | 2022 – present |
 | Introduction to Biostatistics | University Mohammed VI of Health Sciences (UM6SS) | 2021 – present |
-| Health Data Analysis and Machine Learning | Institut Mines-Télécom, IMT Atlantique | 2020 – present |
+| Quantitative Epidemiology and Machine Learning | Institut Mines-Télécom, IMT Atlantique | 2020 – present |
 
 : {tbl-colwidths="[45,40,15]"}
 
-*Outside working hours:* I organize **Methods in Health Data Science with R**, an independent online course pathway covering biostatistics, machine learning, survival analysis, and meta-analysis with R. [Course website →](https://mhdsr.com)
+*Outside working hours:* I organize **Methods in Health Data Science with R**, an independent online course pathway covering applied biostatistics, survival analysis, machine learning, and meta-analysis with R. [Course website →](https://mhdsr.com)
 
 ## Notes {#notes}
 
@@ -127,7 +116,6 @@ For collaboration, methodological support, or consulting requests, please reach 
 |---|---|
 | Email | [elbadisyimad@gmail.com](mailto:elbadisyimad@gmail.com) |
 | GitHub | [github.com/ielbadisy](https://github.com/ielbadisy) |
-| Google Scholar | [Imad EL BADISY](https://scholar.google.com/scholar?q=Imad+EL+BADISY) |
 | LinkedIn | [imad-el-badisy-360018281](https://ma.linkedin.com/in/imad-el-badisy-360018281) |
 
 : {tbl-colwidths="[20,80]"}
