@@ -41,7 +41,7 @@ format:
 \end{large}
 \vspace{4pt}
 
-Research Engineer in Biostatistics working at the interface of computational biostatistics and machine learning. My work focuses building methodological tools for health data science supporting biomedical research projects. I develop open-source R packages for survival analysis, missing data, and interpretable machine learning, and contribute as a consultant and trainer in biostatistics and health data science.
+Research Engineer in Biostatistics and Machine Learning, PhD, working at the interface of computational biostatistics and machine learning. Moroccan and French national, husband and father. I hold a PhD from Aix-Marseille University (SESSTIM laboratory), completed under the supervision of Pr Roch GIORGI, on missing data and machine learning imputation methods for survival analysis. My work focuses on building methodological tools for health data science supporting biomedical research projects. I develop open-source R packages for survival analysis, missing data, and interpretable machine learning, and contribute as a consultant and trainer in biostatistics and health data science.
 
 \vspace{6pt}
 
@@ -58,11 +58,11 @@ Research Engineer in Biostatistics working at the interface of computational bio
 \end{multicols}
 \vspace{-0.17cm}
 \begin{multicols}{2}
-\begin{flushleft}\textit{Research Engineer in Biostatistics}\end{flushleft}
+\begin{flushleft}\textit{Head of AI and Data Science Service}\end{flushleft}
 \begin{flushright}Nov. 2021 – Present\end{flushright}
 \end{multicols}
 \vspace{-0.16cm}
-* Leading the structuring of an emerging AI and Data Science service
+* Leading the AI and Data Science service
 * Conducting methodological and applied research in health (oncology, fertility, other biomedical domains)
 
 \vspace{3pt}
@@ -138,11 +138,11 @@ Research Engineer in Biostatistics working at the interface of computational bio
 \end{multicols}
 \vspace{-0.17cm}
 \begin{multicols}{2}
-\begin{flushleft}\textit{Ph.D. Candidate in Biostatistics}\end{flushleft}
+\begin{flushleft}\textit{PhD in Biostatistics}\end{flushleft}
 \begin{flushright}2021 – 2025\end{flushright}
 \end{multicols}
 \vspace{-0.1cm}
-Thesis: Missing Data and Machine Learning Methods for Survival Analysis · Supervisor: Roch Giorgi
+Thesis: Missing Data and Machine Learning Methods for Survival Analysis · Supervisor: Pr Roch Giorgi
 
 \vspace{3pt}
 
@@ -176,7 +176,7 @@ Thesis: Missing Data and Machine Learning Methods for Survival Analysis · Super
 \end{multicols}
 \vspace{-0.17cm}
 \begin{multicols}{2}
-\begin{flushleft}\textit{Master in Health Economics}\end{flushleft}
+\begin{flushleft}\textit{Master 2 in Health Economics}\end{flushleft}
 \begin{flushright}2017\end{flushright}
 \end{multicols}
 
@@ -199,8 +199,8 @@ Thesis: Missing Data and Machine Learning Methods for Survival Analysis · Super
 \vspace{2pt}
 
 \begin{multicols}{2}
-\begin{flushleft}{\bf \href{https://ielbadisy.r-universe.dev/funcml}{funcml}} — Functional Machine Learning Framework\end{flushleft}
-\begin{flushright}R-universe\end{flushright}
+\begin{flushleft}{\bf \href{https://CRAN.R-project.org/package=funcml}{funcml}} — Functional Machine Learning Framework\end{flushleft}
+\begin{flushright}CRAN\end{flushright}
 \end{multicols}
 \vspace{-0.16cm}
 * Unified framework for functional machine learning in R · Maintainer
@@ -208,8 +208,8 @@ Thesis: Missing Data and Machine Learning Methods for Survival Analysis · Super
 \vspace{2pt}
 
 \begin{multicols}{2}
-\begin{flushleft}{\bf \href{https://ielbadisy.r-universe.dev/survdnn}{survdnn}} — Deep Neural Networks for Survival Analysis (R torch)\end{flushleft}
-\begin{flushright}R-universe\end{flushright}
+\begin{flushleft}{\bf \href{https://CRAN.R-project.org/package=survdnn}{survdnn}} — Deep Neural Networks for Survival Analysis (R torch)\end{flushleft}
+\begin{flushright}CRAN\end{flushright}
 \end{multicols}
 \vspace{-0.16cm}
 * Cox, AFT, and discrete-time neural survival models · Maintainer
@@ -217,8 +217,8 @@ Thesis: Missing Data and Machine Learning Methods for Survival Analysis · Super
 \vspace{2pt}
 
 \begin{multicols}{2}
-\begin{flushleft}{\bf \href{https://ielbadisy.r-universe.dev/tvrmst}{tvrmst}} — Time-Varying RMST from Survival Matrices\end{flushleft}
-\begin{flushright}R-universe\end{flushright}
+\begin{flushleft}{\bf \href{https://CRAN.R-project.org/package=tvrmst}{tvrmst}} — Time-Varying RMST from Survival Matrices\end{flushleft}
+\begin{flushright}CRAN\end{flushright}
 \end{multicols}
 \vspace{-0.16cm}
 * Dynamic RMST summaries for individualized survival curves · Maintainer
@@ -226,8 +226,8 @@ Thesis: Missing Data and Machine Learning Methods for Survival Analysis · Super
 \vspace{2pt}
 
 \begin{multicols}{2}
-\begin{flushleft}{\bf \href{https://ielbadisy.r-universe.dev/unsurv}{unsurv}} — Unsupervised Clustering of Individualized Survival Curves\end{flushleft}
-\begin{flushright}R-universe\end{flushright}
+\begin{flushleft}{\bf \href{https://CRAN.R-project.org/package=unsurv}{unsurv}} — Unsupervised Clustering of Individualized Survival Curves\end{flushleft}
+\begin{flushright}CRAN\end{flushright}
 \end{multicols}
 \vspace{-0.16cm}
 * Phenotyping patients from predicted survival curves · Maintainer
@@ -235,8 +235,8 @@ Thesis: Missing Data and Machine Learning Methods for Survival Analysis · Super
 \vspace{2pt}
 
 \begin{multicols}{2}
-\begin{flushleft}{\bf \href{https://ielbadisy.r-universe.dev/mcstatsim}{mcstatsim}} — Monte Carlo Statistical Simulation Tools\end{flushleft}
-\begin{flushright}R-universe\end{flushright}
+\begin{flushleft}{\bf \href{https://CRAN.R-project.org/package=mcstatsim}{mcstatsim}} — Monte Carlo Statistical Simulation Tools\end{flushleft}
+\begin{flushright}CRAN\end{flushright}
 \end{multicols}
 \vspace{-0.16cm}
 * Functional approach to monte carlo simulation studies in R · Maintainer
@@ -244,8 +244,8 @@ Thesis: Missing Data and Machine Learning Methods for Survival Analysis · Super
 \vspace{2pt}
 
 \begin{multicols}{2}
-\begin{flushleft}{\bf \href{https://ielbadisy.r-universe.dev/missCforest}{missCforest}} — Ensemble Conditional Trees for Missing Data Imputation\end{flushleft}
-\begin{flushright}R-universe\end{flushright}
+\begin{flushleft}{\bf \href{https://CRAN.R-project.org/package=missCforest}{missCforest}} — Ensemble Conditional Trees for Missing Data Imputation\end{flushleft}
+\begin{flushright}CRAN\end{flushright}
 \end{multicols}
 \vspace{-0.16cm}
 * Missing data imputation using conditional forest ensembles · Maintainer
@@ -303,7 +303,7 @@ Khalis M., Toure A.B., **El Badisy I.**, et al. (2022). Meteorological parameter
 \vspace{2pt}
 
 \begin{multicols}{2}
-\begin{flushleft}{\bf Health Data Analysis and Machine Learning} — Institut Mines-Télécom, IMT Atlantique\end{flushleft}
+\begin{flushleft}{\bf Quantitative Epidemiology and Machine Learning} — Institut Mines-Télécom, IMT Atlantique\end{flushleft}
 \begin{flushright}2020 – Present\end{flushright}
 \end{multicols}
 \vspace{-0.16cm}
@@ -311,7 +311,7 @@ Khalis M., Toure A.B., **El Badisy I.**, et al. (2022). Meteorological parameter
 
 \vspace{2pt}
 
-*Outside working hours:* {\bf Methods in Health Data Science with R} — an independent course covering survival analysis, ML workflows, and reproducible research in R. \href{https://elbadisyimad.com/MHDSR-combined-syllabus.pdf}{Syllabus}
+*Outside working hours:* {\bf Methods in Health Data Science with R} — an independent online course pathway covering applied biostatistics, survival analysis, machine learning, and meta-analysis with R. \href{https://mhdsr.com}{mhdsr.com}
 
 \vspace{6pt}
 
@@ -322,19 +322,15 @@ Khalis M., Toure A.B., **El Badisy I.**, et al. (2022). Meteorological parameter
 \end{large}
 \vspace{4pt}
 
-\begin{multicols}{2}
-\begin{flushleft}Comparison of missing data imputation methods in Cox regression with time-varying effects\end{flushleft}
-\begin{flushright}2023\end{flushright}
-\end{multicols}
+Comparison of missing data imputation methods in Cox regression with time-varying effects \hfill 2023
+
 \vspace{-0.1cm}
 \textit{ISCB 2023, Rome} · El Badisy I. et al.
 
 \vspace{3pt}
 
-\begin{multicols}{2}
-\begin{flushleft}Missing data imputation using a meta-algorithm metaCART: simulation under MCAR\end{flushleft}
-\begin{flushright}2023\end{flushright}
-\end{multicols}
+Missing data imputation using a meta-algorithm metaCART: simulation under MCAR \hfill 2023
+
 \vspace{-0.1cm}
 \textit{EpiClin 2023, Nancy} · El Badisy I. et al.
 
@@ -347,6 +343,10 @@ Khalis M., Toure A.B., **El Badisy I.**, et al. (2022). Meteorological parameter
 \end{large}
 \vspace{4pt}
 
-**Methodological:** Statistical methodology · Biostatistics and epidemiology · Survival analysis · Missing data methods · Meta-analysis · Interpretable machine learning · Computational biostatistics · High-performance computing (Slurm)
+**Methods:** Biostatistics · Survival analysis · Missing data · Meta-analysis · Interpretable machine learning
 
-**Technical:** R (statistical and ML package development) · Python · Julia · Quarto / LaTeX · Git and GitHub · Reproducible research workflows
+**Tools:** R package development · Python · Quarto/LaTeX · Git/GitHub · Slurm/HPC
+
+**Languages:** Arabic (native) · French (fluent) · English (fluent)
+
+**Nationality:** Moroccan · French
