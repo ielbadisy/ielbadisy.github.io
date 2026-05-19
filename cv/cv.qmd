@@ -19,6 +19,7 @@ format:
         \pagestyle{empty}
         \setlength{\multicolsep}{2pt plus 1.0pt minus 0.75pt}
         \setlength{\columnsep}{3em}
+        \newcommand{\cvrow}[2]{\noindent\begin{minipage}[t]{0.66\textwidth}\raggedright #1\end{minipage}\hfill\begin{minipage}[t]{0.30\textwidth}\raggedleft #2\end{minipage}\par}
 ---
 
 <!-- TITLE -->
@@ -27,7 +28,6 @@ format:
 <!-- CONTACT INFO -->
 \begin{center}
 \href{mailto:elbadisyimad@gmail.com}{elbadisyimad@gmail.com} $\cdot$
-\href{https://elbadisyimad.com}{elbadisyimad.com} $\cdot$
 \href{https://github.com/ielbadisy}{github.com/ielbadisy} $\cdot$
 \href{https://scholar.google.com/scholar?q=Imad+EL+BADISY}{Google Scholar} $\cdot$
 \href{https://www.linkedin.com/in/imad-el-badisy-360018281/}{LinkedIn}
@@ -41,7 +41,7 @@ format:
 \end{large}
 \vspace{4pt}
 
-Research Engineer in Biostatistics and Machine Learning, PhD, working at the interface of computational biostatistics and machine learning. Moroccan and French national, husband and father. I hold a PhD from Aix-Marseille University (SESSTIM laboratory), completed under the supervision of Pr Roch GIORGI, on missing data and machine learning imputation methods for survival analysis. My work focuses on building methodological tools for health data science supporting biomedical research projects. I develop open-source R packages for survival analysis, missing data, and interpretable machine learning, and contribute as a consultant and trainer in biostatistics and health data science.
+Research Engineer in Biostatistics and Machine Learning, PhD, working at the interface of computational biostatistics and machine learning. Moroccan and French national, husband and father. I hold a PhD from Aix-Marseille University (SESSTIM laboratory) on missing data and machine learning imputation methods for survival analysis. My work focuses on building methodological tools for health data science supporting biomedical research projects. I develop open-source R packages for survival analysis, missing data, and interpretable machine learning, and contribute as a consultant and trainer in biostatistics and health data science.
 
 \vspace{6pt}
 
@@ -52,74 +52,44 @@ Research Engineer in Biostatistics and Machine Learning, PhD, working at the int
 \end{large}
 \vspace{4pt}
 
-\begin{multicols}{2}
-\begin{flushleft}{\bf Mohammed VI Center for Research and Innovation (CM6RI)}\end{flushleft}
-\begin{flushright}Rabat, Morocco\end{flushright}
-\end{multicols}
+\cvrow{{\bf Mohammed VI Center for Research and Innovation (CM6RI)}}{Rabat, Morocco}
 \vspace{-0.17cm}
-\begin{multicols}{2}
-\begin{flushleft}\textit{Head of AI and Data Science Service}\end{flushleft}
-\begin{flushright}Nov. 2021 – Present\end{flushright}
-\end{multicols}
+\cvrow{\textit{Head of AI and Data Science Service}}{Nov. 2021 – Present}
 \vspace{-0.16cm}
 * Leading the AI and Data Science service
 * Conducting methodological and applied research in health (oncology, fertility, other biomedical domains)
 
 \vspace{3pt}
 
-\begin{multicols}{2}
-\begin{flushleft}{\bf The GRAPH Network}\end{flushleft}
-\begin{flushright}Switzerland / Remote\end{flushright}
-\end{multicols}
+\cvrow{{\bf The GRAPH Network}}{Switzerland / Remote}
 \vspace{-0.17cm}
-\begin{multicols}{2}
-\begin{flushleft}\textit{Data Science Education Officer}\end{flushleft}
-\begin{flushright}Sep. 2023 – Dec. 2023\end{flushright}
-\end{multicols}
+\cvrow{\textit{Data Science Education Officer}}{Sep. 2023 – Dec. 2023}
 \vspace{-0.16cm}
 * Designed and delivered training programs in data science for global health
 * Developed educational material and course content for data science learners
 
 \vspace{3pt}
 
-\begin{multicols}{2}
-\begin{flushleft}{\bf Institut Mines-Télécom, IMT Atlantique}\end{flushleft}
-\begin{flushright}Brest, France\end{flushright}
-\end{multicols}
+\cvrow{{\bf Institut Mines-Télécom, IMT Atlantique}}{Brest, France}
 \vspace{-0.17cm}
-\begin{multicols}{2}
-\begin{flushleft}\textit{Research Engineer in Applied Statistics}\end{flushleft}
-\begin{flushright}Sep. 2019 – Sep. 2021\end{flushright}
-\end{multicols}
+\cvrow{\textit{Research Engineer in Applied Statistics}}{Sep. 2019 – Sep. 2021}
 \vspace{-0.16cm}
 * Conducted statistical analyses of national health data (SNDS-based analyses)
 * Implemented automated and reproducible data workflows
 
 \vspace{3pt}
 
-\begin{multicols}{2}
-\begin{flushleft}{\bf INSERM}\end{flushleft}
-\begin{flushright}Clermont-Ferrand, France\end{flushright}
-\end{multicols}
+\cvrow{{\bf INSERM}}{Clermont-Ferrand, France}
 \vspace{-0.17cm}
-\begin{multicols}{2}
-\begin{flushleft}\textit{Biostatistician}\end{flushleft}
-\begin{flushright}Jan. 2019 – Jun. 2019\end{flushright}
-\end{multicols}
+\cvrow{\textit{Biostatistician}}{Jan. 2019 – Jun. 2019}
 \vspace{-0.16cm}
 * Conducted cost-effectiveness evaluation of a clinical protocol on ketamine for chronic pain
 
 \vspace{3pt}
 
-\begin{multicols}{2}
-\begin{flushleft}{\bf Université de Sherbrooke}\end{flushleft}
-\begin{flushright}Sherbrooke, Quebec, Canada\end{flushright}
-\end{multicols}
+\cvrow{{\bf Université de Sherbrooke}}{Sherbrooke, Quebec, Canada}
 \vspace{-0.17cm}
-\begin{multicols}{2}
-\begin{flushleft}\textit{Health Economist Intern}\end{flushleft}
-\begin{flushright}Feb. 2017 – Sep. 2017\end{flushright}
-\end{multicols}
+\cvrow{\textit{Health Economist Intern}}{Feb. 2017 – Sep. 2017}
 \vspace{-0.16cm}
 * Conducted a systematic review and meta-analysis on health utilities in cancer patients
 
@@ -132,53 +102,29 @@ Research Engineer in Biostatistics and Machine Learning, PhD, working at the int
 \end{large}
 \vspace{4pt}
 
-\begin{multicols}{2}
-\begin{flushleft}{\bf Aix-Marseille University, SESSTIM}\end{flushleft}
-\begin{flushright}Marseille, France\end{flushright}
-\end{multicols}
+\cvrow{{\bf Aix-Marseille University, SESSTIM}}{Marseille, France}
 \vspace{-0.17cm}
-\begin{multicols}{2}
-\begin{flushleft}\textit{PhD in Biostatistics}\end{flushleft}
-\begin{flushright}2021 – 2025\end{flushright}
-\end{multicols}
+\cvrow{\textit{PhD in Biostatistics}}{2021 – 2025}
 \vspace{-0.1cm}
-Thesis: Missing Data and Machine Learning Methods for Survival Analysis · Supervisor: Pr Roch Giorgi
+Thesis: Missing Data and Machine Learning Methods for Survival Analysis
 
 \vspace{3pt}
 
-\begin{multicols}{2}
-\begin{flushleft}{\bf Aix-Marseille University, SESSTIM}\end{flushleft}
-\begin{flushright}Marseille, France\end{flushright}
-\end{multicols}
+\cvrow{{\bf Aix-Marseille University, SESSTIM}}{Marseille, France}
 \vspace{-0.17cm}
-\begin{multicols}{2}
-\begin{flushleft}\textit{Master 2 in Quantitative Methods for Health Research}\end{flushleft}
-\begin{flushright}2018 – 2019\end{flushright}
-\end{multicols}
+\cvrow{\textit{Master 2 in Quantitative Methods for Health Research}}{2018 – 2019}
 
 \vspace{3pt}
 
-\begin{multicols}{2}
-\begin{flushleft}{\bf Université Clermont Auvergne}\end{flushleft}
-\begin{flushright}Clermont-Ferrand, France\end{flushright}
-\end{multicols}
+\cvrow{{\bf Université Clermont Auvergne}}{Clermont-Ferrand, France}
 \vspace{-0.17cm}
-\begin{multicols}{2}
-\begin{flushleft}\textit{Master 1 in Applied Mathematics and Statistics}\end{flushleft}
-\begin{flushright}2017 – 2018\end{flushright}
-\end{multicols}
+\cvrow{\textit{Master 1 in Applied Mathematics and Statistics}}{2017 – 2018}
 
 \vspace{3pt}
 
-\begin{multicols}{2}
-\begin{flushleft}{\bf Université Clermont Auvergne, CERDI}\end{flushleft}
-\begin{flushright}Clermont-Ferrand, France\end{flushright}
-\end{multicols}
+\cvrow{{\bf Université Clermont Auvergne, CERDI}}{Clermont-Ferrand, France}
 \vspace{-0.17cm}
-\begin{multicols}{2}
-\begin{flushleft}\textit{Master 2 in Health Economics}\end{flushleft}
-\begin{flushright}2017\end{flushright}
-\end{multicols}
+\cvrow{\textit{Master 2 in Health Economics}}{2017}
 
 \vspace{6pt}
 
