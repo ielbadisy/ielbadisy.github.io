@@ -252,6 +252,76 @@ Thesis: Missing Data and Machine Learning Methods for Survival Analysis · Super
 
 \vspace{6pt}
 
+<!-- PROJECTS -->
+\begin{large}{\bf PROJECTS}
+\vspace{3pt}
+\hrule
+\end{large}
+\vspace{4pt}
+
+\begin{multicols}{2}
+\begin{flushleft}{\bf ML4Health} — Machine Learning for Health Training\end{flushleft}
+\begin{flushright}2026\end{flushright}
+\end{multicols}
+\vspace{-0.16cm}
+* Training program focused on applied machine learning for health data analysis
+
+\vspace{2pt}
+
+\begin{multicols}{2}
+\begin{flushleft}{\bf AMRPRED} — Antimicrobial Resistance Prediction with Machine Learning\end{flushleft}
+\begin{flushright}2026\end{flushright}
+\end{multicols}
+\vspace{-0.16cm}
+* Predictive modeling of antimicrobial resistance using clinical and microbiological data
+
+\vspace{2pt}
+
+\begin{multicols}{2}
+\begin{flushleft}{\bf MELPHY} — Melanoma Phenotyping under Immunotherapy and Systemic Treatment\end{flushleft}
+\begin{flushright}2025 – 2026\end{flushright}
+\end{multicols}
+\vspace{-0.16cm}
+* Data-driven phenotyping of melanoma patients treated with immunotherapy and systemic therapies
+
+\vspace{2pt}
+
+\begin{multicols}{2}
+\begin{flushleft}{\bf AIDEM} — Artificial Intelligence for Dementia Prognosis and Risk Stratification\end{flushleft}
+\begin{flushright}2026 – 2027\end{flushright}
+\end{multicols}
+\vspace{-0.16cm}
+* AI-based prognostic modeling and risk stratification in dementia using curated clinical data
+
+\vspace{2pt}
+
+\begin{multicols}{2}
+\begin{flushleft}{\bf CLAVUS} — Predicting the Clinical Resolution of Variants of Uncertain Significance Using Machine Learning\end{flushleft}
+\begin{flushright}2026 – 2027\end{flushright}
+\end{multicols}
+\vspace{-0.16cm}
+* Machine learning approach for predicting clinical resolution of variants of uncertain significance using curated genomic data
+
+\vspace{2pt}
+
+\begin{multicols}{2}
+\begin{flushleft}{\bf SURVDNN} — Survival Deep Neural Networks\end{flushleft}
+\begin{flushright}2025 – 2026\end{flushright}
+\end{multicols}
+\vspace{-0.16cm}
+* Deep learning framework for survival analysis using neural networks
+
+\vspace{2pt}
+
+\begin{multicols}{2}
+\begin{flushleft}{\bf OMOUMATI} — Risk Prediction of Pregnancy Complications\end{flushleft}
+\begin{flushright}2025 – 2026\end{flushright}
+\end{multicols}
+\vspace{-0.16cm}
+* Prediction of pregnancy complications to support maternal and infant health outcomes
+
+\vspace{6pt}
+
 <!-- PUBLICATIONS -->
 \begin{large}{\bf SELECTED PUBLICATIONS}
 \vspace{3pt}
@@ -311,7 +381,7 @@ Khalis M., Toure A.B., **El Badisy I.**, et al. (2022). Meteorological parameter
 
 \vspace{2pt}
 
-*Outside working hours:* {\bf Methods in Health Data Science with R} — an independent online course pathway covering applied biostatistics, survival analysis, machine learning, and meta-analysis with R. \href{https://mhdsr.com}{mhdsr.com}
+*Outside working hours:* {\bf Methods in Health Data Science with R} — an independent online course pathway covering applied biostatistics, survival analysis, machine learning, and meta-analysis with R.
 
 \vspace{6pt}
 
@@ -348,5 +418,3 @@ Missing data imputation using a meta-algorithm metaCART: simulation under MCAR \
 **Tools:** R package development · Python · Quarto/LaTeX · Git/GitHub · Slurm/HPC
 
 **Languages:** Arabic (native) · French (fluent) · English (fluent)
-
-**Nationality:** Moroccan · French
