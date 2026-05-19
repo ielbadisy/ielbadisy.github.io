@@ -304,10 +304,6 @@ Khalis M., Toure A.B., **El Badisy I.**, et al. (2022). Meteorological parameter
 \vspace{-0.16cm}
 * ML fundamentals, quantitative epidemiology, supervised and unsupervised learning · 21+ hours/year
 
-\vspace{2pt}
-
-*Outside working hours:* {\bf Methods in Health Data Science with R} — an independent online course pathway covering applied biostatistics, survival analysis, machine learning, and meta-analysis with R.
-
 \vspace{6pt}
 
 <!-- TALKS -->
