@@ -106,7 +106,7 @@ Research Engineer in Biostatistics and Machine Learning, PhD, working at the int
 \vspace{-0.17cm}
 \cvrow{\textit{PhD in Biostatistics}}{2021 – 2025}
 \vspace{-0.1cm}
-Thesis: Missing Data and Machine Learning Methods for Survival Analysis
+Thesis: Missing Data and Machine Learning Methods for Survival Analysis · Supervisor: Pr Roch Giorgi
 
 \vspace{3pt}
 
