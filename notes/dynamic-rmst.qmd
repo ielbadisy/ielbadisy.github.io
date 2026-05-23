@@ -1,7 +1,12 @@
 ---
-title: "Dynamic RMST as an interpretable summary for predicted survival curves"
-date: "2026"
+title: "Dynamic RMST from predicted survival curves with tvrmst"
+date: "23-05-2026"
+description: "A methodological note on dynamic restricted mean survival time as an interpretable summary of individualized survival predictions."
+categories: [Survival Analysis, RMST, tvrmst]
 format: html
+execute:
+  warning: false
+  message: false
 ---
 
 <ul class="menu">
@@ -11,27 +16,90 @@ format: html
 
 <hr>
 
-Restricted mean survival time is a useful way to summarize survival information on a time scale that is directly interpretable.
-
-## Definition
-
-For a survival function `S(t)`, the restricted mean survival time up to horizon `tau` is the area under the survival curve from zero to `tau`.
+Restricted mean survival time (RMST) summarizes a survival curve on the time scale of the outcome. For a survival function $S(t) = P(T > t)$, the RMST up to horizon $\tau$ is
 
 $$
-\mathrm{RMST}(\tau) = \int_0^\tau S(t)\,dt
+\mu(\tau) = \int_0^\tau S(t)\,dt.
 $$
 
-## Dynamic use
+When the input is an individualized survival matrix, each row is a predicted survival curve $S_i(t_j)$ for patient $i$ at grid time $t_j$. The individual dynamic RMST curve is
 
-Instead of choosing a single horizon, one can evaluate RMST over several horizons. This gives a dynamic view of how separation between groups evolves over time.
+$$
+\widehat{\mu}_i(\tau_k) = \sum_{j=1}^{k} \frac{S_i(t_{j-1}) + S_i(t_j)}{2}(t_j - t_{j-1}),
+$$
 
-## Interpretation
+using the trapezoidal rule on the prediction grid. The population summary is then
 
-A difference in RMST between two groups can be read as a difference in expected event-free time up to a fixed horizon. This is often clearer than a hazard ratio when proportional hazards is questionable or when survival curves separate non-uniformly.
+$$
+\widehat{\mu}(\tau_k) = \frac{1}{n}\sum_{i=1}^n \widehat{\mu}_i(\tau_k).
+$$
 
-## Practical note
+For two groups, a clinically readable contrast is the RMST difference
 
-When RMST is computed from predicted survival curves, the time grid, interpolation method, and maximum horizon should be stated explicitly.
+$$
+\Delta(\tau) = \widehat{\mu}_B(\tau) - \widehat{\mu}_A(\tau),
+$$
+
+which can be read as the difference in expected event-free time up to $\tau$. This is often easier to explain than a hazard ratio when proportional hazards is doubtful.[^rmst-paper]
+
+## Example
+
+The `tvrmst` package works with survival matrices and computes RMST over one or several horizons.[^tvrmst-cran]
+
+```{r}
+library(tvrmst)
+
+set.seed(1)
+time <- seq(0, 24, by = 1)
+
+control <- outer(
+  1:6, time,
+  function(i, t) exp(-0.035 * t) * (1 - 0.015 * i)
+)
+
+treatment <- outer(
+  1:6, time,
+  function(i, t) exp(-0.025 * t) * (1 - 0.010 * i)
+)
+
+control_mat <- as_survmat(
+  control,
+  time = time,
+  id = paste0("C", 1:6),
+  group = rep("Control", 6)
+)
+
+treatment_mat <- as_survmat(
+  treatment,
+  time = time,
+  id = paste0("T", 1:6),
+  group = rep("Treatment", 6)
+)
+
+control_rmst <- rmst_dynamic(control_mat, tau = c(6, 12, 18, 24))
+treatment_rmst <- rmst_dynamic(treatment_mat, tau = c(6, 12, 18, 24))
+
+treatment_rmst$at_tau
+```
+
+The dynamic RMST values increase with the horizon because they accumulate survival probability over time. A group contrast is computed from the two survival matrices:
+
+```{r}
+delta <- rmst_delta(treatment_mat, control_mat, tau = c(6, 12, 18, 24))
+delta$at_tau
+```
+
+In this example, the treatment survival curves stay above the control curves. The absolute RMST gain grows as the horizon increases: the estimated difference is about 0.25 months at 6 months and about 2.03 months at 24 months. The interpretation is direct: by 24 months, the treatment profile has about two additional months of expected event-free time within the restricted follow-up window.
+
+## Practical Notes
+
+- Report the prediction time grid and the maximum horizon.
+- Avoid extrapolating beyond the time support of the fitted survival model.
+- Prefer several clinically meaningful horizons when the timing of separation matters.
+- Interpret RMST contrasts as descriptive summaries unless the comparison is embedded in a valid causal design.
+
+[^tvrmst-cran]: `tvrmst` package documentation, CRAN: <https://CRAN.R-project.org/package=tvrmst>.
+[^rmst-paper]: Royston, P., & Parmar, M. K. B. (2013). Restricted mean survival time: an alternative to the hazard ratio for the design and analysis of randomized trials with a time-to-event outcome. *BMC Medical Research Methodology*, 13, 152.
 
 <hr>
 

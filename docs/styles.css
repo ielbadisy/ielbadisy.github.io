@@ -255,3 +255,16 @@ footer {
     white-space: normal;
   }
 }
+
+/* Blog-style tags */
+.tag {
+  display: inline-block;
+  margin: 0.08rem 0.14rem 0.08rem 0;
+  padding: 0.08rem 0.42rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--light);
+  color: var(--muted);
+  font-size: 0.84rem;
+  white-space: nowrap;
+}
