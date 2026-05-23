@@ -14,24 +14,19 @@ format: html
 <hr>
 
 <p class="subtitle">
-Technical notes on survival analysis, machine learning, missing data, and reproducible health data science.
+Finished technical notes on survival analysis, machine learning, statistical software, and reproducible health data science.
 </p>
 
-## Notes archive
+## Finished Notes Archive
 
-| Date | Note | Topic |
+| Date | Note | Tag |
 |---|---|---|
-| 2026 | [Building survival-trajectory phenotypes from individualized survival curves](survival-trajectory-phenotypes.qmd) | Survival ML |
-| 2026 | [Dynamic RMST as an interpretable summary for predicted survival curves](dynamic-rmst.qmd) | RMST |
-| 2026 | [Functional machine learning workflows in R](functional-ml-r.qmd) | R / ML |
-| 2026 | [ALE from scratch: accumulated local effects for model interpretation](ALE from the scratch.qmd) | Interpretable ML |
-| 2026 | [The unseen influence: quantifying missing data impact through partial dependence plots](The Unseen Influence_ Quantifying Missing Data Impact Through Partial Dependence Plots.qmd) | Missing Data |
-| 2022 | [Hypothesis testing by example](2022-11-02-hypothesis-testing-by-example/index.qmd) | Statistical Testing |
-| 2020 | [Overfitting: a guided tour](2020-01-06_overfitting-a-guide-tour/index.qmd) | Machine Learning |
-| 2019 | [Testing statistical software](2019-06-07_testing-statistical-software/index.qmd) | R / Software |
-| 2018 | [Understanding multinomial regression with partial dependence plots](2018-10-23_understanding-multinomial-regression-with-partial-dependence-plots/index.qmd) | Interpretable ML |
-| 2017 | [Numerical gradient checks](2017-10-18_gradient-checks/index.qmd) | Optimization |
-| 2017 | [Gentle tidy eval with examples](2017-08-07_gentle-tidy-eval/index.qmd) | R Programming |
+| 02-11-2022 | [Hypothesis testing by example](2022-11-02-hypothesis-testing-by-example/index.qmd) | [Statistical Testing] |
+| 06-01-2020 | [Overfitting: a guided tour](2020-01-06_overfitting-a-guide-tour/index.qmd) | [Machine Learning] |
+| 07-06-2019 | [Testing statistical software](2019-06-07_testing-statistical-software/index.qmd) | [R / Software] |
+| 23-10-2018 | [Understanding multinomial regression with partial dependence plots](2018-10-23_understanding-multinomial-regression-with-partial-dependence-plots/index.qmd) | [Interpretable ML] |
+| 18-10-2017 | [Numerical gradient checks](2017-10-18_gradient-checks/index.qmd) | [Optimization] |
+| 07-08-2017 | [Gentle tidy eval with examples](2017-08-07_gentle-tidy-eval/index.qmd) | [R Programming] |
 
 <hr>
 
