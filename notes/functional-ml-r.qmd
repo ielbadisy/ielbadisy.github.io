@@ -1,7 +1,12 @@
 ---
-title: "Functional machine learning workflows in R"
-date: "2026"
+title: "Functional machine learning workflows in R with funcml"
+date: "23-05-2026"
+description: "A methodological note on explicit, auditable machine learning workflows for health data science using funcml."
+categories: [Machine Learning, Reproducibility, funcml]
 format: html
+execute:
+  warning: false
+  message: false
 ---
 
 <ul class="menu">
@@ -11,30 +16,72 @@ format: html
 
 <hr>
 
-A functional machine learning workflow emphasizes explicit verbs, stable objects, and reproducible transitions between modeling steps.
+A functional machine learning workflow treats the analysis as a sequence of explicit transformations. Instead of hiding modeling decisions inside one opaque object, the analyst moves through stable verbs such as fitting, resampling, evaluating, comparing, interpreting, and estimating effects.[^funcml-cran]
 
-## Design principle
+A compact supervised learning workflow can be written as
 
-The main idea is to keep the workflow readable:
+$$
+\mathcal{D} = \{(x_i, y_i)\}_{i=1}^{n}, \qquad f_\theta: \mathcal{X} \rightarrow \mathcal{Y},
+$$
 
-```r
-fit()
-evaluate()
-tune()
-compare_learners()
-interpret()
-estimate()
+where $f_\theta$ is fitted on training data and assessed on validation folds. For a metric $m$, $K$-fold cross-validation estimates performance as
+
+$$
+\widehat{M}_{CV} = \frac{1}{K}\sum_{k=1}^{K} m\left(y_{V_k}, \widehat{f}^{(-k)}(x_{V_k})\right),
+$$
+
+where $\widehat{f}^{(-k)}$ is trained without validation fold $V_k$. This formula is simple, but it is where many reproducibility errors enter: fold definitions, preprocessing, outcome encoding, metrics, and seeds must be visible.
+
+## Example
+
+The `funcml` package exposes these workflow steps as explicit functions.[^funcml-runiverse]
+
+```{r}
+library(funcml)
+
+data <- pimadiabetes
+data$diabetes <- factor(data$diabetes)
+
+train <- subset(data, split == "train")[1:120, ]
+
+list_metrics(columns = c("metric", "direction")) |>
+  head(8)
 ```
 
-Each verb should return an object with a clear class, predictable print and summary methods, and enough metadata to reproduce the analysis.
+We can evaluate a logistic regression classifier using three-fold cross-validation and two metrics: accuracy and AUC.
 
-## Why it matters
+```{r}
+set.seed(1)
 
-For applied health data science, the modeling interface should make validation, tuning, comparison, and interpretation visible. A compact functional interface can reduce friction while preserving statistical transparency.
+res <- evaluate(
+  diabetes ~ glu + bmi + age + bp,
+  data = train,
+  model = "glm",
+  resampling = cv(3),
+  metrics = c("accuracy", "auc"),
+  seed = 1
+)
 
-## Boundary
+res
+```
 
-Preprocessing should remain explicit and separate from model fitting. This makes it easier to audit transformations and avoid hidden data leakage.
+The output reports the mean, standard deviation, standard error, and confidence interval across folds. In this run, the glucose/BMI/age/blood-pressure model reaches an AUC around 0.79 under three-fold cross-validation, while accuracy is around 0.70. For a health-data workflow, the point is not only the numeric result: it is that the resampling plan and metrics are explicit in the code.
+
+## Methodological Use
+
+This pattern is useful when the analysis needs to be audited:
+
+1. The formula states the outcome and candidate predictors.
+2. The model name states the learner.
+3. The resampling object states how validation is performed.
+4. The metric vector states how performance is judged.
+5. The seed makes the split reproducible.
+
+The same structure can be extended to compare multiple learners, tune hyperparameters, or estimate treatment effects. The important methodological constraint is that preprocessing should be declared before fitting and applied inside the resampling workflow when it is learned from data, otherwise information can leak from validation folds into training folds.[^elements]
+
+[^funcml-cran]: `funcml` package documentation, CRAN: <https://CRAN.R-project.org/package=funcml>.
+[^funcml-runiverse]: `funcml` R-universe builds and documentation: <https://ielbadisy.r-universe.dev/funcml>.
+[^elements]: Hastie, T., Tibshirani, R., & Friedman, J. (2009). *The Elements of Statistical Learning*. Springer.
 
 <hr>
 
