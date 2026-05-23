@@ -186,17 +186,54 @@ window.Quarto = {
 </div>
 <p>The dynamic RMST values increase with the horizon because they accumulate survival probability over time. A group contrast is computed from the two survival matrices:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>delta <span class="ot">&lt;-</span> <span class="fu">rmst_delta</span>(treatment_mat, control_mat, <span class="at">tau =</span> <span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">12</span>, <span class="dv">18</span>, <span class="dv">24</span>))</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>delta <span class="ot">&lt;-</span> <span class="fu">rmst_delta</span>(control_mat, treatment_mat, <span class="at">tau =</span> <span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">12</span>, <span class="dv">18</span>, <span class="dv">24</span>))</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>delta<span class="sc">$</span>at_tau</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  tau    rmst_A    rmst_B      delta
-1   6  5.376952  5.128279 -0.2486736
-2  12 10.004938  9.285180 -0.7197575
-3  18 13.988282 12.654699 -1.3335825
-4  24 17.416778 15.385978 -2.0307995</code></pre>
+<pre><code>  tau    rmst_A    rmst_B     delta
+1   6  5.128279  5.376952 0.2486736
+2  12  9.285180 10.004938 0.7197575
+3  18 12.654699 13.988282 1.3335825
+4  24 15.385978 17.416778 2.0307995</code></pre>
 </div>
 </div>
 <p>In this example, the treatment survival curves stay above the control curves. The absolute RMST gain grows as the horizon increases: the estimated difference is about 0.25 months at 6 months and about 2.03 months at 24 months. The interpretation is direct: by 24 months, the treatment profile has about two additional months of expected event-free time within the restricted follow-up window.</p>
+<h2 id="figures" class="anchored">Figures</h2>
+<p>The dynamic RMST curves show how expected event-free time accumulates over the follow-up horizon.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_rmst_two_arms</span>(</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  control_mat,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  treatment_mat,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Control"</span>, <span class="st">"Treatment"</span>),</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"Dynamic RMST by group"</span>,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">x_unit =</span> <span class="st">"months"</span>,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">y_unit =</span> <span class="st">"months"</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img src="dynamic-rmst_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The delta curve makes the horizon-dependent treatment-control contrast explicit.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>delta_curve <span class="ot">&lt;-</span> <span class="fu">rmst_delta</span>(control_mat, treatment_mat)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_delta_curve</span>(</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  delta_curve<span class="sc">$</span>time,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  delta_curve<span class="sc">$</span>delta,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"RMST difference: treatment minus control"</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">x_unit =</span> <span class="st">"months"</span>,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">y_unit =</span> <span class="st">"months"</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img src="dynamic-rmst_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 <h2 id="practical-notes" class="anchored">Practical Notes</h2>
 <ul>
 <li>Report the prediction time grid and the maximum horizon.</li>

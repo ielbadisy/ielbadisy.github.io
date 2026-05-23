@@ -36,11 +36,40 @@ where $\widehat{f}^{(-k)}$ is trained without validation fold $V_k$. This formul
 
 The `funcml` package exposes these workflow steps as explicit functions.[^funcml-runiverse]
 
+## Quick Example
+
+The shortest useful workflow is to fit a learner and obtain predictions on new patients.
+
 ```{r}
 library(funcml)
 
 data <- pimadiabetes
 data$diabetes <- factor(data$diabetes)
+
+train <- subset(data, split == "train")[1:80, ]
+test <- subset(data, split == "test")[1:5, ]
+
+glm_fit <- fit(
+  diabetes ~ glu + bmi + age,
+  data = train,
+  model = "glm",
+  seed = 1
+)
+
+glm_fit
+```
+
+The fitted object carries a stable prediction method.
+
+```{r}
+round(glm_fit$predict(test, type = "prob"), 3)
+glm_fit$predict(test, type = "class")
+```
+
+## Cross-Validated Example
+
+```{r}
+library(funcml)
 
 train <- subset(data, split == "train")[1:120, ]
 
