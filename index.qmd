@@ -149,17 +149,15 @@ All packages on [CRAN](https://CRAN.R-project.org/search/?query=el+badisy) · al
 
 ## Notes {#notes}
 
-Selected finished notes and essays. Drafts and working notes stay off the public site until they are complete.
+Methodological notes connected to my R packages.
 
-| Date | Note | Tag |
+| Date | Note | Tags |
 |---|---|---|
-| 02-11-2022 | [Hypothesis testing by example](notes/2022-11-02-hypothesis-testing-by-example/index.qmd) | [Statistical Testing] |
-| 06-01-2020 | [Overfitting: a guided tour](notes/2020-01-06_overfitting-a-guide-tour/index.qmd) | [Machine Learning] |
-| 07-06-2019 | [Testing statistical software](notes/2019-06-07_testing-statistical-software/index.qmd) | [R / Software] |
-| 23-10-2018 | [Understanding multinomial regression with partial dependence plots](notes/2018-10-23_understanding-multinomial-regression-with-partial-dependence-plots/index.qmd) | [Interpretable ML] |
-| 18-10-2017 | [Numerical gradient checks](notes/2017-10-18_gradient-checks/index.qmd) | [Optimization] |
+| 23-05-2026 | [Dynamic RMST from predicted survival curves with `tvrmst`](notes/dynamic-rmst.qmd) | <span class="tag">Survival Analysis</span> <span class="tag">RMST</span> <span class="tag">tvrmst</span> |
+| 23-05-2026 | [Functional machine learning workflows in R with `funcml`](notes/functional-ml-r.qmd) | <span class="tag">Machine Learning</span> <span class="tag">Reproducibility</span> <span class="tag">funcml</span> |
+| 23-05-2026 | [Survival-trajectory phenotypes with `unsurv`](notes/survival-trajectory-phenotypes.qmd) | <span class="tag">Survival Analysis</span> <span class="tag">Clustering</span> <span class="tag">unsurv</span> |
 
-[View all finished notes →](notes/index.qmd)
+[View notes →](notes/index.qmd)
 
 ## Contact {#contact}
 

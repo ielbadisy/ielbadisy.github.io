@@ -8,12 +8,9 @@ project:
     - index.qmd
     - cv/cv.qmd
     - notes/index.qmd
-    - notes/2017-08-07_gentle-tidy-eval/index.qmd
-    - notes/2017-10-18_gradient-checks/index.qmd
-    - notes/2018-10-23_understanding-multinomial-regression-with-partial-dependence-plots/index.qmd
-    - notes/2019-06-07_testing-statistical-software/index.qmd
-    - notes/2020-01-06_overfitting-a-guide-tour/index.qmd
-    - notes/2022-11-02-hypothesis-testing-by-example/index.qmd
+    - notes/dynamic-rmst.qmd
+    - notes/functional-ml-r.qmd
+    - notes/survival-trajectory-phenotypes.qmd
 
 website:
   title: "Imad EL BADISY"
@@ -28,3 +25,4 @@ format:
     smooth-scroll: true
     anchor-sections: true
     code-copy: true
+    html-math-method: mathjax

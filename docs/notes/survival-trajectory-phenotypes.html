@@ -6,9 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2017-10-18">
+<meta name="dcterms.date" content="2027-11-05">
+<meta name="description" content="A methodological note on unsupervised phenotyping from predicted survival curves using unsurv.">
 
-<title>numerical gradient checks – Imad EL BADISY</title>
+<title>Survival-trajectory phenotypes from individualized survival curves with unsurv – Imad EL BADISY</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,7 +22,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-.display.math{display: block; text-align: center; margin: 0.5rem auto;}
 /* CSS for syntax highlighting */
 html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
@@ -60,131 +60,145 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../site_libs/quarto-html/tabby.min.js"></script>
-<script src="../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-html-eb71d4f0124c4d5ff63526840ab633f6.min.css" rel="stylesheet" append-hash="true" data-mode="light">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-html-eb71d4f0124c4d5ff63526840ab633f6.min.css" rel="stylesheet" append-hash="true" data-mode="light">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <style>html{ scroll-behavior: smooth; }</style>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<link rel="stylesheet" href="../../styles.css">
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body>
 
 
 <header id="title-block-header">
-<h1 class="title">numerical gradient checks</h1>
-<p class="subtitle"></p><p>how to use a computer to check your derivative calculations</p><p></p>
+<h1 class="title">Survival-trajectory phenotypes from individualized survival curves with unsurv</h1>
 
-<p class="date">2017-10-18</p>
+<p class="date">2027-11-05</p>
 </header>
 
 
-<h2 id="motivation" class="anchored">Motivation</h2>
-<p>Suppose you have some loss function <span class="math inline">ℒ(<em>β</em>) : ℝ<sup><em>n</em></sup> → ℝ</span> you want to minimize with respect to some model parameters <span class="math inline"><em>β</em></span>. You understand how gradient descent works and you have a correct implementation of <span class="math inline">ℒ</span> but aren’t sure if you took the gradient correctly or implemented it correctly in code.</p>
-<h2 id="solution" class="anchored">Solution</h2>
-<p>We can compare our implemention of the gradient of <span class="math inline">ℒ</span> to a finite difference approximation of the gradient. Recall that the gradient of <span class="math inline">ℒ</span>, <span class="math inline">∇<sub>ℒ</sub></span>, in a direction <span class="math inline"><em>d</em> ∈ ℝ<sup><em>n</em></sup></span> at a point <span class="math inline"><em>x</em> ∈ ℝ<sup><em>n</em></sup></span> is defined as</p>
-<p><span class="math display">$$d^T \nabla_\mathcal{L}(x) = \lim_{\epsilon \to 0} \frac{\mathcal{L}(x + \epsilon \cdot d) - \mathcal{L}(x - \epsilon \cdot d)}{2 \epsilon}$$</span></p>
-<p>If we take <span class="math inline"><em>ϵ</em></span> to be fixed and small, we can use this formula to approximate the gradient in any direction. By approximating the gradient in each unit direction, we construct an approximation of the gradient of <span class="math inline">ℒ</span> at a particular point <span class="math inline"><em>x</em></span>.</p>
-<h2 id="example-checking-the-gradient-of-linear-regression" class="anchored">Example: Checking the gradient of linear regression</h2>
-<p>Suppose that we have <span class="math inline"><em>n</em> = 20</span> data points in <span class="math inline">ℝ<sup>2</sup></span> with responses <span class="math inline"><em>y</em> ∈ ℝ</span>. Linear regression assumes the responses <span class="math inline"><em>y</em></span> are related linearly to the data matrix <span class="math inline"><em>X</em></span> via the equation</p>
-<p><span class="math display"><em>y</em> = <em>X</em><em>β</em> + <em>ϵ</em></span></p>
-<p>We want to find an estimate <span class="math inline"><em>β̂</em></span> that minimizes the sum of squared error of the predicted values <span class="math inline"><em>ŷ</em> = <em>X</em><em>β̂</em></span></p>
-<p><span class="math display">$$\mathcal{L}(\beta) = \frac{1}{2n} \sum_i (y_i - \hat y_i)^2 = \frac{1}{2n} \sum_i (y_i - x_i \beta)^2 = \frac{1}{2n} (y - X \beta)^T (y - X \beta)$$</span></p>
-<p>In the final step above we recognize that the sum of squared residuals can be written as a dot product. Next we’d like to the gradient of this dot product. There’s a beautiful explanation of how to take the gradient of a quadratic form <a href="http://michael.orlitzky.com/articles/the_derivative_of_a_quadratic_form.xhtml">here</a>. The gradient (in matrix notation) is</p>
-<p><span class="math display">$$\nabla_\mathcal{L}(\beta) = -\frac{1}{n} (y - X \beta)^T X$$</span></p>
-<p>We can now implement an analytical version of <span class="math inline">∇<sub>ℒ</sub>(<em>β</em>)</span> and compare it to a finite difference approximation. First we simulate and visualize some data:</p>
+<ul class="menu">
+<li>
+<a href="../index.html">Home</a>
+</li>
+<li>
+<a href="../notes/index.html">Notes</a>
+</li>
+</ul>
+<hr>
+<p>Survival-trajectory phenotyping clusters patients by the shape of their predicted survival curves. The input is not the baseline covariate matrix <span class="math inline">\(X\)</span>, but a survival probability matrix</p>
+<p><span class="math display">\[
+S = \left[S_i(t_j)\right]_{i=1,\dots,n;\;j=1,\dots,q},
+\]</span></p>
+<p>where each row is an individualized predicted curve. A distance between two patients can be defined on the curve scale, for example an <span class="math inline">\(L_2\)</span> distance</p>
+<p><span class="math display">\[
+d(i, i') = \left\{\sum_{j=1}^{q} w_j\left[S_i(t_j) - S_{i'}(t_j)\right]^2\right\}^{1/2},
+\]</span></p>
+<p>with optional time weights <span class="math inline">\(w_j\)</span>. Clustering on <span class="math inline">\(S\)</span> groups patients by predicted survival behavior, not by isolated covariate values. This is useful when several different covariate profiles imply similar risk trajectories.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>The resulting clusters are descriptive phenotypes. They should be interpreted as summaries of model-predicted prognosis, not as causal treatment effects.</p>
+<h2 id="example" class="anchored">Example</h2>
+<p>The <code>unsurv</code> package implements unsupervised clustering of individualized survival curves.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(unsurv)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">20</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(n <span class="sc">*</span> <span class="dv">2</span>), <span class="at">ncol =</span> <span class="dv">2</span>)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>times <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">36</span>, <span class="at">by =</span> <span class="dv">3</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>hazards <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="fl">0.02</span>, <span class="fl">0.05</span>, <span class="fl">0.09</span>), <span class="at">each =</span> <span class="dv">10</span>)</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="cn">NULL</span>, <span class="fu">aes</span>(<span class="at">x =</span> X[, <span class="dv">1</span>], <span class="at">y =</span> y)) <span class="sc">+</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"One dimension of the simulated data"</span>, <span class="at">x =</span> <span class="fu">expression</span>(X[<span class="dv">1</span>])) <span class="sc">+</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<figure>
-<p><img src="index_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Next we implement our loss and gradient functions. We assume the <code>loss</code> function is implemented correctly but want to check the <code>analytical_grad</code> implementation.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>loss <span class="ot">&lt;-</span> <span class="cf">function</span>(beta) {</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  resid <span class="ot">&lt;-</span> y <span class="sc">-</span> X <span class="sc">%*%</span> beta</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sum</span>(resid<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> n)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>analytical_grad <span class="ot">&lt;-</span> <span class="cf">function</span>(beta) {</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  grad <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fu">t</span>(y <span class="sc">-</span> X <span class="sc">%*%</span> beta) <span class="sc">%*%</span> X <span class="sc">/</span> n</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.vector</span>(grad)</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>To perform this check, we need get approximate the gradient in a direction <span class="math inline"><em>d</em></span>:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param f function that takes a single vector argument x</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param x point at which to evaluate derivative of f (vector)</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param d direction in which to take derivative of f (vector)</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param eps epsilon to use in the gradient approximation</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>numerical_directional_grad <span class="ot">&lt;-</span> <span class="cf">function</span>(f, x, d, <span class="at">eps =</span> <span class="fl">1e-8</span>) {</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  (<span class="fu">f</span>(x <span class="sc">+</span> eps <span class="sc">*</span> d) <span class="sc">-</span> <span class="fu">f</span>(x <span class="sc">-</span> eps <span class="sc">*</span> d)) <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">*</span> eps)</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>And then to approximate the entire gradient, we need to combine directional derivatives in each of the unit directions:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>zeros_like <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rep</span>(<span class="dv">0</span>, <span class="fu">length</span>(x))</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>numerical_grad <span class="ot">&lt;-</span> <span class="cf">function</span>(f, x, <span class="at">eps =</span> <span class="fl">1e-8</span>) {</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  grad <span class="ot">&lt;-</span> <span class="fu">zeros_like</span>(x)</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (dim <span class="cf">in</span> <span class="fu">seq_along</span>(x)) {</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    unit <span class="ot">&lt;-</span> <span class="fu">zeros_like</span>(x)</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    unit[dim] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    grad[dim] <span class="ot">&lt;-</span> <span class="fu">numerical_directional_grad</span>(f, x, unit, eps)</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  grad</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>relative_error <span class="ot">&lt;-</span> <span class="cf">function</span>(want, got) {</span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  (want <span class="sc">-</span> got) <span class="sc">/</span> want  <span class="co"># assumes want is not zero</span></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>Now we can check the relative error between our analytical implementation of the gradient and the numerical approximation.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>)  <span class="co"># point in parameter space to check gradient at</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>num_grad <span class="ot">&lt;-</span> <span class="fu">numerical_grad</span>(loss, b)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>ana_grad <span class="ot">&lt;-</span> <span class="fu">analytical_grad</span>(b)</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>num_grad</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>S <span class="ot">&lt;-</span> <span class="fu">outer</span>(</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  hazards,</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  times,</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="cf">function</span>(h, t) <span class="fu">exp</span>(<span class="sc">-</span>h <span class="sc">*</span> t)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">unsurv</span>(S, times, <span class="at">K =</span> <span class="dv">3</span>, <span class="at">seed =</span> <span class="dv">1</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>fit</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.05782264 2.09262212</code></pre>
+<pre><code>unsurv (PAM) fit
+  K:3
+  distance:L2 silhouette_mean:0.974
+  n:30 Q:13</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>ana_grad</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The fitted object stores the cluster assignment, medoid curves, the selected distance, and a silhouette summary.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(fit<span class="sc">$</span>clusters)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.05782263 2.09262212</code></pre>
+<pre><code>
+ 1  2  3 
+10 10 10 </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">relative_error</span>(num_grad, ana_grad)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(fit<span class="sc">$</span>medoids[, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">9</span>, <span class="dv">13</span>)], <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1]  1.465330e-07 -1.003646e-09</code></pre>
+<pre><code>     [,1]  [,2]  [,3]  [,4]
+[1,]    1 0.787 0.619 0.487
+[2,]    1 0.549 0.301 0.165
+[3,]    1 0.340 0.115 0.039</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>fit<span class="sc">$</span>silhouette_mean</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9744392</code></pre>
 </div>
 </div>
-<p>The relative error is small, and we can feel confident that our implementation of the gradient is correct.</p>
-<p>This post is based off of Tim Vieira’s <a href="http://timvieira.github.io/blog/post/2017/04/21/how-to-test-gradient-implementations/">fantastic post</a> on how to use numerical gradient checks in practice, but with <code>R</code> code. See also the <a href="https://cran.r-project.org/package=numDeriv">numDeriv</a> package.</p>
+<p>The three medoid rows summarize low-, intermediate-, and high-risk survival trajectories at 0, 12, 24, and 36 months. In this simulated example, the clusters are balanced because the data were generated from three known exponential survival profiles. The mean silhouette is high, indicating strong separation between trajectory groups.</p>
+<h2 id="interpretation" class="anchored">Interpretation</h2>
+<p>A practical reporting template is:</p>
+<ul>
+<li>Cluster 1: slow decline in predicted survival, high expected event-free time.</li>
+<li>Cluster 2: intermediate decline, moderate expected event-free time.</li>
+<li>Cluster 3: rapid decline, low expected event-free time.</li>
+</ul>
+<p>After clustering, each phenotype should be described with survival probabilities at clinically meaningful horizons, RMST summaries, and baseline covariate distributions. This keeps the phenotype anchored to survival behavior while making it interpretable for clinical collaborators.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
+<hr>
+<footer>
+<a href="../notes/index.html">Back to notes</a>
+</footer>
 
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p><code>unsurv</code> package documentation, CRAN: <a href="https://CRAN.R-project.org/package=unsurv" class="uri">https://CRAN.R-project.org/package=unsurv</a>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p><code>unsurv</code> R-universe documentation: <a href="https://ielbadisy.r-universe.dev/unsurv" class="uri">https://ielbadisy.r-universe.dev/unsurv</a>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Kaufman, L., &amp; Rousseeuw, P. J. (1990). <em>Finding Groups in Data: An Introduction to Cluster Analysis</em>. Wiley.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
 
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -594,5 +608,5 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

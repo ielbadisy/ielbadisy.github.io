@@ -1,7 +1,12 @@
 ---
-title: "Building survival-trajectory phenotypes from individualized survival curves"
-date: "2026"
+title: "Survival-trajectory phenotypes from individualized survival curves with unsurv"
+date: "23-05-2026"
+description: "A methodological note on unsupervised phenotyping from predicted survival curves using unsurv."
+categories: [Survival Analysis, Clustering, unsurv]
 format: html
+execute:
+  warning: false
+  message: false
 ---
 
 <ul class="menu">
@@ -11,28 +16,66 @@ format: html
 
 <hr>
 
-This note outlines a compact workflow for deriving survival-trajectory phenotypes from individualized survival predictions.
+Survival-trajectory phenotyping clusters patients by the shape of their predicted survival curves. The input is not the baseline covariate matrix $X$, but a survival probability matrix
 
-## Core idea
+$$
+S = \left[S_i(t_j)\right]_{i=1,\dots,n;\;j=1,\dots,q},
+$$
 
-Instead of clustering patients directly on baseline covariates, the analyst first estimates an individualized survival curve for each patient, then clusters the predicted curves over a clinically meaningful time horizon.
+where each row is an individualized predicted curve. A distance between two patients can be defined on the curve scale, for example an $L_2$ distance
 
-## Minimal workflow
+$$
+d(i, i') = \left\{\sum_{j=1}^{q} w_j\left[S_i(t_j) - S_{i'}(t_j)\right]^2\right\}^{1/2},
+$$
 
-1. Fit a survival model capable of producing individualized survival probabilities.
-2. Predict survival curves on a fixed time grid.
-3. Assemble the predictions into an `n × m` survival matrix.
-4. Truncate the matrix at a clinically meaningful horizon, such as 24 months.
-5. Cluster rows of the truncated survival matrix.
-6. Relabel clusters using an interpretable survival summary, such as RMST.
+with optional time weights $w_j$. Clustering on $S$ groups patients by predicted survival behavior, not by isolated covariate values. This is useful when several different covariate profiles imply similar risk trajectories.[^unsurv-cran]
 
-## Why it is useful
+The resulting clusters are descriptive phenotypes. They should be interpreted as summaries of model-predicted prognosis, not as causal treatment effects.
 
-This approach groups patients by predicted survival behavior rather than by isolated covariate patterns. The resulting phenotypes are often easier to interpret clinically when they are summarized with survival probabilities, median survival, or restricted mean survival time.
+## Example
 
-## Caution
+The `unsurv` package implements unsupervised clustering of individualized survival curves.[^unsurv-runiverse]
 
-These phenotypes are descriptive unless the full analysis is embedded in a causal design. Treatment-stratified summaries should therefore be presented as exploratory rather than causal effects.
+```{r}
+library(unsurv)
+
+set.seed(1)
+times <- seq(0, 36, by = 3)
+hazards <- rep(c(0.02, 0.05, 0.09), each = 10)
+
+S <- outer(
+  hazards,
+  times,
+  function(h, t) exp(-h * t)
+)
+
+fit <- unsurv(S, times, K = 3, seed = 1)
+fit
+```
+
+The fitted object stores the cluster assignment, medoid curves, the selected distance, and a silhouette summary.
+
+```{r}
+table(fit$clusters)
+round(fit$medoids[, c(1, 5, 9, 13)], 3)
+fit$silhouette_mean
+```
+
+The three medoid rows summarize low-, intermediate-, and high-risk survival trajectories at 0, 12, 24, and 36 months. In this simulated example, the clusters are balanced because the data were generated from three known exponential survival profiles. The mean silhouette is high, indicating strong separation between trajectory groups.
+
+## Interpretation
+
+A practical reporting template is:
+
+- Cluster 1: slow decline in predicted survival, high expected event-free time.
+- Cluster 2: intermediate decline, moderate expected event-free time.
+- Cluster 3: rapid decline, low expected event-free time.
+
+After clustering, each phenotype should be described with survival probabilities at clinically meaningful horizons, RMST summaries, and baseline covariate distributions. This keeps the phenotype anchored to survival behavior while making it interpretable for clinical collaborators.[^pam]
+
+[^unsurv-cran]: `unsurv` package documentation, CRAN: <https://CRAN.R-project.org/package=unsurv>.
+[^unsurv-runiverse]: `unsurv` R-universe documentation: <https://ielbadisy.r-universe.dev/unsurv>.
+[^pam]: Kaufman, L., & Rousseeuw, P. J. (1990). *Finding Groups in Data: An Introduction to Cluster Analysis*. Wiley.
 
 <hr>
 
