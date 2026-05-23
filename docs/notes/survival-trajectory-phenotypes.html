@@ -177,6 +177,55 @@ d(i, i') = \left\{\sum_{j=1}^{q} w_j\left[S_i(t_j) - S_{i'}(t_j)\right]^2\right\
 <pre><code>[1] 0.9744392</code></pre>
 </div>
 </div>
+<h2 id="plots" class="anchored">Plots</h2>
+<p>The medoid plot displays the representative survival trajectory for each cluster.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  fit,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"Medoid survival trajectories"</span>,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"#1B6CA8"</span>, <span class="st">"#2C7A4B"</span>, <span class="st">"#D95F02"</span>),</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">lwd =</span> <span class="dv">2</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img src="survival-trajectory-phenotypes_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>A second plot overlays all individualized survival curves, colored by the assigned phenotype. This shows the within-cluster spread around each medoid.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>cluster_cols <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"#1B6CA8"</span>, <span class="st">"#2C7A4B"</span>, <span class="st">"#D95F02"</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">matplot</span>(</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  times,</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">t</span>(S),</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"l"</span>,</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">lty =</span> <span class="dv">1</span>,</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="fu">adjustcolor</span>(cluster_cols[fit<span class="sc">$</span>clusters], <span class="at">alpha.f =</span> <span class="fl">0.45</span>),</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"Time"</span>,</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"Predicted survival"</span>,</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"Individual survival curves by phenotype"</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(times, fit<span class="sc">$</span>medoids[<span class="dv">1</span>, ], <span class="at">col =</span> cluster_cols[<span class="dv">1</span>], <span class="at">lwd =</span> <span class="dv">3</span>)</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(times, fit<span class="sc">$</span>medoids[<span class="dv">2</span>, ], <span class="at">col =</span> cluster_cols[<span class="dv">2</span>], <span class="at">lwd =</span> <span class="dv">3</span>)</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(times, fit<span class="sc">$</span>medoids[<span class="dv">3</span>, ], <span class="at">col =</span> cluster_cols[<span class="dv">3</span>], <span class="at">lwd =</span> <span class="dv">3</span>)</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>  <span class="st">"topright"</span>,</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">legend =</span> <span class="fu">paste</span>(<span class="st">"Cluster"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>),</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> cluster_cols,</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">lty =</span> <span class="dv">1</span>,</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">lwd =</span> <span class="dv">2</span>,</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">bty =</span> <span class="st">"n"</span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img src="survival-trajectory-phenotypes_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 <p>The three medoid rows summarize low-, intermediate-, and high-risk survival trajectories at 0, 12, 24, and 36 months. In this simulated example, the clusters are balanced because the data were generated from three known exponential survival profiles. The mean silhouette is high, indicating strong separation between trajectory groups.</p>
 <h2 id="interpretation" class="anchored">Interpretation</h2>
 <p>A practical reporting template is:</p>

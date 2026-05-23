@@ -61,6 +61,46 @@ round(fit$medoids[, c(1, 5, 9, 13)], 3)
 fit$silhouette_mean
 ```
 
+## Plots
+
+The medoid plot displays the representative survival trajectory for each cluster.
+
+```{r}
+plot(
+  fit,
+  main = "Medoid survival trajectories",
+  col = c("#1B6CA8", "#2C7A4B", "#D95F02"),
+  lwd = 2
+)
+```
+
+A second plot overlays all individualized survival curves, colored by the assigned phenotype. This shows the within-cluster spread around each medoid.
+
+```{r}
+cluster_cols <- c("#1B6CA8", "#2C7A4B", "#D95F02")
+matplot(
+  times,
+  t(S),
+  type = "l",
+  lty = 1,
+  col = adjustcolor(cluster_cols[fit$clusters], alpha.f = 0.45),
+  xlab = "Time",
+  ylab = "Predicted survival",
+  main = "Individual survival curves by phenotype"
+)
+lines(times, fit$medoids[1, ], col = cluster_cols[1], lwd = 3)
+lines(times, fit$medoids[2, ], col = cluster_cols[2], lwd = 3)
+lines(times, fit$medoids[3, ], col = cluster_cols[3], lwd = 3)
+legend(
+  "topright",
+  legend = paste("Cluster", 1:3),
+  col = cluster_cols,
+  lty = 1,
+  lwd = 2,
+  bty = "n"
+)
+```
+
 The three medoid rows summarize low-, intermediate-, and high-risk survival trajectories at 0, 12, 24, and 36 months. In this simulated example, the clusters are balanced because the data were generated from three known exponential survival profiles. The mean silhouette is high, indicating strong separation between trajectory groups.
 
 ## Interpretation

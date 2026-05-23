@@ -85,11 +85,39 @@ treatment_rmst$at_tau
 The dynamic RMST values increase with the horizon because they accumulate survival probability over time. A group contrast is computed from the two survival matrices:
 
 ```{r}
-delta <- rmst_delta(treatment_mat, control_mat, tau = c(6, 12, 18, 24))
+delta <- rmst_delta(control_mat, treatment_mat, tau = c(6, 12, 18, 24))
 delta$at_tau
 ```
 
 In this example, the treatment survival curves stay above the control curves. The absolute RMST gain grows as the horizon increases: the estimated difference is about 0.25 months at 6 months and about 2.03 months at 24 months. The interpretation is direct: by 24 months, the treatment profile has about two additional months of expected event-free time within the restricted follow-up window.
+
+## Figures
+
+The dynamic RMST curves show how expected event-free time accumulates over the follow-up horizon.
+
+```{r}
+plot_rmst_two_arms(
+  control_mat,
+  treatment_mat,
+  labels = c("Control", "Treatment"),
+  title = "Dynamic RMST by group",
+  x_unit = "months",
+  y_unit = "months"
+)
+```
+
+The delta curve makes the horizon-dependent treatment-control contrast explicit.
+
+```{r}
+delta_curve <- rmst_delta(control_mat, treatment_mat)
+plot_delta_curve(
+  delta_curve$time,
+  delta_curve$delta,
+  title = "RMST difference: treatment minus control",
+  x_unit = "months",
+  y_unit = "months"
+)
+```
 
 ## Practical Notes
 
