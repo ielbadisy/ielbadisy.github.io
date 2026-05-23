@@ -6,9 +6,13 @@ format: html
 <ul class="menu">
   <li><a href="#about">About</a></li>
   <li><a href="#research">Research</a></li>
+  <li><a href="#experience">Experience</a></li>
+  <li><a href="#education">Education</a></li>
+  <li><a href="#projects">Projects</a></li>
   <li><a href="#software">Software</a></li>
   <li><a href="#publications">Publications</a></li>
   <li><a href="#teaching">Teaching</a></li>
+  <li><a href="#skills">Skills</a></li>
   <li><a href="#notes">Notes</a></li>
   <li><a href="#contact">Contact</a></li>
   <li><a href="cv/cv.pdf">CV</a></li>
@@ -42,6 +46,48 @@ Research Engineer in Biostatistics and Machine Learning, PhD, working at the int
 - **Interpretable ML**: Explanation workflows aligned with clinical reasoning, including SHAP-style attributions, PDP/ICE/ALE, and stability diagnostics.
 - **Agentic data science**: Increasingly focused on the agentic data science paradigm — building systems where autonomous agents orchestrate analytical workflows for health research.
 
+
+## Experience {#experience}
+
+| Role | Institution | Period |
+|---|---|---|
+| Head of AI and Data Science Service | Mohammed VI Center for Research and Innovation, Rabat | Nov. 2021 - present |
+| Data Science Education Officer | The GRAPH Network, Switzerland / remote | Sep. 2023 - Dec. 2023 |
+| Research Engineer in Applied Statistics | Institut Mines-Télécom, IMT Atlantique, Brest | Sep. 2019 - Sep. 2021 |
+| Biostatistician | INSERM, Clermont-Ferrand | Jan. 2019 - Jun. 2019 |
+| Health Economist Intern | Université de Sherbrooke, Quebec | Feb. 2017 - Sep. 2017 |
+
+: {tbl-colwidths="[40,40,20]"}
+
+## Education {#education}
+
+| Degree | Institution | Period |
+|---|---|---|
+| PhD in Biostatistics | Aix-Marseille University, SESSTIM | 2021 - 2025 |
+| Master 2 in Quantitative Methods for Health Research | Aix-Marseille University, SESSTIM | 2018 - 2019 |
+| Master 1 in Applied Mathematics and Statistics | Université Clermont Auvergne | 2017 - 2018 |
+| Master 2 in Health Economics | Université Clermont Auvergne, CERDI | 2017 |
+
+: {tbl-colwidths="[42,40,18]"}
+
+**PhD thesis:** Missing Data and Machine Learning Methods for Survival Analysis.  
+**Supervisor:** Pr Roch Giorgi.
+
+## Projects {#projects}
+
+| Project | Focus | Period |
+|---|---|---|
+| **Interpretable survival machine learning** | Modular R tools for survival analysis integrating interpretable machine learning methods | Ongoing |
+| **ML4Health** | Machine learning for health training program and applied course material | 2026 |
+| **AMRPRED** | Antimicrobial resistance prediction using clinical and microbiological data | 2026 |
+| **MELPHY** | Data-driven phenotyping of melanoma patients treated with immunotherapy and systemic therapies | 2025 - 2026 |
+| **AIDEM** | Dementia prognosis and risk stratification using curated clinical data | 2026 - 2027 |
+| **CLAVUS** | Predicting clinical resolution of variants of uncertain significance using curated genomic data | 2026 - 2027 |
+| **SURVDNN** | Deep neural network framework for survival analysis | 2025 - 2026 |
+| **OMOUMATI / pregnancy complications** | AI-based clinical decision support and risk prediction for pregnancy complications | 2024 - 2026 |
+| **Otosclerosis prediction** | Deep learning web application for otosclerosis prediction with Cheikh Khalifa Hospital, Otorhinolaryngology Service | 2023 |
+
+: {tbl-colwidths="[28,56,16]"}
 
 ## Software {#software}
 
@@ -91,6 +137,15 @@ All packages on [CRAN](https://CRAN.R-project.org/search/?query=el+badisy) · al
 : {tbl-colwidths="[45,40,15]"}
 
 *Outside working hours:* I organize **Methods in Health Data Science with R**, an independent online course pathway covering applied biostatistics, survival analysis, machine learning, and meta-analysis with R. [Course website →](https://mhdsr.com)
+
+
+## Skills {#skills}
+
+**Methods:** Biostatistics · epidemiology · survival analysis · missing data · meta-analysis · interpretable machine learning · computational biostatistics.
+
+**Tools:** R package development · Python · Quarto/LaTeX · Git/GitHub · Slurm/HPC.
+
+**Languages:** Arabic (native) · French (fluent) · English (fluent).
 
 ## Notes {#notes}
 
