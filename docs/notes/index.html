@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Imad EL BADISY</title>
+<title>Notes – Imad EL BADISY</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,223 +23,81 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-html/tabby.min.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-html-eb71d4f0124c4d5ff63526840ab633f6.min.css" rel="stylesheet" append-hash="true" data-mode="light">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-html-eb71d4f0124c4d5ff63526840ab633f6.min.css" rel="stylesheet" append-hash="true" data-mode="light">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <style>html{ scroll-behavior: smooth; }</style>
 
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body>
 
 
 <header id="title-block-header">
-<h1 class="title">Imad EL BADISY</h1>
+<h1 class="title">Notes</h1>
 
 </header>
 
 
 <ul class="menu">
 <li>
-<a href="#about">About</a>
+<a href="../index.html">Home</a>
 </li>
 <li>
-<a href="#research">Research</a>
+<a href="../index.html#about">About</a>
 </li>
 <li>
-<a href="#software">Software</a>
+<a href="../index.html#research">Research</a>
 </li>
 <li>
-<a href="#publications">Publications</a>
+<a href="../index.html#software">Software</a>
 </li>
 <li>
-<a href="#teaching">Teaching</a>
-</li>
-<li>
-<a href="#notes">Notes</a>
-</li>
-<li>
-<a href="#contact">Contact</a>
-</li>
-<li>
-<a href="cv/cv.pdf">CV</a>
+<a href="../index.html#contact">Contact</a>
 </li>
 </ul>
 <hr>
-<div class="identity">
-<img class="profile-photo" src="profile.png" alt="Portrait of Imad EL BADISY">
-<p class="role">
-Research Engineer in Biostatistics and Machine Learning, PhD
+<p class="subtitle">
+Methodological notes connected to my R packages, with equations, code examples, rendered results, and references.
 </p>
-<p class="affiliation">
-Mohammed VI Center for Research and Innovation · AI &amp; Data Science
-</p>
-<p class="links">
-<a href="mailto:elbadisyimad@gmail.com">Email</a> · <a href="https://github.com/ielbadisy">GitHub</a> · <a href="https://ma.linkedin.com/in/imad-el-badisy-360018281">LinkedIn</a> · <a href="cv/cv.pdf">CV</a>
-</p>
-</div>
-<h2 id="about" class="anchored">About</h2>
-<p>Research Engineer in Biostatistics and Machine Learning, PhD, working at the interface of computational biostatistics and machine learning. Moroccan and French national, husband and father. I hold a PhD from Aix-Marseille University (SESSTIM laboratory) on missing data and machine learning imputation methods for survival analysis. My work focuses on building methodological tools for health data science supporting biomedical research projects. I develop open-source R packages for survival analysis, missing data, and interpretable machine learning, and contribute as a consultant and trainer in biostatistics and health data science.</p>
-<h2 id="research" class="anchored">Research</h2>
-<ul>
-<li><strong>Survival machine learning</strong>: Individualized survival prediction | neural survival models | RMST-based summaries, and trajectory phenotyping.</li>
-<li><strong>Missing data</strong>: Evaluation of imputation strategies</li>
-<li><strong>Interpretable ML</strong>: Explanation workflows aligned with clinical reasoning, including SHAP-style attributions, PDP/ICE/ALE, and stability diagnostics.</li>
-<li><strong>Agentic data science</strong>: Increasingly focused on the agentic data science paradigm — building systems where autonomous agents orchestrate analytical workflows for health research.</li>
-</ul>
-<h2 id="software" class="anchored">Software</h2>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th>Package</th>
-<th>Purpose</th>
-<th>Link</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>survalis</code></td>
-<td>Interpretable survival machine learning framework</td>
-<td><a href="https://CRAN.R-project.org/package=survalis">CRAN</a></td>
-</tr>
-<tr class="even">
-<td><code>survdnn</code></td>
-<td>Deep neural networks for survival analysis (R torch)</td>
-<td><a href="https://CRAN.R-project.org/package=survdnn">CRAN</a></td>
-</tr>
-<tr class="odd">
-<td><code>funcml</code></td>
-<td>Functional machine learning workflows</td>
-<td><a href="https://CRAN.R-project.org/package=funcml">CRAN</a></td>
-</tr>
-<tr class="even">
-<td><code>unsurv</code></td>
-<td>Unsupervised clustering of individualized survival curves</td>
-<td><a href="https://CRAN.R-project.org/package=unsurv">CRAN</a></td>
-</tr>
-<tr class="odd">
-<td><code>tvrmst</code></td>
-<td>Time-varying RMST from survival matrices</td>
-<td><a href="https://CRAN.R-project.org/package=tvrmst">CRAN</a></td>
-</tr>
-<tr class="even">
-<td><code>mcstatsim</code></td>
-<td>Monte Carlo statistical simulation (functional approach)</td>
-<td><a href="https://CRAN.R-project.org/package=mcstatsim">CRAN</a></td>
-</tr>
-<tr class="odd">
-<td><code>missCforest</code></td>
-<td>Ensemble conditional trees for missing data imputation</td>
-<td><a href="https://CRAN.R-project.org/package=missCforest">CRAN</a></td>
-</tr>
-</tbody>
-</table>
-<p>All packages on <a href="https://CRAN.R-project.org/search/?query=el+badisy">CRAN</a> · also available via <a href="https://ielbadisy.r-universe.dev">R-universe</a></p>
-<h2 id="publications" class="anchored">Selected Publications</h2>
-<ul>
-<li><p><strong>El Badisy I.</strong>, Assarag B., &amp; Belrhiti Z. (2026). Interpretable clinical decision support systems in high-risk pregnancy: A scoping review of models, methods, and implementation. <em>BMC Pregnancy and Childbirth</em>.</p></li>
-<li><p>Kadi C., Ahmadi N., Houdou A., <strong>El Badisy I.</strong>, et al.&nbsp;(2025). Differentiating latent tuberculosis from active tuberculosis through activation phenotypes and chemokine markers HLA-DR, CD38, MCP-1, and RANTES: A systematic review and meta-analysis. <em>Biomarker Insights</em>, 20, 11772719241312776.</p></li>
-<li><p><strong>El Badisy I.</strong>, Graffeo N., Khalis M., &amp; Giorgi R. (2024). Multi-metric comparison of machine learning imputation methods with application to breast cancer survival. <em>BMC Medical Research Methodology</em>, 24(1), 191.</p></li>
-<li><p><strong>El Badisy I.</strong>, BenBrahim Z., Khalis M., et al.&nbsp;(2024). Risk factors affecting patient survival with colorectal cancer in Morocco: Survival analysis using an interpretable machine learning approach. <em>Scientific Reports</em>, 14(1), 3556.</p></li>
-<li><p>Houdou A., <strong>El Badisy I.</strong>, Khomsi K., et al.&nbsp;(2024). Interpretable machine learning approaches for forecasting and predicting air pollution: A systematic review. <em>Aerosol and Air Quality Research</em>, 24(1), 230151.</p></li>
-<li><p>Zbiri S., Belghiti Alaoui A., <strong>El Badisy I.</strong>, et al.&nbsp;(2024). Private hospitals in low- and middle-income countries: A typology using the cluster method, the case of Morocco. <em>BMC Health Services Research</em>, 24(1), 1231.</p></li>
-<li><p>Blom I.M., Eissa M., Mattijsen J.C., <strong>El Badisy I.</strong>, et al.&nbsp;(2023). Effectiveness of greenhouse gas mitigation interventions for health-care systems: A systematic review. <em>Bulletin of the World Health Organization</em>, 102(3), 159.</p></li>
-<li><p>Khalis M., Toure A.B., <strong>El Badisy I.</strong>, et al.&nbsp;(2022). Relationship between meteorological and air quality parameters and COVID-19 in the Casablanca region, Morocco. <em>International Journal of Environmental Research and Public Health</em>, 19(9), 4989.</p></li>
-</ul>
-<p><strong>Selected talks:</strong></p>
-<ul>
-<li><strong>El Badisy I.</strong> et al.&nbsp;(2023). Comparison of missing data imputation methods in Cox regression with time-varying and non-linear covariate effects. <em>ISCB 2023</em>, Rome.</li>
-<li><strong>El Badisy I.</strong> et al.&nbsp;(2023). Missing data imputation using a meta-algorithm, metaCART: A simulation study under MCAR. <em>EpiClin 2023</em>, Nancy.</li>
-</ul>
-<h2 id="teaching" class="anchored">Teaching</h2>
-<table class="caption-top">
-<colgroup>
-<col style="width: 45%">
-<col style="width: 40%">
-<col style="width: 15%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Course</th>
-<th>Institution</th>
-<th>Period</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>AI for Public Health (ML, NLP, applied AI)</td>
-<td>Aix-Marseille University, SESSTIM</td>
-<td>2022 – present</td>
-</tr>
-<tr class="even">
-<td>Introduction to Biostatistics</td>
-<td>University Mohammed VI of Health Sciences (UM6SS)</td>
-<td>2021 – present</td>
-</tr>
-<tr class="odd">
-<td>Quantitative Epidemiology and Machine Learning</td>
-<td>Institut Mines-Télécom, IMT Atlantique</td>
-<td>2020 – present</td>
-</tr>
-</tbody>
-</table>
-<p><em>Outside working hours:</em> I organize <strong>Methods in Health Data Science with R</strong>, an independent online course pathway covering applied biostatistics, survival analysis, machine learning, and meta-analysis with R. <a href="https://mhdsr.com">Course website →</a></p>
 <h2 id="notes" class="anchored">Notes</h2>
 <table class="caption-top">
 <thead>
 <tr class="header">
 <th>Date</th>
 <th>Note</th>
-<th>Topic</th>
+<th>Tags</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>2026</td>
-<td><a href="./notes/dynamic-rmst.html">Dynamic RMST as an interpretable summary for predicted survival curves</a></td>
-<td>RMST</td>
+<td>23-05-2026</td>
+<td><a href="../notes/dynamic-rmst.html">Dynamic RMST from predicted survival curves with <code>tvrmst</code></a></td>
+<td><span class="tag">Survival Analysis</span> <span class="tag">RMST</span> <span class="tag">tvrmst</span></td>
 </tr>
 <tr class="even">
-<td>2026</td>
-<td><a href="./notes/functional-ml-r.html">Functional machine learning workflows in R</a></td>
-<td>R / ML</td>
-</tr>
-</tbody>
-</table>
-<p><a href="./notes/index.html">View all notes →</a></p>
-<h2 id="contact" class="anchored">Contact</h2>
-<p>For collaboration, methodological support, or consulting requests, please reach out by email.</p>
-<table class="caption-top">
-<colgroup>
-<col style="width: 20%">
-<col style="width: 80%">
-</colgroup>
-<tbody>
-<tr class="odd">
-<td>Email</td>
-<td><a href="mailto:elbadisyimad@gmail.com">elbadisyimad@gmail.com</a></td>
-</tr>
-<tr class="even">
-<td>GitHub</td>
-<td><a href="https://github.com/ielbadisy">github.com/ielbadisy</a></td>
+<td>23-05-2026</td>
+<td><a href="../notes/functional-ml-r.html">Functional machine learning workflows in R with <code>funcml</code></a></td>
+<td><span class="tag">Machine Learning</span> <span class="tag">Reproducibility</span> <span class="tag">funcml</span></td>
 </tr>
 <tr class="odd">
-<td>LinkedIn</td>
-<td><a href="https://ma.linkedin.com/in/imad-el-badisy-360018281">imad-el-badisy-360018281</a></td>
+<td>23-05-2026</td>
+<td><a href="../notes/survival-trajectory-phenotypes.html">Survival-trajectory phenotypes with <code>unsurv</code></a></td>
+<td><span class="tag">Survival Analysis</span> <span class="tag">Clustering</span> <span class="tag">unsurv</span></td>
 </tr>
 </tbody>
 </table>
 <hr>
 <footer>
-© 2026 Imad EL BADISY · Built with <a href="https://quarto.org">Quarto</a>
+<a href="../index.html">Back to homepage</a>
 </footer>
 
 
@@ -651,5 +509,5 @@ Mohammed VI Center for Research and Innovation · AI &amp; Data Science
 
 
 
-<script src="site_libs/quarto-html/zenscroll-min.js"></script>
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>
