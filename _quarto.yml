@@ -6,6 +6,11 @@ project:
     - MHDSR-combined-syllabus.pdf
   render:
     - index.qmd
+    - cv/cv.qmd
+    - notes/index.qmd
+    - notes/survival-trajectory-phenotypes.qmd
+    - notes/dynamic-rmst.qmd
+    - notes/functional-ml-r.qmd
 
 website:
   title: "Imad EL BADISY"
