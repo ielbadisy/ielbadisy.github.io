@@ -1,0 +1,23 @@
+[
+  {
+    "objectID": "notes/functional-ml-r.html#footnotes",
+    "href": "notes/functional-ml-r.html#footnotes",
+    "title": "Functional machine learning workflows in R with funcml",
+    "section": "",
+    "text": "funcml package documentation, CRAN: https://CRAN.R-project.org/package=funcml.↩︎\nfuncml R-universe builds and documentation: https://ielbadisy.r-universe.dev/funcml.↩︎\nHastie, T., Tibshirani, R., & Friedman, J. (2009). The Elements of Statistical Learning. Springer.↩︎"
+  },
+  {
+    "objectID": "notes/survival-trajectory-phenotypes.html#footnotes",
+    "href": "notes/survival-trajectory-phenotypes.html#footnotes",
+    "title": "Survival-trajectory phenotypes from individualized survival curves with unsurv",
+    "section": "",
+    "text": "unsurv package documentation, CRAN: https://CRAN.R-project.org/package=unsurv.↩︎\nunsurv R-universe documentation: https://ielbadisy.r-universe.dev/unsurv.↩︎\nKaufman, L., & Rousseeuw, P. J. (1990). Finding Groups in Data: An Introduction to Cluster Analysis. Wiley.↩︎"
+  },
+  {
+    "objectID": "notes/dynamic-rmst.html#footnotes",
+    "href": "notes/dynamic-rmst.html#footnotes",
+    "title": "Dynamic RMST from predicted survival curves with tvrmst",
+    "section": "",
+    "text": "Royston, P., & Parmar, M. K. B. (2013). Restricted mean survival time: an alternative to the hazard ratio for the design and analysis of randomized trials with a time-to-event outcome. BMC Medical Research Methodology, 13, 152.↩︎\ntvrmst package documentation, CRAN: https://CRAN.R-project.org/package=tvrmst.↩︎"
+  }
+]

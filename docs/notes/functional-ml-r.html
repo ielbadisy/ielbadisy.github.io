@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="dcterms.date" content="2027-11-05">
+<meta name="description" content="A methodological note on explicit, auditable machine learning workflows for health data science using funcml.">
 
-<title>Imad EL BADISY</title>
+<title>Functional machine learning workflows in R with funcml – Imad EL BADISY</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,228 +22,226 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-html/tabby.min.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-html-eb71d4f0124c4d5ff63526840ab633f6.min.css" rel="stylesheet" append-hash="true" data-mode="light">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-html-eb71d4f0124c4d5ff63526840ab633f6.min.css" rel="stylesheet" append-hash="true" data-mode="light">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <style>html{ scroll-behavior: smooth; }</style>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<link rel="stylesheet" href="styles.css">
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body>
 
 
 <header id="title-block-header">
-<h1 class="title">Imad EL BADISY</h1>
+<h1 class="title">Functional machine learning workflows in R with funcml</h1>
 
+<p class="date">2027-11-05</p>
 </header>
 
 
 <ul class="menu">
 <li>
-<a href="#about">About</a>
+<a href="../index.html">Home</a>
 </li>
 <li>
-<a href="#research">Research</a>
-</li>
-<li>
-<a href="#software">Software</a>
-</li>
-<li>
-<a href="#publications">Publications</a>
-</li>
-<li>
-<a href="#teaching">Teaching</a>
-</li>
-<li>
-<a href="#notes">Notes</a>
-</li>
-<li>
-<a href="#contact">Contact</a>
-</li>
-<li>
-<a href="cv/cv.pdf">CV</a>
+<a href="../notes/index.html">Notes</a>
 </li>
 </ul>
 <hr>
-<div class="identity">
-<img class="profile-photo" src="profile.png" alt="Portrait of Imad EL BADISY">
-<p class="role">
-Research Engineer in Biostatistics and Machine Learning, PhD
-</p>
-<p class="affiliation">
-Mohammed VI Center for Research and Innovation · AI &amp; Data Science
-</p>
-<p class="links">
-<a href="mailto:elbadisyimad@gmail.com">Email</a> · <a href="https://github.com/ielbadisy">GitHub</a> · <a href="https://ma.linkedin.com/in/imad-el-badisy-360018281">LinkedIn</a> · <a href="cv/cv.pdf">CV</a>
-</p>
+<p>A functional machine learning workflow treats the analysis as a sequence of explicit transformations. Instead of hiding modeling decisions inside one opaque object, the analyst moves through stable verbs such as fitting, resampling, evaluating, comparing, interpreting, and estimating effects.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>A compact supervised learning workflow can be written as</p>
+<p><span class="math display">\[
+\mathcal{D} = \{(x_i, y_i)\}_{i=1}^{n}, \qquad f_\theta: \mathcal{X} \rightarrow \mathcal{Y},
+\]</span></p>
+<p>where <span class="math inline">\(f_\theta\)</span> is fitted on training data and assessed on validation folds. For a metric <span class="math inline">\(m\)</span>, <span class="math inline">\(K\)</span>-fold cross-validation estimates performance as</p>
+<p><span class="math display">\[
+\widehat{M}_{CV} = \frac{1}{K}\sum_{k=1}^{K} m\left(y_{V_k}, \widehat{f}^{(-k)}(x_{V_k})\right),
+\]</span></p>
+<p>where <span class="math inline">\(\widehat{f}^{(-k)}\)</span> is trained without validation fold <span class="math inline">\(V_k\)</span>. This formula is simple, but it is where many reproducibility errors enter: fold definitions, preprocessing, outcome encoding, metrics, and seeds must be visible.</p>
+<h2 id="example" class="anchored">Example</h2>
+<p>The <code>funcml</code> package exposes these workflow steps as explicit functions.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<h2 id="quick-example" class="anchored">Quick Example</h2>
+<p>The shortest useful workflow is to fit a learner and obtain predictions on new patients.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(funcml)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> pimadiabetes</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>diabetes <span class="ot">&lt;-</span> <span class="fu">factor</span>(data<span class="sc">$</span>diabetes)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>train <span class="ot">&lt;-</span> <span class="fu">subset</span>(data, split <span class="sc">==</span> <span class="st">"train"</span>)[<span class="dv">1</span><span class="sc">:</span><span class="dv">80</span>, ]</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> <span class="fu">subset</span>(data, split <span class="sc">==</span> <span class="st">"test"</span>)[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, ]</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>glm_fit <span class="ot">&lt;-</span> <span class="fu">fit</span>(</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  diabetes <span class="sc">~</span> glu <span class="sc">+</span> bmi <span class="sc">+</span> age,</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> train,</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> <span class="st">"glm"</span>,</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">seed =</span> <span class="dv">1</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>glm_fit</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;funcml_fit&gt; classification model: glm
+Formula: diabetes ~ glu + bmi + age
+Features: 3 | Obs: 80</code></pre>
 </div>
-<h2 id="about" class="anchored">About</h2>
-<p>Research Engineer in Biostatistics and Machine Learning, PhD, working at the interface of computational biostatistics and machine learning. Moroccan and French national, husband and father. I hold a PhD from Aix-Marseille University (SESSTIM laboratory) on missing data and machine learning imputation methods for survival analysis. My work focuses on building methodological tools for health data science supporting biomedical research projects. I develop open-source R packages for survival analysis, missing data, and interpretable machine learning, and contribute as a consultant and trainer in biostatistics and health data science.</p>
-<h2 id="research" class="anchored">Research</h2>
-<ul>
-<li><strong>Survival machine learning</strong>: Individualized survival prediction | neural survival models | RMST-based summaries, and trajectory phenotyping.</li>
-<li><strong>Missing data</strong>: Evaluation of imputation strategies</li>
-<li><strong>Interpretable ML</strong>: Explanation workflows aligned with clinical reasoning, including SHAP-style attributions, PDP/ICE/ALE, and stability diagnostics.</li>
-<li><strong>Agentic data science</strong>: Increasingly focused on the agentic data science paradigm — building systems where autonomous agents orchestrate analytical workflows for health research.</li>
-</ul>
-<h2 id="software" class="anchored">Software</h2>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th>Package</th>
-<th>Purpose</th>
-<th>Link</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>survalis</code></td>
-<td>Interpretable survival machine learning framework</td>
-<td><a href="https://CRAN.R-project.org/package=survalis">CRAN</a></td>
-</tr>
-<tr class="even">
-<td><code>survdnn</code></td>
-<td>Deep neural networks for survival analysis (R torch)</td>
-<td><a href="https://CRAN.R-project.org/package=survdnn">CRAN</a></td>
-</tr>
-<tr class="odd">
-<td><code>funcml</code></td>
-<td>Functional machine learning workflows</td>
-<td><a href="https://CRAN.R-project.org/package=funcml">CRAN</a></td>
-</tr>
-<tr class="even">
-<td><code>unsurv</code></td>
-<td>Unsupervised clustering of individualized survival curves</td>
-<td><a href="https://CRAN.R-project.org/package=unsurv">CRAN</a></td>
-</tr>
-<tr class="odd">
-<td><code>tvrmst</code></td>
-<td>Time-varying RMST from survival matrices</td>
-<td><a href="https://CRAN.R-project.org/package=tvrmst">CRAN</a></td>
-</tr>
-<tr class="even">
-<td><code>mcstatsim</code></td>
-<td>Monte Carlo statistical simulation (functional approach)</td>
-<td><a href="https://CRAN.R-project.org/package=mcstatsim">CRAN</a></td>
-</tr>
-<tr class="odd">
-<td><code>missCforest</code></td>
-<td>Ensemble conditional trees for missing data imputation</td>
-<td><a href="https://CRAN.R-project.org/package=missCforest">CRAN</a></td>
-</tr>
-</tbody>
-</table>
-<p>All packages on <a href="https://CRAN.R-project.org/search/?query=el+badisy">CRAN</a> · also available via <a href="https://ielbadisy.r-universe.dev">R-universe</a></p>
-<h2 id="publications" class="anchored">Selected Publications</h2>
-<ul>
-<li><p><strong>El Badisy I.</strong>, Assarag B., &amp; Belrhiti Z. (2026). Interpretable clinical decision support systems in high-risk pregnancy: A scoping review of models, methods, and implementation. <em>BMC Pregnancy and Childbirth</em>.</p></li>
-<li><p>Kadi C., Ahmadi N., Houdou A., <strong>El Badisy I.</strong>, et al.&nbsp;(2025). Differentiating latent tuberculosis from active tuberculosis through activation phenotypes and chemokine markers HLA-DR, CD38, MCP-1, and RANTES: A systematic review and meta-analysis. <em>Biomarker Insights</em>, 20, 11772719241312776.</p></li>
-<li><p><strong>El Badisy I.</strong>, Graffeo N., Khalis M., &amp; Giorgi R. (2024). Multi-metric comparison of machine learning imputation methods with application to breast cancer survival. <em>BMC Medical Research Methodology</em>, 24(1), 191.</p></li>
-<li><p><strong>El Badisy I.</strong>, BenBrahim Z., Khalis M., et al.&nbsp;(2024). Risk factors affecting patient survival with colorectal cancer in Morocco: Survival analysis using an interpretable machine learning approach. <em>Scientific Reports</em>, 14(1), 3556.</p></li>
-<li><p>Houdou A., <strong>El Badisy I.</strong>, Khomsi K., et al.&nbsp;(2024). Interpretable machine learning approaches for forecasting and predicting air pollution: A systematic review. <em>Aerosol and Air Quality Research</em>, 24(1), 230151.</p></li>
-<li><p>Zbiri S., Belghiti Alaoui A., <strong>El Badisy I.</strong>, et al.&nbsp;(2024). Private hospitals in low- and middle-income countries: A typology using the cluster method, the case of Morocco. <em>BMC Health Services Research</em>, 24(1), 1231.</p></li>
-<li><p>Blom I.M., Eissa M., Mattijsen J.C., <strong>El Badisy I.</strong>, et al.&nbsp;(2023). Effectiveness of greenhouse gas mitigation interventions for health-care systems: A systematic review. <em>Bulletin of the World Health Organization</em>, 102(3), 159.</p></li>
-<li><p>Khalis M., Toure A.B., <strong>El Badisy I.</strong>, et al.&nbsp;(2022). Relationship between meteorological and air quality parameters and COVID-19 in the Casablanca region, Morocco. <em>International Journal of Environmental Research and Public Health</em>, 19(9), 4989.</p></li>
-</ul>
-<p><strong>Selected talks:</strong></p>
-<ul>
-<li><strong>El Badisy I.</strong> et al.&nbsp;(2023). Comparison of missing data imputation methods in Cox regression with time-varying and non-linear covariate effects. <em>ISCB 2023</em>, Rome.</li>
-<li><strong>El Badisy I.</strong> et al.&nbsp;(2023). Missing data imputation using a meta-algorithm, metaCART: A simulation study under MCAR. <em>EpiClin 2023</em>, Nancy.</li>
-</ul>
-<h2 id="teaching" class="anchored">Teaching</h2>
-<table class="caption-top">
-<colgroup>
-<col style="width: 45%">
-<col style="width: 40%">
-<col style="width: 15%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Course</th>
-<th>Institution</th>
-<th>Period</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>AI for Public Health (ML, NLP, applied AI)</td>
-<td>Aix-Marseille University, SESSTIM</td>
-<td>2022 – present</td>
-</tr>
-<tr class="even">
-<td>Introduction to Biostatistics</td>
-<td>University Mohammed VI of Health Sciences (UM6SS)</td>
-<td>2021 – present</td>
-</tr>
-<tr class="odd">
-<td>Quantitative Epidemiology and Machine Learning</td>
-<td>Institut Mines-Télécom, IMT Atlantique</td>
-<td>2020 – present</td>
-</tr>
-</tbody>
-</table>
-<p><em>Outside working hours:</em> I organize <strong>Methods in Health Data Science with R</strong>, an independent online course pathway covering applied biostatistics, survival analysis, machine learning, and meta-analysis with R. <a href="https://mhdsr.com">Course website →</a></p>
-<h2 id="notes" class="anchored">Notes</h2>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th>Date</th>
-<th>Note</th>
-<th>Topic</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>2026</td>
-<td><a href="./notes/dynamic-rmst.html">Dynamic RMST as an interpretable summary for predicted survival curves</a></td>
-<td>RMST</td>
-</tr>
-<tr class="even">
-<td>2026</td>
-<td><a href="./notes/functional-ml-r.html">Functional machine learning workflows in R</a></td>
-<td>R / ML</td>
-</tr>
-</tbody>
-</table>
-<p><a href="./notes/index.html">View all notes →</a></p>
-<h2 id="contact" class="anchored">Contact</h2>
-<p>For collaboration, methodological support, or consulting requests, please reach out by email.</p>
-<table class="caption-top">
-<colgroup>
-<col style="width: 20%">
-<col style="width: 80%">
-</colgroup>
-<tbody>
-<tr class="odd">
-<td>Email</td>
-<td><a href="mailto:elbadisyimad@gmail.com">elbadisyimad@gmail.com</a></td>
-</tr>
-<tr class="even">
-<td>GitHub</td>
-<td><a href="https://github.com/ielbadisy">github.com/ielbadisy</a></td>
-</tr>
-<tr class="odd">
-<td>LinkedIn</td>
-<td><a href="https://ma.linkedin.com/in/imad-el-badisy-360018281">imad-el-badisy-360018281</a></td>
-</tr>
-</tbody>
-</table>
+</div>
+<p>The fitted object carries a stable prediction method.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(glm_fit<span class="sc">$</span><span class="fu">predict</span>(test, <span class="at">type =</span> <span class="st">"prob"</span>), <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       No   Yes
+201 0.288 0.712
+202 0.947 0.053
+203 0.956 0.044
+204 0.950 0.050
+205 0.078 0.922</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>glm_fit<span class="sc">$</span><span class="fu">predict</span>(test, <span class="at">type =</span> <span class="st">"class"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] Yes No  No  No  Yes
+Levels: No Yes</code></pre>
+</div>
+</div>
+<h2 id="cross-validated-example" class="anchored">Cross-Validated Example</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(funcml)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>train <span class="ot">&lt;-</span> <span class="fu">subset</span>(data, split <span class="sc">==</span> <span class="st">"train"</span>)[<span class="dv">1</span><span class="sc">:</span><span class="dv">120</span>, ]</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">list_metrics</span>(<span class="at">columns =</span> <span class="fu">c</span>(<span class="st">"metric"</span>, <span class="st">"direction"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">8</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     metric direction
+1      rmse  minimize
+2       mae  minimize
+3       mse  minimize
+4     medae  minimize
+5      mape  minimize
+6       rsq  maximize
+7  accuracy  maximize
+8 precision  maximize</code></pre>
+</div>
+</div>
+<p>We can evaluate a logistic regression classifier using three-fold cross-validation and two metrics: accuracy and AUC.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">evaluate</span>(</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  diabetes <span class="sc">~</span> glu <span class="sc">+</span> bmi <span class="sc">+</span> age <span class="sc">+</span> bp,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> train,</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> <span class="st">"glm"</span>,</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">resampling =</span> <span class="fu">cv</span>(<span class="dv">3</span>),</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">metrics =</span> <span class="fu">c</span>(<span class="st">"accuracy"</span>, <span class="st">"auc"</span>),</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">seed =</span> <span class="dv">1</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>res</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;funcml_eval&gt; model: glm | task: classification
+    metric      mean         sd n  std_error conf_level  conf_low conf_high
+1 accuracy 0.7002918 0.01751277 3 0.01011100       0.95 0.6567877 0.7437960
+2      auc 0.7885502 0.04031014 3 0.02327307       0.95 0.6884143 0.8886862</code></pre>
+</div>
+</div>
+<p>The output reports the mean, standard deviation, standard error, and confidence interval across folds. In this run, the glucose/BMI/age/blood-pressure model reaches an AUC around 0.79 under three-fold cross-validation, while accuracy is around 0.70. For a health-data workflow, the point is not only the numeric result: it is that the resampling plan and metrics are explicit in the code.</p>
+<h2 id="methodological-use" class="anchored">Methodological Use</h2>
+<p>This pattern is useful when the analysis needs to be audited:</p>
+<ol type="1">
+<li>The formula states the outcome and candidate predictors.</li>
+<li>The model name states the learner.</li>
+<li>The resampling object states how validation is performed.</li>
+<li>The metric vector states how performance is judged.</li>
+<li>The seed makes the split reproducible.</li>
+</ol>
+<p>The same structure can be extended to compare multiple learners, tune hyperparameters, or estimate treatment effects. The important methodological constraint is that preprocessing should be declared before fitting and applied inside the resampling workflow when it is learned from data, otherwise information can leak from validation folds into training folds.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
 <hr>
 <footer>
-© 2026 Imad EL BADISY · Built with <a href="https://quarto.org">Quarto</a>
+<a href="../notes/index.html">Back to notes</a>
 </footer>
 
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p><code>funcml</code> package documentation, CRAN: <a href="https://CRAN.R-project.org/package=funcml" class="uri">https://CRAN.R-project.org/package=funcml</a>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p><code>funcml</code> R-universe builds and documentation: <a href="https://ielbadisy.r-universe.dev/funcml" class="uri">https://ielbadisy.r-universe.dev/funcml</a>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Hastie, T., Tibshirani, R., &amp; Friedman, J. (2009). <em>The Elements of Statistical Learning</em>. Springer.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
 
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -651,5 +651,5 @@ Mohammed VI Center for Research and Innovation · AI &amp; Data Science
 
 
 
-<script src="site_libs/quarto-html/zenscroll-min.js"></script>
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>
