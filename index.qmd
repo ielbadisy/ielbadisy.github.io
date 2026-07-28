@@ -1,178 +1,267 @@
 ---
 title: "Imad EL BADISY"
 format: html
+execute:
+  echo: false
 ---
 
 <ul class="menu">
-  <li><a href="#about">About</a></li>
-  <li><a href="#research">Research</a></li>
-  <li><a href="#experience">Experience</a></li>
-  <li><a href="#education">Education</a></li>
-  <li><a href="#projects">Projects</a></li>
-  <li><a href="#software">Software</a></li>
   <li><a href="#publications">Publications</a></li>
-  <li><a href="#teaching">Teaching</a></li>
-  <li><a href="#skills">Skills</a></li>
-  <li><a href="#notes">Notes</a></li>
-  <li><a href="#contact">Contact</a></li>
-  <li><a href="cv/cv.pdf">CV</a></li>
 </ul>
 
 <hr>
 
 <div class="identity">
   <img class="profile-photo" src="profile.png" alt="Portrait of Imad EL BADISY">
-  <p class="role">Research Engineer in Biostatistics and Machine Learning, PhD</p>
-
+  <p class="role">Publications only</p>
   <p class="affiliation">
-    Mohammed VI Center for Research and Innovation · AI & Data Science
-  </p>
-  <p class="links">
-    <a href="mailto:elbadisyimad@gmail.com">Email</a> ·
-    <a href="https://github.com/ielbadisy">GitHub</a> ·
-    <a href="https://ma.linkedin.com/in/imad-el-badisy-360018281">LinkedIn</a> ·
-    <a href="cv/cv.pdf">CV</a>
+    Journal articles, software, and communications generated from
+    <code>publications-ielbadisy.bib</code> and official <code>citation()</code> outputs.
   </p>
 </div>
 
-## About {#about}
+## Publications {#publications}
 
-Research Engineer in Biostatistics and Machine Learning, PhD, working at the interface of computational biostatistics and machine learning. Moroccan and French national, husband and father. I hold a PhD from Aix-Marseille University (SESSTIM laboratory) on missing data and machine learning imputation methods for survival analysis. My work focuses on building methodological tools for health data science supporting biomedical research projects. I develop open-source R packages for survival analysis, missing data, and interpretable machine learning, and contribute as a consultant and trainer in biostatistics and health data science.
+```{r, results='asis'}
+library(knitr)
 
-## Research {#research}
+bib_path <- "publications-ielbadisy.bib"
 
-- **Survival machine learning**: Individualized survival prediction | neural survival models | RMST-based summaries, and trajectory phenotyping.
-- **Missing data**: Evaluation of imputation strategies
-- **Interpretable ML**: Explanation workflows aligned with clinical reasoning, including SHAP-style attributions, PDP/ICE/ALE, and stability diagnostics.
-- **Agentic data science**: Increasingly focused on the agentic data science paradigm — building systems where autonomous agents orchestrate analytical workflows for health research.
+html_escape <- function(x) {
+  x <- gsub("&", "&amp;", x, fixed = TRUE)
+  x <- gsub("<", "&lt;", x, fixed = TRUE)
+  x <- gsub(">", "&gt;", x, fixed = TRUE)
+  x <- gsub('"', "&quot;", x, fixed = TRUE)
+  x
+}
 
+clean_tex <- function(x) {
+  replacements <- c(
+    "\\\\`A" = "À", "\\\\`E" = "È", "\\\\`I" = "Ì", "\\\\`O" = "Ò", "\\\\`U" = "Ù",
+    "\\\\`a" = "à", "\\\\`e" = "è", "\\\\`i" = "ì", "\\\\`o" = "ò", "\\\\`u" = "ù",
+    "\\\\'A" = "Á", "\\\\'E" = "É", "\\\\'I" = "Í", "\\\\'O" = "Ó", "\\\\'U" = "Ú",
+    "\\\\'a" = "á", "\\\\'e" = "é", "\\\\'i" = "í", "\\\\'o" = "ó", "\\\\'u" = "ú",
+    "\\\\`c" = "ç", "\\\\c\\{c\\}" = "ç", "\\\\c\\{C\\}" = "Ç",
+    "\\\\\"a" = "ä", "\\\\\"e" = "ë", "\\\\\"i" = "ï", "\\\\\"o" = "ö", "\\\\\"u" = "ü",
+    "\\\\\"A" = "Ä", "\\\\\"E" = "Ë", "\\\\\"I" = "Ï", "\\\\\"O" = "Ö", "\\\\\"U" = "Ü",
+    "\\\\&" = "&", "\\\\%" = "%", "\\\\#" = "#", "\\\\_" = "_"
+  )
+  for (pat in names(replacements)) {
+    x <- gsub(pat, replacements[[pat]], x, perl = TRUE)
+  }
+  x <- gsub("[{}]", "", x)
+  x <- gsub("~", " ", x, fixed = TRUE)
+  x <- gsub("\\\\", "", x)
+  x <- gsub("\\s+", " ", x)
+  trimws(x)
+}
 
-## Experience {#experience}
+parse_bib <- function(path) {
+  lines <- readLines(path, warn = FALSE)
+  lines <- lines[nzchar(trimws(lines))]
+  entries <- list()
+  current <- character()
 
-| Role | Institution | Period |
-|---|---|---|
-| Head of AI and Data Science Service | Mohammed VI Center for Research and Innovation, Rabat | Nov. 2021 - present |
-| Data Science Education Officer | The GRAPH Network, Switzerland / remote | Sep. 2023 - Dec. 2023 |
-| Research Engineer in Applied Statistics | Institut Mines-Télécom, IMT Atlantique, Brest | Sep. 2019 - Sep. 2021 |
-| Biostatistician | INSERM, Clermont-Ferrand | Jan. 2019 - Jun. 2019 |
-| Health Economist Intern | Université de Sherbrooke, Quebec | Feb. 2017 - Sep. 2017 |
+  for (line in lines) {
+    if (grepl("^@", line)) {
+      if (length(current)) entries[[length(entries) + 1]] <- current
+      current <- line
+    } else if (length(current)) {
+      current <- c(current, line)
+    }
+  }
+  if (length(current)) entries[[length(entries) + 1]] <- current
 
-: {tbl-colwidths="[40,40,20]"}
+  parse_one <- function(entry_lines) {
+    header <- entry_lines[1]
+    m <- regexec("^@([[:alpha:]]+)\\{([^,]+),", header)
+    mm <- regmatches(header, m)[[1]]
+    fields <- list(
+      type = tolower(mm[2]),
+      key = mm[3]
+    )
 
-## Education {#education}
+    body <- entry_lines[-1]
+    body <- body[!grepl("^\\s*\\}$", body)]
 
-| Degree | Institution | Period |
-|---|---|---|
-| PhD in Biostatistics | Aix-Marseille University, SESSTIM | 2021 - 2025 |
-| Master 2 in Quantitative Methods for Health Research | Aix-Marseille University, SESSTIM | 2018 - 2019 |
-| Master 1 in Applied Mathematics and Statistics | Université Clermont Auvergne | 2017 - 2018 |
-| Master 2 in Health Economics | Université Clermont Auvergne, CERDI | 2017 |
+    for (line in body) {
+      if (!grepl("=", line, fixed = TRUE)) next
+      m2 <- regexec("^\\s*([[:alnum:]_]+)\\s*=\\s*(.*?)(,?)\\s*$", line, perl = TRUE)
+      mm2 <- regmatches(line, m2)[[1]]
+      if (length(mm2) < 3) next
+      field <- tolower(mm2[2])
+      value <- mm2[3]
+      value <- sub(",\\s*$", "", value)
+      value <- sub('^"(.*)"$', "\\1", value)
+      value <- sub("^\\{(.*)\\}$", "\\1", value)
+      fields[[field]] <- clean_tex(value)
+    }
 
-: {tbl-colwidths="[42,40,18]"}
+    fields
+  }
 
-**PhD thesis:** Missing Data and Machine Learning Methods for Survival Analysis.  
-**Supervisor:** Pr Roch Giorgi.
+  parsed <- lapply(entries, parse_one)
+  names(parsed) <- vapply(parsed, `[[`, character(1), "key")
+  parsed
+}
 
-## Projects {#projects}
+fmt_name <- function(name) {
+  name <- clean_tex(name)
+  parts <- trimws(strsplit(name, ",", fixed = TRUE)[[1]])
+  if (length(parts) >= 2) {
+    paste(c(parts[-1], parts[1]), collapse = " ")
+  } else {
+    name
+  }
+}
 
-| Project | Focus | Period |
-|---|---|---|
-| **Interpretable survival machine learning** | Modular R tools for survival analysis integrating interpretable machine learning methods | Ongoing |
-| **ML4Health** | Machine learning for health training program and applied course material | 2026 |
-| **AMRPRED** | Antimicrobial resistance prediction using clinical and microbiological data | 2026 |
-| **MELPHY** | Data-driven phenotyping of melanoma patients treated with immunotherapy and systemic therapies | 2025 - 2026 |
-| **AIDEM** | Dementia prognosis and risk stratification using curated clinical data | 2026 - 2027 |
-| **CLAVUS** | Predicting clinical resolution of variants of uncertain significance using curated genomic data | 2026 - 2027 |
-| **SURVDNN** | Deep neural network framework for survival analysis | 2025 - 2026 |
-| **OMOUMATI / pregnancy complications** | AI-based clinical decision support and risk prediction for pregnancy complications | 2024 - 2026 |
-| **Otosclerosis prediction** | Deep learning web application for otosclerosis prediction with Cheikh Khalifa Hospital, Otorhinolaryngology Service | 2023 |
+fmt_authors <- function(author, max_authors = 3) {
+  if (is.null(author) || !nzchar(author)) return("")
+  authors <- strsplit(author, "\\s+and\\s+", perl = TRUE)[[1]]
+  authors <- vapply(authors, fmt_name, character(1))
+  if (length(authors) > max_authors) {
+    authors <- c(authors[seq_len(max_authors)], "et al.")
+  }
+  text <- paste(authors, collapse = ", ")
+  text <- gsub("Imad El Badisy", "<strong>Imad El Badisy</strong>", text, fixed = TRUE)
+  text
+}
 
-: {tbl-colwidths="[28,56,16]"}
+venue_for <- function(entry) {
+  if (!is.null(entry$journal) && nzchar(entry$journal)) return(entry$journal)
+  if (!is.null(entry$booktitle) && nzchar(entry$booktitle)) return(entry$booktitle)
+  if (!is.null(entry$publisher) && nzchar(entry$publisher)) return(entry$publisher)
+  ""
+}
 
-## Software {#software}
+entry_text <- function(entry) {
+  title <- if (!is.null(entry$title)) html_escape(entry$title) else ""
+  venue <- if (!nzchar(venue_for(entry))) "" else paste0("<em>", html_escape(venue_for(entry)), "</em>")
+  authors <- if (!is.null(entry$author)) fmt_authors(entry$author) else ""
+  year <- if (!is.null(entry$year)) entry$year else ""
+  paste0(
+    "<tr>",
+    "<td>", year, "</td>",
+    "<td>", authors, "</td>",
+    "<td>", title, "</td>",
+    "<td>", venue, "</td>",
+    "</tr>"
+  )
+}
 
-| Package | Purpose | Link |
-|---|---|---|
-| `survalis` | Interpretable survival machine learning framework | [CRAN](https://CRAN.R-project.org/package=survalis) |
-| `survdnn` | Deep neural networks for survival analysis (R torch) | [CRAN](https://CRAN.R-project.org/package=survdnn) |
-| `funcml` | Functional machine learning workflows | [CRAN](https://CRAN.R-project.org/package=funcml) |
-| `unsurv` | Unsupervised clustering of individualized survival curves | [CRAN](https://CRAN.R-project.org/package=unsurv) |
-| `tvrmst` | Time-varying RMST from survival matrices | [CRAN](https://CRAN.R-project.org/package=tvrmst) |
-| `mcstatsim` | Monte Carlo statistical simulation (functional approach) | [CRAN](https://CRAN.R-project.org/package=mcstatsim) |
-| `missCforest` | Ensemble conditional trees for missing data imputation | [CRAN](https://CRAN.R-project.org/package=missCforest) |
+entry_key <- function(entry) {
+  paste(
+    tolower(if (!is.null(entry$title)) entry$title else ""),
+    tolower(venue_for(entry)),
+    sep = " "
+  )
+}
 
-All packages on [CRAN](https://CRAN.R-project.org/search/?query=el+badisy) · also available via [R-universe](https://ielbadisy.r-universe.dev)
+is_article <- function(entry) {
+  if (entry$type != "article") return(FALSE)
+  title <- if (!is.null(entry$title)) tolower(entry$title) else ""
+  venue <- tolower(venue_for(entry))
+  if (grepl("^package\\s", title)) return(FALSE)
+  if (grepl("conference abstracts|colloque|iscb|epiclin|medai", paste(title, venue, collapse = " "), ignore.case = TRUE)) return(FALSE)
+  TRUE
+}
 
-## Selected Publications {#publications}
+is_communication <- function(entry) {
+  title <- if (!is.null(entry$title)) tolower(entry$title) else ""
+  venue <- tolower(venue_for(entry))
+  entry$type == "inproceedings" ||
+    grepl("conference abstracts|colloque|iscb|epiclin|medai", paste(title, venue, collapse = " "), ignore.case = TRUE) ||
+    grepl("^co[0-9]+", title, ignore.case = TRUE)
+}
 
-- **El Badisy I.**, Assarag B., & Belrhiti Z. (2026). Interpretable clinical decision support systems in high-risk pregnancy: A scoping review of models, methods, and implementation. *BMC Pregnancy and Childbirth*.
+sorted_entries <- function(entries) {
+  entries <- entries[order(
+    -as.integer(vapply(entries, function(e) if (!is.null(e$year)) e$year else "0", character(1))),
+    vapply(entries, entry_key, character(1))
+  )]
+  entries
+}
 
-- Kadi C., Ahmadi N., Houdou A., **El Badisy I.**, et al. (2025). Differentiating latent tuberculosis from active tuberculosis through activation phenotypes and chemokine markers HLA-DR, CD38, MCP-1, and RANTES: A systematic review and meta-analysis. *Biomarker Insights*, 20, 11772719241312776.
+bib <- parse_bib(bib_path)
+articles <- sorted_entries(bib[vapply(bib, is_article, logical(1))])
+communications <- sorted_entries(bib[vapply(bib, is_communication, logical(1))])
 
-- **El Badisy I.**, Graffeo N., Khalis M., & Giorgi R. (2024). Multi-metric comparison of machine learning imputation methods with application to breast cancer survival. *BMC Medical Research Methodology*, 24(1), 191.
+render_table <- function(entries) {
+  rows <- vapply(entries, entry_text, character(1))
+  paste0(
+    "<table class=\"caption-top\">",
+    "<colgroup>",
+    "<col style=\"width: 9%\">",
+    "<col style=\"width: 28%\">",
+    "<col style=\"width: 35%\">",
+    "<col style=\"width: 28%\">",
+    "</colgroup>",
+    "<thead><tr><th>Year</th><th>Authors</th><th>Title</th><th>Venue</th></tr></thead>",
+    "<tbody>",
+    paste(rows, collapse = "\n"),
+    "</tbody></table>"
+  )
+}
 
-- **El Badisy I.**, BenBrahim Z., Khalis M., et al. (2024). Risk factors affecting patient survival with colorectal cancer in Morocco: Survival analysis using an interpretable machine learning approach. *Scientific Reports*, 14(1), 3556.
+software_specs <- data.frame(
+  package = c(
+    "survalis", "survdnn", "funcml", "unsurv", "tvrmst",
+    "mcstatsim", "missCforest", "mimar", "functionals",
+    "CEACT", "testflow", "missknn"
+  ),
+  link = c(
+    "https://CRAN.R-project.org/package=survalis",
+    "https://github.com/ielbadisy/survdnn",
+    "https://CRAN.R-project.org/package=funcml",
+    "https://github.com/ielbadisy/unsurv",
+    "https://CRAN.R-project.org/package=tvrmst",
+    "https://CRAN.R-project.org/package=mcstatsim",
+    "https://CRAN.R-project.org/package=missCforest",
+    "https://CRAN.R-project.org/package=mimar",
+    "https://github.com/ielbadisy/functionals",
+    "https://CRAN.R-project.org/package=CEACT",
+    "https://CRAN.R-project.org/package=testflow",
+    "https://CRAN.R-project.org/package=missknn"
+  ),
+  stringsAsFactors = FALSE
+)
 
-- Houdou A., **El Badisy I.**, Khomsi K., et al. (2024). Interpretable machine learning approaches for forecasting and predicting air pollution: A systematic review. *Aerosol and Air Quality Research*, 24(1), 230151.
+software_rows <- vapply(seq_len(nrow(software_specs)), function(i) {
+  pkg <- software_specs$package[i]
+  cit <- citation(pkg)
+  pkg_title <- clean_tex(cit[[1]]$title)
+  short_title <- sub(paste0("^", pkg, ":\\s*"), "", pkg_title, ignore.case = TRUE)
+  bibtex <- paste(capture.output(toBibtex(cit)), collapse = "\n")
+  paste0(
+    "<tr>",
+    "<td><code>", html_escape(pkg), "</code></td>",
+    "<td>", html_escape(short_title), "</td>",
+    "<td><a href=\"", html_escape(software_specs$link[i]), "\">Source</a></td>",
+    "<td><details><summary>Official BibTeX</summary><pre><code>",
+    html_escape(bibtex),
+    "</code></pre></details></td>",
+    "</tr>"
+  )
+}, character(1))
 
-- Zbiri S., Belghiti Alaoui A., **El Badisy I.**, et al. (2024). Private hospitals in low- and middle-income countries: A typology using the cluster method, the case of Morocco. *BMC Health Services Research*, 24(1), 1231.
+cat(render_table(articles))
 
-- Blom I.M., Eissa M., Mattijsen J.C., **El Badisy I.**, et al. (2023). Effectiveness of greenhouse gas mitigation interventions for health-care systems: A systematic review. *Bulletin of the World Health Organization*, 102(3), 159.
+cat("\n\n### Software\n\n")
+cat(
+  "<table class=\"caption-top\">",
+  "<colgroup>",
+  "<col style=\"width: 12%\">",
+  "<col style=\"width: 36%\">",
+  "<col style=\"width: 12%\">",
+  "<col style=\"width: 40%\">",
+  "</colgroup>",
+  "<thead><tr><th>Package</th><th>Title</th><th>Link</th><th>Official citation</th></tr></thead>",
+  "<tbody>",
+  paste(software_rows, collapse = "\n"),
+  "</tbody></table>",
+  sep = ""
+)
 
-- Khalis M., Toure A.B., **El Badisy I.**, et al. (2022). Relationship between meteorological and air quality parameters and COVID-19 in the Casablanca region, Morocco. *International Journal of Environmental Research and Public Health*, 19(9), 4989.
-
-**Selected talks:**
-
-- **El Badisy I.** et al. (2023). Comparison of missing data imputation methods in Cox regression with time-varying and non-linear covariate effects. *ISCB 2023*, Rome.
-- **El Badisy I.** et al. (2023). Missing data imputation using a meta-algorithm, metaCART: A simulation study under MCAR. *EpiClin 2023*, Nancy.
-
-## Teaching {#teaching}
-
-| Course | Institution | Period |
-|---|---|---|
-| AI for Public Health (ML, NLP, applied AI) | Aix-Marseille University, SESSTIM | 2022 – present |
-| Introduction to Biostatistics | University Mohammed VI of Health Sciences (UM6SS) | 2021 – present |
-| Quantitative Epidemiology and Machine Learning | Institut Mines-Télécom, IMT Atlantique | 2020 – present |
-
-: {tbl-colwidths="[45,40,15]"}
-
-*Outside working hours:* I organize **Methods in Health Data Science with R**, an independent online course pathway covering applied biostatistics, survival analysis, machine learning, and meta-analysis with R. [Course website →](https://mhdsr.com)
-
-
-## Skills {#skills}
-
-**Methods:** Biostatistics · epidemiology · survival analysis · missing data · meta-analysis · interpretable machine learning · computational biostatistics.
-
-**Tools:** R package development · Python · Quarto/LaTeX · Git/GitHub · Slurm/HPC.
-
-**Languages:** Arabic (native) · French (fluent) · English (fluent).
-
-## Notes {#notes}
-
-Methodological notes connected to my R packages.
-
-| Date | Note | Tags |
-|---|---|---|
-| 23-05-2026 | [Dynamic RMST from predicted survival curves with `tvrmst`](notes/dynamic-rmst.qmd) | <span class="tag">Survival Analysis</span> <span class="tag">RMST</span> <span class="tag">tvrmst</span> |
-| 23-05-2026 | [Functional machine learning workflows in R with `funcml`](notes/functional-ml-r.qmd) | <span class="tag">Machine Learning</span> <span class="tag">Reproducibility</span> <span class="tag">funcml</span> |
-| 23-05-2026 | [Survival-trajectory phenotypes with `unsurv`](notes/survival-trajectory-phenotypes.qmd) | <span class="tag">Survival Analysis</span> <span class="tag">Clustering</span> <span class="tag">unsurv</span> |
-
-[View notes →](notes/index.qmd)
-
-## Contact {#contact}
-
-For collaboration, methodological support, or consulting requests, please reach out by email.
-
-| | |
-|---|---|
-| Email | [elbadisyimad@gmail.com](mailto:elbadisyimad@gmail.com) |
-| GitHub | [github.com/ielbadisy](https://github.com/ielbadisy) |
-| LinkedIn | [imad-el-badisy-360018281](https://ma.linkedin.com/in/imad-el-badisy-360018281) |
-
-: {tbl-colwidths="[20,80]"}
-
-<hr>
-
-<footer>
-© 2026 Imad EL BADISY · Built with <a href="https://quarto.org">Quarto</a>
-</footer>
+cat("\n\n### Communications\n\n")
+cat(render_table(communications))
+```
