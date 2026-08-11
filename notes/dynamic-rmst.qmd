@@ -1,20 +1,15 @@
 ---
-title: "Dynamic RMST from predicted survival curves with tvrmst"
-date: "23-05-2026"
-description: "A methodological note on dynamic restricted mean survival time as an interpretable summary of individualized survival predictions."
-categories: [Survival Analysis, RMST, tvrmst]
-format: html
+title: "Dynamic RMST from Predicted Survival Curves with tvrmst"
+subtitle: "A methodological note on dynamic restricted mean survival time as an interpretable summary of individualized survival predictions."
+author: "Imad EL BADISY"
+date: "2026-05-23"
+format:
+  pdf:
+    toc: true
 execute:
   warning: false
   message: false
 ---
-
-<ul class="menu">
-  <li><a href="../index.qmd">Home</a></li>
-  <li><a href="index.qmd">Notes</a></li>
-</ul>
-
-<hr>
 
 Restricted mean survival time (RMST) summarizes a survival curve on the time scale of the outcome. For a survival function $S(t) = P(T > t)$, the RMST up to horizon $\tau$ is
 
@@ -128,9 +123,3 @@ plot_delta_curve(
 
 [^tvrmst-cran]: `tvrmst` package documentation, CRAN: <https://CRAN.R-project.org/package=tvrmst>.
 [^rmst-paper]: Royston, P., & Parmar, M. K. B. (2013). Restricted mean survival time: an alternative to the hazard ratio for the design and analysis of randomized trials with a time-to-event outcome. *BMC Medical Research Methodology*, 13, 152.
-
-<hr>
-
-<footer>
-<a href="index.qmd">Back to notes</a>
-</footer>

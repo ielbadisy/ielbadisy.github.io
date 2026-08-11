@@ -7,23 +7,26 @@ format: html
   <li><a href="../index.qmd">Home</a></li>
   <li><a href="../index.qmd#about">About</a></li>
   <li><a href="../index.qmd#research">Research</a></li>
+  <li><a href="../index.qmd#consulting">Consulting</a></li>
+  <li><a href="../index.qmd#teaching">Teaching</a></li>
   <li><a href="../index.qmd#software">Software</a></li>
+  <li><a href="../index.qmd#publications">Publications</a></li>
   <li><a href="../index.qmd#contact">Contact</a></li>
 </ul>
 
 <hr>
 
 <p class="subtitle">
-Methodological notes connected to my R packages, with equations, code examples, rendered results, and references.
+Methodological notes connected to my R packages and current projects, written up as short PDFs with equations, code examples, rendered results, and references.
 </p>
 
 ## Notes
 
 | Date | Note | Tags |
 |---|---|---|
-| 23-05-2026 | [Dynamic RMST from predicted survival curves with `tvrmst`](dynamic-rmst.qmd) | <span class="tag">Survival Analysis</span> <span class="tag">RMST</span> <span class="tag">tvrmst</span> |
-| 23-05-2026 | [Functional machine learning workflows in R with `funcml`](functional-ml-r.qmd) | <span class="tag">Machine Learning</span> <span class="tag">Reproducibility</span> <span class="tag">funcml</span> |
-| 23-05-2026 | [Survival-trajectory phenotypes with `unsurv`](survival-trajectory-phenotypes.qmd) | <span class="tag">Survival Analysis</span> <span class="tag">Clustering</span> <span class="tag">unsurv</span> |
+| 2026-05-23 | [Dynamic RMST from predicted survival curves with `tvrmst`](dynamic-rmst.pdf) | <span class="tag">Survival Analysis</span> <span class="tag">RMST</span> <span class="tag">tvrmst</span> |
+| 2026-05-23 | [Functional machine learning workflows in R with `funcml`](functional-ml-r.pdf) | <span class="tag">Machine Learning</span> <span class="tag">Reproducibility</span> <span class="tag">funcml</span> |
+| 2026-05-23 | [Survival-trajectory phenotypes with `unsurv`](survival-trajectory-phenotypes.pdf) | <span class="tag">Survival Analysis</span> <span class="tag">Clustering</span> <span class="tag">unsurv</span> |
 
 <hr>
 

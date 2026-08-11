@@ -1,20 +1,15 @@
 ---
-title: "Survival-trajectory phenotypes from individualized survival curves with unsurv"
-date: "23-05-2026"
-description: "A methodological note on unsupervised phenotyping from predicted survival curves using unsurv."
-categories: [Survival Analysis, Clustering, unsurv]
-format: html
+title: "Survival-Trajectory Phenotypes from Individualized Survival Curves with unsurv"
+subtitle: "A methodological note on unsupervised phenotyping from predicted survival curves."
+author: "Imad EL BADISY"
+date: "2026-05-23"
+format:
+  pdf:
+    toc: true
 execute:
   warning: false
   message: false
 ---
-
-<ul class="menu">
-  <li><a href="../index.qmd">Home</a></li>
-  <li><a href="index.qmd">Notes</a></li>
-</ul>
-
-<hr>
 
 Survival-trajectory phenotyping clusters patients by the shape of their predicted survival curves. The input is not the baseline covariate matrix $X$, but a survival probability matrix
 
@@ -116,9 +111,3 @@ After clustering, each phenotype should be described with survival probabilities
 [^unsurv-cran]: `unsurv` package documentation, CRAN: <https://CRAN.R-project.org/package=unsurv>.
 [^unsurv-runiverse]: `unsurv` R-universe documentation: <https://ielbadisy.r-universe.dev/unsurv>.
 [^pam]: Kaufman, L., & Rousseeuw, P. J. (1990). *Finding Groups in Data: An Introduction to Cluster Analysis*. Wiley.
-
-<hr>
-
-<footer>
-<a href="index.qmd">Back to notes</a>
-</footer>

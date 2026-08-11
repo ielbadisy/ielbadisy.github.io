@@ -55,13 +55,16 @@ ul.task-list li input[type="checkbox"] {
 <a href="#research">Research</a>
 </li>
 <li>
+<a href="#consulting">Consulting</a>
+</li>
+<li>
+<a href="#teaching">Teaching</a>
+</li>
+<li>
 <a href="#software">Software</a>
 </li>
 <li>
 <a href="#publications">Publications</a>
-</li>
-<li>
-<a href="#teaching">Teaching</a>
 </li>
 <li>
 <a href="#notes">Notes</a>
@@ -77,23 +80,70 @@ ul.task-list li input[type="checkbox"] {
 <div class="identity">
 <img class="profile-photo" src="profile.png" alt="Portrait of Imad EL BADISY">
 <p class="role">
-Research Engineer in Biostatistics and Machine Learning, PhD
+Research Engineer in Health Data Science, PhD
 </p>
 <p class="affiliation">
 Mohammed VI Center for Research and Innovation · AI &amp; Data Science
 </p>
 <p class="links">
-<a href="mailto:elbadisyimad@gmail.com">Email</a> · <a href="https://github.com/ielbadisy">GitHub</a> · <a href="https://ma.linkedin.com/in/imad-el-badisy-360018281">LinkedIn</a> · <a href="cv/cv.pdf">CV</a>
+<a href="mailto:elbadisyimad@gmail.com">Email</a> · <a href="https://github.com/ielbadisy">GitHub</a> · <a href="https://scholar.google.com/scholar?q=Imad+EL+BADISY">Google Scholar</a> · <a href="https://ma.linkedin.com/in/imad-el-badisy-360018281">LinkedIn</a> · <a href="cv/cv.pdf">CV</a>
 </p>
 </div>
 <h2 id="about" class="anchored">About</h2>
-<p>Research Engineer in Biostatistics and Machine Learning, PhD, working at the interface of computational biostatistics and machine learning. Moroccan and French national, husband and father. I hold a PhD from Aix-Marseille University (SESSTIM laboratory) on missing data and machine learning imputation methods for survival analysis. My work focuses on building methodological tools for health data science supporting biomedical research projects. I develop open-source R packages for survival analysis, missing data, and interpretable machine learning, and contribute as a consultant and trainer in biostatistics and health data science.</p>
+<p>Research Engineer in Health Data Science, PhD, working at the interface of biostatistics, machine learning, and applied health data analytics. Moroccan and French national, husband and father. I hold a PhD in Biomedical Sciences from Aix-Marseille University (SESSTIM laboratory) on missing data and machine learning methods for survival analysis. My work focuses on developing algorithms and reproducible workflows for health data analysis and decision support, spanning survival analysis, predictive modeling, interpretable machine learning, and large-scale administrative health data. I develop open-source R packages for survival analysis, missing data, and interpretable machine learning, and contribute as a consultant and trainer in biostatistics and health data science.</p>
 <h2 id="research" class="anchored">Research</h2>
 <ul>
 <li><strong>Survival machine learning</strong>: Individualized survival prediction | neural survival models | RMST-based summaries, and trajectory phenotyping.</li>
 <li><strong>Missing data</strong>: Evaluation of imputation strategies</li>
 <li><strong>Interpretable ML</strong>: Explanation workflows aligned with clinical reasoning, including SHAP-style attributions, PDP/ICE/ALE, and stability diagnostics.</li>
-<li><strong>Agentic data science</strong>: Increasingly focused on the agentic data science paradigm — building systems where autonomous agents orchestrate analytical workflows for health research.</li>
+<li><strong>Agentic data science</strong>: Increasingly focused on the agentic data science paradigm: building systems where autonomous agents orchestrate analytical workflows for health research.</li>
+</ul>
+<h2 id="consulting" class="anchored">Consulting</h2>
+<p>I provide independent methodological and statistical consulting for health research teams, from study design through publication.</p>
+<ul>
+<li>Study design and analysis plan review</li>
+<li>Survival analysis, functional data analysis, and predictive modeling</li>
+<li>Reproducible R/Quarto reporting pipelines</li>
+<li>Custom R package or tool development</li>
+</ul>
+<p>Engagements are scoped individually: short advisory sessions, analysis support on a specific study, or longer-term collaboration. <a href="#contact">Get in touch →</a></p>
+<h2 id="teaching" class="anchored">Teaching</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 45%">
+<col style="width: 40%">
+<col style="width: 15%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Course</th>
+<th>Institution</th>
+<th>Period</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>AI for Public Health (ML, NLP, applied AI)</td>
+<td>Aix-Marseille University, SESSTIM</td>
+<td>2022 – present</td>
+</tr>
+<tr class="even">
+<td>Introduction to Biostatistics</td>
+<td>University Mohammed VI of Health Sciences (UM6SS)</td>
+<td>2021 – present</td>
+</tr>
+<tr class="odd">
+<td>Quantitative Epidemiology and Machine Learning</td>
+<td>Institut Mines-Télécom, IMT Atlantique</td>
+<td>2020 – present</td>
+</tr>
+</tbody>
+</table>
+<p><em>Outside working hours:</em> I organize <strong>Methods in Health Data Science with R (MHDSR)</strong>, an independent training pathway covering applied biostatistics, survival analysis, machine learning, and meta-analysis with R, delivered live to research teams and open cohorts:</p>
+<ul>
+<li><strong>BIOSTATR</strong>: Applied Biostatistics with R (foundations)</li>
+<li><strong>ML4HOR</strong>: Machine Learning for Health Outcomes with R (prediction)</li>
+<li><strong>METAR</strong>: Conducting Meta-Analysis with R (evidence synthesis)</li>
 </ul>
 <h2 id="software" class="anchored">Software</h2>
 <table class="caption-top">
@@ -140,59 +190,58 @@ Mohammed VI Center for Research and Innovation · AI &amp; Data Science
 <td>Ensemble conditional trees for missing data imputation</td>
 <td><a href="https://CRAN.R-project.org/package=missCforest">CRAN</a></td>
 </tr>
+<tr class="even">
+<td><code>functionals</code></td>
+<td>Functional programming with parallelism and progress tracking</td>
+<td><a href="https://CRAN.R-project.org/package=functionals">CRAN</a></td>
+</tr>
+<tr class="odd">
+<td><code>mimar</code></td>
+<td>Compact multiple imputation, assessment, and reporting</td>
+<td><a href="https://CRAN.R-project.org/package=mimar">CRAN</a></td>
+</tr>
+<tr class="even">
+<td><code>testflow</code></td>
+<td>Statistical testing, interpretation, and ggplot2-based visualization</td>
+<td><a href="https://CRAN.R-project.org/package=testflow">CRAN</a></td>
+</tr>
+<tr class="odd">
+<td><code>densemlp</code></td>
+<td>Dense neural networks for tabular classification and regression</td>
+<td><a href="https://CRAN.R-project.org/package=densemlp">CRAN</a></td>
+</tr>
+<tr class="even">
+<td><code>CEACT</code></td>
+<td>Cost-effectiveness analysis toolkit for clinical trials</td>
+<td><a href="https://CRAN.R-project.org/package=CEACT">CRAN</a></td>
+</tr>
+<tr class="odd">
+<td><code>missknn</code></td>
+<td>Fast masked k-nearest neighbor imputation</td>
+<td><a href="https://CRAN.R-project.org/package=missknn">CRAN</a></td>
+</tr>
 </tbody>
 </table>
 <p>All packages on <a href="https://CRAN.R-project.org/search/?query=el+badisy">CRAN</a> · also available via <a href="https://ielbadisy.r-universe.dev">R-universe</a></p>
 <h2 id="publications" class="anchored">Selected Publications</h2>
 <ul>
-<li><p><strong>El Badisy I.</strong>, Assarag B., &amp; Belrhiti Z. (2026). Interpretable clinical decision support systems in high-risk pregnancy: A scoping review of models, methods, and implementation. <em>BMC Pregnancy and Childbirth</em>.</p></li>
-<li><p>Kadi C., Ahmadi N., Houdou A., <strong>El Badisy I.</strong>, et al.&nbsp;(2025). Differentiating latent tuberculosis from active tuberculosis through activation phenotypes and chemokine markers HLA-DR, CD38, MCP-1, and RANTES: A systematic review and meta-analysis. <em>Biomarker Insights</em>, 20, 11772719241312776.</p></li>
-<li><p><strong>El Badisy I.</strong>, Graffeo N., Khalis M., &amp; Giorgi R. (2024). Multi-metric comparison of machine learning imputation methods with application to breast cancer survival. <em>BMC Medical Research Methodology</em>, 24(1), 191.</p></li>
-<li><p><strong>El Badisy I.</strong>, BenBrahim Z., Khalis M., et al.&nbsp;(2024). Risk factors affecting patient survival with colorectal cancer in Morocco: Survival analysis using an interpretable machine learning approach. <em>Scientific Reports</em>, 14(1), 3556.</p></li>
-<li><p>Houdou A., <strong>El Badisy I.</strong>, Khomsi K., et al.&nbsp;(2024). Interpretable machine learning approaches for forecasting and predicting air pollution: A systematic review. <em>Aerosol and Air Quality Research</em>, 24(1), 230151.</p></li>
-<li><p>Zbiri S., Belghiti Alaoui A., <strong>El Badisy I.</strong>, et al.&nbsp;(2024). Private hospitals in low- and middle-income countries: A typology using the cluster method, the case of Morocco. <em>BMC Health Services Research</em>, 24(1), 1231.</p></li>
-<li><p>Blom I.M., Eissa M., Mattijsen J.C., <strong>El Badisy I.</strong>, et al.&nbsp;(2023). Effectiveness of greenhouse gas mitigation interventions for health-care systems: A systematic review. <em>Bulletin of the World Health Organization</em>, 102(3), 159.</p></li>
-<li><p>Khalis M., Toure A.B., <strong>El Badisy I.</strong>, et al.&nbsp;(2022). Relationship between meteorological and air quality parameters and COVID-19 in the Casablanca region, Morocco. <em>International Journal of Environmental Research and Public Health</em>, 19(9), 4989.</p></li>
+<li><p><strong>El Badisy I.</strong> (2026). unsurv: Clustering Individualized Survival Curves. <em>Bioinformatics Advances</em>, vbag218.</p></li>
+<li><p><strong>El Badisy I.</strong>, Assarag B., Belrhiti Z. (2026). Interpretable clinical decision support systems in high-risk pregnancy: a scoping review of models, methods, and implementation. <em>BMC Pregnancy and Childbirth</em>, 26(1):125.</p></li>
+<li><p>Kadi C., Ahmadi N., Houdou A., <strong>El Badisy I.</strong>, et al.&nbsp;(2025). Differentiating Latent Tuberculosis from Active Tuberculosis Through Activation Phenotypes and Chemokine Markers HLA-DR, CD38, MCP-1, and RANTES: A Systematic Review and Meta-Analysis. <em>Biomarker Insights</em>, 20:11772719241312776.</p></li>
+<li><p>Houdou A., <strong>El Badisy I.</strong>, Khomsi K., et al.&nbsp;(2024). Interpretable machine learning approaches for forecasting and predicting air pollution: A systematic review. <em>Aerosol and Air Quality Research</em>, 24(1):230151.</p></li>
+<li><p><strong>El Badisy I.</strong>, BenBrahim Z., Khalis M., et al.&nbsp;(2024). Risk factors affecting patient survival with colorectal cancer in Morocco: survival analysis using an interpretable machine learning approach. <em>Scientific Reports</em>, 14(1):3556.</p></li>
+<li><p><strong>El Badisy I.</strong>, Graffeo N., Khalis M., Giorgi R. (2024). Multi-metric comparison of machine learning imputation methods with application to breast cancer survival. <em>BMC Medical Research Methodology</em>, 24(1):191.</p></li>
+<li><p>Zbiri S., Belghiti Alaoui A., <strong>El Badisy I.</strong>, et al.&nbsp;(2024). Private hospitals in low-and middle-income countries: a typology using the cluster method, the case of Morocco. <em>BMC Health Services Research</em>, 24(1):1231.</p></li>
+<li><p>Khalis M., Toure A.B., <strong>El Badisy I.</strong>, et al.&nbsp;(2022). Relationship between meteorological and air quality parameters and COVID-19 in Casablanca region, Morocco. <em>International Journal of Environmental Research and Public Health</em>, 19(9):4989.</p></li>
 </ul>
 <p><strong>Selected talks:</strong></p>
 <ul>
 <li><strong>El Badisy I.</strong> et al.&nbsp;(2023). Comparison of missing data imputation methods in Cox regression with time-varying and non-linear covariate effects. <em>ISCB 2023</em>, Rome.</li>
 <li><strong>El Badisy I.</strong> et al.&nbsp;(2023). Missing data imputation using a meta-algorithm, metaCART: A simulation study under MCAR. <em>EpiClin 2023</em>, Nancy.</li>
 </ul>
-<h2 id="teaching" class="anchored">Teaching</h2>
-<table class="caption-top">
-<colgroup>
-<col style="width: 45%">
-<col style="width: 40%">
-<col style="width: 15%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Course</th>
-<th>Institution</th>
-<th>Period</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>AI for Public Health (ML, NLP, applied AI)</td>
-<td>Aix-Marseille University, SESSTIM</td>
-<td>2022 – present</td>
-</tr>
-<tr class="even">
-<td>Introduction to Biostatistics</td>
-<td>University Mohammed VI of Health Sciences (UM6SS)</td>
-<td>2021 – present</td>
-</tr>
-<tr class="odd">
-<td>Quantitative Epidemiology and Machine Learning</td>
-<td>Institut Mines-Télécom, IMT Atlantique</td>
-<td>2020 – present</td>
-</tr>
-</tbody>
-</table>
-<p><em>Outside working hours:</em> I organize <strong>Methods in Health Data Science with R</strong>, an independent online course pathway covering applied biostatistics, survival analysis, machine learning, and meta-analysis with R. <a href="https://mhdsr.com">Course website →</a></p>
+<p><a href="cv/cv.pdf">Full publication list →</a></p>
 <h2 id="notes" class="anchored">Notes</h2>
+<p>Short PDF notes: elegant write-ups tied to the projects and packages I’m working on, published whenever there’s something worth explaining.</p>
 <table class="caption-top">
 <thead>
 <tr class="header">
@@ -203,14 +252,19 @@ Mohammed VI Center for Research and Innovation · AI &amp; Data Science
 </thead>
 <tbody>
 <tr class="odd">
-<td>2026</td>
-<td><a href="./notes/dynamic-rmst.html">Dynamic RMST as an interpretable summary for predicted survival curves</a></td>
+<td>2026-05-23</td>
+<td><a href="notes/dynamic-rmst.pdf">Dynamic RMST as an interpretable summary for predicted survival curves</a></td>
 <td>RMST</td>
 </tr>
 <tr class="even">
-<td>2026</td>
-<td><a href="./notes/functional-ml-r.html">Functional machine learning workflows in R</a></td>
+<td>2026-05-23</td>
+<td><a href="notes/functional-ml-r.pdf">Functional machine learning workflows in R</a></td>
 <td>R / ML</td>
+</tr>
+<tr class="odd">
+<td>2026-05-23</td>
+<td><a href="notes/survival-trajectory-phenotypes.pdf">Survival-trajectory phenotypes from individualized survival curves</a></td>
+<td>Clustering</td>
 </tr>
 </tbody>
 </table>

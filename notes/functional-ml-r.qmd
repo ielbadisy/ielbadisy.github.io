@@ -1,20 +1,15 @@
 ---
-title: "Functional machine learning workflows in R with funcml"
-date: "23-05-2026"
-description: "A methodological note on explicit, auditable machine learning workflows for health data science using funcml."
-categories: [Machine Learning, Reproducibility, funcml]
-format: html
+title: "Functional Machine Learning Workflows in R with funcml"
+subtitle: "A methodological note on explicit, auditable machine learning workflows for health data science."
+author: "Imad EL BADISY"
+date: "2026-05-23"
+format:
+  pdf:
+    toc: true
 execute:
   warning: false
   message: false
 ---
-
-<ul class="menu">
-  <li><a href="../index.qmd">Home</a></li>
-  <li><a href="index.qmd">Notes</a></li>
-</ul>
-
-<hr>
 
 A functional machine learning workflow treats the analysis as a sequence of explicit transformations. Instead of hiding modeling decisions inside one opaque object, the analyst moves through stable verbs such as fitting, resampling, evaluating, comparing, interpreting, and estimating effects.[^funcml-cran]
 
@@ -111,9 +106,3 @@ The same structure can be extended to compare multiple learners, tune hyperparam
 [^funcml-cran]: `funcml` package documentation, CRAN: <https://CRAN.R-project.org/package=funcml>.
 [^funcml-runiverse]: `funcml` R-universe builds and documentation: <https://ielbadisy.r-universe.dev/funcml>.
 [^elements]: Hastie, T., Tibshirani, R., & Friedman, J. (2009). *The Elements of Statistical Learning*. Springer.
-
-<hr>
-
-<footer>
-<a href="index.qmd">Back to notes</a>
-</footer>

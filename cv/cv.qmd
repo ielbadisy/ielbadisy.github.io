@@ -3,6 +3,7 @@ format:
   pdf:
     documentclass: article
     geometry:
+      - a4paper
       - top=14mm
       - left=15mm
       - right=15mm
@@ -23,15 +24,20 @@ format:
 ---
 
 <!-- TITLE -->
-\begin{huge}\begin{center}{\bf Imad EL BADISY}\end{center}\end{huge}
-
-<!-- CONTACT INFO -->
+\noindent
+\begin{minipage}[c]{0.74\textwidth}
 \begin{center}
+{\huge \bfseries Imad EL BADISY}\\[4pt]
 \href{mailto:elbadisyimad@gmail.com}{elbadisyimad@gmail.com} $\cdot$
 \href{https://github.com/ielbadisy}{github.com/ielbadisy} $\cdot$
 \href{https://scholar.google.com/scholar?q=Imad+EL+BADISY}{Google Scholar} $\cdot$
 \href{https://www.linkedin.com/in/imad-el-badisy-360018281/}{LinkedIn}
 \end{center}
+\end{minipage}\hfill
+\begin{minipage}[c]{0.21\textwidth}
+\raggedleft
+\includegraphics[width=3.2cm,height=3.2cm,keepaspectratio]{portrait.jpg}
+\end{minipage}
 \vspace{6pt}
 
 <!-- PROFILE -->
@@ -41,7 +47,22 @@ format:
 \end{large}
 \vspace{4pt}
 
-Research Engineer in Biostatistics and Machine Learning, PhD, working at the interface of computational biostatistics and machine learning. Moroccan and French national, husband and father. I hold a PhD from Aix-Marseille University (SESSTIM laboratory) on missing data and machine learning imputation methods for survival analysis. My work focuses on building methodological tools for health data science supporting biomedical research projects. I develop open-source R packages for survival analysis, missing data, and interpretable machine learning, and contribute as a consultant and trainer in biostatistics and health data science.
+Research Engineer in Health Data Science, PhD, working at the interface of biostatistics, machine learning, and applied health data analytics. I hold a PhD in Biomedical Sciences from Aix-Marseille University (SESSTIM laboratory) on missing data and machine learning methods for survival analysis. My work focuses on developing algorithms and reproducible workflows for health data analysis and decision support, spanning survival analysis, predictive modeling, interpretable machine learning, and large-scale administrative health data. I develop open-source R packages for survival analysis, missing data, and interpretable machine learning, and contribute as a consultant and trainer in biostatistics and health data science.
+
+\vspace{6pt}
+
+<!-- SKILLS -->
+\begin{large}{\bf SKILLS}
+\vspace{3pt}
+\hrule
+\end{large}
+\vspace{4pt}
+
+**Methods:** Biostatistics and epidemiology · Survival analysis · Missing data methods · Meta-analysis and evidence synthesis · Interpretable machine learning · Deep learning · Computational biostatistics · Monte Carlo simulation
+
+**Tools:** R package development · Python · Quarto/LaTeX · Git/GitHub · Slurm/HPC · Large-scale administrative health data pipelines (SNDS)
+
+**Languages:** Arabic (native) · French (fluent) · English (fluent)
 
 \vspace{6pt}
 
@@ -58,6 +79,8 @@ Research Engineer in Biostatistics and Machine Learning, PhD, working at the int
 \vspace{-0.16cm}
 * Leading the AI and Data Science service
 * Conducting methodological and applied research in health (oncology, fertility, other biomedical domains)
+* Providing methodological support to researchers in computational biostatistics, statistical modeling, and machine learning
+* Developing reproducible workflows for health data science and biomedical research projects
 
 \vspace{3pt}
 
@@ -67,6 +90,7 @@ Research Engineer in Biostatistics and Machine Learning, PhD, working at the int
 \vspace{-0.16cm}
 * Designed and delivered training programs in data science for global health
 * Developed educational material and course content for data science learners
+* Contributed to capacity building in applied data science within a public health context
 
 \vspace{3pt}
 
@@ -74,8 +98,9 @@ Research Engineer in Biostatistics and Machine Learning, PhD, working at the int
 \vspace{-0.17cm}
 \cvrow{\textit{Research Engineer in Applied Statistics}}{Sep. 2019 – Sep. 2021}
 \vspace{-0.16cm}
-* Conducted statistical analyses of national health data (SNDS-based analyses)
-* Implemented automated and reproducible data workflows
+* Conducted statistical analyses of national health data using SNDS-certified workflows at scale
+* Implemented automated, reproducible workflows for complex administrative health data
+* Supported applied research projects involving health data, epidemiology, and statistical modeling
 
 \vspace{3pt}
 
@@ -84,6 +109,7 @@ Research Engineer in Biostatistics and Machine Learning, PhD, working at the int
 \cvrow{\textit{Biostatistician}}{Jan. 2019 – Jun. 2019}
 \vspace{-0.16cm}
 * Conducted cost-effectiveness evaluation of a clinical protocol on ketamine for chronic pain
+* Contributed to statistical and health-economic analyses in a clinical research setting
 
 \vspace{3pt}
 
@@ -92,6 +118,50 @@ Research Engineer in Biostatistics and Machine Learning, PhD, working at the int
 \cvrow{\textit{Health Economist Intern}}{Feb. 2017 – Sep. 2017}
 \vspace{-0.16cm}
 * Conducted a systematic review and meta-analysis on health utilities in cancer patients
+* Contributed to evidence synthesis and health economics research
+
+\vspace{6pt}
+
+<!-- TEACHING -->
+\begin{large}{\bf TEACHING}
+\vspace{3pt}
+\hrule
+\end{large}
+\vspace{4pt}
+
+\cvrow{{\bf Mohammed VI Center for Research and Innovation (CM6RI)}}{Rabat, Morocco}
+\vspace{-0.17cm}
+\cvrow{\textit{Trainer, Machine Learning for Health}}{2026}
+\vspace{-0.16cm}
+* Applied machine learning for health data analysis · Courses delivered to PhD students
+
+\vspace{2pt}
+
+\cvrow{{\bf Aix-Marseille University, SESSTIM}}{Marseille, France}
+\vspace{-0.17cm}
+\cvrow{\textit{Mentor, Artificial Intelligence for Public Health}}{2022 – Present}
+\vspace{-0.16cm}
+* Courses delivered to Master's students · Machine learning methods · Natural language processing
+
+\vspace{2pt}
+
+\cvrow{{\bf University Mohammed VI of Health Sciences (UM6SS)}}{Casablanca, Morocco}
+\vspace{-0.17cm}
+\cvrow{\textit{Lecturer, Health Data Science}}{2021 – Present}
+\vspace{-0.16cm}
+* Course delivered to undergraduate health students
+
+\vspace{2pt}
+
+\cvrow{{\bf Institut Mines-Télécom, IMT Atlantique}}{Brest, France}
+\vspace{-0.17cm}
+\cvrow{\textit{Lecturer, Health Data Analysis and Decision Support}}{2020 – Present}
+\vspace{-0.16cm}
+* Course delivered to engineering students
+
+\vspace{3pt}
+
+\textit{Outside working hours:} Organizer of Methods in Health Data Science with R (MHDSR), an independent training pathway (BIOSTATR, ML4HOR, METAR) covering applied biostatistics, machine learning, and meta-analysis with R
 
 \vspace{6pt}
 
@@ -104,9 +174,9 @@ Research Engineer in Biostatistics and Machine Learning, PhD, working at the int
 
 \cvrow{{\bf Aix-Marseille University, SESSTIM}}{Marseille, France}
 \vspace{-0.17cm}
-\cvrow{\textit{PhD in Biostatistics}}{2021 – 2025}
+\cvrow{\textit{PhD in Biomedical Sciences}}{2021 – 2025}
 \vspace{-0.1cm}
-Thesis: Missing Data and Machine Learning Methods for Survival Analysis · Supervisor: Pr Roch Giorgi
+Thesis: \href{https://theses.fr/s381025}{Missing Data and Machine Learning Methods for Survival Analysis} · Supervisor: Pr Roch Giorgi
 
 \vspace{3pt}
 
@@ -136,7 +206,7 @@ Thesis: Missing Data and Machine Learning Methods for Survival Analysis · Super
 \vspace{4pt}
 
 \begin{multicols}{2}
-\begin{flushleft}{\bf \href{https://cran.r-project.org/web/packages/survalis/index.html}{survalis}} — Interpretable Survival Machine Learning Framework\end{flushleft}
+\begin{flushleft}{\bf \href{https://cran.r-project.org/web/packages/survalis/index.html}{survalis}}: Interpretable Survival Machine Learning Framework\end{flushleft}
 \begin{flushright}CRAN · v0.7.1\end{flushright}
 \end{multicols}
 \vspace{-0.16cm}
@@ -145,8 +215,8 @@ Thesis: Missing Data and Machine Learning Methods for Survival Analysis · Super
 \vspace{2pt}
 
 \begin{multicols}{2}
-\begin{flushleft}{\bf \href{https://CRAN.R-project.org/package=funcml}{funcml}} — Functional Machine Learning Framework\end{flushleft}
-\begin{flushright}CRAN\end{flushright}
+\begin{flushleft}{\bf \href{https://CRAN.R-project.org/package=funcml}{funcml}}: Functional Machine Learning Framework\end{flushleft}
+\begin{flushright}CRAN · v0.7.1\end{flushright}
 \end{multicols}
 \vspace{-0.16cm}
 * Unified framework for functional machine learning in R · Maintainer
@@ -154,8 +224,8 @@ Thesis: Missing Data and Machine Learning Methods for Survival Analysis · Super
 \vspace{2pt}
 
 \begin{multicols}{2}
-\begin{flushleft}{\bf \href{https://CRAN.R-project.org/package=survdnn}{survdnn}} — Deep Neural Networks for Survival Analysis (R torch)\end{flushleft}
-\begin{flushright}CRAN\end{flushright}
+\begin{flushleft}{\bf \href{https://CRAN.R-project.org/package=survdnn}{survdnn}}: Deep Neural Networks for Survival Analysis (R torch)\end{flushleft}
+\begin{flushright}CRAN · v0.7.6\end{flushright}
 \end{multicols}
 \vspace{-0.16cm}
 * Cox, AFT, and discrete-time neural survival models · Maintainer
@@ -163,8 +233,8 @@ Thesis: Missing Data and Machine Learning Methods for Survival Analysis · Super
 \vspace{2pt}
 
 \begin{multicols}{2}
-\begin{flushleft}{\bf \href{https://CRAN.R-project.org/package=tvrmst}{tvrmst}} — Time-Varying RMST from Survival Matrices\end{flushleft}
-\begin{flushright}CRAN\end{flushright}
+\begin{flushleft}{\bf \href{https://CRAN.R-project.org/package=tvrmst}{tvrmst}}: Time-Varying RMST from Survival Matrices\end{flushleft}
+\begin{flushright}CRAN · v0.0.6\end{flushright}
 \end{multicols}
 \vspace{-0.16cm}
 * Dynamic RMST summaries for individualized survival curves · Maintainer
@@ -172,8 +242,8 @@ Thesis: Missing Data and Machine Learning Methods for Survival Analysis · Super
 \vspace{2pt}
 
 \begin{multicols}{2}
-\begin{flushleft}{\bf \href{https://CRAN.R-project.org/package=unsurv}{unsurv}} — Unsupervised Clustering of Individualized Survival Curves\end{flushleft}
-\begin{flushright}CRAN\end{flushright}
+\begin{flushleft}{\bf \href{https://CRAN.R-project.org/package=unsurv}{unsurv}}: Unsupervised Clustering of Individualized Survival Curves\end{flushleft}
+\begin{flushright}CRAN · v0.5.0\end{flushright}
 \end{multicols}
 \vspace{-0.16cm}
 * Phenotyping patients from predicted survival curves · Maintainer
@@ -181,8 +251,8 @@ Thesis: Missing Data and Machine Learning Methods for Survival Analysis · Super
 \vspace{2pt}
 
 \begin{multicols}{2}
-\begin{flushleft}{\bf \href{https://CRAN.R-project.org/package=mcstatsim}{mcstatsim}} — Monte Carlo Statistical Simulation Tools\end{flushleft}
-\begin{flushright}CRAN\end{flushright}
+\begin{flushleft}{\bf \href{https://CRAN.R-project.org/package=mcstatsim}{mcstatsim}}: Monte Carlo Statistical Simulation Tools\end{flushleft}
+\begin{flushright}CRAN · v0.5.0\end{flushright}
 \end{multicols}
 \vspace{-0.16cm}
 * Functional approach to monte carlo simulation studies in R · Maintainer
@@ -190,119 +260,65 @@ Thesis: Missing Data and Machine Learning Methods for Survival Analysis · Super
 \vspace{2pt}
 
 \begin{multicols}{2}
-\begin{flushleft}{\bf \href{https://CRAN.R-project.org/package=missCforest}{missCforest}} — Ensemble Conditional Trees for Missing Data Imputation\end{flushleft}
-\begin{flushright}CRAN\end{flushright}
+\begin{flushleft}{\bf \href{https://CRAN.R-project.org/package=missCforest}{missCforest}}: Ensemble Conditional Trees for Missing Data Imputation\end{flushleft}
+\begin{flushright}CRAN · v0.0.8\end{flushright}
 \end{multicols}
 \vspace{-0.16cm}
 * Missing data imputation using conditional forest ensembles · Maintainer
 
-\vspace{6pt}
-
-<!-- PROJECTS -->
-\begin{large}{\bf PROJECTS}
-\vspace{3pt}
-\hrule
-\end{large}
-\vspace{4pt}
-
-\cvrow{{\bf ML4Health} — Machine Learning for Health Training}{2026}
-\vspace{-0.16cm}
-* Training program focused on applied machine learning for health data analysis
-
 \vspace{2pt}
-
-\cvrow{{\bf AMRPRED} — Antimicrobial Resistance Prediction with Machine Learning}{2026}
-\vspace{-0.16cm}
-* Predictive modeling of antimicrobial resistance using clinical and microbiological data
-
-\vspace{2pt}
-
-\cvrow{{\bf MELPHY} — Melanoma Phenotyping under Immunotherapy and Systemic Treatment}{2025 – 2026}
-\vspace{-0.16cm}
-* Data-driven phenotyping of melanoma patients treated with immunotherapy and systemic therapies
-
-\vspace{2pt}
-
-\cvrow{{\bf AIDEM} — Artificial Intelligence for Dementia Prognosis and Risk Stratification}{2026 – 2027}
-\vspace{-0.16cm}
-* AI-based prognostic modeling and risk stratification in dementia using curated clinical data
-
-\vspace{2pt}
-
-\cvrow{{\bf CLAVUS} — Predicting the Clinical Resolution of Variants of Uncertain Significance Using Machine Learning}{2026 – 2027}
-\vspace{-0.16cm}
-* Machine learning approach for predicting clinical resolution of variants of uncertain significance using curated genomic data
-
-\vspace{2pt}
-
-\cvrow{{\bf SURVDNN} — Survival Deep Neural Networks}{2025 – 2026}
-\vspace{-0.16cm}
-* Deep learning framework for survival analysis using neural networks
-
-\vspace{2pt}
-
-\cvrow{{\bf OMOUMATI} — Risk Prediction of Pregnancy Complications}{2025 – 2026}
-\vspace{-0.16cm}
-* Prediction of pregnancy complications to support maternal and infant health outcomes
-
-\vspace{6pt}
-
-<!-- PUBLICATIONS -->
-\begin{large}{\bf SELECTED PUBLICATIONS}
-\vspace{3pt}
-\hrule
-\end{large}
-\vspace{4pt}
-
-**El Badisy I.**, Assarag B., Belrhiti Z. (2026). Interpretable clinical decision support in high-risk pregnancy: A scoping review. *BMC Pregnancy and Childbirth*.
-
-Kadi C., Ahmadi N., Houdou A., **El Badisy I.**, et al. (2025). Differentiating latent from active tuberculosis through activation phenotypes and chemokine markers. *Biomarker Insights*, 20, 11772719241312776.
-
-**El Badisy I.**, Graffeo N., Khalis M., Giorgi R. (2024). Multi-metric comparison of ML imputation methods: application to breast cancer survival. *BMC Medical Research Methodology*, 24(1):191.
-
-**El Badisy I.**, BenBrahim Z., Khalis M., et al. (2024). Risk factors for colorectal cancer survival in Morocco: interpretable ML approach. *Scientific Reports*, 14(1):3556.
-
-Houdou A., **El Badisy I.**, Khomsi K., et al. (2024). Interpretable ML for forecasting air pollution: a systematic review. *Aerosol and Air Quality Research*, 24(1):230151.
-
-Zbiri S., Belghiti Alaoui A., **El Badisy I.**, et al. (2024). Private hospitals in LMICs: a typology using cluster methods — Morocco. *BMC Health Services Research*, 24(1):1231.
-
-Blom I.M., Eissa M., Mattijsen J.C., **El Badisy I.**, et al. (2023). Greenhouse gas mitigation interventions for health-care systems. *Bulletin of the World Health Organization*, 102(3):159.
-
-Khalis M., Toure A.B., **El Badisy I.**, et al. (2022). Meteorological parameters and COVID-19 in Casablanca, Morocco. *Int. J. Environmental Research and Public Health*, 19(9):4989.
-
-\vspace{6pt}
-
-<!-- TEACHING -->
-\begin{large}{\bf TEACHING}
-\vspace{3pt}
-\hrule
-\end{large}
-\vspace{4pt}
 
 \begin{multicols}{2}
-\begin{flushleft}{\bf AI for Public Health} — Aix-Marseille University, SESSTIM\end{flushleft}
-\begin{flushright}2022 – Present\end{flushright}
+\begin{flushleft}{\bf \href{https://CRAN.R-project.org/package=functionals}{functionals}}: Functional Programming with Parallelism and Progress Tracking\end{flushleft}
+\begin{flushright}CRAN · v0.5.0\end{flushright}
 \end{multicols}
 \vspace{-0.16cm}
-* Machine learning methods and NLP for public health · Master's students
+* Functional programming utilities with parallelism and progress tracking · Maintainer
 
 \vspace{2pt}
 
 \begin{multicols}{2}
-\begin{flushleft}{\bf Introduction to Biostatistics} — University Mohammed VI of Health Sciences (UM6SS)\end{flushleft}
-\begin{flushright}2021 – Present\end{flushright}
+\begin{flushleft}{\bf \href{https://CRAN.R-project.org/package=mimar}{mimar}}: Compact Multiple Imputation, Assessment, and Reporting\end{flushleft}
+\begin{flushright}CRAN · v0.8.0\end{flushright}
 \end{multicols}
 \vspace{-0.16cm}
-* Descriptive and inferential statistics, statistical reasoning for health sciences · 100+ hours/year
+* Streamlined multiple imputation workflow with assessment and reporting · Maintainer
 
 \vspace{2pt}
 
 \begin{multicols}{2}
-\begin{flushleft}{\bf Quantitative Epidemiology and Machine Learning} — Institut Mines-Télécom, IMT Atlantique\end{flushleft}
-\begin{flushright}2020 – Present\end{flushright}
+\begin{flushleft}{\bf \href{https://CRAN.R-project.org/package=testflow}{testflow}}: Statistical Testing, Interpretation, and 'ggplot2'-Based Visualization\end{flushleft}
+\begin{flushright}CRAN · v0.9.0\end{flushright}
 \end{multicols}
 \vspace{-0.16cm}
-* ML fundamentals, quantitative epidemiology, supervised and unsupervised learning · 21+ hours/year
+* Workflow for statistical testing, interpretation, and visualization · Maintainer
+
+\vspace{2pt}
+
+\begin{multicols}{2}
+\begin{flushleft}{\bf \href{https://CRAN.R-project.org/package=densemlp}{densemlp}}: Dense Neural Networks for Tabular Classification and Regression\end{flushleft}
+\begin{flushright}CRAN · v0.5.0\end{flushright}
+\end{multicols}
+\vspace{-0.16cm}
+* Dense neural network models for tabular data · Maintainer
+
+\vspace{2pt}
+
+\begin{multicols}{2}
+\begin{flushleft}{\bf \href{https://CRAN.R-project.org/package=CEACT}{CEACT}}: Cost-Effectiveness Analysis Toolkit for Clinical Trials\end{flushleft}
+\begin{flushright}CRAN · v0.5.0\end{flushright}
+\end{multicols}
+\vspace{-0.16cm}
+* Cost-effectiveness analysis toolkit for clinical trial data · Maintainer
+
+\vspace{2pt}
+
+\begin{multicols}{2}
+\begin{flushleft}{\bf \href{https://CRAN.R-project.org/package=missknn}{missknn}}: Fast Masked K-Nearest Neighbor Imputation\end{flushleft}
+\begin{flushright}CRAN · v1.0.0\end{flushright}
+\end{multicols}
+\vspace{-0.16cm}
+* Fast masked k-nearest neighbor imputation · Maintainer
 
 \vspace{6pt}
 
@@ -320,22 +336,72 @@ Comparison of missing data imputation methods in Cox regression with time-varyin
 
 \vspace{3pt}
 
-Missing data imputation using a meta-algorithm metaCART: simulation under MCAR \hfill 2023
+Missing data imputation using a meta-algorithm metaCART: simulation under MCAR mechanism \hfill 2023
 
 \vspace{-0.1cm}
 \textit{EpiClin 2023, Nancy} · El Badisy I. et al.
 
 \vspace{6pt}
 
-<!-- SKILLS -->
-\begin{large}{\bf SKILLS}
+<!-- PUBLICATIONS -->
+\begin{large}{\bf PUBLICATIONS}
 \vspace{3pt}
 \hrule
 \end{large}
 \vspace{4pt}
 
-**Methods:** Biostatistics · Survival analysis · Missing data · Meta-analysis · Interpretable machine learning
+1. **El Badisy I.** (2026). unsurv: Clustering Individualized Survival Curves. *Bioinformatics Advances*, vbag218.
 
-**Tools:** R package development · Python · Quarto/LaTeX · Git/GitHub · Slurm/HPC
+2. **El Badisy I.** (2026). The R Journal: SurvDNN: Survival Deep Learning Models for Tabular Data. *The R Journal*, 18(1):384-399. https://doi.org/10.32614/RJ-2026-008.
 
-**Languages:** Arabic (native) · French (fluent) · English (fluent)
+3. **El Badisy I.** (2026). funcml: Functional Machine Learning Software for R. *Zenodo*. https://doi.org/10.5281/zenodo.20707605.
+
+4. **El Badisy I.**, Assarag B., Belrhiti Z. (2026). Interpretable clinical decision support systems in high-risk pregnancy: a scoping review of models, methods, and implementation. *BMC Pregnancy and Childbirth*, 26(1):125.
+
+5. Bnimoussa J., Bouaddi O., **El Badisy I.**, Khalis M. (2026). Drivers of youth mental health and wellbeing: a large-scale cross-sectional study in Morocco. *BMJ Open*, 16(6):e110683.
+
+6. Lamchabbek N., Huybrechts I., **El Badisy I.**, et al. (2026). Global assessment of the relationship between breast cancer risk and dietary intake: an ecological study. *American Journal of Health Promotion*, 40(5):591-600.
+
+7. Bouaddi O., **El Badisy I.**, Charaka H., et al. (2026). Leveraging the Positive Deviance Approach to Drive Behavior Change in Noncommunicable Diseases: A Scoping Review. *Public Health Challenges*, 5(1):e70074.
+
+8. Lamchabbek N., Mrah S., Mane N., **El Badisy I.**, et al. (2026). Adherence to WCRF/AICR cancer prevention recommendations and reduction in breast cancer risk: results of a large-scale case-control study in Morocco. *The British Journal of Nutrition*, 1-29.
+
+9. Houdou A., Khomsi K., Delle Monache L., **El Badisy I.**, et al. (2025). Enhancing 5-day particulate matter (PM10) forecasts in Morocco using U-net: A deep learning approach. *Atmospheric Research*, 108439.
+
+10. Kadi C., Ahmadi N., Houdou A., **El Badisy I.**, et al. (2025). Differentiating Latent Tuberculosis from Active Tuberculosis Through Activation Phenotypes and Chemokine Markers HLA-DR, CD38, MCP-1, and RANTES: A Systematic Review and Meta-Analysis. *Biomarker Insights*, 20:11772719241312776.
+
+11. Lyubareva I., Rochelandet F., **El Badisy I.** (2025). Imitation of Business Models: The Case of Online News Industry in France. *International Journal of Arts Management*, 27(2):67-85.
+
+12. Houdou A., **El Badisy I.**, Khomsi K., et al. (2024). Interpretable machine learning approaches for forecasting and predicting air pollution: A systematic review. *Aerosol and Air Quality Research*, 24(1):230151.
+
+13. **El Badisy I.**, BenBrahim Z., Khalis M., et al. (2024). Risk factors affecting patient survival with colorectal cancer in Morocco: survival analysis using an interpretable machine learning approach. *Scientific Reports*, 14(1):3556.
+
+14. **El Badisy I.**, BenBrahim Z., Khalis M., et al. (2024). Author Correction: Risk factors affecting patient survival with colorectal cancer in Morocco: survival analysis using an interpretable machine learning approach. *Scientific Reports*, 14:9985.
+
+15. **El Badisy I.**, Graffeo N., Khalis M., Giorgi R. (2024). Multi-metric comparison of machine learning imputation methods with application to breast cancer survival. *BMC Medical Research Methodology*, 24(1):191.
+
+16. Zbiri S., Belghiti Alaoui A., **El Badisy I.**, et al. (2024). Private hospitals in low-and middle-income countries: a typology using the cluster method, the case of Morocco. *BMC Health Services Research*, 24(1):1231.
+
+17. Abdala S.A., Khomsi K., Houdou A., **El Badisy I.**, et al. (2024). Emission reduction strategies and health: a systematic review on the tools and methods to assess co-benefits. *BMJ Open*, 14(12):e083214.
+
+18. **El Badisy I.**, Nejjari C., Naim A., et al. (2023). CO10. 6-Imputation des données manquantes par un méta-algorithme (metaCART): étude de simulation. *Epidemiology and Public Health = Revue d'Epidémiologie et de Santé Publique*, 71:101632.
+
+19. Jallal M., Berrada K., Bouaddi O., **El Badisy I.**, et al. (2023). How physicians in a Moroccan tertiary care center perceive teleconsultation during COVID-19 pandemic? *Telemedicine and e-Health*, 29(2):284-292.
+
+20. Khalis M., Tembo J.M.W., Elmouden L., **El Badisy I.**, et al. (2023). Tobacco Use Among Dental Students in Morocco: Opportunities for Professional Cancer Education. *Journal of Cancer Education*, 38(3):821-828.
+
+21. Houdou A., Khomsi K., Leghrib R., **El Badisy I.**, Abdala S.A., Ibrahimi A., et al. (2023). Forecasting Particulate Matter (PM10) Using Machine Learning Algorithms in Agadir. *ISEE Conference Abstracts*, 2023(1).
+
+22. Houdou A., **El Badisy I.**, Abdala S.A., Khomsi K., Khalis M. (2023). A Machine Learning Approach for Particulate Dust Forecasting in Morocco. *ISEE Conference Abstracts*, 2023(1).
+
+23. Khalis M., Toure A.B., **El Badisy I.**, et al. (2022). Relationship between meteorological and air quality parameters and COVID-19 in Casablanca region, Morocco. *International Journal of Environmental Research and Public Health*, 19(9):4989.
+
+24. Lyubareva I., Rochelandet F., **El Badisy I.** (2022). Evolution of business models and industrial organization. Uncertainty, competition and imitation behavior in the French Press Industry. *16th International Conference on Arts and Cultural Management*.
+
+25. Le Goff-Pronost M., **El Badisy I.**, Dejonghe Q., et al. (2022). 5 years of early management of skin cancer by tele-dermatology: what have we learned from real-world data? *International Conferences on E-Society 2022 and Mobile Learning 2022*, 85.
+
+26. Lyubareva I., Mesangeau J., Boudjani N., **El Badisy I.**, Brisson L. (2021). La plateformisation des médias français et le ton du débat public. Exemple de YouTube. *Communication. Information médias théories pratiques*, 38(2).
+
+27. Le Stum M., Dardenne G., **El Badisy I.**, et al. (2021). Dynamiques des poses de Prothèse de Genou en France. Projection à 2030. *Colloque annuel de l'Institut Brestois en biologie Santé Matière (IBSAM)*.
+
+\vspace{6pt}
