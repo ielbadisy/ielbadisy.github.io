@@ -29,6 +29,7 @@ format:
 \begin{center}
 {\huge \bfseries Imad EL BADISY}\\[4pt]
 \href{mailto:elbadisyimad@gmail.com}{elbadisyimad@gmail.com} $\cdot$
+\href{mailto:ielbadisy@cm6.ma}{ielbadisy@cm6.ma} $\cdot$
 \href{https://github.com/ielbadisy}{github.com/ielbadisy} $\cdot$
 \href{https://scholar.google.com/scholar?q=Imad+EL+BADISY}{Google Scholar} $\cdot$
 \href{https://www.linkedin.com/in/imad-el-badisy-360018281/}{LinkedIn}
