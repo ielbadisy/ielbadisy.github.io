@@ -123,9 +123,9 @@ Short PDF notes: elegant write-ups tied to the projects and packages I'm working
 
 | Date | Note | Topic |
 |---|---|---|
-| 2026-05-23 | [Dynamic RMST as an interpretable summary for predicted survival curves](notes/dynamic-rmst.pdf) | RMST |
-| 2026-05-23 | [Functional machine learning workflows in R](notes/functional-ml-r.pdf) | R / ML |
 | 2026-05-23 | [Survival-trajectory phenotypes from individualized survival curves](notes/survival-trajectory-phenotypes.pdf) | Clustering |
+| 2026-04-25 | [Functional machine learning workflows in R](notes/functional-ml-r.pdf) | R / ML |
+| 2026-04-04 | [Dynamic RMST as an interpretable summary for predicted survival curves](notes/dynamic-rmst.pdf) | RMST |
 
 [View all notes →](notes/index.qmd)
 

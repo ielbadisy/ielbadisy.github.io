@@ -2,7 +2,7 @@
 title: "Functional Machine Learning Workflows in R with funcml"
 subtitle: "A methodological note on explicit, auditable machine learning workflows for health data science."
 author: "Imad EL BADISY"
-date: "2026-05-23"
+date: "2026-04-25"
 format:
   pdf:
     toc: true

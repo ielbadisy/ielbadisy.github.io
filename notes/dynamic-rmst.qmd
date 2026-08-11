@@ -2,7 +2,7 @@
 title: "Dynamic RMST from Predicted Survival Curves with tvrmst"
 subtitle: "A methodological note on dynamic restricted mean survival time as an interpretable summary of individualized survival predictions."
 author: "Imad EL BADISY"
-date: "2026-05-23"
+date: "2026-04-04"
 format:
   pdf:
     toc: true
