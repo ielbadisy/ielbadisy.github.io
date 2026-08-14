@@ -18,7 +18,7 @@ format: html
 <hr>
 
 <div class="identity">
-  <img class="profile-photo" src="profile.png" alt="Portrait of Imad EL BADISY">
+  <img class="profile-photo" src="profile.jpg" alt="Portrait of Imad EL BADISY">
   <p class="role">Research Engineer in Health Data Science, PhD</p>
 
   <p class="affiliation">

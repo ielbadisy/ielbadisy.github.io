@@ -2,7 +2,7 @@ project:
   type: website
   output-dir: docs
   resources:
-    - profile.png
+    - profile.jpg
     - MHDSR-combined-syllabus.pdf
   render:
     - index.qmd
