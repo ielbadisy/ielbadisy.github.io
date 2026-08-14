@@ -1,12 +1,14 @@
-/* Polished xmin-inspired Quarto single-page website */
+/* Polished xmin-inspired Quarto single-page website — BIOSTAT Lab palette */
+
+@import url('https://fonts.googleapis.com/css2?family=Red+Hat+Text:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Petrona:wght@400;500;600;700&display=swap');
 
 :root {
-  --text: #111111;
-  --muted: #555555;
-  --light: #f7f7f7;
-  --border: #d8d8d8;
-  --link: #0645ad;
-  --link-hover: #002f6c;
+  --text: #2C3E50;
+  --muted: #4A6080;
+  --light: #e0f2f1;
+  --border: #b2dfdb;
+  --link: #1a7c8c;
+  --link-hover: #00897b;
   --max-width: 1040px;
 }
 
@@ -19,7 +21,7 @@ body {
   margin: 0 auto;
   padding: 1.4rem 1.1rem 2rem;
   line-height: 1.58;
-  font-family: Georgia, "Times New Roman", Times, serif;
+  font-family: "Red Hat Text", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 17px;
   color: var(--text);
   background: #ffffff;
@@ -33,10 +35,12 @@ body {
 
 #title-block-header h1,
 h1.title {
+  font-family: "Petrona", serif;
   font-size: 2.15rem;
   font-weight: 600;
   letter-spacing: 0.01em;
   margin-bottom: 0.4rem;
+  color: var(--text);
 }
 
 /* Manual menu */
@@ -60,12 +64,14 @@ h1.title {
   color: var(--text);
   text-decoration: none;
   font-size: 0.92rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 .menu a:hover {
-  border-color: #b8b8b8;
-  background: #eeeeee;
-  color: var(--text);
+  border-color: var(--link);
+  background: var(--link);
+  color: #ffffff;
 }
 
 /* Hero identity */
@@ -89,19 +95,21 @@ h1.title {
 }
 
 .role {
+  font-family: "Petrona", serif;
   font-size: 1.15rem;
   font-weight: 600;
   text-align: center;
+  color: var(--text);
 }
 
 .subtitle {
-  color: #333333;
+  color: var(--muted);
   font-size: 1.02rem;
   text-align: center;
 }
 
 .affiliation {
-  color: #444444;
+  color: var(--muted);
   font-size: 0.96rem;
   margin-top: 0.55rem !important;
   text-align: center;
@@ -115,17 +123,22 @@ h1.title {
 
 /* General typography */
 h2 {
+  font-family: "Petrona", serif;
   font-size: 1.35rem;
+  font-weight: 600;
   margin-top: 2rem;
   margin-bottom: 0.55rem;
   padding-bottom: 0.16rem;
   border-bottom: 1px solid var(--border);
   text-align: center;
+  color: var(--text);
 }
 
 h3 {
+  font-family: "Petrona", serif;
   font-size: 1.12rem;
   margin-top: 1.25rem;
+  color: var(--text);
 }
 
 p {
@@ -164,15 +177,16 @@ table {
   width: 100%;
   margin: 1rem auto 1.25rem;
   border-collapse: collapse;
-  border-top: 1px solid #777777;
-  border-bottom: 1px solid #777777;
+  border-top: 1px solid var(--text);
+  border-bottom: 1px solid var(--text);
   font-size: 0.96rem;
 }
 
 thead th {
   border-bottom: 1px solid var(--border);
-  background: #f1f1f1;
+  background: var(--light);
   font-weight: 600;
+  color: var(--text);
 }
 
 th, td {
@@ -181,21 +195,22 @@ th, td {
 }
 
 tr:nth-child(even) {
-  background: #fafafa;
+  background: #f4faf9;
 }
 
 /* Code */
 code {
   font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
   font-size: 0.9em;
-  background: #f6f6f6;
+  background: var(--light);
+  color: var(--text);
   padding: 0.08rem 0.22rem;
   border-radius: 3px;
 }
 
 pre {
   border: 1px solid var(--border);
-  box-shadow: 4px 4px 0 #eeeeee;
+  box-shadow: 4px 4px 0 var(--light);
   padding: 1rem;
   overflow-x: auto;
   background: #fcfcfc;
@@ -210,9 +225,10 @@ pre code {
 blockquote {
   margin: 1rem 0;
   padding: 0.5rem 1rem;
-  border-left: 4px solid #cccccc;
-  background: #fafafa;
-  color: #333333;
+  border-left: 4px solid var(--link);
+  background: var(--light);
+  color: var(--muted);
+  font-style: oblique;
 }
 
 /* Images */
@@ -230,7 +246,7 @@ footer {
 
 /* Quarto cleanup */
 .anchorjs-link {
-  color: #aaaaaa;
+  color: var(--border);
 }
 
 .quarto-title-meta {
