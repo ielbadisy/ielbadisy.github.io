@@ -119,7 +119,7 @@ All packages on [CRAN](https://CRAN.R-project.org/search/?query=el+badisy) · al
 
 ## Notes {#notes}
 
-Short PDF notes: elegant write-ups tied to the projects and packages I'm working on, published whenever there's something worth explaining.
+Some methodological notes on related work.
 
 | Date | Note | Topic |
 |---|---|---|
