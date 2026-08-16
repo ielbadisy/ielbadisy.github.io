@@ -75,12 +75,10 @@ Interested? [Get in touch →](#contact) for more information.
 
 ## Software {#software}
 
-Start with `survalis` and `survdnn`, the two most actively developed packages; the rest are focused single-purpose tools.
-
 | Package | Purpose | Link |
 |---|---|---|
-| **`survalis`** | Interpretable survival machine learning framework | [CRAN](https://CRAN.R-project.org/package=survalis) |
-| **`survdnn`** | Deep neural networks for survival analysis (R torch) | [CRAN](https://CRAN.R-project.org/package=survdnn) |
+| `survalis` | Interpretable survival machine learning framework | [CRAN](https://CRAN.R-project.org/package=survalis) |
+| `survdnn` | Deep neural networks for survival analysis (R torch) | [CRAN](https://CRAN.R-project.org/package=survdnn) |
 | `funcml` | Functional machine learning workflows | [CRAN](https://CRAN.R-project.org/package=funcml) |
 | `unsurv` | Unsupervised clustering of individualized survival curves | [CRAN](https://CRAN.R-project.org/package=unsurv) |
 | `tvrmst` | Time-varying RMST from survival matrices | [CRAN](https://CRAN.R-project.org/package=tvrmst) |
