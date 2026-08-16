@@ -28,8 +28,7 @@ format: html
     <a href="mailto:elbadisyimad@gmail.com">Email</a> ·
     <a href="https://github.com/ielbadisy">GitHub</a> ·
     <a href="https://scholar.google.com/scholar?q=Imad+EL+BADISY">Google Scholar</a> ·
-    <a href="https://ma.linkedin.com/in/imad-el-badisy-360018281">LinkedIn</a> ·
-    <a href="cv/cv.pdf">CV</a>
+    <a href="https://ma.linkedin.com/in/imad-el-badisy-360018281">LinkedIn</a>
   </p>
 </div>
 
@@ -42,7 +41,7 @@ Research Engineer in Health Data Science, PhD, working at the interface of biost
 - **Survival machine learning**: Individualized survival prediction | neural survival models | RMST-based summaries, and trajectory phenotyping.
 - **Missing data**: Evaluation of imputation strategies
 - **Interpretable ML**: Explanation workflows aligned with clinical reasoning, including SHAP-style attributions, PDP/ICE/ALE, and stability diagnostics.
-- **Agentic data science**: Increasingly focused on the agentic data science paradigm: building systems where autonomous agents orchestrate analytical workflows for health research.
+- **Agentic data science**: Autonomous agents that orchestrate analytical workflows for health research.
 
 
 ## Consulting {#consulting}
@@ -72,12 +71,16 @@ Engagements are scoped individually: short advisory sessions, analysis support o
 - **ML4HOR**: Machine Learning for Health Outcomes with R (prediction)
 - **METAR**: Conducting Meta-Analysis with R (evidence synthesis)
 
+Interested? [Get in touch →](#contact) for more information.
+
 ## Software {#software}
+
+Start with `survalis` and `survdnn`, the two most actively developed packages; the rest are focused single-purpose tools.
 
 | Package | Purpose | Link |
 |---|---|---|
-| `survalis` | Interpretable survival machine learning framework | [CRAN](https://CRAN.R-project.org/package=survalis) |
-| `survdnn` | Deep neural networks for survival analysis (R torch) | [CRAN](https://CRAN.R-project.org/package=survdnn) |
+| **`survalis`** | Interpretable survival machine learning framework | [CRAN](https://CRAN.R-project.org/package=survalis) |
+| **`survdnn`** | Deep neural networks for survival analysis (R torch) | [CRAN](https://CRAN.R-project.org/package=survdnn) |
 | `funcml` | Functional machine learning workflows | [CRAN](https://CRAN.R-project.org/package=funcml) |
 | `unsurv` | Unsupervised clustering of individualized survival curves | [CRAN](https://CRAN.R-project.org/package=unsurv) |
 | `tvrmst` | Time-varying RMST from survival matrices | [CRAN](https://CRAN.R-project.org/package=tvrmst) |
