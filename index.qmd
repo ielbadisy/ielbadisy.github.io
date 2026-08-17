@@ -1,7 +1,11 @@
 ---
 title: "Imad EL BADISY"
 description: "Imad EL BADISY, Research Engineer in Health Data Science, PhD. Biostatistics, survival analysis, missing data, and interpretable machine learning for health research."
-format: html
+format:
+  html:
+    include-in-header:
+      text: |
+        <meta name="google-site-verification" content="BL7llVzTysRFTmiaUvROhyznMMrs97Muk8fofExd6LI" />
 ---
 
 <ul class="menu">
