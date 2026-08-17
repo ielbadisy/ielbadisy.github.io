@@ -61,7 +61,7 @@
   <category>packages</category>
   <guid>https://elbadisyimad.com/blog/2025-10-01-survdnn/</guid>
   <pubDate>Tue, 30 Sep 2025 23:00:00 GMT</pubDate>
-  <media:content url="https://elbadisyimad.com/blog/2025-10-01-survdnn/featured.png" medium="image" type="image/png" height="103" width="144"/>
+  <media:content url="https://elbadisyimad.com/blog/2025-10-01-survdnn/featured.png" medium="image" type="image/png" height="93" width="144"/>
 </item>
 <item>
   <title>mimar: Compact Multiple Imputation, Assessment, and Reporting in R</title>

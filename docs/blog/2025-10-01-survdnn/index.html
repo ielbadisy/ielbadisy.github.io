@@ -95,12 +95,12 @@ Imad El Badisy · 2025-10-01
 <p><code>survdnn</code> (v0.7.6) trains multilayer perceptrons for right-censored survival data. It supports four loss functions, built-in cross-validation, hyperparameter tuning, survival curve prediction, and standard evaluation metrics.</p>
 <p>Install:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"torch"</span>)   <span class="co"># backend</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"survdnn"</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survdnn)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"survdnn"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <h2 id="fitting-a-model" class="anchored">Fitting a model</h2>
 <p>The entry point is <code>survdnn()</code>, which takes a <code>Surv()</code> formula:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survival)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survdnn)</span>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>({<span class="fu">library</span>(survival); <span class="fu">library</span>(survdnn)})</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>torch<span class="sc">::</span><span class="fu">torch_manual_seed</span>(<span class="dv">1</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">survdnn</span>(</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">formula   =</span> <span class="fu">Surv</span>(time, status) <span class="sc">~</span> age <span class="sc">+</span> sex <span class="sc">+</span> ph.ecog <span class="sc">+</span> ph.karno,</span>
@@ -111,8 +111,12 @@ Imad El Badisy · 2025-10-01
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">epochs    =</span> <span class="dv">300</span>,</span>
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">lr        =</span> <span class="fl">1e-3</span>,</span>
 <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">dropout   =</span> <span class="fl">0.3</span>,</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">batch_norm =</span> <span class="cn">TRUE</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">batch_norm =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">verbose   =</span> <span class="cn">FALSE</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>fit</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <h2 id="loss-functions" class="anchored">Loss functions</h2>
 <p>Four loss functions are available, covering the major families of deep survival models:</p>
 <table class="caption-top">
@@ -152,45 +156,103 @@ Imad El Badisy · 2025-10-01
 </tbody>
 </table>
 <h2 id="prediction-and-survival-curves" class="anchored">Prediction and survival curves</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># predict linear predictor (risk score)</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(fit, <span class="at">newdata =</span> lung, <span class="at">type =</span> <span class="st">"lp"</span>)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># predict survival curves on a time grid</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>times <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1000</span>, <span class="at">by =</span> <span class="dv">50</span>)</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>surv  <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit, <span class="at">newdata =</span> lung, <span class="at">type =</span> <span class="st">"survival"</span>, <span class="at">times =</span> times)</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># plot survival curves for a subset of patients</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fit, <span class="at">newdata =</span> lung[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, ], <span class="at">times =</span> times)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># predict linear predictor (risk score)</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">predict</span>(fit, <span class="at">newdata =</span> lung, <span class="at">type =</span> <span class="st">"lp"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  0.1397203 -0.2062566 -0.9678885  0.1454131 -0.7345585 -1.1179752</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># predict survival curves on a time grid</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>times <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1000</span>, <span class="at">by =</span> <span class="dv">50</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>surv  <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit, <span class="at">newdata =</span> lung, <span class="at">type =</span> <span class="st">"survival"</span>, <span class="at">times =</span> times)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(surv)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        t=0      t=50     t=100     t=150     t=200     t=250     t=300
+1 0.9951746 0.9361534 0.8451717 0.7604267 0.6144562 0.5117045 0.4266991
+2 0.9965835 0.9543929 0.8877925 0.8238434 0.7085186 0.6224762 0.5473946
+3 0.9984034 0.9784408 0.9459462 0.9134979 0.8513897 0.8014476 0.7547645
+4 0.9951471 0.9358008 0.8443605 0.7592386 0.6127502 0.5097510 0.4246295
+5 0.9979842 0.9728526 0.9322323 0.8920343 0.8161431 0.7561600 0.7009718
+6 0.9986257 0.9814173 0.9533005 0.9250892 0.8706953 0.8265549 0.7849473
+      t=350     t=400     t=450     t=500     t=550      t=600      t=650
+1 0.3291391 0.2446004 0.1935003 0.1582133 0.1135787 0.08159666 0.05483936
+2 0.4555458 0.3692460 0.3128289 0.2712947 0.2145830 0.16981532 0.12819513
+3 0.6927352 0.6280267 0.5812417 0.5438405 0.4874379 0.43699172 0.38323199
+4 0.3270575 0.2426419 0.1916944 0.1565566 0.1121769 0.08043761 0.05393788
+5 0.6290261 0.5557598 0.5039996 0.4633978 0.4035571 0.35155256 0.29784911
+6 0.7290997 0.6700901 0.6268990 0.5920222 0.5387818 0.49043253 0.43803954
+       t=700      t=750       t=800       t=850       t=900       t=950
+1 0.03171439 0.01237621 0.007940308 0.004207006 0.001865832 0.001865832
+2 0.08701532 0.04471476 0.032664382 0.020839752 0.011723673 0.011723673
+3 0.31981080 0.23436366 0.202402368 0.164090863 0.125440661 0.125440661
+4 0.03109568 0.01206975 0.007724095 0.004077636 0.001800081 0.001800081
+5 0.23701727 0.16006584 0.133011865 0.102049314 0.072695858 0.072695858
+6 0.37488195 0.28688417 0.252875078 0.211093807 0.167527461 0.167527461
+       t=1000
+1 0.001865832
+2 0.011723673
+3 0.125440661
+4 0.001800081
+5 0.072695858
+6 0.167527461</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">plot</span>(fit, <span class="at">newdata =</span> lung[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, ], <span class="at">times =</span> times)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">ggsave</span>(<span class="st">"featured.png"</span>, p, <span class="at">width =</span> <span class="dv">7</span>, <span class="at">height =</span> <span class="fl">4.5</span>, <span class="at">dpi =</span> <span class="dv">150</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>p</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-survcurve" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-survcurve-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-survcurve-1.png" class="img-fluid" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-survcurve-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Predicted survival curves for five patients from the lung dataset
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
 <h2 id="evaluation" class="anchored">Evaluation</h2>
-<p><code>survdnn</code> computes the concordance index (C-index) and integrated Brier score out of the box:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># C-index: 0.68</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Training loss (epoch 300): 0.412</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>evaluate_survdnn()</code> computes the concordance index and integrated Brier score from the fitted model:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">evaluate_survdnn</span>(fit, <span class="at">metrics =</span> <span class="fu">c</span>(<span class="st">"cindex"</span>, <span class="st">"ibs"</span>), <span class="at">times =</span> <span class="fu">seq</span>(<span class="dv">100</span>, <span class="dv">800</span>, <span class="at">by =</span> <span class="dv">200</span>), <span class="at">newdata =</span> lung)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  metric value
+  &lt;chr&gt;  &lt;dbl&gt;
+1 cindex 0.689
+2 ibs    0.162</code></pre>
+</div>
+</div>
 <h2 id="hyperparameter-tuning-with-cross-validation" class="anchored">Hyperparameter tuning with cross-validation</h2>
-<p><code>tune_survdnn()</code> runs a random or grid search over the hyperparameter space with K-fold cross-validation:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>grid <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">hidden    =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">32</span>, <span class="dv">16</span>), <span class="fu">c</span>(<span class="dv">64</span>, <span class="dv">32</span>), <span class="fu">c</span>(<span class="dv">128</span>, <span class="dv">64</span>)),</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">lr        =</span> <span class="fu">c</span>(<span class="fl">1e-3</span>, <span class="fl">1e-4</span>),</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">dropout   =</span> <span class="fu">c</span>(<span class="fl">0.2</span>, <span class="fl">0.3</span>),</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">loss      =</span> <span class="fu">c</span>(<span class="st">"cox"</span>, <span class="st">"aft"</span>)</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>tuned <span class="ot">&lt;-</span> <span class="fu">tune_survdnn</span>(</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> <span class="fu">Surv</span>(time, status) <span class="sc">~</span> age <span class="sc">+</span> sex <span class="sc">+</span> ph.ecog,</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">data    =</span> lung,</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">grid    =</span> grid,</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">nfolds  =</span> <span class="dv">5</span>,</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">epochs  =</span> <span class="dv">200</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>tuned<span class="sc">$</span>best_params</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>tune_survdnn()</code> runs a grid search over the hyperparameter space with K-fold cross-validation. <code>param_grid</code> is a named list crossed via <code>tidyr::crossing()</code>, and must include <code>hidden</code>, <code>lr</code>, <code>activation</code>, <code>epochs</code>, <code>.loss_fn</code>, and <code>loss_name</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>grid <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">hidden     =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">16</span>), <span class="fu">c</span>(<span class="dv">32</span>, <span class="dv">16</span>)),</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">lr         =</span> <span class="fu">c</span>(<span class="fl">1e-3</span>, <span class="fl">1e-4</span>),</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">activation =</span> <span class="fu">c</span>(<span class="st">"relu"</span>),</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">epochs     =</span> <span class="fu">c</span>(<span class="dv">200</span>),</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">.loss_fn   =</span> <span class="fu">list</span>(cox_loss, aft_loss),</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">loss_name  =</span> <span class="fu">c</span>(<span class="st">"cox"</span>, <span class="st">"aft"</span>)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>tuned <span class="ot">&lt;-</span> <span class="fu">tune_survdnn</span>(</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> <span class="fu">Surv</span>(time, status) <span class="sc">~</span> age <span class="sc">+</span> sex <span class="sc">+</span> ph.ecog,</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">data    =</span> lung,</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">times   =</span> <span class="fu">c</span>(<span class="dv">90</span>, <span class="dv">300</span>),</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">metrics =</span> <span class="st">"cindex"</span>,</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">param_grid =</span> grid,</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">folds   =</span> <span class="dv">5</span>,</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">return  =</span> <span class="st">"summary"</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <h2 id="architecture" class="anchored">Architecture</h2>
 <p>Under the hood, <code>survdnn()</code> builds an MLP via <code>build_dnn()</code>: linear layers with optional batch normalization and dropout between each hidden layer, terminating in a single linear output. The <code>torch</code> optimizer (Adam by default) is configurable via <code>optimizer</code> and <code>optim_args</code>.</p>
 <h2 id="methodological-background" class="anchored">Methodological background</h2>
 <p>The Cox and CoxTime losses follow Kvamme, Borgan &amp; Scheel (2019), <em>“Time-to-Event Prediction with Neural Networks and Cox Regression”</em>, JMLR 20(129):1–30. The AFT formulation minimizes a log-normal negative log-likelihood.</p>
 <h2 id="links" class="anchored">Links</h2>
 <ul>
-<li>{{&lt; fa brands github &gt;}} <a href="https://github.com/ielbadisy/survdnn">github.com/ielbadisy/survdnn</a></li>
+<li>GitHub: <a href="https://github.com/ielbadisy/survdnn">github.com/ielbadisy/survdnn</a></li>
 </ul>
 <hr>
 <footer>

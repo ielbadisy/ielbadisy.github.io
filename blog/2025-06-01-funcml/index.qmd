@@ -10,6 +10,9 @@ format:
   html:
     template-partials:
       - ../../_partials/blog-banner/title-block.html
+execute:
+  warning: false
+  message: false
 ---
 
 Machine learning in R has long suffered from a fragmentation problem. Fitting a random forest, a regularized linear model, and a neural network each requires learning a different package, a different formula syntax, and a different set of conventions for prediction and evaluation. **funcml** was built to close that gap.
@@ -31,28 +34,30 @@ Install from CRAN:
 
 ```r
 install.packages("funcml")
-library(funcml)
 ```
 
 ## A minimal example
 
-```r
-library(funcml)
+```{r}
+#| label: fit-eval
+suppressPackageStartupMessages(library(funcml))
 
 # fit a random forest
-fit_rf <- fit(Sepal.Length ~ ., data = iris, learner = "ranger")
+fit_rf <- fit(Sepal.Length ~ ., data = iris, model = "ranger")
 
 # evaluate with 5-fold CV
-evaluate(fit_rf, data = iris, resampling = "cv", nfolds = 5)
+evaluate(data = iris, formula = Sepal.Length ~ ., model = "ranger", resampling = cv(5), seed = 1)
+```
 
+```{r}
+#| label: compare
 # compare to a regularized regression
-fit_glmnet <- fit(Sepal.Length ~ ., data = iris, learner = "glmnet")
-
 compare_learners(
-  list(rf = fit_rf, glmnet = fit_glmnet),
   data = iris,
-  resampling = "cv",
-  nfolds = 5
+  formula = Sepal.Length ~ .,
+  models = c("ranger", "glmnet"),
+  resampling = cv(5),
+  seed = 1
 )
 ```
 
@@ -60,42 +65,48 @@ compare_learners(
 
 `interpret()` wraps 14 methods, from permutation importance and partial dependence plots to SHAP values and accumulated local effects, behind a single call:
 
-```r
-interpret(fit_rf, data = iris, method = "shap")
-interpret(fit_rf, data = iris, method = "pdp", feature = "Petal.Width")
-interpret(fit_rf, data = iris, method = "ale",  feature = "Petal.Width")
+```{r}
+#| label: interpret
+interpret(fit_rf, data = iris, method = "pdp", features = "Petal.Width")$result$curves |> head()
 ```
 
 ## Causal estimation
 
 When the research question goes beyond prediction, `estimate()` wraps plug-in g-computation to estimate average and conditional treatment effects:
 
-```r
+```{r}
+#| label: estimate
+set.seed(1)
+n <- 200
+X1 <- rnorm(n); X2 <- rnorm(n)
+A <- rbinom(n, 1, plogis(0.3 * X1))
+Y <- 1 + 0.5 * A + 0.4 * X1 - 0.2 * X2 + rnorm(n)
+mydata <- data.frame(Y, A, X1, X2)
+
 # ATE of treatment A on outcome Y, adjusted for covariates X
 estimate(
-  formula = Y ~ A + X1 + X2,
-  data    = mydata,
-  learner = "ranger",
-  effect  = "ATE"
+  data      = mydata,
+  formula   = Y ~ A + X1 + X2,
+  model     = "ranger",
+  treatment = "A",
+  estimand  = "ATE",
+  seed      = 1
 )
 ```
 
 ## The learner registry
 
-`funcml` ships with 20+ learners spanning linear models, tree ensembles, SVMs, neural networks, additive models, and Bayesian trees. All are accessed by name:
+`funcml` ships with 26 learners spanning linear models, tree ensembles, SVMs, neural networks, additive models, boosting, and stacking. All are accessed by name:
 
-```r
-learner_registry()
-# lm, glm, glmnet, ridge, lasso, ranger, xgboost, bart, svm, nnet,
-# gam, earth, knn, nb, lda, qda, ...
+```{r}
+#| label: registry
+list_learners()[, c("learner", "has_tune")]
 ```
 
-## Where to learn more
+## Links
 
-The full tutorial, covering every learner, every interpretability method, and the causal estimation workflow, is available as a preprint:
-
-- {{< fa brands github >}} [github.com/ielbadisy/funcml](https://github.com/ielbadisy/funcml)
-- {{< fa box >}} [CRAN: funcml](https://cran.r-project.org/package=funcml)
+- GitHub: [github.com/ielbadisy/funcml](https://github.com/ielbadisy/funcml)
+- CRAN: [CRAN.R-project.org/package=funcml](https://cran.r-project.org/package=funcml)
 
 <hr>
 

@@ -128,50 +128,143 @@ Imad El Badisy · 2025-06-01
 </tbody>
 </table>
 <p>Install from CRAN:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"funcml"</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(funcml)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"funcml"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <h2 id="a-minimal-example" class="anchored">A minimal example</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(funcml)</span>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(funcml))</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># fit a random forest</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>fit_rf <span class="ot">&lt;-</span> <span class="fu">fit</span>(Sepal.Length <span class="sc">~</span> ., <span class="at">data =</span> iris, <span class="at">learner =</span> <span class="st">"ranger"</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>fit_rf <span class="ot">&lt;-</span> <span class="fu">fit</span>(Sepal.Length <span class="sc">~</span> ., <span class="at">data =</span> iris, <span class="at">model =</span> <span class="st">"ranger"</span>)</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># evaluate with 5-fold CV</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">evaluate</span>(fit_rf, <span class="at">data =</span> iris, <span class="at">resampling =</span> <span class="st">"cv"</span>, <span class="at">nfolds =</span> <span class="dv">5</span>)</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># compare to a regularized regression</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>fit_glmnet <span class="ot">&lt;-</span> <span class="fu">fit</span>(Sepal.Length <span class="sc">~</span> ., <span class="at">data =</span> iris, <span class="at">learner =</span> <span class="st">"glmnet"</span>)</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="fu">compare_learners</span>(</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(<span class="at">rf =</span> fit_rf, <span class="at">glmnet =</span> fit_glmnet),</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> iris,</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">resampling =</span> <span class="st">"cv"</span>,</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">nfolds =</span> <span class="dv">5</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">evaluate</span>(<span class="at">data =</span> iris, <span class="at">formula =</span> Sepal.Length <span class="sc">~</span> ., <span class="at">model =</span> <span class="st">"ranger"</span>, <span class="at">resampling =</span> <span class="fu">cv</span>(<span class="dv">5</span>), <span class="at">seed =</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;funcml_eval&gt; model: ranger | task: regression
+  metric       mean          sd n   std_error conf_level   conf_low  conf_high
+1   rmse 0.33905736 0.045133466 5 0.020184300       0.95 0.28301676 0.39509796
+2    mae 0.27705969 0.030313120 5 0.013556440       0.95 0.23942098 0.31469840
+3    mse 0.11658952 0.032166013 5 0.014385078       0.95 0.07665014 0.15652890
+4  medae 0.24278001 0.039072187 5 0.017473613       0.95 0.19426548 0.29129454
+5   mape 0.04779262 0.004993545 5 0.002233181       0.95 0.04159232 0.05399293
+6    rsq 0.82362138 0.055242283 5 0.024705100       0.95 0.75502903 0.89221373</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># compare to a regularized regression</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">compare_learners</span>(</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> iris,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> Sepal.Length <span class="sc">~</span> .,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">models =</span> <span class="fu">c</span>(<span class="st">"ranger"</span>, <span class="st">"glmnet"</span>),</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">resampling =</span> <span class="fu">cv</span>(<span class="dv">5</span>),</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">seed =</span> <span class="dv">1</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;funcml_compare&gt; task: regression | tuned: FALSE
+    model metric       mean          sd n   std_error conf_level   conf_low
+1  ranger   rmse 0.33905736 0.045133466 5 0.020184300       0.95 0.28301676
+2  ranger    mae 0.27705969 0.030313120 5 0.013556440       0.95 0.23942098
+3  ranger    mse 0.11658952 0.032166013 5 0.014385078       0.95 0.07665014
+4  ranger  medae 0.24278001 0.039072187 5 0.017473613       0.95 0.19426548
+5  ranger   mape 0.04779262 0.004993545 5 0.002233181       0.95 0.04159232
+6  ranger    rsq 0.82362138 0.055242283 5 0.024705100       0.95 0.75502903
+7  glmnet   rmse 0.31746014 0.015929563 5 0.007123917       0.95 0.29768098
+8  glmnet    mae 0.25600583 0.014843643 5 0.006638279       0.95 0.23757501
+9  glmnet    mse 0.10098394 0.010238700 5 0.004578886       0.95 0.08827092
+10 glmnet  medae 0.22566286 0.022954893 5 0.010265740       0.95 0.19716060
+11 glmnet   mape 0.04394887 0.003418004 5 0.001528578       0.95 0.03970485
+12 glmnet    rsq 0.84775805 0.023406028 5 0.010467494       0.95 0.81869563
+    conf_high tuned rank
+1  0.39509796 FALSE    2
+2  0.31469840 FALSE    2
+3  0.15652890 FALSE    2
+4  0.29129454 FALSE    2
+5  0.05399293 FALSE    2
+6  0.89221373 FALSE    2
+7  0.33723930 FALSE    1
+8  0.27443664 FALSE    1
+9  0.11369697 FALSE    1
+10 0.25416512 FALSE    1
+11 0.04819288 FALSE    1
+12 0.87682047 FALSE    1</code></pre>
+</div>
+</div>
 <h2 id="interpretability-built-in" class="anchored">Interpretability built in</h2>
 <p><code>interpret()</code> wraps 14 methods, from permutation importance and partial dependence plots to SHAP values and accumulated local effects, behind a single call:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">interpret</span>(fit_rf, <span class="at">data =</span> iris, <span class="at">method =</span> <span class="st">"shap"</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">interpret</span>(fit_rf, <span class="at">data =</span> iris, <span class="at">method =</span> <span class="st">"pdp"</span>, <span class="at">feature =</span> <span class="st">"Petal.Width"</span>)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">interpret</span>(fit_rf, <span class="at">data =</span> iris, <span class="at">method =</span> <span class="st">"ale"</span>,  <span class="at">feature =</span> <span class="st">"Petal.Width"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">interpret</span>(fit_rf, <span class="at">data =</span> iris, <span class="at">method =</span> <span class="st">"pdp"</span>, <span class="at">features =</span> <span class="st">"Petal.Width"</span>)<span class="sc">$</span>result<span class="sc">$</span>curves <span class="sc">|&gt;</span> <span class="fu">head</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      feature     value     yhat
+1 Petal.Width 0.1000000 5.569865
+2 Petal.Width 0.2142857 5.584432
+3 Petal.Width 0.3285714 5.578958
+4 Petal.Width 0.4428571 5.666761
+5 Petal.Width 0.5571429 5.657023
+6 Petal.Width 0.6714286 5.667953</code></pre>
+</div>
+</div>
 <h2 id="causal-estimation" class="anchored">Causal estimation</h2>
 <p>When the research question goes beyond prediction, <code>estimate()</code> wraps plug-in g-computation to estimate average and conditional treatment effects:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ATE of treatment A on outcome Y, adjusted for covariates X</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">estimate</span>(</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> Y <span class="sc">~</span> A <span class="sc">+</span> X1 <span class="sc">+</span> X2,</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">data    =</span> mydata,</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">learner =</span> <span class="st">"ranger"</span>,</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">effect  =</span> <span class="st">"ATE"</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">200</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>X1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n); X2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fu">plogis</span>(<span class="fl">0.3</span> <span class="sc">*</span> X1))</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="fl">0.5</span> <span class="sc">*</span> A <span class="sc">+</span> <span class="fl">0.4</span> <span class="sc">*</span> X1 <span class="sc">-</span> <span class="fl">0.2</span> <span class="sc">*</span> X2 <span class="sc">+</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>mydata <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(Y, A, X1, X2)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co"># ATE of treatment A on outcome Y, adjusted for covariates X</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="fu">estimate</span>(</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">data      =</span> mydata,</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">formula   =</span> Y <span class="sc">~</span> A <span class="sc">+</span> X1 <span class="sc">+</span> X2,</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">model     =</span> <span class="st">"ranger"</span>,</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">treatment =</span> <span class="st">"A"</span>,</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">estimand  =</span> <span class="st">"ATE"</span>,</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">seed      =</span> <span class="dv">1</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;funcml_estimand&gt; ATE via g-computation
+Treatment: A (1 vs 0)
+Estimate: 0.4531 | SE: 0.0156 | 95% normal CI [0.4225, 0.4836]</code></pre>
+</div>
+</div>
 <h2 id="the-learner-registry" class="anchored">The learner registry</h2>
-<p><code>funcml</code> ships with 20+ learners spanning linear models, tree ensembles, SVMs, neural networks, additive models, and Bayesian trees. All are accessed by name:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">learner_registry</span>()</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># lm, glm, glmnet, ridge, lasso, ranger, xgboost, bart, svm, nnet,</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># gam, earth, knn, nb, lda, qda, ...</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<h2 id="where-to-learn-more" class="anchored">Where to learn more</h2>
-<p>The full tutorial, covering every learner, every interpretability method, and the causal estimation workflow, is available as a preprint:</p>
+<p><code>funcml</code> ships with 26 learners spanning linear models, tree ensembles, SVMs, neural networks, additive models, boosting, and stacking. All are accessed by name:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">list_learners</span>()[, <span class="fu">c</span>(<span class="st">"learner"</span>, <span class="st">"has_tune"</span>)]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        learner has_tune
+16     adaboost     TRUE
+23         bart     TRUE
+10          C50     TRUE
+19      cforest     TRUE
+18        ctree     TRUE
+7     e1071_svm     TRUE
+12        earth     TRUE
+15          fda     TRUE
+13          gam     TRUE
+9           gbm     TRUE
+1           glm     TRUE
+3        glmnet     TRUE
+11         kknn     TRUE
+20          lda     TRUE
+22     lightgbm     TRUE
+6           mlp     TRUE
+14   naivebayes     TRUE
+5          nnet     TRUE
+17          pls     TRUE
+21          qda     TRUE
+8  randomForest     TRUE
+4        ranger     TRUE
+2         rpart     TRUE
+25     stacking     TRUE
+26 superlearner     TRUE
+24      xgboost     TRUE</code></pre>
+</div>
+</div>
+<h2 id="links" class="anchored">Links</h2>
 <ul>
-<li>{{&lt; fa brands github &gt;}} <a href="https://github.com/ielbadisy/funcml">github.com/ielbadisy/funcml</a></li>
-<li>{{&lt; fa box &gt;}} <a href="https://cran.r-project.org/package=funcml">CRAN: funcml</a></li>
+<li>GitHub: <a href="https://github.com/ielbadisy/funcml">github.com/ielbadisy/funcml</a></li>
+<li>CRAN: <a href="https://cran.r-project.org/package=funcml">CRAN.R-project.org/package=funcml</a></li>
 </ul>
 <hr>
 <footer>

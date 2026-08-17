@@ -10,6 +10,9 @@ format:
   html:
     template-partials:
       - ../../_partials/blog-banner/title-block.html
+execute:
+  warning: false
+  message: false
 ---
 
 Survival analysis has traditionally been dominated by the Cox proportional hazards model and its semi-parametric extensions. Deep learning offers an alternative: one that can capture non-linear covariate effects and complex interactions without manual feature engineering. **survdnn** brings that capability to R via the `torch` backend, with the same formula-based interface that R users already know.
@@ -23,16 +26,16 @@ Install:
 ```r
 install.packages("torch")   # backend
 install.packages("survdnn")
-library(survdnn)
 ```
 
 ## Fitting a model
 
 The entry point is `survdnn()`, which takes a `Surv()` formula:
 
-```r
-library(survival)
-library(survdnn)
+```{r}
+#| label: fit
+suppressPackageStartupMessages({library(survival); library(survdnn)})
+torch::torch_manual_seed(1)
 
 fit <- survdnn(
   formula   = Surv(time, status) ~ age + sex + ph.ecog + ph.karno,
@@ -43,8 +46,11 @@ fit <- survdnn(
   epochs    = 300,
   lr        = 1e-3,
   dropout   = 0.3,
-  batch_norm = TRUE
+  batch_norm = TRUE,
+  verbose   = FALSE
 )
+
+fit
 ```
 
 ## Loss functions
@@ -60,49 +66,57 @@ Four loss functions are available, covering the major families of deep survival 
 
 ## Prediction and survival curves
 
-```r
+```{r}
+#| label: predict
 # predict linear predictor (risk score)
-predict(fit, newdata = lung, type = "lp")
+head(predict(fit, newdata = lung, type = "lp"))
 
 # predict survival curves on a time grid
 times <- seq(0, 1000, by = 50)
 surv  <- predict(fit, newdata = lung, type = "survival", times = times)
+head(surv)
+```
 
-# plot survival curves for a subset of patients
-plot(fit, newdata = lung[1:5, ], times = times)
+```{r}
+#| label: fig-survcurve
+#| fig-cap: "Predicted survival curves for five patients from the lung dataset"
+p <- plot(fit, newdata = lung[1:5, ], times = times)
+ggplot2::ggsave("featured.png", p, width = 7, height = 4.5, dpi = 150)
+p
 ```
 
 ## Evaluation
 
-`survdnn` computes the concordance index (C-index) and integrated Brier score out of the box:
+`evaluate_survdnn()` computes the concordance index and integrated Brier score from the fitted model:
 
-```r
-summary(fit)
-# C-index: 0.68
-# Training loss (epoch 300): 0.412
+```{r}
+#| label: evaluate
+evaluate_survdnn(fit, metrics = c("cindex", "ibs"), times = seq(100, 800, by = 200), newdata = lung)
 ```
 
 ## Hyperparameter tuning with cross-validation
 
-`tune_survdnn()` runs a random or grid search over the hyperparameter space with K-fold cross-validation:
+`tune_survdnn()` runs a grid search over the hyperparameter space with K-fold cross-validation. `param_grid` is a named list crossed via `tidyr::crossing()`, and must include `hidden`, `lr`, `activation`, `epochs`, `.loss_fn`, and `loss_name`:
 
 ```r
-grid <- expand.grid(
-  hidden    = list(c(32, 16), c(64, 32), c(128, 64)),
-  lr        = c(1e-3, 1e-4),
-  dropout   = c(0.2, 0.3),
-  loss      = c("cox", "aft")
+grid <- list(
+  hidden     = list(c(16), c(32, 16)),
+  lr         = c(1e-3, 1e-4),
+  activation = c("relu"),
+  epochs     = c(200),
+  .loss_fn   = list(cox_loss, aft_loss),
+  loss_name  = c("cox", "aft")
 )
 
 tuned <- tune_survdnn(
   formula = Surv(time, status) ~ age + sex + ph.ecog,
   data    = lung,
-  grid    = grid,
-  nfolds  = 5,
-  epochs  = 200
+  times   = c(90, 300),
+  metrics = "cindex",
+  param_grid = grid,
+  folds   = 5,
+  return  = "summary"
 )
-
-tuned$best_params
 ```
 
 ## Architecture
@@ -115,7 +129,7 @@ The Cox and CoxTime losses follow Kvamme, Borgan & Scheel (2019), *"Time-to-Even
 
 ## Links
 
-- {{< fa brands github >}} [github.com/ielbadisy/survdnn](https://github.com/ielbadisy/survdnn)
+- GitHub: [github.com/ielbadisy/survdnn](https://github.com/ielbadisy/survdnn)
 
 <hr>
 

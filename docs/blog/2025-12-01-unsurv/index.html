@@ -122,10 +122,9 @@ Imad El Badisy · 2025-12-01
 <p>Survival analysis typically ends at the population level: a single estimated curve, or a hazard ratio summarizing the average effect of a covariate. But individualized survival curves, one per patient, open a richer question: <strong>can we identify subgroups of patients with similar prognosis trajectories, without ever labeling anyone in advance?</strong></p>
 <p><strong>unsurv</strong> answers that question. It clusters individualized survival curves using Partitioning Around Medoids (PAM), with principled preprocessing choices (monotonic enforcement, weighted distances, automatic K selection) and a clean set of plotting helpers.</p>
 <h2 id="what-is-unsurv" class="anchored">What is unsurv?</h2>
-<p><code>unsurv</code> (v0.5.0) takes a matrix of survival probabilities (rows are subjects, columns are time points) and returns cluster assignments, medoid curves, and silhouette diagnostics.</p>
+<p><code>unsurv</code> (v0.6.0) takes a matrix of survival probabilities (rows are subjects, columns are time points) and returns cluster assignments, medoid curves, and a silhouette diagnostic.</p>
 <p>Install:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"unsurv"</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(unsurv)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"unsurv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <h2 id="the-core-idea" class="anchored">The core idea</h2>
 <p>Suppose you have estimated individual survival curves <span class="math inline">\(S_i(t_1), \ldots, S_i(t_m)\)</span> for <span class="math inline">\(n\)</span> patients on a shared time grid <span class="math inline">\(t_1 &lt; \cdots &lt; t_m\)</span> (from any model: Kaplan–Meier stratified by covariates, a Cox model, a random survival forest, or <code>survdnn</code>). Stack them into an <span class="math inline">\(n \times m\)</span> matrix <span class="math inline">\(\mathbf{S}\)</span> and pass it to <code>unsurv()</code>.</p>
 <p>The algorithm:</p>
@@ -137,7 +136,8 @@ Imad El Badisy · 2025-12-01
 <li>If <span class="math inline">\(K\)</span> is unspecified, select the <span class="math inline">\(K \in \{2, \ldots, K_\text{max}\}\)</span> that maximizes mean silhouette width.</li>
 </ol>
 <h2 id="basic-usage" class="anchored">Basic usage</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(unsurv)</span>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(unsurv))</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulate survival curves from two latent risk groups</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
@@ -151,36 +151,64 @@ Imad El Badisy · 2025-12-01
 <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Cluster with automatic K selection</span></span>
 <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">unsurv</span>(S, times, <span class="at">K =</span> <span class="cn">NULL</span>, <span class="at">K_max =</span> <span class="dv">6</span>, <span class="at">seed =</span> <span class="dv">123</span>)</span>
 <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>fit<span class="sc">$</span>K          <span class="co"># selected number of clusters</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>fit<span class="sc">$</span>clusters   <span class="co"># cluster assignment per subject</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>fit<span class="sc">$</span>silhouette <span class="co"># mean silhouette width per K tried</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>fit<span class="sc">$</span>K               <span class="co"># selected number of clusters</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(fit<span class="sc">$</span>clusters) <span class="co"># cluster assignment per subject</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ 1  2 
+44 56 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>fit<span class="sc">$</span>silhouette_mean <span class="co"># mean silhouette width at the selected K</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9393843</code></pre>
+</div>
+</div>
 <h2 id="distance-and-weighting-options" class="anchored">Distance and weighting options</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># L1 (Manhattan) distance: more robust to outlier curves</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>fit_l1 <span class="ot">&lt;-</span> <span class="fu">unsurv</span>(S, times, <span class="at">distance =</span> <span class="st">"L1"</span>)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Custom time weights: emphasize early time points</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>w <span class="ot">&lt;-</span> <span class="fu">rev</span>(<span class="fu">seq_along</span>(times))</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>fit_w <span class="ot">&lt;-</span> <span class="fu">unsurv</span>(S, times, <span class="at">weights =</span> w <span class="sc">/</span> <span class="fu">sum</span>(w))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># L1 (Manhattan) distance: more robust to outlier curves</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>fit_l1 <span class="ot">&lt;-</span> <span class="fu">unsurv</span>(S, times, <span class="at">K =</span> <span class="dv">2</span>, <span class="at">distance =</span> <span class="st">"L1"</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Custom time weights: emphasize early time points</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>w <span class="ot">&lt;-</span> <span class="fu">rev</span>(<span class="fu">seq_along</span>(times))</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>fit_w <span class="ot">&lt;-</span> <span class="fu">unsurv</span>(S, times, <span class="at">K =</span> <span class="dv">2</span>, <span class="at">weights =</span> w <span class="sc">/</span> <span class="fu">sum</span>(w))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <h2 id="monotonic-enforcement-and-smoothing" class="anchored">Monotonic enforcement and smoothing</h2>
 <p>Raw predicted survival curves from flexible models may not be strictly non-increasing. <code>unsurv</code> corrects this before clustering:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">unsurv</span>(</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  S, times,</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">enforce_monotone   =</span> <span class="cn">TRUE</span>,  <span class="co"># project each curve to isotonic</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">smooth_median_width =</span> <span class="dv">5</span>      <span class="co"># median filter of width 5 over time</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">unsurv</span>(</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  S, times, <span class="at">K =</span> <span class="cn">NULL</span>, <span class="at">K_max =</span> <span class="dv">6</span>, <span class="at">seed =</span> <span class="dv">123</span>,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">enforce_monotone   =</span> <span class="cn">TRUE</span>,  <span class="co"># project each curve to isotonic</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">smooth_median_width =</span> <span class="dv">5</span>      <span class="co"># median filter of width 5 over time</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <h2 id="predicting-clusters-for-new-subjects" class="anchored">Predicting clusters for new subjects</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># S_new: m_new x m matrix of survival curves for new patients</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit, <span class="at">S_new =</span> S_new)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>pred<span class="sc">$</span>clusters</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># newdata: n_new x m matrix of survival curves for new patients</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit, <span class="at">newdata =</span> S[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, ])</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>pred</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 1 1 1 2</code></pre>
+</div>
+</div>
 <h2 id="plotting" class="anchored">Plotting</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cluster median curves</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fit, <span class="at">times =</span> times, <span class="at">type =</span> <span class="st">"medoids"</span>)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># All curves, coloured by cluster</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fit, <span class="at">times =</span> times, <span class="at">type =</span> <span class="st">"curves"</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>)</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Silhouette profile across K values</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fit, <span class="at">type =</span> <span class="st">"silhouette"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fit)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="fig-medoids" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-medoids-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-medoids-1.png" class="img-fluid" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-medoids-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Cluster medoid curves, automatic K selection
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
 <h2 id="combining-with-a-survival-model" class="anchored">Combining with a survival model</h2>
 <p>A natural pipeline is:</p>
 <ol type="1">
@@ -189,20 +217,27 @@ Imad El Badisy · 2025-12-01
 <li>Pass the resulting matrix to <code>unsurv()</code> to discover prognostic subgroups.</li>
 <li>Use cluster membership as a stratification variable or as a phenotype to interrogate.</li>
 </ol>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survdnn)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(unsurv)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>dnn_fit <span class="ot">&lt;-</span> <span class="fu">survdnn</span>(<span class="fu">Surv</span>(time, status) <span class="sc">~</span> ., <span class="at">data =</span> lung,</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">hidden =</span> <span class="fu">c</span>(<span class="dv">64</span>, <span class="dv">32</span>), <span class="at">loss =</span> <span class="st">"cox"</span>, <span class="at">epochs =</span> <span class="dv">300</span>)</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>times <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1000</span>, <span class="at">by =</span> <span class="dv">25</span>)</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>S_hat <span class="ot">&lt;-</span> <span class="fu">predict</span>(dnn_fit, <span class="at">newdata =</span> lung, <span class="at">type =</span> <span class="st">"survival"</span>, <span class="at">times =</span> times)</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>clust <span class="ot">&lt;-</span> <span class="fu">unsurv</span>(S_hat, times, <span class="at">K =</span> <span class="cn">NULL</span>, <span class="at">K_max =</span> <span class="dv">5</span>, <span class="at">seed =</span> <span class="dv">1</span>)</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(clust<span class="sc">$</span>clusters)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>({<span class="fu">library</span>(survival); <span class="fu">library</span>(survdnn)})</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>torch<span class="sc">::</span><span class="fu">torch_manual_seed</span>(<span class="dv">1</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>dnn_fit <span class="ot">&lt;-</span> <span class="fu">survdnn</span>(<span class="fu">Surv</span>(time, status) <span class="sc">~</span> age <span class="sc">+</span> sex <span class="sc">+</span> ph.ecog <span class="sc">+</span> ph.karno, <span class="at">data =</span> lung,</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">hidden =</span> <span class="fu">c</span>(<span class="dv">64</span>, <span class="dv">32</span>), <span class="at">loss =</span> <span class="st">"cox"</span>, <span class="at">epochs =</span> <span class="dv">100</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>times_grid <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1000</span>, <span class="at">by =</span> <span class="dv">25</span>)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>S_hat <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(<span class="fu">predict</span>(dnn_fit, <span class="at">newdata =</span> lung, <span class="at">type =</span> <span class="st">"survival"</span>, <span class="at">times =</span> times_grid))</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>clust <span class="ot">&lt;-</span> <span class="fu">unsurv</span>(S_hat, times_grid, <span class="at">K =</span> <span class="cn">NULL</span>, <span class="at">K_max =</span> <span class="dv">5</span>, <span class="at">seed =</span> <span class="dv">1</span>)</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(clust<span class="sc">$</span>clusters)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+  1   2   3 
+113  70  43 </code></pre>
+</div>
+</div>
 <h2 id="links" class="anchored">Links</h2>
 <ul>
-<li>{{&lt; fa brands github &gt;}} <a href="https://github.com/ielbadisy/unsurv">github.com/ielbadisy/unsurv</a></li>
+<li>GitHub: <a href="https://github.com/ielbadisy/unsurv">github.com/ielbadisy/unsurv</a></li>
 </ul>
 <hr>
 <footer>

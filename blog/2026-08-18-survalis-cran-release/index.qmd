@@ -112,7 +112,7 @@ A few of these were silent correctness bugs, not just style:
 ## Links
 
 - [CRAN.R-project.org/package=survalis](https://CRAN.R-project.org/package=survalis)
-- {{< fa brands github >}} [github.com/ielbadisy/survalis](https://github.com/ielbadisy/survalis)
+- GitHub: [github.com/ielbadisy/survalis](https://github.com/ielbadisy/survalis)
 
 <hr>
 
