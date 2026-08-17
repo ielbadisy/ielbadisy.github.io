@@ -3,10 +3,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Red+Hat+Text:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Petrona:wght@400;500;600;700&display=swap');
 
 :root {
-  --text: #2C3E50;
+  --text: #1f2d3d;
   --muted: #4A6080;
-  --light: #e0f2f1;
-  --border: #b2dfdb;
+  --light: #eef1f5;
+  --border: #cbd5e1;
   --link: #1a7c8c;
   --link-hover: #00897b;
   --max-width: 1280px;
@@ -59,7 +59,7 @@ h1.title {
   display: inline-block;
   padding: 0.28rem 0.62rem;
   border: 1px solid var(--border);
-  border-radius: 999px;
+  border-radius: 6px;
   background: var(--light);
   color: var(--text);
   text-decoration: none;
@@ -69,8 +69,8 @@ h1.title {
 }
 
 .menu a:hover {
-  border-color: var(--link);
-  background: var(--link);
+  border-color: var(--text);
+  background: var(--text);
   color: #ffffff;
 }
 
@@ -195,7 +195,7 @@ th, td {
 }
 
 tr:nth-child(even) {
-  background: #f4faf9;
+  background: #f7f8fa;
 }
 
 /* Code */
