@@ -5,13 +5,13 @@ format: html
 
 <ul class="menu">
   <li><a href="#about">About</a></li>
+  <li><a href="#contact">Contact</a></li>
   <li><a href="#research">Research</a></li>
   <li><a href="#consulting">Consulting</a></li>
   <li><a href="#teaching">Teaching</a></li>
   <li><a href="#software">Software</a></li>
   <li><a href="#publications">Publications</a></li>
   <li><a href="#notes">Notes</a></li>
-  <li><a href="#contact">Contact</a></li>
   <li><a href="cv/cv.pdf">CV</a></li>
 </ul>
 
@@ -37,6 +37,19 @@ format: html
 Research Engineer in Health Data Science, PhD, working at the interface of biostatistics, machine learning, and applied health data analytics. I hold a PhD in Biomedical Sciences from Aix-Marseille University (SESSTIM laboratory) on missing data and machine learning methods for survival analysis.
 
 My work focuses on developing algorithms and reproducible workflows for health data analysis and decision support, spanning survival analysis, predictive modeling, interpretable machine learning, and large-scale administrative health data. I develop open-source R packages for survival analysis, missing data, and interpretable machine learning, and contribute as a consultant and trainer in biostatistics and health data science. Moroccan and French national, husband and father.
+
+## Contact {#contact}
+
+For collaboration, methodological support, or consulting requests, please reach out by email.
+
+| | |
+|---|---|
+| Personal Email | [elbadisyimad@gmail.com](mailto:elbadisyimad@gmail.com) |
+| Institutional Email | [ielbadisy@cm6.ma](mailto:ielbadisy@cm6.ma) |
+| GitHub | [github.com/ielbadisy](https://github.com/ielbadisy) |
+| LinkedIn | [imad-el-badisy-360018281](https://ma.linkedin.com/in/imad-el-badisy-360018281) |
+
+: {tbl-colwidths="[20,80]"}
 
 <div class="split">
 <div class="split-col">
@@ -172,19 +185,6 @@ Some methodological notes on related work.
 | 2026-04-04 | [Dynamic RMST as an interpretable summary for predicted survival curves](notes/dynamic-rmst.pdf) | RMST |
 
 [View all notes →](notes/index.qmd)
-
-## Contact {#contact}
-
-For collaboration, methodological support, or consulting requests, please reach out by email.
-
-| | |
-|---|---|
-| Personal Email | [elbadisyimad@gmail.com](mailto:elbadisyimad@gmail.com) |
-| Institutional Email | [ielbadisy@cm6.ma](mailto:ielbadisy@cm6.ma) |
-| GitHub | [github.com/ielbadisy](https://github.com/ielbadisy) |
-| LinkedIn | [imad-el-badisy-360018281](https://ma.linkedin.com/in/imad-el-badisy-360018281) |
-
-: {tbl-colwidths="[20,80]"}
 
 <hr>
 
