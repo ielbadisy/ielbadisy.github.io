@@ -75,21 +75,21 @@ Interested? [Get in touch →](#contact) for more information.
 
 ## Software {#software}
 
-| Package | Purpose | Link |
-|---|---|---|
-| `survalis` | Interpretable survival machine learning framework | [CRAN](https://CRAN.R-project.org/package=survalis) |
-| `survdnn` | Deep neural networks for survival analysis (R torch) | [CRAN](https://CRAN.R-project.org/package=survdnn) |
-| `funcml` | Functional machine learning workflows | [CRAN](https://CRAN.R-project.org/package=funcml) |
-| `unsurv` | Unsupervised clustering of individualized survival curves | [CRAN](https://CRAN.R-project.org/package=unsurv) |
-| `tvrmst` | Time-varying RMST from survival matrices | [CRAN](https://CRAN.R-project.org/package=tvrmst) |
-| `mcstatsim` | Monte Carlo statistical simulation (functional approach) | [CRAN](https://CRAN.R-project.org/package=mcstatsim) |
-| `missCforest` | Ensemble conditional trees for missing data imputation | [CRAN](https://CRAN.R-project.org/package=missCforest) |
-| `functionals` | Functional programming with parallelism and progress tracking | [CRAN](https://CRAN.R-project.org/package=functionals) |
-| `mimar` | Compact multiple imputation, assessment, and reporting | [CRAN](https://CRAN.R-project.org/package=mimar) |
-| `testflow` | Statistical testing, interpretation, and ggplot2-based visualization | [CRAN](https://CRAN.R-project.org/package=testflow) |
-| `densemlp` | Dense neural networks for tabular classification and regression | [CRAN](https://CRAN.R-project.org/package=densemlp) |
-| `CEACT` | Cost-effectiveness analysis toolkit for clinical trials | [CRAN](https://CRAN.R-project.org/package=CEACT) |
-| `missknn` | Fast masked k-nearest neighbor imputation | [CRAN](https://CRAN.R-project.org/package=missknn) |
+| Package | Purpose | CRAN | Documentation | GitHub |
+|---|---|---|---|---|
+| `survalis` | Interpretable survival machine learning framework | [CRAN](https://CRAN.R-project.org/package=survalis) | [PDF](https://cran.r-project.org/web/packages/survalis/survalis.pdf) | [GitHub](https://github.com/ielbadisy/survalis) |
+| `survdnn` | Deep neural networks for survival analysis (R torch) | [CRAN](https://CRAN.R-project.org/package=survdnn) | [PDF](https://cran.r-project.org/web/packages/survdnn/survdnn.pdf) | [GitHub](https://github.com/ielbadisy/survdnn) |
+| `funcml` | Functional machine learning workflows | [CRAN](https://CRAN.R-project.org/package=funcml) | [PDF](https://cran.r-project.org/web/packages/funcml/funcml.pdf) | [GitHub](https://github.com/ielbadisy/funcml) |
+| `unsurv` | Unsupervised clustering of individualized survival curves | [CRAN](https://CRAN.R-project.org/package=unsurv) | [PDF](https://cran.r-project.org/web/packages/unsurv/unsurv.pdf) | [GitHub](https://github.com/ielbadisy/unsurv) |
+| `tvrmst` | Time-varying RMST from survival matrices | [CRAN](https://CRAN.R-project.org/package=tvrmst) | [PDF](https://cran.r-project.org/web/packages/tvrmst/tvrmst.pdf) | [GitHub](https://github.com/ielbadisy/tvrmst) |
+| `mcstatsim` | Monte Carlo statistical simulation (functional approach) | [CRAN](https://CRAN.R-project.org/package=mcstatsim) | [PDF](https://cran.r-project.org/web/packages/mcstatsim/mcstatsim.pdf) | [GitHub](https://github.com/ielbadisy/mcstatsim) |
+| `missCforest` | Ensemble conditional trees for missing data imputation | [CRAN](https://CRAN.R-project.org/package=missCforest) | [PDF](https://cran.r-project.org/web/packages/missCforest/missCforest.pdf) | [GitHub](https://github.com/ielbadisy/missCforest) |
+| `functionals` | Functional programming with parallelism and progress tracking | [CRAN](https://CRAN.R-project.org/package=functionals) | [PDF](https://cran.r-project.org/web/packages/functionals/functionals.pdf) | [GitHub](https://github.com/ielbadisy/functionals) |
+| `mimar` | Compact multiple imputation, assessment, and reporting | [CRAN](https://CRAN.R-project.org/package=mimar) | [PDF](https://cran.r-project.org/web/packages/mimar/mimar.pdf) | [GitHub](https://github.com/ielbadisy/mimar) |
+| `testflow` | Statistical testing, interpretation, and ggplot2-based visualization | [CRAN](https://CRAN.R-project.org/package=testflow) | [PDF](https://cran.r-project.org/web/packages/testflow/testflow.pdf) | [GitHub](https://github.com/ielbadisy/testflow) |
+| `densemlp` | Dense neural networks for tabular classification and regression | [CRAN](https://CRAN.R-project.org/package=densemlp) | [PDF](https://cran.r-project.org/web/packages/densemlp/densemlp.pdf) | [GitHub](https://github.com/ielbadisy/densemlp) |
+| `CEACT` | Cost-effectiveness analysis toolkit for clinical trials | [CRAN](https://CRAN.R-project.org/package=CEACT) | [PDF](https://cran.r-project.org/web/packages/CEACT/CEACT.pdf) | [GitHub](https://github.com/ielbadisy/CEACT) |
+| `missknn` | Fast masked k-nearest neighbor imputation | [CRAN](https://CRAN.R-project.org/package=missknn) | [PDF](https://cran.r-project.org/web/packages/missknn/missknn.pdf) | [GitHub](https://github.com/ielbadisy/missknn) |
 
 All packages on [CRAN](https://CRAN.R-project.org/search/?query=el+badisy) · also available via [R-universe](https://ielbadisy.r-universe.dev)
 
