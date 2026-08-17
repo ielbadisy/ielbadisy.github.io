@@ -5,6 +5,7 @@ author: "Imad El Badisy"
 date: "2025-12-01"
 categories: [R, survival-analysis, clustering, packages]
 image: featured.png
+resources: featured.png
 format:
   html:
     template-partials:

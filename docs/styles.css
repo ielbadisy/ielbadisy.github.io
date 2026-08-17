@@ -291,52 +291,29 @@ footer {
   }
 }
 
-/* Blog listing cards */
+/* Blog listing: plain stacked list, no thumbnails */
 .quarto-listing .list.quarto-listing-default {
   display: flex;
   flex-direction: column;
-  gap: 1.1rem;
+  gap: 0;
   padding: 0;
   list-style: none;
   margin: 1.5rem 0;
 }
 
 .quarto-listing .quarto-post {
-  display: grid;
-  grid-template-columns: 1fr 200px;
-  gap: 1.2rem;
-  align-items: start;
-  padding: 1rem 1.2rem;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  background: #fcfcfd;
+  padding: 1rem 0;
+  border-bottom: 1px dashed var(--border);
   margin: 0;
 }
 
 .quarto-listing .quarto-post .thumbnail {
-  grid-column: 2;
-  grid-row: 1 / span 3;
-}
-
-.quarto-listing .quarto-post .thumbnail-image {
-  width: 100%;
-  height: 130px;
-  object-fit: cover;
-  border-radius: 6px;
-  border: 1px solid var(--border);
-}
-
-.quarto-listing .quarto-post .body {
-  grid-column: 1;
-}
-
-.quarto-listing .quarto-post .metadata {
-  grid-column: 1;
+  display: none;
 }
 
 .quarto-listing .listing-title a {
   font-family: "Petrona", serif;
-  font-size: 1.2rem;
+  font-size: 1.15rem;
   color: var(--text);
   text-decoration: none;
 }
@@ -378,21 +355,6 @@ footer {
   color: var(--muted);
   font-size: 0.78rem;
   cursor: default;
-}
-
-@media (max-width: 620px) {
-  .quarto-listing .quarto-post {
-    grid-template-columns: 1fr;
-  }
-
-  .quarto-listing .quarto-post .thumbnail {
-    grid-column: 1;
-    grid-row: auto;
-  }
-
-  .quarto-listing .quarto-post .thumbnail-image {
-    height: 160px;
-  }
 }
 
 /* Blog post banner (per-post title block) */

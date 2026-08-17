@@ -5,6 +5,7 @@ author: "Imad El Badisy"
 date: "2025-08-15"
 categories: [R, missing-data, packages]
 image: featured.png
+resources: featured.png
 format:
   html:
     template-partials:

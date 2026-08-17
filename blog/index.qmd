@@ -8,8 +8,7 @@ listing:
   categories: false
   sort-ui: false
   filter-ui: false
-  fields: [title, subtitle, date, image, categories]
-  image-align: right
+  fields: [title, subtitle, date, categories]
   feed: true
 citation: false
 toc: false
