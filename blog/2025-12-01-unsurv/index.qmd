@@ -5,6 +5,10 @@ author: "Imad El Badisy"
 date: "2025-12-01"
 categories: [R, survival-analysis, clustering, packages]
 image: featured.png
+format:
+  html:
+    template-partials:
+      - ../../_partials/blog-banner/title-block.html
 ---
 
 Survival analysis typically ends at the population level: a single estimated curve, or a hazard ratio summarizing the average effect of a covariate. But individualized survival curves, one per patient, open a richer question: **can we identify subgroups of patients with similar prognosis trajectories, without ever labeling anyone in advance?**

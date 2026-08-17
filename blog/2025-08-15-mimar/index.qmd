@@ -5,6 +5,10 @@ author: "Imad El Badisy"
 date: "2025-08-15"
 categories: [R, missing-data, packages]
 image: featured.png
+format:
+  html:
+    template-partials:
+      - ../../_partials/blog-banner/title-block.html
 ---
 
 Missing data is the rule, not the exception, in health research. Yet most workflows still string together three or four packages: one to characterize missingness, one to impute, one to pool, one to evaluate, with no consistent API across them. **mimar** brings all of that under one roof.

@@ -5,6 +5,10 @@ author: "Imad El Badisy"
 date: "2025-10-01"
 categories: [R, survival-analysis, deep-learning, packages]
 image: featured.png
+format:
+  html:
+    template-partials:
+      - ../../_partials/blog-banner/title-block.html
 ---
 
 Survival analysis has traditionally been dominated by the Cox proportional hazards model and its semi-parametric extensions. Deep learning offers an alternative: one that can capture non-linear covariate effects and complex interactions without manual feature engineering. **survdnn** brings that capability to R via the `torch` backend, with the same formula-based interface that R users already know.

@@ -5,6 +5,10 @@ author: "Imad El Badisy"
 date: "2025-06-01"
 categories: [R, machine-learning, packages]
 image: featured.png
+format:
+  html:
+    template-partials:
+      - ../../_partials/blog-banner/title-block.html
 ---
 
 Machine learning in R has long suffered from a fragmentation problem. Fitting a random forest, a regularized linear model, and a neural network each requires learning a different package, a different formula syntax, and a different set of conventions for prediction and evaluation. **funcml** was built to close that gap.

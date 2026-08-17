@@ -5,6 +5,10 @@ author: "Imad El Badisy"
 date: "2026-03-30"
 categories: [R, survival-analysis, machine-learning, packages]
 image: featured.png
+format:
+  html:
+    template-partials:
+      - ../../_partials/blog-banner/title-block.html
 execute:
   warning: false
   message: false
