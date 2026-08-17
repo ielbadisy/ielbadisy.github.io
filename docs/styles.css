@@ -272,6 +272,25 @@ footer {
   }
 }
 
+/* Two-column split sections */
+.split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 2.5rem;
+  align-items: start;
+}
+
+.split-col h2 {
+  margin-top: 0;
+}
+
+@media (max-width: 620px) {
+  .split {
+    grid-template-columns: 1fr;
+    row-gap: 0;
+  }
+}
+
 /* Blog-style tags */
 .tag {
   display: inline-block;
