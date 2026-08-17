@@ -1,0 +1,36 @@
+---
+title: "Blog"
+listing:
+  contents:
+    - "**/index.qmd"
+  sort: "date desc"
+  type: default
+  categories: false
+  sort-ui: false
+  filter-ui: false
+  fields: [title, subtitle, date, image]
+  image-align: right
+  feed: true
+citation: false
+toc: false
+comments: false
+format:
+  html:
+    page-layout: full
+title-block-banner: false
+---
+
+<ul class="menu">
+  <li><a href="../index.qmd">Home</a></li>
+  <li><a href="../index.qmd#about">About</a></li>
+  <li><a href="../index.qmd#research">Research</a></li>
+  <li><a href="../index.qmd#software">Software</a></li>
+  <li><a href="../index.qmd#publications">Publications</a></li>
+  <li><a href="../index.qmd#contact">Contact</a></li>
+</ul>
+
+<hr>
+
+<p class="subtitle">
+Notes and write-ups on the R packages and methods I build, mostly biostatistics, survival analysis, and machine learning for health data.
+</p>

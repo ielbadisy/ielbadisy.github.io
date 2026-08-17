@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Imad El Badisy">
+<meta name="dcterms.date" content="2025-08-15">
 
-<title>Notes – Imad EL BADISY</title>
+<title>mimar: Compact Multiple Imputation, Assessment, and Reporting in R – Imad EL BADISY</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,96 +22,130 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-html/tabby.min.js"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-html-eb71d4f0124c4d5ff63526840ab633f6.min.css" rel="stylesheet" append-hash="true" data-mode="light">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-html-eb71d4f0124c4d5ff63526840ab633f6.min.css" rel="stylesheet" append-hash="true" data-mode="light">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <style>html{ scroll-behavior: smooth; }</style>
 
 
-<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
 <body>
 
 
 <header id="title-block-header">
-<h1 class="title">Notes</h1>
+<h1 class="title">mimar: Compact Multiple Imputation, Assessment, and Reporting in R</h1>
+<p class="subtitle">Artificial amputation, chained-equations MI with ML imputers, diagnostic evaluation, and pooling, in one package</p>
+<p class="author">Imad El Badisy</p>
 
+<p class="date">2025-08-15</p>
 </header>
 
 
-<ul class="menu">
-<li>
-<a href="../index.html">Home</a>
-</li>
-<li>
-<a href="../index.html#about">About</a>
-</li>
-<li>
-<a href="../index.html#research">Research</a>
-</li>
-<li>
-<a href="../index.html#consulting">Consulting</a>
-</li>
-<li>
-<a href="../index.html#teaching">Teaching</a>
-</li>
-<li>
-<a href="../index.html#software">Software</a>
-</li>
-<li>
-<a href="../index.html#publications">Publications</a>
-</li>
-<li>
-<a href="../blog/index.html">Blog</a>
-</li>
-<li>
-<a href="../index.html#contact">Contact</a>
-</li>
+<p>Missing data is the rule, not the exception, in health research. Yet most workflows still string together three or four packages: one to characterize missingness, one to impute, one to pool, one to evaluate, with no consistent API across them. <strong>mimar</strong> brings all of that under one roof.</p>
+<h2 id="what-is-mimar" class="anchored">What is mimar?</h2>
+<p><code>mimar</code> (v0.8.0) covers the full missing-data analysis cycle:</p>
+<ol type="1">
+<li><strong>Amputation</strong>: artificially introduce missingness into a complete dataset for simulation studies</li>
+<li><strong>Imputation</strong>: single or multiple imputation via chained equations with a choice of statistical or ML imputers</li>
+<li><strong>Evaluation</strong>: diagnostic metrics comparing imputed distributions to observed and (when known) true values</li>
+<li><strong>Pooling</strong>: Rubin’s rules applied to post-imputation model estimates</li>
+</ol>
+<p>Install:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"mimar"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mimar)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<h2 id="artificial-amputation" class="anchored">Artificial amputation</h2>
+<p><code>ampute()</code> introduces controlled missingness into a complete data frame, specifying the mechanism (MCAR, MAR, MNAR) and the proportion of missing cells:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>amp <span class="ot">&lt;-</span> <span class="fu">ampute</span>(iris, <span class="at">prop =</span> <span class="fl">0.25</span>, <span class="at">mech =</span> <span class="st">"MAR"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>amp<span class="sc">$</span>data       <span class="co"># the amputed data frame</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>amp<span class="sc">$</span>mask_added <span class="co"># logical mask of newly missing cells</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<h2 id="multiple-imputation" class="anchored">Multiple imputation</h2>
+<p><code>impute()</code> runs chained equations with any registered imputer. The default is predictive mean matching (<code>"pmm"</code>), but ML-based imputers are equally accessible:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># PMM: the safe default</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>imp_pmm <span class="ot">&lt;-</span> <span class="fu">impute</span>(amp, <span class="at">m =</span> <span class="dv">10</span>, <span class="at">imputer =</span> <span class="st">"pmm"</span>, <span class="at">maxit =</span> <span class="dv">5</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Random forest imputation</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>imp_rf <span class="ot">&lt;-</span> <span class="fu">impute</span>(amp, <span class="at">m =</span> <span class="dv">10</span>, <span class="at">imputer =</span> <span class="st">"ranger"</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># XGBoost imputation</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>imp_xgb <span class="ot">&lt;-</span> <span class="fu">impute</span>(amp, <span class="at">m =</span> <span class="dv">10</span>, <span class="at">imputer =</span> <span class="st">"xgboost"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>impute()</code> returns a <code>mimar_imputation</code> object containing all <code>m</code> completed datasets alongside metadata for downstream steps.</p>
+<h2 id="available-imputers" class="anchored">Available imputers</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">imputer_registry</span>()</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># pmm, mean, mode, ranger, xgboost, gbm, glmnet, bart,</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># svm, naivebayes, rpart, knn, missMDA, ...</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<h2 id="evaluation" class="anchored">Evaluation</h2>
+<p>When the true values are known (after amputation, or from a simulation), <code>evaluate()</code> computes recovery metrics comparing imputed to true values:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>diag <span class="ot">&lt;-</span> <span class="fu">evaluate</span>(imp_pmm)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>diag<span class="sc">$</span>distribution       <span class="co"># observed vs. imputed means, SDs, unique counts</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>diag<span class="sc">$</span>variability        <span class="co"># between-imputation SD per variable</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>diag<span class="sc">$</span>recovery           <span class="co"># RMSE, MAE, bias (when truth is available)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<h2 id="completing-and-pooling" class="anchored">Completing and pooling</h2>
+<p>Extract a single completed dataset or pool regression estimates across all <code>m</code> imputations using Rubin’s rules:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>completed <span class="ot">&lt;-</span> <span class="fu">complete</span>(imp_pmm, <span class="at">which =</span> <span class="dv">1</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># fit a model on each imputed dataset, then pool</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>fits <span class="ot">&lt;-</span> <span class="fu">lapply</span>(imp_pmm<span class="sc">$</span>imputations, <span class="cf">function</span>(d) <span class="fu">lm</span>(Sepal.Length <span class="sc">~</span> ., <span class="at">data =</span> d))</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">pool</span>(fits)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<h2 id="when-to-use-mimar" class="anchored">When to use mimar</h2>
+<p><code>mimar</code> is designed for:</p>
+<ul>
+<li><strong>Simulation studies</strong>: amputate, impute, evaluate recovery under controlled conditions</li>
+<li><strong>Applied health research</strong>: handle missing covariates or outcomes before regression or survival analysis</li>
+<li><strong>ML-driven imputation</strong>: when the imputation model is complex enough to warrant a tree ensemble or gradient booster</li>
+</ul>
+<h2 id="links" class="anchored">Links</h2>
+<ul>
+<li>{{&lt; fa brands github &gt;}} <a href="https://github.com/ielbadisy/mimar">github.com/ielbadisy/mimar</a></li>
 </ul>
 <hr>
-<p class="subtitle">
-Methodological notes connected to my R packages and current projects, written up as short PDFs with equations, code examples, rendered results, and references.
-</p>
-<h2 id="notes" class="anchored">Notes</h2>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th>Date</th>
-<th>Note</th>
-<th>Tags</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>2026-05-23</td>
-<td><a href="survival-trajectory-phenotypes.pdf">Survival-trajectory phenotypes with <code>unsurv</code></a></td>
-<td><span class="tag">Survival Analysis</span> <span class="tag">Clustering</span> <span class="tag">unsurv</span></td>
-</tr>
-<tr class="even">
-<td>2026-04-25</td>
-<td><a href="functional-ml-r.pdf">Functional machine learning workflows in R with <code>funcml</code></a></td>
-<td><span class="tag">Machine Learning</span> <span class="tag">Reproducibility</span> <span class="tag">funcml</span></td>
-</tr>
-<tr class="odd">
-<td>2026-04-04</td>
-<td><a href="dynamic-rmst.pdf">Dynamic RMST from predicted survival curves with <code>tvrmst</code></a></td>
-<td><span class="tag">Survival Analysis</span> <span class="tag">RMST</span> <span class="tag">tvrmst</span></td>
-</tr>
-</tbody>
-</table>
-<hr>
 <footer>
-<a href="../index.html">Back to homepage</a>
+<a href="../../blog/index.html">Back to blog</a>
 </footer>
 
 
@@ -521,5 +557,5 @@ Methodological notes connected to my R packages and current projects, written up
 
 
 
-<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

@@ -11,6 +11,7 @@ format: html
   <li><a href="../index.qmd#teaching">Teaching</a></li>
   <li><a href="../index.qmd#software">Software</a></li>
   <li><a href="../index.qmd#publications">Publications</a></li>
+  <li><a href="../blog/index.qmd">Blog</a></li>
   <li><a href="../index.qmd#contact">Contact</a></li>
 </ul>
 

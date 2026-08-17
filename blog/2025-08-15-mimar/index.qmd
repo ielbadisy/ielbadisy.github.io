@@ -1,0 +1,102 @@
+---
+title: "mimar: Compact Multiple Imputation, Assessment, and Reporting in R"
+subtitle: "Artificial amputation, chained-equations MI with ML imputers, diagnostic evaluation, and pooling, in one package"
+author: "Imad El Badisy"
+date: "2025-08-15"
+categories: [R, missing-data, packages]
+image: featured.png
+---
+
+Missing data is the rule, not the exception, in health research. Yet most workflows still string together three or four packages: one to characterize missingness, one to impute, one to pool, one to evaluate, with no consistent API across them. **mimar** brings all of that under one roof.
+
+## What is mimar?
+
+`mimar` (v0.8.0) covers the full missing-data analysis cycle:
+
+1. **Amputation**: artificially introduce missingness into a complete dataset for simulation studies
+2. **Imputation**: single or multiple imputation via chained equations with a choice of statistical or ML imputers
+3. **Evaluation**: diagnostic metrics comparing imputed distributions to observed and (when known) true values
+4. **Pooling**: Rubin's rules applied to post-imputation model estimates
+
+Install:
+
+```r
+install.packages("mimar")
+library(mimar)
+```
+
+## Artificial amputation
+
+`ampute()` introduces controlled missingness into a complete data frame, specifying the mechanism (MCAR, MAR, MNAR) and the proportion of missing cells:
+
+```r
+amp <- ampute(iris, prop = 0.25, mech = "MAR")
+amp$data       # the amputed data frame
+amp$mask_added # logical mask of newly missing cells
+```
+
+## Multiple imputation
+
+`impute()` runs chained equations with any registered imputer. The default is predictive mean matching (`"pmm"`), but ML-based imputers are equally accessible:
+
+```r
+# PMM: the safe default
+imp_pmm <- impute(amp, m = 10, imputer = "pmm", maxit = 5)
+
+# Random forest imputation
+imp_rf <- impute(amp, m = 10, imputer = "ranger")
+
+# XGBoost imputation
+imp_xgb <- impute(amp, m = 10, imputer = "xgboost")
+```
+
+`impute()` returns a `mimar_imputation` object containing all `m` completed datasets alongside metadata for downstream steps.
+
+## Available imputers
+
+```r
+imputer_registry()
+# pmm, mean, mode, ranger, xgboost, gbm, glmnet, bart,
+# svm, naivebayes, rpart, knn, missMDA, ...
+```
+
+## Evaluation
+
+When the true values are known (after amputation, or from a simulation), `evaluate()` computes recovery metrics comparing imputed to true values:
+
+```r
+diag <- evaluate(imp_pmm)
+diag$distribution       # observed vs. imputed means, SDs, unique counts
+diag$variability        # between-imputation SD per variable
+diag$recovery           # RMSE, MAE, bias (when truth is available)
+```
+
+## Completing and pooling
+
+Extract a single completed dataset or pool regression estimates across all `m` imputations using Rubin's rules:
+
+```r
+completed <- complete(imp_pmm, which = 1)
+
+# fit a model on each imputed dataset, then pool
+fits <- lapply(imp_pmm$imputations, function(d) lm(Sepal.Length ~ ., data = d))
+pool(fits)
+```
+
+## When to use mimar
+
+`mimar` is designed for:
+
+- **Simulation studies**: amputate, impute, evaluate recovery under controlled conditions
+- **Applied health research**: handle missing covariates or outcomes before regression or survival analysis
+- **ML-driven imputation**: when the imputation model is complex enough to warrant a tree ensemble or gradient booster
+
+## Links
+
+- {{< fa brands github >}} [github.com/ielbadisy/mimar](https://github.com/ielbadisy/mimar)
+
+<hr>
+
+<footer>
+<a href="../index.qmd">Back to blog</a>
+</footer>

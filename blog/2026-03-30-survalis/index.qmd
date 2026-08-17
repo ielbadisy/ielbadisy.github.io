@@ -1,0 +1,102 @@
+---
+title: "survalis: An Interpretable Survival Machine Learning Framework in R"
+subtitle: "One fit/predict contract across 19 survival learners, with benchmarking, calibration, and model-agnostic interpretation built in"
+author: "Imad El Badisy"
+date: "2026-03-30"
+categories: [R, survival-analysis, machine-learning, packages]
+image: featured.png
+execute:
+  warning: false
+  message: false
+---
+
+Comparing survival models in R usually means learning a different interface for each one: `coxph()`, `randomForestSRC::rfsrc()`, `xgboost::xgb.train()`, and a deep survival network all expect different data shapes and return different prediction objects. **survalis** was built to close that gap: a unified framework for survival machine learning with a consistent contract for fitting, prediction, evaluation, and interpretation.
+
+## Core philosophy
+
+Every learner in survalis follows the same pattern:
+
+- `fit_*()` functions return a standardized `mlsurv_model` object
+- `predict_*()` functions return a `data.frame` of survival probabilities, one row per subject, one column per requested time (`t=100`, `t=200`, …)
+- Evaluation is fully modular: any `fit_*`/`predict_*` pair plugs into `cv_survlearner()` or `score_survmodel()`
+- Everything downstream (benchmarking, calibration, interpretation) is designed to work on that same survival-probability matrix, regardless of which learner produced it
+
+## Why explicit `fit_coxph()` / `fit_rsf()` instead of one `fit(learner = ...)`
+
+This is a deliberate departure from `funcml`, my general-purpose ML package, where `fit(y ~ ., data, learner = "ranger")` collapses every learner behind one verb and a string argument. survalis keeps a named function per learner, `fit_coxph()`, `fit_rsf()`, `fit_survdnn()`, and so on, instead of a single dispatcher.
+
+The reason is that the survival setting is not just "regression with a different loss." Every learner here already has to negotiate right-censoring, risk sets, and time-varying prediction targets on its own terms, and each one leans on a different underlying package (`survival`, `randomForestSRC`, `xgboost`, `torch`, `flexsurv`, …) with its own quirks around ties, time horizons, and baseline hazard estimation. Hiding `fit_coxph` and `fit_rsf` behind a shared `fit(learner = "rsf")` string would trade a small amount of typing for a layer of indirection between the call site and the model-specific machinery it actually invokes, machinery that, in survival analysis, is rarely interchangeable enough to be worth hiding. Keeping the learner name in the function name is a compactness choice: the API surface is larger (nineteen `fit_*()`/`predict_*()` pairs instead of one), but each call is self-describing and there is one fewer level of abstraction between what you write and what runs.
+
+What survalis does unify is everything *after* fitting: `predict_*()` always returns the same survival-probability matrix shape, so `cindex_survmat()`, `brier()`, `cv_survlearner()`, and `benchmark()` never need to know which `fit_*()` produced it. The genericity lives at the evaluation/interpretation layer, not at the fitting layer.
+
+That output shape was a deliberate constraint, not an incidental one. A Cox model naturally hands back a linear predictor or a hazard ratio; a random survival forest hands back an ensemble of terminal-node curves; a deep survival network hands back whatever its loss was trained on (a Cox partial likelihood, an AFT loss, a discrete-time hazard). `fit_survdnn()` itself can predict a linear predictor if asked, since its loss functions include a Cox-style formulation. survalis standardizes on the survival-probability matrix anyway, over times `t=100`, `t=200`, and so on, because a matrix is, by construction, a richer object than a scalar: a linear predictor collapses a subject's entire risk trajectory into one number and one implicit ranking, while a survival curve preserves how that risk actually unfolds over the follow-up window, which is what a fixed-horizon metric, a time-varying AUC, or a calibration curve each need to read back out at a different point. Forcing every `predict_*()` to that one shape throws away learner-specific detail on the way out (a Cox model's clean linear score, a forest's raw ensemble votes), but it is exactly what makes `cindex_survmat()`, `brier()`, `timeroc_survmat()`, and every interpretation function in the package learner-agnostic, without asking any of them to reconstruct a survival curve from a scalar first. The alternative, keeping each learner's native output format and writing metric functions that branch on model class, is the design survalis specifically avoids.
+
+## Nineteen learners, one interface
+
+```{r}
+#| label: list
+suppressPackageStartupMessages(library(survalis))
+list_survlearners()
+```
+
+That list spans semiparametric (`coxph`, `aalen`), parametric (`flexsurvreg`, `stpm2`, `aftgee`), tree-based and ensemble (`rpart`, `rsf`, `cforest`, `orsf`), boosting (`xgboost`, `blackboost`), kernel (`survsvm`), and deep-learning (`survdnn`, `bnnsurv`) learners, plus `survmetalearner` for combining several of them. Most also ship a matching `tune_*()` function for grid or random hyperparameter search.
+
+## A minimal example
+
+```{r}
+#| label: fit
+suppressPackageStartupMessages(library(survival))
+
+times <- c(90, 180, 270)
+
+mod <- fit_coxph(Surv(time, status) ~ age + karno + celltype, data = veteran)
+sp <- predict_coxph(mod, newdata = veteran, times = times)
+
+head(sp)
+```
+
+```{r}
+#| label: fig-survmat
+#| fig-cap: "Predicted survival curves for a subset of subjects, coxph on the veteran trial"
+times_fine <- seq(0, 300, by = 10)
+sp_fine <- predict_coxph(mod, newdata = veteran[1:8, ], times = times_fine)
+
+p <- plot_survmat(sp_fine)
+ggplot2::ggsave("featured.png", p, width = 7, height = 4.5, dpi = 150)
+p
+```
+
+Discrimination and calibration are single function calls away, at a fixed horizon or cross-validated across folds:
+
+```{r}
+#| label: eval
+y <- Surv(veteran$time, veteran$status)
+
+c(
+  cindex = cindex_survmat(y, sp, t_star = 180),
+  brier  = survalis::brier(y, sp[["t=180"]], t_star = 180)
+)
+```
+
+Swap `fit_coxph`/`predict_coxph` for any other pair in `list_survlearners()` and every downstream call, `cindex_survmat()`, `brier()`, `cv_survlearner()`, `benchmark()`, stays exactly the same.
+
+## Beyond prediction: interpretation
+
+Because every learner returns the same survival-probability shape, survalis's interpretability layer works uniformly across all of them: permutation variable importance (`compute_varimp()`), accumulated local effects and partial dependence (`compute_ale()`, `compute_pdp()`), SHAP-based attribution (`compute_shap()`), pairwise interaction strength (`compute_interactions()`), counterfactual recommendations (`compute_counterfactual()`), and surrogate-tree explanations (`compute_surrogate()`, `compute_tree_surrogate()`), each with a matching `plot_*()` function.
+
+## Install
+
+```r
+install.packages("survalis")
+```
+
+## Links
+
+- [CRAN.R-project.org/package=survalis](https://CRAN.R-project.org/package=survalis)
+- {{< fa brands github >}} [github.com/ielbadisy/survalis](https://github.com/ielbadisy/survalis)
+
+<hr>
+
+<footer>
+<a href="../index.qmd">Back to blog</a>
+</footer>

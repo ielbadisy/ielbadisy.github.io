@@ -1,0 +1,119 @@
+---
+title: "survdnn: Deep Neural Networks for Survival Analysis in R"
+subtitle: "Cox, AFT, and CoxTime losses with a formula interface, cross-validation, and calibration, powered by torch"
+author: "Imad El Badisy"
+date: "2025-10-01"
+categories: [R, survival-analysis, deep-learning, packages]
+image: featured.png
+---
+
+Survival analysis has traditionally been dominated by the Cox proportional hazards model and its semi-parametric extensions. Deep learning offers an alternative: one that can capture non-linear covariate effects and complex interactions without manual feature engineering. **survdnn** brings that capability to R via the `torch` backend, with the same formula-based interface that R users already know.
+
+## What is survdnn?
+
+`survdnn` (v0.7.6) trains multilayer perceptrons for right-censored survival data. It supports four loss functions, built-in cross-validation, hyperparameter tuning, survival curve prediction, and standard evaluation metrics.
+
+Install:
+
+```r
+install.packages("torch")   # backend
+install.packages("survdnn")
+library(survdnn)
+```
+
+## Fitting a model
+
+The entry point is `survdnn()`, which takes a `Surv()` formula:
+
+```r
+library(survival)
+library(survdnn)
+
+fit <- survdnn(
+  formula   = Surv(time, status) ~ age + sex + ph.ecog + ph.karno,
+  data      = lung,
+  hidden    = c(64, 32),
+  activation = "relu",
+  loss      = "cox",
+  epochs    = 300,
+  lr        = 1e-3,
+  dropout   = 0.3,
+  batch_norm = TRUE
+)
+```
+
+## Loss functions
+
+Four loss functions are available, covering the major families of deep survival models:
+
+| Loss | Model family | When to use |
+|---|---|---|
+| `"cox"` | Breslow Cox partial likelihood | Standard proportional hazards assumption |
+| `"cox_l2"` | L2-penalized Cox | Regularization for wide feature sets |
+| `"aft"` | Accelerated failure time | Log-linear relationship preferred |
+| `"coxtime"` | CoxTime (Kvamme et al., JMLR 2019) | Time-varying covariate effects |
+
+## Prediction and survival curves
+
+```r
+# predict linear predictor (risk score)
+predict(fit, newdata = lung, type = "lp")
+
+# predict survival curves on a time grid
+times <- seq(0, 1000, by = 50)
+surv  <- predict(fit, newdata = lung, type = "survival", times = times)
+
+# plot survival curves for a subset of patients
+plot(fit, newdata = lung[1:5, ], times = times)
+```
+
+## Evaluation
+
+`survdnn` computes the concordance index (C-index) and integrated Brier score out of the box:
+
+```r
+summary(fit)
+# C-index: 0.68
+# Training loss (epoch 300): 0.412
+```
+
+## Hyperparameter tuning with cross-validation
+
+`tune_survdnn()` runs a random or grid search over the hyperparameter space with K-fold cross-validation:
+
+```r
+grid <- expand.grid(
+  hidden    = list(c(32, 16), c(64, 32), c(128, 64)),
+  lr        = c(1e-3, 1e-4),
+  dropout   = c(0.2, 0.3),
+  loss      = c("cox", "aft")
+)
+
+tuned <- tune_survdnn(
+  formula = Surv(time, status) ~ age + sex + ph.ecog,
+  data    = lung,
+  grid    = grid,
+  nfolds  = 5,
+  epochs  = 200
+)
+
+tuned$best_params
+```
+
+## Architecture
+
+Under the hood, `survdnn()` builds an MLP via `build_dnn()`: linear layers with optional batch normalization and dropout between each hidden layer, terminating in a single linear output. The `torch` optimizer (Adam by default) is configurable via `optimizer` and `optim_args`.
+
+## Methodological background
+
+The Cox and CoxTime losses follow Kvamme, Borgan & Scheel (2019), *"Time-to-Event Prediction with Neural Networks and Cox Regression"*, JMLR 20(129):1–30. The AFT formulation minimizes a log-normal negative log-likelihood.
+
+## Links
+
+- {{< fa brands github >}} [github.com/ielbadisy/survdnn](https://github.com/ielbadisy/survdnn)
+
+<hr>
+
+<footer>
+<a href="../index.qmd">Back to blog</a>
+</footer>

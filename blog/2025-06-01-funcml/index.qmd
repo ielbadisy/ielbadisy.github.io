@@ -1,0 +1,99 @@
+---
+title: "funcml: A Formula-First Framework for Machine Learning in R"
+subtitle: "One consistent API across 20+ learners, resampling, tuning, interpretation, and causal estimation"
+author: "Imad El Badisy"
+date: "2025-06-01"
+categories: [R, machine-learning, packages]
+image: featured.png
+---
+
+Machine learning in R has long suffered from a fragmentation problem. Fitting a random forest, a regularized linear model, and a neural network each requires learning a different package, a different formula syntax, and a different set of conventions for prediction and evaluation. **funcml** was built to close that gap.
+
+## What is funcml?
+
+`funcml` provides a unified, formula-first interface to supervised learning in R. Six top-level verbs cover the full ML workflow:
+
+| Verb | What it does |
+|---|---|
+| `fit()` | Train any learner via a common formula interface |
+| `evaluate()` | Resampling-based performance with any metric |
+| `tune()` | Grid or random hyperparameter search |
+| `compare_learners()` | Benchmark multiple models side by side |
+| `interpret()` | 14 model-agnostic interpretability methods |
+| `estimate()` | Plug-in g-computation for ATE/CATE estimation |
+
+Install from CRAN:
+
+```r
+install.packages("funcml")
+library(funcml)
+```
+
+## A minimal example
+
+```r
+library(funcml)
+
+# fit a random forest
+fit_rf <- fit(Sepal.Length ~ ., data = iris, learner = "ranger")
+
+# evaluate with 5-fold CV
+evaluate(fit_rf, data = iris, resampling = "cv", nfolds = 5)
+
+# compare to a regularized regression
+fit_glmnet <- fit(Sepal.Length ~ ., data = iris, learner = "glmnet")
+
+compare_learners(
+  list(rf = fit_rf, glmnet = fit_glmnet),
+  data = iris,
+  resampling = "cv",
+  nfolds = 5
+)
+```
+
+## Interpretability built in
+
+`interpret()` wraps 14 methods, from permutation importance and partial dependence plots to SHAP values and accumulated local effects, behind a single call:
+
+```r
+interpret(fit_rf, data = iris, method = "shap")
+interpret(fit_rf, data = iris, method = "pdp", feature = "Petal.Width")
+interpret(fit_rf, data = iris, method = "ale",  feature = "Petal.Width")
+```
+
+## Causal estimation
+
+When the research question goes beyond prediction, `estimate()` wraps plug-in g-computation to estimate average and conditional treatment effects:
+
+```r
+# ATE of treatment A on outcome Y, adjusted for covariates X
+estimate(
+  formula = Y ~ A + X1 + X2,
+  data    = mydata,
+  learner = "ranger",
+  effect  = "ATE"
+)
+```
+
+## The learner registry
+
+`funcml` ships with 20+ learners spanning linear models, tree ensembles, SVMs, neural networks, additive models, and Bayesian trees. All are accessed by name:
+
+```r
+learner_registry()
+# lm, glm, glmnet, ridge, lasso, ranger, xgboost, bart, svm, nnet,
+# gam, earth, knn, nb, lda, qda, ...
+```
+
+## Where to learn more
+
+The full tutorial, covering every learner, every interpretability method, and the causal estimation workflow, is available as a preprint:
+
+- {{< fa brands github >}} [github.com/ielbadisy/funcml](https://github.com/ielbadisy/funcml)
+- {{< fa box >}} [CRAN: funcml](https://cran.r-project.org/package=funcml)
+
+<hr>
+
+<footer>
+<a href="../index.qmd">Back to blog</a>
+</footer>

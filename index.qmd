@@ -13,6 +13,7 @@ format:
   <li><a href="#research">Research</a></li>
   <li><a href="#software">Software</a></li>
   <li><a href="#publications">Publications</a></li>
+  <li><a href="blog/index.qmd">Blog</a></li>
   <li><a href="#contact">Contact</a></li>
   <li><a href="cv/cv.pdf">CV</a></li>
 </ul>
@@ -74,9 +75,10 @@ For collaboration, methodological support, or consulting requests, please reach 
 
 | Position | Institution | Period |
 |---|---|---|
-| Head of AI and Data Science Service | CM6RI, Rabat, Morocco | Nov. 2021 – Present |
+| Head of AI and Data Science Service | CM6RI, Rabat, Morocco | Jan. 2026 – Present |
+| Research Engineer | CM6RI, Rabat, Morocco | Nov. 2021 – Jan. 2026 |
 | Data Science Education Officer | The GRAPH Network, Switzerland | Sep. 2023 – Dec. 2023 |
-| Research Engineer in Applied Statistics | IMT Atlantique, Brest, France | Sep. 2019 – Sep. 2021 |
+| Research and Development Engineer | IMT Atlantique, Brest, France | Sep. 2019 – Sep. 2021 |
 | Biostatistician | INSERM, Clermont-Ferrand, France | Jan. 2019 – Jun. 2019 |
 | Health Economist Intern | Université de Sherbrooke, Quebec, Canada | Feb. 2017 – Sep. 2017 |
 
