@@ -4,6 +4,7 @@ project:
   resources:
     - profile.jpg
     - MHDSR-combined-syllabus.pdf
+    - robots.txt
   render:
     - index.qmd
     - cv/cv.qmd
@@ -14,6 +15,8 @@ project:
 
 website:
   title: "Imad EL BADISY"
+  site-url: "https://elbadisyimad.com"
+  description: "Imad EL BADISY, Research Engineer in Health Data Science, PhD. Biostatistics, survival analysis, missing data, and interpretable machine learning for health research."
   navbar: false
 
 format:
