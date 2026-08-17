@@ -43,21 +43,21 @@ Research Engineer in Health Data Science, PhD, working at the interface of biost
 
 ## Education {#education}
 
-- **PhD in Biomedical Sciences** — Aix-Marseille University, SESSTIM, Marseille, France (2021 – 2025)
-- **Master 2, Quantitative Methods for Health Research** — Aix-Marseille University, SESSTIM, Marseille, France (2018 – 2019)
-- **Master 1, Applied Mathematics and Statistics** — Université Clermont Auvergne, Clermont-Ferrand, France (2017 – 2018)
-- **Master 2, Health Economics** — Université Clermont Auvergne, CERDI, Clermont-Ferrand, France (2017)
+- **PhD in Biomedical Sciences**, Aix-Marseille University, SESSTIM, Marseille, France (2021 – 2025)
+- **Master 2, Quantitative Methods for Health Research**, Aix-Marseille University, SESSTIM, Marseille, France (2018 – 2019)
+- **Master 1, Applied Mathematics and Statistics**, Université Clermont Auvergne, Clermont-Ferrand, France (2017 – 2018)
+- **Master 2, Health Economics**, Université Clermont Auvergne, CERDI, Clermont-Ferrand, France (2017)
 
 </div>
 <div class="split-col">
 
 ## Experience {#experience}
 
-- **Head of AI and Data Science Service** — Mohammed VI Center for Research and Innovation (CM6RI), Rabat, Morocco (Nov. 2021 – Present)
-- **Data Science Education Officer** — The GRAPH Network, Switzerland / Remote (Sep. 2023 – Dec. 2023)
-- **Research Engineer in Applied Statistics** — Institut Mines-Télécom, IMT Atlantique, Brest, France (Sep. 2019 – Sep. 2021)
-- **Biostatistician** — INSERM, Clermont-Ferrand, France (Jan. 2019 – Jun. 2019)
-- **Health Economist Intern** — Université de Sherbrooke, Sherbrooke, Quebec, Canada (Feb. 2017 – Sep. 2017)
+- **Head of AI and Data Science Service**, Mohammed VI Center for Research and Innovation (CM6RI), Rabat, Morocco (Nov. 2021 – Present)
+- **Data Science Education Officer**, The GRAPH Network, Switzerland (Sep. 2023 – Dec. 2023)
+- **Research Engineer in Applied Statistics**, Institut Mines-Télécom, IMT Atlantique, Brest, France (Sep. 2019 – Sep. 2021)
+- **Biostatistician**, INSERM, Clermont-Ferrand, France (Jan. 2019 – Jun. 2019)
+- **Health Economist Intern**, Université de Sherbrooke, Sherbrooke, Quebec, Canada (Feb. 2017 – Sep. 2017)
 
 </div>
 </div>
@@ -80,9 +80,10 @@ Research Engineer in Health Data Science, PhD, working at the interface of biost
 I provide independent methodological and statistical consulting for health research teams, from study design through publication.
 
 - Study design and analysis plan review
-- Survival analysis, functional data analysis, and predictive modeling
-- Reproducible R/Quarto reporting pipelines
-- Custom R package or tool development
+- Statistical methodology
+- Evidence synthesis
+- Machine learning prediction for health outcomes
+- Custom R package and tool development
 
 Engagements are scoped individually: short advisory sessions, analysis support on a specific study, or longer-term collaboration. [Get in touch →](#contact)
 
@@ -111,19 +112,19 @@ Interested? [Get in touch →](#contact) for more information.
 
 | Package | Purpose | CRAN | Documentation | GitHub |
 |---|---|---|---|---|
-| `survalis` | Interpretable survival machine learning framework | [CRAN](https://CRAN.R-project.org/package=survalis) | [PDF](https://cran.r-project.org/web/packages/survalis/survalis.pdf) | [GitHub](https://github.com/ielbadisy/survalis) |
-| `survdnn` | Deep neural networks for survival analysis (R torch) | [CRAN](https://CRAN.R-project.org/package=survdnn) | [PDF](https://cran.r-project.org/web/packages/survdnn/survdnn.pdf) | [GitHub](https://github.com/ielbadisy/survdnn) |
-| `funcml` | Functional machine learning workflows | [CRAN](https://CRAN.R-project.org/package=funcml) | [PDF](https://cran.r-project.org/web/packages/funcml/funcml.pdf) | [GitHub](https://github.com/ielbadisy/funcml) |
-| `unsurv` | Unsupervised clustering of individualized survival curves | [CRAN](https://CRAN.R-project.org/package=unsurv) | [PDF](https://cran.r-project.org/web/packages/unsurv/unsurv.pdf) | [GitHub](https://github.com/ielbadisy/unsurv) |
-| `tvrmst` | Time-varying RMST from survival matrices | [CRAN](https://CRAN.R-project.org/package=tvrmst) | [PDF](https://cran.r-project.org/web/packages/tvrmst/tvrmst.pdf) | [GitHub](https://github.com/ielbadisy/tvrmst) |
-| `mcstatsim` | Monte Carlo statistical simulation (functional approach) | [CRAN](https://CRAN.R-project.org/package=mcstatsim) | [PDF](https://cran.r-project.org/web/packages/mcstatsim/mcstatsim.pdf) | [GitHub](https://github.com/ielbadisy/mcstatsim) |
-| `missCforest` | Ensemble conditional trees for missing data imputation | [CRAN](https://CRAN.R-project.org/package=missCforest) | [PDF](https://cran.r-project.org/web/packages/missCforest/missCforest.pdf) | [GitHub](https://github.com/ielbadisy/missCforest) |
-| `functionals` | Functional programming with parallelism and progress tracking | [CRAN](https://CRAN.R-project.org/package=functionals) | [PDF](https://cran.r-project.org/web/packages/functionals/functionals.pdf) | [GitHub](https://github.com/ielbadisy/functionals) |
-| `mimar` | Compact multiple imputation, assessment, and reporting | [CRAN](https://CRAN.R-project.org/package=mimar) | [PDF](https://cran.r-project.org/web/packages/mimar/mimar.pdf) | [GitHub](https://github.com/ielbadisy/mimar) |
-| `testflow` | Statistical testing, interpretation, and ggplot2-based visualization | [CRAN](https://CRAN.R-project.org/package=testflow) | [PDF](https://cran.r-project.org/web/packages/testflow/testflow.pdf) | [GitHub](https://github.com/ielbadisy/testflow) |
-| `densemlp` | Dense neural networks for tabular classification and regression | [CRAN](https://CRAN.R-project.org/package=densemlp) | [PDF](https://cran.r-project.org/web/packages/densemlp/densemlp.pdf) | [GitHub](https://github.com/ielbadisy/densemlp) |
-| `CEACT` | Cost-effectiveness analysis toolkit for clinical trials | [CRAN](https://CRAN.R-project.org/package=CEACT) | [PDF](https://cran.r-project.org/web/packages/CEACT/CEACT.pdf) | [GitHub](https://github.com/ielbadisy/CEACT) |
-| `missknn` | Fast masked k-nearest neighbor imputation | [CRAN](https://CRAN.R-project.org/package=missknn) | [PDF](https://cran.r-project.org/web/packages/missknn/missknn.pdf) | [GitHub](https://github.com/ielbadisy/missknn) |
+| `survalis` | Interpretable survival machine learning framework | [CRAN](https://CRAN.R-project.org/package=survalis) | [Documentation](https://cran.r-project.org/web/packages/survalis/survalis.pdf) | [GitHub](https://github.com/ielbadisy/survalis) |
+| `survdnn` | Deep neural networks for survival analysis (R torch) | [CRAN](https://CRAN.R-project.org/package=survdnn) | [Documentation](https://cran.r-project.org/web/packages/survdnn/survdnn.pdf) | [GitHub](https://github.com/ielbadisy/survdnn) |
+| `funcml` | Functional machine learning workflows | [CRAN](https://CRAN.R-project.org/package=funcml) | [Documentation](https://cran.r-project.org/web/packages/funcml/funcml.pdf) | [GitHub](https://github.com/ielbadisy/funcml) |
+| `unsurv` | Unsupervised clustering of individualized survival curves | [CRAN](https://CRAN.R-project.org/package=unsurv) | [Documentation](https://cran.r-project.org/web/packages/unsurv/unsurv.pdf) | [GitHub](https://github.com/ielbadisy/unsurv) |
+| `tvrmst` | Time-varying RMST from survival matrices | [CRAN](https://CRAN.R-project.org/package=tvrmst) | [Documentation](https://cran.r-project.org/web/packages/tvrmst/tvrmst.pdf) | [GitHub](https://github.com/ielbadisy/tvrmst) |
+| `mcstatsim` | Monte Carlo statistical simulation (functional approach) | [CRAN](https://CRAN.R-project.org/package=mcstatsim) | [Documentation](https://cran.r-project.org/web/packages/mcstatsim/mcstatsim.pdf) | [GitHub](https://github.com/ielbadisy/mcstatsim) |
+| `missCforest` | Ensemble conditional trees for missing data imputation | [CRAN](https://CRAN.R-project.org/package=missCforest) | [Documentation](https://cran.r-project.org/web/packages/missCforest/missCforest.pdf) | [GitHub](https://github.com/ielbadisy/missCforest) |
+| `functionals` | Functional programming with parallelism and progress tracking | [CRAN](https://CRAN.R-project.org/package=functionals) | [Documentation](https://cran.r-project.org/web/packages/functionals/functionals.pdf) | [GitHub](https://github.com/ielbadisy/functionals) |
+| `mimar` | Compact multiple imputation, assessment, and reporting | [CRAN](https://CRAN.R-project.org/package=mimar) | [Documentation](https://cran.r-project.org/web/packages/mimar/mimar.pdf) | [GitHub](https://github.com/ielbadisy/mimar) |
+| `testflow` | Statistical testing, interpretation, and ggplot2-based visualization | [CRAN](https://CRAN.R-project.org/package=testflow) | [Documentation](https://cran.r-project.org/web/packages/testflow/testflow.pdf) | [GitHub](https://github.com/ielbadisy/testflow) |
+| `densemlp` | Dense neural networks for tabular classification and regression | [CRAN](https://CRAN.R-project.org/package=densemlp) | [Documentation](https://cran.r-project.org/web/packages/densemlp/densemlp.pdf) | [GitHub](https://github.com/ielbadisy/densemlp) |
+| `CEACT` | Cost-effectiveness analysis toolkit for clinical trials | [CRAN](https://CRAN.R-project.org/package=CEACT) | [Documentation](https://cran.r-project.org/web/packages/CEACT/CEACT.pdf) | [GitHub](https://github.com/ielbadisy/CEACT) |
+| `missknn` | Fast masked k-nearest neighbor imputation | [CRAN](https://CRAN.R-project.org/package=missknn) | [Documentation](https://cran.r-project.org/web/packages/missknn/missknn.pdf) | [GitHub](https://github.com/ielbadisy/missknn) |
 
 All packages on [CRAN](https://CRAN.R-project.org/search/?query=el+badisy) · also available via [R-universe](https://ielbadisy.r-universe.dev)
 
