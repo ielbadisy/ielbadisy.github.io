@@ -236,6 +236,17 @@ img, iframe, video {
   max-width: 100%;
 }
 
+/* Center code-chunk output figures */
+.cell-output-display,
+.cell-output-display p,
+.cell-output-display figure {
+  text-align: center;
+}
+
+.cell-output-display img {
+  display: inline-block;
+}
+
 /* Footer */
 footer {
   text-align: center;
