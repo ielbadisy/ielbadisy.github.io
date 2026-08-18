@@ -38,7 +38,7 @@ install.packages("mimar")
 
 ```{r}
 #| label: ampute
-suppressPackageStartupMessages(library(mimar))
+library(mimar)
 
 set.seed(1)
 amp <- ampute(iris, prop = 0.25, mechanism = "MCAR")

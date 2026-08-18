@@ -40,7 +40,7 @@ That output shape was a deliberate constraint, not an incidental one. A Cox mode
 
 ```{r}
 #| label: list
-suppressPackageStartupMessages(library(survalis))
+library(survalis)
 list_survlearners()
 ```
 
@@ -50,7 +50,7 @@ That list spans semiparametric (`coxph`, `aalen`), parametric (`flexsurvreg`, `s
 
 ```{r}
 #| label: fit
-suppressPackageStartupMessages(library(survival))
+library(survival)
 
 times <- c(90, 180, 270)
 
@@ -61,8 +61,7 @@ head(sp)
 ```
 
 ```{r}
-#| label: fig-survmat
-#| fig-cap: "Predicted survival curves for a subset of subjects, coxph on the veteran trial"
+#| label: survmat-plot
 times_fine <- seq(0, 300, by = 10)
 sp_fine <- predict_coxph(mod, newdata = veteran[1:8, ], times = times_fine)
 

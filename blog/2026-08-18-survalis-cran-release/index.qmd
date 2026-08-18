@@ -29,8 +29,8 @@ Comparing learners used to mean choosing between `benchmark_default_survlearners
 
 ```{r}
 #| label: fit-both
-suppressPackageStartupMessages(library(survalis))
-suppressPackageStartupMessages(library(survival))
+library(survalis)
+library(survival)
 
 times <- c(30, 90, 180)
 
@@ -68,8 +68,7 @@ timeroc_survmat(y, predicted = sp_rsf, times = times)
 `plot_survcurve()` adds a survminer-style Kaplan-Meier curve with a confidence ribbon, a log-rank p-value annotation, and an aligned number-at-risk table, built directly on `theme_survalis()` / `scale_color_survalis()` rather than depending on the survminer package. The risk table is composed with `patchwork`.
 
 ```{r}
-#| label: fig-survcurve
-#| fig-cap: "Kaplan-Meier curves by cell type, with risk table, on the veteran trial"
+#| label: survcurve-plot
 plot_survcurve(Surv(time, status) ~ celltype, data = veteran)
 ```
 
@@ -84,8 +83,7 @@ As of 0.9.0, every one of those functions also takes a `title` argument: pass a 
 `compute_varimp()` computes permutation-based importance by repeating a metric drop over `n_repetitions` permutations per feature. It used to summarize those repetitions down to a single point estimate and discard them. `plot_varimp()` now draws the full per-repetition distribution as a boxplot instead of a lone point, and `compute_varimp()` keeps the raw values as a `"raw_scores"` attribute so the plot can use them (falling back to the old point-plot for hand-built summary tables without that attribute):
 
 ```{r}
-#| label: fig-varimp
-#| fig-cap: "Permutation variable importance with per-repetition spread, coxph on the veteran trial"
+#| label: varimp-plot
 mod_cox <- fit_coxph(Surv(time, status) ~ age + karno + celltype, data = veteran)
 vi <- compute_varimp(mod_cox, times = times, metric = "ibs", n_repetitions = 15, seed = 1)
 

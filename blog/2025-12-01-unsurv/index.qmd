@@ -45,7 +45,7 @@ The algorithm:
 
 ```{r}
 #| label: fit
-suppressPackageStartupMessages(library(unsurv))
+library(unsurv)
 
 # Simulate survival curves from two latent risk groups
 set.seed(42)
@@ -101,8 +101,7 @@ pred
 ## Plotting
 
 ```{r}
-#| label: fig-medoids
-#| fig-cap: "Cluster medoid curves, automatic K selection"
+#| label: medoids-plot
 plot(fit)
 ```
 
@@ -117,7 +116,8 @@ A natural pipeline is:
 
 ```{r}
 #| label: pipeline
-suppressPackageStartupMessages({library(survival); library(survdnn)})
+library(survival)
+library(survdnn)
 torch::torch_manual_seed(1)
 
 dnn_fit <- survdnn(Surv(time, status) ~ age + sex + ph.ecog + ph.karno, data = lung,

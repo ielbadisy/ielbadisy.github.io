@@ -40,7 +40,7 @@ install.packages("funcml")
 
 ```{r}
 #| label: fit-eval
-suppressPackageStartupMessages(library(funcml))
+library(funcml)
 
 # fit a random forest
 fit_rf <- fit(Sepal.Length ~ ., data = iris, model = "ranger")

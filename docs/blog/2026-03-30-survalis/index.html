@@ -106,7 +106,7 @@ Imad El Badisy · 2026-03-30
 <p>That output shape was a deliberate constraint, not an incidental one. A Cox model naturally hands back a linear predictor or a hazard ratio; a random survival forest hands back an ensemble of terminal-node curves; a deep survival network hands back whatever its loss was trained on (a Cox partial likelihood, an AFT loss, a discrete-time hazard). <code>fit_survdnn()</code> itself can predict a linear predictor if asked, since its loss functions include a Cox-style formulation. survalis standardizes on the survival-probability matrix anyway, over times <code>t=100</code>, <code>t=200</code>, and so on, because a matrix is, by construction, a richer object than a scalar: a linear predictor collapses a subject’s entire risk trajectory into one number and one implicit ranking, while a survival curve preserves how that risk actually unfolds over the follow-up window, which is what a fixed-horizon metric, a time-varying AUC, or a calibration curve each need to read back out at a different point. Forcing every <code>predict_*()</code> to that one shape throws away learner-specific detail on the way out (a Cox model’s clean linear score, a forest’s raw ensemble votes), but it is exactly what makes <code>cindex_survmat()</code>, <code>brier()</code>, <code>timeroc_survmat()</code>, and every interpretation function in the package learner-agnostic, without asking any of them to reconstruct a survival curve from a scalar first. The alternative, keeping each learner’s native output format and writing metric functions that branch on model class, is the design survalis specifically avoids.</p>
 <h2 id="nineteen-learners-one-interface" class="anchored">Nineteen learners, one interface</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(survalis))</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survalis)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">list_survlearners</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>            learner                 fit                 predict
@@ -156,7 +156,7 @@ Imad El Badisy · 2026-03-30
 <p>That list spans semiparametric (<code>coxph</code>, <code>aalen</code>), parametric (<code>flexsurvreg</code>, <code>stpm2</code>, <code>aftgee</code>), tree-based and ensemble (<code>rpart</code>, <code>rsf</code>, <code>cforest</code>, <code>orsf</code>), boosting (<code>xgboost</code>, <code>blackboost</code>), kernel (<code>survsvm</code>), and deep-learning (<code>survdnn</code>, <code>bnnsurv</code>) learners, plus <code>survmetalearner</code> for combining several of them. Most also ship a matching <code>tune_*()</code> function for grid or random hyperparameter search.</p>
 <h2 id="a-minimal-example" class="anchored">A minimal example</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(survival))</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survival)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>times <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">90</span>, <span class="dv">180</span>, <span class="dv">270</span>)</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -182,14 +182,9 @@ Imad El Badisy · 2026-03-30
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">ggsave</span>(<span class="st">"featured.png"</span>, p, <span class="at">width =</span> <span class="dv">7</span>, <span class="at">height =</span> <span class="fl">4.5</span>, <span class="at">dpi =</span> <span class="dv">150</span>)</span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>p</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div id="fig-survmat" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig">
-<div aria-describedby="fig-survmat-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-survmat-1.png" class="img-fluid" width="672">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-survmat-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Predicted survival curves for a subset of subjects, coxph on the veteran trial
-</figcaption>
+<div>
+<figure>
+<p><img src="index_files/figure-html/survmat-plot-1.png" class="img-fluid" width="672"></p>
 </figure>
 </div>
 </div>

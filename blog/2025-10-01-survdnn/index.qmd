@@ -34,7 +34,8 @@ The entry point is `survdnn()`, which takes a `Surv()` formula:
 
 ```{r}
 #| label: fit
-suppressPackageStartupMessages({library(survival); library(survdnn)})
+library(survival)
+library(survdnn)
 torch::torch_manual_seed(1)
 
 fit <- survdnn(
@@ -78,8 +79,7 @@ head(surv)
 ```
 
 ```{r}
-#| label: fig-survcurve
-#| fig-cap: "Predicted survival curves for five patients from the lung dataset"
+#| label: survcurve-plot
 p <- plot(fit, newdata = lung[1:5, ], times = times)
 ggplot2::ggsave("featured.png", p, width = 7, height = 4.5, dpi = 150)
 p

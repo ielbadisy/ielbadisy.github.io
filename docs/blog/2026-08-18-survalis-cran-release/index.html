@@ -96,8 +96,8 @@ Imad El Badisy · 2026-08-18
 <h2 id="one-entry-point-for-benchmarking-benchmark" class="anchored">One entry point for benchmarking: <code>benchmark()</code></h2>
 <p>Comparing learners used to mean choosing between <code>benchmark_default_survlearners()</code> (plain k-fold CV) and <code>benchmark_tuned_survlearners()</code> (nested CV with per-learner hyperparameter tuning). <code>benchmark()</code> now dispatches to either from a single <code>tune</code> argument:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(survalis))</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(survival))</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survalis)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survival)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>times <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">30</span>, <span class="dv">90</span>, <span class="dv">180</span>)</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
@@ -132,7 +132,7 @@ Imad El Badisy · 2026-08-18
 14: &lt;vfold_split[109x28x137x8]&gt;  Fold2     2    ibs 0.172     rsf
 15: &lt;vfold_split[110x27x137x8]&gt;  Fold3     3 cindex 0.720     rsf
 16: &lt;vfold_split[110x27x137x8]&gt;  Fold3     3    ibs 0.158     rsf
-17: &lt;vfold_split[110x27x137x8]&gt;  Fold4     4 cindex 0.675     rsf
+17: &lt;vfold_split[110x27x137x8]&gt;  Fold4     4 cindex 0.677     rsf
 18: &lt;vfold_split[110x27x137x8]&gt;  Fold4     4    ibs 0.188     rsf
 19: &lt;vfold_split[110x27x137x8]&gt;  Fold5     5 cindex 0.722     rsf
 20: &lt;vfold_split[110x27x137x8]&gt;  Fold5     5    ibs 0.151     rsf
@@ -152,7 +152,7 @@ Imad El Badisy · 2026-08-18
 <div class="cell-output cell-output-stdout">
 <pre><code>  time      auc
 1   30 0.886782
-2   90 0.882384
+2   90 0.882498
 3  180 0.897919</code></pre>
 </div>
 </div>
@@ -161,14 +161,9 @@ Imad El Badisy · 2026-08-18
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_survcurve</span>(<span class="fu">Surv</span>(time, status) <span class="sc">~</span> celltype, <span class="at">data =</span> veteran)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div id="fig-survcurve" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig">
-<div aria-describedby="fig-survcurve-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-survcurve-1.png" class="img-fluid" width="672">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-survcurve-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Kaplan-Meier curves by cell type, with risk table, on the veteran trial
-</figcaption>
+<div>
+<figure>
+<p><img src="index_files/figure-html/survcurve-plot-1.png" class="img-fluid" width="672"></p>
 </figure>
 </div>
 </div>
@@ -186,14 +181,9 @@ Figure&nbsp;1: Kaplan-Meier curves by cell type, with risk table, on the veteran
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>ggplot2<span class="sc">::</span><span class="fu">ggsave</span>(<span class="st">"featured.png"</span>, p, <span class="at">width =</span> <span class="dv">7</span>, <span class="at">height =</span> <span class="fl">4.5</span>, <span class="at">dpi =</span> <span class="dv">150</span>)</span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>p</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div id="fig-varimp" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig">
-<div aria-describedby="fig-varimp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-varimp-1.png" class="img-fluid" width="672">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-varimp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2: Permutation variable importance with per-repetition spread, coxph on the veteran trial
-</figcaption>
+<div>
+<figure>
+<p><img src="index_files/figure-html/varimp-plot-1.png" class="img-fluid" width="672"></p>
 </figure>
 </div>
 </div>

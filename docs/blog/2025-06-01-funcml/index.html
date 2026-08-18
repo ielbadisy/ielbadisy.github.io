@@ -131,7 +131,7 @@ Imad El Badisy · 2025-06-01
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"funcml"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <h2 id="a-minimal-example" class="anchored">A minimal example</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(funcml))</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(funcml)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># fit a random forest</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>fit_rf <span class="ot">&lt;-</span> <span class="fu">fit</span>(Sepal.Length <span class="sc">~</span> ., <span class="at">data =</span> iris, <span class="at">model =</span> <span class="st">"ranger"</span>)</span>
@@ -194,12 +194,12 @@ Imad El Badisy · 2025-06-01
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">interpret</span>(fit_rf, <span class="at">data =</span> iris, <span class="at">method =</span> <span class="st">"pdp"</span>, <span class="at">features =</span> <span class="st">"Petal.Width"</span>)<span class="sc">$</span>result<span class="sc">$</span>curves <span class="sc">|&gt;</span> <span class="fu">head</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      feature     value     yhat
-1 Petal.Width 0.1000000 5.569865
-2 Petal.Width 0.2142857 5.584432
-3 Petal.Width 0.3285714 5.578958
-4 Petal.Width 0.4428571 5.666761
-5 Petal.Width 0.5571429 5.657023
-6 Petal.Width 0.6714286 5.667953</code></pre>
+1 Petal.Width 0.1000000 5.565362
+2 Petal.Width 0.2142857 5.580698
+3 Petal.Width 0.3285714 5.585361
+4 Petal.Width 0.4428571 5.660377
+5 Petal.Width 0.5571429 5.650359
+6 Petal.Width 0.6714286 5.659566</code></pre>
 </div>
 </div>
 <h2 id="causal-estimation" class="anchored">Causal estimation</h2>
