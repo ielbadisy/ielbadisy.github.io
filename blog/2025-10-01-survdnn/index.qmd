@@ -125,11 +125,12 @@ Under the hood, `survdnn()` builds an MLP via `build_dnn()`: linear layers with 
 
 ## Methodological background
 
-The Cox and CoxTime losses follow Kvamme, Borgan & Scheel (2019), *"Time-to-Event Prediction with Neural Networks and Cox Regression"*, JMLR 20(129):1–30. The AFT formulation minimizes a log-normal negative log-likelihood.
+The Cox and CoxTime losses follow Kvamme, Borgan & Scheel (2019), *"Time-to-Event Prediction with Neural Networks and Cox Regression"*, JMLR 20(129):1–30. The AFT formulation minimizes a log-normal negative log-likelihood. The package itself, its design, and benchmarks against classical and machine learning survival models are described in El Badisy (2026), *"SurvDNN: Survival Deep Learning Models for Tabular Data"*, The R Journal, [RJ-2026-008](https://rjournal.github.io/articles/RJ-2026-008/).
 
 ## Links
 
 - GitHub: [github.com/ielbadisy/survdnn](https://github.com/ielbadisy/survdnn)
+- Paper: [RJ-2026-008](https://rjournal.github.io/articles/RJ-2026-008/)
 
 <hr>
 
