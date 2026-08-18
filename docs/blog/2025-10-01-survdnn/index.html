@@ -245,7 +245,7 @@ Imad El Badisy · 2025-10-01
 <h2 id="architecture" class="anchored">Architecture</h2>
 <p>Under the hood, <code>survdnn()</code> builds an MLP via <code>build_dnn()</code>: linear layers with optional batch normalization and dropout between each hidden layer, terminating in a single linear output. The <code>torch</code> optimizer (Adam by default) is configurable via <code>optimizer</code> and <code>optim_args</code>.</p>
 <h2 id="methodological-background" class="anchored">Methodological background</h2>
-<p>The Cox and CoxTime losses follow Kvamme, Borgan &amp; Scheel (2019), <em>“Time-to-Event Prediction with Neural Networks and Cox Regression”</em>, JMLR 20(129):1–30. The AFT formulation minimizes a log-normal negative log-likelihood. The package itself, its design, and benchmarks against classical and machine learning survival models are described in El Badisy (2026), <em>“SurvDNN: Survival Deep Learning Models for Tabular Data”</em>, The R Journal, <a href="https://rjournal.github.io/articles/RJ-2026-008/">RJ-2026-008</a>.</p>
+<p><code>survdnn</code>’s design, loss functions, and benchmarks against classical and machine learning survival models are described in El Badisy (2026), <em>“SurvDNN: Survival Deep Learning Models for Tabular Data”</em>, The R Journal, <a href="https://rjournal.github.io/articles/RJ-2026-008/">RJ-2026-008</a>.</p>
 <h2 id="links" class="anchored">Links</h2>
 <ul>
 <li>GitHub: <a href="https://github.com/ielbadisy/survdnn">github.com/ielbadisy/survdnn</a></li>
