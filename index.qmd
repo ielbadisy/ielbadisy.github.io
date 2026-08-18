@@ -13,7 +13,6 @@ format:
   <li><a href="#research">Research</a></li>
   <li><a href="#software">Software</a></li>
   <li><a href="#publications">Publications</a></li>
-  <li><a href="blog/index.qmd">Blog</a></li>
   <li><a href="#contact">Contact</a></li>
   <li><a href="cv/cv.pdf">CV</a></li>
 </ul>
@@ -39,7 +38,7 @@ format:
 
 Research Engineer in Health Data Science, PhD, working at the interface of biostatistics, machine learning, and applied health data analytics. I hold a PhD in Biomedical Sciences from Aix-Marseille University (SESSTIM laboratory) on missing data and machine learning methods for survival analysis.
 
-My work focuses on developing algorithms and reproducible workflows for health data analysis and decision support, spanning survival analysis, predictive modeling, interpretable machine learning, and large-scale administrative health data. I develop open-source R packages for survival analysis, missing data, and interpretable machine learning, and contribute as a consultant and trainer in biostatistics and health data science. Moroccan and French national, husband and father.
+My work focuses on developing algorithms and statistical methodology for health data analysis, covering survival analysis, missing data imputation, and machine learning. I develop open-source R packages for survival analysis, missing data, and interpretable machine learning, and contribute as a consultant and trainer in biostatistics and health data science. Moroccan and French national, husband and father.
 
 ## Contact {#contact}
 
@@ -159,7 +158,7 @@ All packages on [CRAN](https://CRAN.R-project.org/search/?query=el+badisy) · al
 
 - **El Badisy I.** (2026). unsurv: Clustering Individualized Survival Curves. *Bioinformatics Advances*, vbag218.
 
-- **El Badisy I.** (2026). funcml: Functional Machine Learning Software for R. *Zenodo*.
+- **El Badisy I.** (2026). funcml: Functional Machine Learning Software for R. [https://doi.org/10.5281/zenodo.20707605](https://doi.org/10.5281/zenodo.20707605)
 
 - **El Badisy I.**, Assarag B., Belrhiti Z. (2026). Interpretable clinical decision support systems in high-risk pregnancy: a scoping review of models, methods, and implementation. *BMC Pregnancy and Childbirth*, 26(1):125.
 

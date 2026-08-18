@@ -12,8 +12,6 @@ project:
     - notes/survival-trajectory-phenotypes.qmd
     - notes/dynamic-rmst.qmd
     - notes/functional-ml-r.qmd
-    - blog/index.qmd
-    - blog/**/index.qmd
 
 website:
   title: "Imad EL BADISY"
