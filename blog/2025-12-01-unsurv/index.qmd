@@ -130,9 +130,14 @@ clust <- unsurv(S_hat, times_grid, K = NULL, K_max = 5, seed = 1)
 table(clust$clusters)
 ```
 
+## Methodological background
+
+`unsurv`'s preprocessing choices, distance weighting, medoid-based clustering, and stability assessment are described in El Badisy (2026), *"unsurv: Clustering Individualized Survival Curves"*, Bioinformatics Advances, [doi:10.1093/bioadv/vbag218](https://doi.org/10.1093/bioadv/vbag218), with a demonstration on the METABRIC breast cancer cohort using `survdnn`-predicted curves.
+
 ## Links
 
 - GitHub: [github.com/ielbadisy/unsurv](https://github.com/ielbadisy/unsurv)
+- Paper: [doi:10.1093/bioadv/vbag218](https://doi.org/10.1093/bioadv/vbag218)
 
 <hr>
 
