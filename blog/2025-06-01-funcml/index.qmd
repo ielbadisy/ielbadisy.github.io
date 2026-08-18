@@ -103,10 +103,26 @@ estimate(
 list_learners()[, c("learner", "has_tune")]
 ```
 
+## Citation
+
+```bibtex
+@software{El_Badisy_funcml_2026,
+  author  = {El Badisy, Imad},
+  license = {GPL-3.0-only},
+  month   = apr,
+  title   = {{funcml}},
+  doi     = {10.5281/zenodo.20707605},
+  url     = {https://doi.org/10.5281/zenodo.20707605},
+  version = {0.7.1},
+  year    = {2026}
+}
+```
+
 ## Links
 
 - GitHub: [github.com/ielbadisy/funcml](https://github.com/ielbadisy/funcml)
 - CRAN: [CRAN.R-project.org/package=funcml](https://cran.r-project.org/package=funcml)
+- Citation: [doi:10.5281/zenodo.20707605](https://doi.org/10.5281/zenodo.20707605)
 
 <hr>
 

@@ -194,12 +194,12 @@ Imad El Badisy · 2025-06-01
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">interpret</span>(fit_rf, <span class="at">data =</span> iris, <span class="at">method =</span> <span class="st">"pdp"</span>, <span class="at">features =</span> <span class="st">"Petal.Width"</span>)<span class="sc">$</span>result<span class="sc">$</span>curves <span class="sc">|&gt;</span> <span class="fu">head</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      feature     value     yhat
-1 Petal.Width 0.1000000 5.565362
-2 Petal.Width 0.2142857 5.580698
-3 Petal.Width 0.3285714 5.585361
-4 Petal.Width 0.4428571 5.660377
-5 Petal.Width 0.5571429 5.650359
-6 Petal.Width 0.6714286 5.659566</code></pre>
+1 Petal.Width 0.1000000 5.560747
+2 Petal.Width 0.2142857 5.577375
+3 Petal.Width 0.3285714 5.583929
+4 Petal.Width 0.4428571 5.651635
+5 Petal.Width 0.5571429 5.639895
+6 Petal.Width 0.6714286 5.653355</code></pre>
 </div>
 </div>
 <h2 id="causal-estimation" class="anchored">Causal estimation</h2>
@@ -261,10 +261,22 @@ Estimate: 0.4531 | SE: 0.0156 | 95% normal CI [0.4225, 0.4836]</code></pre>
 24      xgboost     TRUE</code></pre>
 </div>
 </div>
+<h2 id="citation" class="anchored">Citation</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode bibtex code-with-copy"><code class="sourceCode bibtex"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">@software{El_Badisy_funcml_2026,</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co">  author  = {El Badisy, Imad},</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co">  license = {GPL-3.0-only},</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co">  month   = apr,</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co">  title   = {{funcml}},</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co">  doi     = {10.5281/zenodo.20707605},</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co">  url     = {https://doi.org/10.5281/zenodo.20707605},</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co">  version = {0.7.1},</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co">  year    = {2026}</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <h2 id="links" class="anchored">Links</h2>
 <ul>
 <li>GitHub: <a href="https://github.com/ielbadisy/funcml">github.com/ielbadisy/funcml</a></li>
 <li>CRAN: <a href="https://cran.r-project.org/package=funcml">CRAN.R-project.org/package=funcml</a></li>
+<li>Citation: <a href="https://doi.org/10.5281/zenodo.20707605">doi:10.5281/zenodo.20707605</a></li>
 </ul>
 <hr>
 <footer>
