@@ -78,15 +78,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <body>
 
 
-<header id="title-block-header" class="blog-banner" style="background-image: linear-gradient(rgba(15,26,41,.78), rgba(15,26,41,.78)), url('featured.png');">
-<p class="banner-tags">
-<span class="tag banner-tag">R</span><span class="tag banner-tag">machine-learning</span><span class="tag banner-tag">packages</span>
-</p>
+<header id="title-block-header">
 <h1 class="title">funcml: A Formula-First Framework for Machine Learning in R</h1>
 <p class="subtitle">One consistent API across 20+ learners, resampling, tuning, interpretation, and causal estimation</p>
-<p class="banner-meta">
-Imad El Badisy · 2025-06-01
-</p>
+<p class="author">Imad El Badisy</p>
+
+<p class="date">2025-06-01</p>
 </header>
 
 
@@ -194,12 +191,12 @@ Imad El Badisy · 2025-06-01
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">interpret</span>(fit_rf, <span class="at">data =</span> iris, <span class="at">method =</span> <span class="st">"pdp"</span>, <span class="at">features =</span> <span class="st">"Petal.Width"</span>)<span class="sc">$</span>result<span class="sc">$</span>curves <span class="sc">|&gt;</span> <span class="fu">head</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      feature     value     yhat
-1 Petal.Width 0.1000000 5.560747
-2 Petal.Width 0.2142857 5.577375
-3 Petal.Width 0.3285714 5.583929
-4 Petal.Width 0.4428571 5.651635
-5 Petal.Width 0.5571429 5.639895
-6 Petal.Width 0.6714286 5.653355</code></pre>
+1 Petal.Width 0.1000000 5.577112
+2 Petal.Width 0.2142857 5.591556
+3 Petal.Width 0.3285714 5.595045
+4 Petal.Width 0.4428571 5.672101
+5 Petal.Width 0.5571429 5.662717
+6 Petal.Width 0.6714286 5.672528</code></pre>
 </div>
 </div>
 <h2 id="causal-estimation" class="anchored">Causal estimation</h2>

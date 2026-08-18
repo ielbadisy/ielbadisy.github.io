@@ -6,10 +6,6 @@ date: "2025-08-15"
 categories: [R, missing-data, packages]
 image: featured.png
 resources: featured.png
-format:
-  html:
-    template-partials:
-      - ../../_partials/blog-banner/title-block.html
 execute:
   warning: false
   message: false
