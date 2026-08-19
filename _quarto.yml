@@ -12,6 +12,7 @@ project:
     - notes/survival-trajectory-phenotypes.qmd
     - notes/dynamic-rmst.qmd
     - notes/functional-ml-r.qmd
+    - notes/deep-survival-networks.qmd
 
 website:
   title: "Imad EL BADISY"

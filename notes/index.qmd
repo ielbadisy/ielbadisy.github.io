@@ -24,6 +24,7 @@ Methodological notes connected to my R packages and current projects, written up
 
 | Date | Note | Tags |
 |---|---|---|
+| 2026-08-19 | [Deep neural networks for survival analysis with `survdnn`](deep-survival-networks.pdf) | <span class="tag">Survival Analysis</span> <span class="tag">Deep Learning</span> <span class="tag">survdnn</span> |
 | 2026-05-23 | [Survival-trajectory phenotypes with `unsurv`](survival-trajectory-phenotypes.pdf) | <span class="tag">Survival Analysis</span> <span class="tag">Clustering</span> <span class="tag">unsurv</span> |
 | 2026-04-25 | [Functional machine learning workflows in R with `funcml`](functional-ml-r.pdf) | <span class="tag">Machine Learning</span> <span class="tag">Reproducibility</span> <span class="tag">funcml</span> |
 | 2026-04-04 | [Dynamic RMST from predicted survival curves with `tvrmst`](dynamic-rmst.pdf) | <span class="tag">Survival Analysis</span> <span class="tag">RMST</span> <span class="tag">tvrmst</span> |
