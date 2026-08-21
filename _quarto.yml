@@ -15,7 +15,7 @@ project:
     - notes/deep-survival-networks.qmd
 
 website:
-  title: "Imad EL BADISY"
+  title: "Imad El Badisy"
   site-url: "https://elbadisyimad.com"
   description: "Imad EL BADISY, Research Engineer in Health Data Science, PhD. Biostatistics, survival analysis, missing data, and interpretable machine learning for health research."
   navbar: false

@@ -1,6 +1,6 @@
 ---
-title: "Imad EL BADISY"
-description: "Imad EL BADISY, Research Engineer in Health Data Science, PhD. Biostatistics, survival analysis, missing data, and interpretable machine learning for health research."
+title: "Imad El Badisy"
+description: "Imad El Badisy, Research Engineer in Health Data Science, PhD. Biostatistics, survival analysis, missing data, and interpretable machine learning for health research."
 format:
   html:
     include-in-header:
@@ -20,7 +20,7 @@ format:
 <hr>
 
 <div class="identity">
-  <img class="profile-photo" src="profile.jpg" alt="Portrait of Imad EL BADISY">
+  <img class="profile-photo" src="profile.jpg" alt="Portrait of Imad El Badisy">
   <p class="role">Research Engineer in Health Data Science, PhD</p>
 
   <p class="affiliation">
@@ -134,31 +134,31 @@ Interested? [Get in touch →](#contact) for more information.
 
 ## Selected Software {#software}
 
-- EL BADISY I (2026). _survalis: Interpretable Survival Machine Learning Framework_. R package version 1.0.0, <https://CRAN.R-project.org/package=survalis>.
+- El Badisy I (2026). _survalis: Interpretable Survival Machine Learning Framework_. R package version 1.0.0, <https://CRAN.R-project.org/package=survalis>.
 
-- EL BADISY I (2026). _survdnn: Deep Neural Networks for Survival Analysis with R 'torch'_. R package version 0.7.6, <https://CRAN.R-project.org/package=survdnn>.
+- El Badisy I (2026). _survdnn: Deep Neural Networks for Survival Analysis with R 'torch'_. R package version 0.7.6, <https://CRAN.R-project.org/package=survdnn>.
 
-- EL BADISY I (2026). _funcml: Functional Machine Learning Framework_. R package version 0.9.0, <https://CRAN.R-project.org/package=funcml>.
+- El Badisy I (2026). _funcml: Functional Machine Learning Framework_. R package version 0.9.0, <https://CRAN.R-project.org/package=funcml>.
 
-- EL BADISY I (2026). _unsurv: Unsupervised Clustering of Individualized Survival Curves_. R package version 0.5.0, <https://github.com/ielbadisy/unsurv>.
+- El Badisy I (2026). _unsurv: Unsupervised Clustering of Individualized Survival Curves_. R package version 0.5.0, <https://github.com/ielbadisy/unsurv>.
 
-- EL BADISY I (2026). _tvrmst: Time-Varying Restricted Mean Survival Time from Survival Matrices_. R package version 0.0.6, <https://CRAN.R-project.org/package=tvrmst>.
+- El Badisy I (2026). _tvrmst: Time-Varying Restricted Mean Survival Time from Survival Matrices_. R package version 0.0.6, <https://CRAN.R-project.org/package=tvrmst>.
 
-- EL BADISY I (2026). _mcstatsim: Monte Carlo Statistical Simulation Tools Using a Functional Approach_. R package version 0.5.1, <https://CRAN.R-project.org/package=mcstatsim>.
+- El Badisy I (2026). _mcstatsim: Monte Carlo Statistical Simulation Tools Using a Functional Approach_. R package version 0.5.1, <https://CRAN.R-project.org/package=mcstatsim>.
 
 - El Badisy I (2023). _missCforest: Ensemble Conditional Trees for Missing Data Imputation_. doi:10.32614/CRAN.package.missCforest <https://doi.org/10.32614/CRAN.package.missCforest>, R package version 0.0.8, <https://CRAN.R-project.org/package=missCforest>.
 
-- EL BADISY I (2026). _functionals: Functional Programming with Parallelism and Progress Tracking_. R package version 0.5.1, <https://CRAN.R-project.org/package=functionals>.
+- El Badisy I (2026). _functionals: Functional Programming with Parallelism and Progress Tracking_. R package version 0.5.1, <https://CRAN.R-project.org/package=functionals>.
 
-- EL BADISY I (2026). _mimar: Compact Multiple Imputation, Assessment, and Reporting_. R package version 1.0.0, <https://CRAN.R-project.org/package=mimar>.
+- El Badisy I (2026). _mimar: Compact Multiple Imputation, Assessment, and Reporting_. R package version 1.0.0, <https://CRAN.R-project.org/package=mimar>.
 
-- EL BADISY I (2026). _testflow: A Workflow for Statistical Testing and Interpretation_. R package version 1.0.0, <https://CRAN.R-project.org/package=testflow>.
+- El Badisy I (2026). _testflow: A Workflow for Statistical Testing and Interpretation_. R package version 1.0.0, <https://CRAN.R-project.org/package=testflow>.
 
-- EL BADISY I (2026). _densemlp: Dense Neural Networks for Tabular Classification and Regression_. R package version 0.5.0, <https://CRAN.R-project.org/package=densemlp>.
+- El Badisy I (2026). _densemlp: Dense Neural Networks for Tabular Classification and Regression_. R package version 0.5.0, <https://CRAN.R-project.org/package=densemlp>.
 
-- EL BADISY I (2026). _CEACT: Cost-Effectiveness Analysis Toolkit for Clinical Trials_. R package version 0.5.0, <https://CRAN.R-project.org/package=CEACT>.
+- El Badisy I (2026). _CEACT: Cost-Effectiveness Analysis Toolkit for Clinical Trials_. R package version 0.5.0, <https://CRAN.R-project.org/package=CEACT>.
 
-- EL BADISY I (2026). _missknn: Fast Masked K-Nearest Neighbor Imputation_. R package version 1.1.2, <https://CRAN.R-project.org/package=missknn>.
+- El Badisy I (2026). _missknn: Fast Masked K-Nearest Neighbor Imputation_. R package version 1.1.2, <https://CRAN.R-project.org/package=missknn>.
 
 All packages on [CRAN](https://CRAN.R-project.org/search/?query=el+badisy) · also available via [R-universe](https://ielbadisy.r-universe.dev)
 
@@ -202,5 +202,5 @@ Some methodological notes on related work.
 <hr>
 
 <footer>
-© 2026 Imad EL BADISY · Built with <a href="https://quarto.org">Quarto</a>
+© 2026 Imad El Badisy · Built with <a href="https://quarto.org">Quarto</a>
 </footer>
