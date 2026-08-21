@@ -132,23 +132,33 @@ Engagements are scoped individually: short advisory sessions, analysis support o
 
 Interested? [Get in touch →](#contact) for more information.
 
-## Software {#software}
+## Selected Software {#software}
 
-| Package | Purpose | CRAN | Documentation | GitHub |
-|---|---|---|---|---|
-| `survalis` | Interpretable survival machine learning framework | [CRAN](https://CRAN.R-project.org/package=survalis) | [Documentation](https://cran.r-project.org/web/packages/survalis/survalis.pdf) | [GitHub](https://github.com/ielbadisy/survalis) |
-| `survdnn` | Deep neural networks for survival analysis (R torch) | [CRAN](https://CRAN.R-project.org/package=survdnn) | [Documentation](https://cran.r-project.org/web/packages/survdnn/survdnn.pdf) | [GitHub](https://github.com/ielbadisy/survdnn) |
-| `funcml` | Functional machine learning workflows | [CRAN](https://CRAN.R-project.org/package=funcml) | [Documentation](https://cran.r-project.org/web/packages/funcml/funcml.pdf) | [GitHub](https://github.com/ielbadisy/funcml) |
-| `unsurv` | Unsupervised clustering of individualized survival curves | [CRAN](https://CRAN.R-project.org/package=unsurv) | [Documentation](https://cran.r-project.org/web/packages/unsurv/unsurv.pdf) | [GitHub](https://github.com/ielbadisy/unsurv) |
-| `tvrmst` | Time-varying RMST from survival matrices | [CRAN](https://CRAN.R-project.org/package=tvrmst) | [Documentation](https://cran.r-project.org/web/packages/tvrmst/tvrmst.pdf) | [GitHub](https://github.com/ielbadisy/tvrmst) |
-| `mcstatsim` | Monte Carlo statistical simulation (functional approach) | [CRAN](https://CRAN.R-project.org/package=mcstatsim) | [Documentation](https://cran.r-project.org/web/packages/mcstatsim/mcstatsim.pdf) | [GitHub](https://github.com/ielbadisy/mcstatsim) |
-| `missCforest` | Ensemble conditional trees for missing data imputation | [CRAN](https://CRAN.R-project.org/package=missCforest) | [Documentation](https://cran.r-project.org/web/packages/missCforest/missCforest.pdf) | [GitHub](https://github.com/ielbadisy/missCforest) |
-| `functionals` | Functional programming with parallelism and progress tracking | [CRAN](https://CRAN.R-project.org/package=functionals) | [Documentation](https://cran.r-project.org/web/packages/functionals/functionals.pdf) | [GitHub](https://github.com/ielbadisy/functionals) |
-| `mimar` | Compact multiple imputation, assessment, and reporting | [CRAN](https://CRAN.R-project.org/package=mimar) | [Documentation](https://cran.r-project.org/web/packages/mimar/mimar.pdf) | [GitHub](https://github.com/ielbadisy/mimar) |
-| `testflow` | Statistical testing, interpretation, and ggplot2-based visualization | [CRAN](https://CRAN.R-project.org/package=testflow) | [Documentation](https://cran.r-project.org/web/packages/testflow/testflow.pdf) | [GitHub](https://github.com/ielbadisy/testflow) |
-| `densemlp` | Dense neural networks for tabular classification and regression | [CRAN](https://CRAN.R-project.org/package=densemlp) | [Documentation](https://cran.r-project.org/web/packages/densemlp/densemlp.pdf) | [GitHub](https://github.com/ielbadisy/densemlp) |
-| `CEACT` | Cost-effectiveness analysis toolkit for clinical trials | [CRAN](https://CRAN.R-project.org/package=CEACT) | [Documentation](https://cran.r-project.org/web/packages/CEACT/CEACT.pdf) | [GitHub](https://github.com/ielbadisy/CEACT) |
-| `missknn` | Fast masked k-nearest neighbor imputation | [CRAN](https://CRAN.R-project.org/package=missknn) | [Documentation](https://cran.r-project.org/web/packages/missknn/missknn.pdf) | [GitHub](https://github.com/ielbadisy/missknn) |
+- EL BADISY I (2026). _survalis: Interpretable Survival Machine Learning Framework_. R package version 1.0.0, <https://CRAN.R-project.org/package=survalis>.
+
+- EL BADISY I (2026). _survdnn: Deep Neural Networks for Survival Analysis with R 'torch'_. R package version 0.7.6, <https://CRAN.R-project.org/package=survdnn>.
+
+- EL BADISY I (2026). _funcml: Functional Machine Learning Framework_. R package version 0.9.0, <https://CRAN.R-project.org/package=funcml>.
+
+- EL BADISY I (2026). _unsurv: Unsupervised Clustering of Individualized Survival Curves_. R package version 0.5.0, <https://github.com/ielbadisy/unsurv>.
+
+- EL BADISY I (2026). _tvrmst: Time-Varying Restricted Mean Survival Time from Survival Matrices_. R package version 0.0.6, <https://CRAN.R-project.org/package=tvrmst>.
+
+- EL BADISY I (2026). _mcstatsim: Monte Carlo Statistical Simulation Tools Using a Functional Approach_. R package version 0.5.1, <https://CRAN.R-project.org/package=mcstatsim>.
+
+- El Badisy I (2023). _missCforest: Ensemble Conditional Trees for Missing Data Imputation_. doi:10.32614/CRAN.package.missCforest <https://doi.org/10.32614/CRAN.package.missCforest>, R package version 0.0.8, <https://CRAN.R-project.org/package=missCforest>.
+
+- EL BADISY I (2026). _functionals: Functional Programming with Parallelism and Progress Tracking_. R package version 0.5.1, <https://CRAN.R-project.org/package=functionals>.
+
+- EL BADISY I (2026). _mimar: Compact Multiple Imputation, Assessment, and Reporting_. R package version 1.0.0, <https://CRAN.R-project.org/package=mimar>.
+
+- EL BADISY I (2026). _testflow: A Workflow for Statistical Testing and Interpretation_. R package version 1.0.0, <https://CRAN.R-project.org/package=testflow>.
+
+- EL BADISY I (2026). _densemlp: Dense Neural Networks for Tabular Classification and Regression_. R package version 0.5.0, <https://CRAN.R-project.org/package=densemlp>.
+
+- EL BADISY I (2026). _CEACT: Cost-Effectiveness Analysis Toolkit for Clinical Trials_. R package version 0.5.0, <https://CRAN.R-project.org/package=CEACT>.
+
+- EL BADISY I (2026). _missknn: Fast Masked K-Nearest Neighbor Imputation_. R package version 1.1.2, <https://CRAN.R-project.org/package=missknn>.
 
 All packages on [CRAN](https://CRAN.R-project.org/search/?query=el+badisy) · also available via [R-universe](https://ielbadisy.r-universe.dev)
 
