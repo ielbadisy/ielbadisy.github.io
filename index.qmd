@@ -118,9 +118,9 @@ Engagements are scoped individually: short advisory sessions, analysis support o
 
 | Course | Institution | Period |
 |---|---|---|
-| AI for Public Health (ML, NLP, applied AI) | Aix-Marseille University, SESSTIM | 2022 – present |
-| Introduction to Biostatistics | University Mohammed VI of Health Sciences (UM6SS) | 2021 – present |
-| Quantitative Epidemiology and Machine Learning | Institut Mines-Télécom, IMT Atlantique | 2020 – present |
+| AI for Public Health (ML, NLP, applied AI) | Aix-Marseille University, SESSTIM, Marseille, France | 2022 – present |
+| Introduction to Biostatistics | University Mohammed VI of Health Sciences (UM6SS), Casablanca, Morocco | 2021 – present |
+| Quantitative Epidemiology and Machine Learning | Institut Mines-Télécom, IMT Atlantique, Brest, France | 2020 – present |
 
 : {tbl-colwidths="[45,40,15]"}
 
