@@ -130,7 +130,7 @@ Engagements are scoped individually: short advisory sessions, analysis support o
 - **ML4HOR**: Machine Learning for Health Outcomes with R (prediction)
 - **METAR**: Conducting Meta-Analysis with R (evidence synthesis)
 
-Interested? [Get in touch →](#contact) for more information.
+Visit [mhdsr.com](https://mhdsr.com) for details, or [get in touch →](#contact) for more information.
 
 ## Selected Software {#software}
 
