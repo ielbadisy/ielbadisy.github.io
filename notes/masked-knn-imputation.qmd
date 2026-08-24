@@ -47,7 +47,13 @@ $$
 \hat x_{it} = \frac{\sum_{\ell \in N_k(i,t)} \alpha_{i\ell t}\, x_{\ell t}}{\sum_{\ell \in N_k(i,t)} \alpha_{i\ell t}}, \qquad \alpha_{i\ell t} = \frac{1}{d_t(i,\ell) + \varepsilon},
 $$
 
-and for a categorical target a weighted-majority vote, $\hat x_{it} = \arg\max_v \sum_{\ell \in N_k(i,t)} \alpha_{i\ell t} \mathbb{1}[x_{\ell t} = v]$. Under multiple imputation ($m > 1$), each completed dataset draws a donor from $N_k(i,t)$ with probability proportional to $\alpha_{i\ell t}$ instead of collapsing to the point estimate, so imputation uncertainty is propagated rather than repeated $m$ times.
+and for a categorical target a weighted-majority vote, $\hat x_{it} = \arg\max_v \sum_{\ell \in N_k(i,t)} \alpha_{i\ell t} \mathbb{1}[x_{\ell t} = v]$. Under multiple imputation ($m > 1$), each of the $m$ completed datasets independently draws one donor $\ell \in N_k(i,t)$ at random, with
+
+$$
+\Pr(\text{draw } \ell) = \frac{\alpha_{i\ell t}}{\sum_{\ell' \in N_k(i,t)} \alpha_{i\ell' t}},
+$$
+
+and fills $x_{it}$ with that donor's observed value $x_{\ell t}$ directly, instead of collapsing every completed dataset to the same weighted-mean point estimate; this is what propagates imputation uncertainty across the $m$ datasets rather than repeating one fixed value $m$ times.
 
 ## Local regression
 
@@ -57,11 +63,17 @@ $$
 \hat{\boldsymbol\beta} = \arg\min_{\boldsymbol\beta} \sum_{\ell \in N_{k'}(i,t)} \left( x_{\ell t} - \boldsymbol\beta^\top \mathbf z_\ell \right)^2 + \lambda \lVert \boldsymbol\beta_{-0} \rVert_2^2,
 $$
 
-where $\mathbf z_\ell$ stacks the intercept with observed numeric predictors and the ridge penalty $\lambda$ leaves the intercept unregularized. Neighbors are weighted uniformly here rather than by inverse distance: a near-duplicate donor is a stabilizing dominant vote for a mean, but the same near-duplicate makes the regression's normal equations nearly singular, so the weighting scheme that helps the mean estimator would actively hurt the regression one.
+where $\mathbf z_\ell$ stacks the intercept with observed numeric predictors and the ridge penalty $\lambda$ leaves the intercept unregularized. Writing $Z$ for the $|N_{k'}(i,t)| \times q$ matrix stacking every neighbor's $\mathbf z_\ell^\top$ ($q$ = 1 intercept + number of numeric predictors) and $\mathbf y$ for the stacked targets $x_{\ell t}$, this is ordinary ridge regression with a closed-form solution,
+
+$$
+\hat{\boldsymbol\beta} = (Z^\top Z + \lambda \Gamma)^{-1} Z^\top \mathbf y, \qquad \Gamma = \mathrm{diag}(0, 1, 1, \dots, 1) \in \mathbb{R}^{q\times q},
+$$
+
+$\Gamma$'s leading zero being exactly what leaves the intercept term unpenalized while every predictor coefficient in $\boldsymbol\beta_{-0}$ is shrunk toward zero. The $\lambda I$-equivalent addition to $Z^\top Z$'s diagonal is also what keeps the solve well-conditioned even when $Z^\top Z$ is close to singular, the regime a near-duplicate donor pushes the design toward. Neighbors are weighted uniformly here rather than by inverse distance: a near-duplicate donor is a stabilizing dominant vote for a mean, but the same near-duplicate is exactly what drives $Z^\top Z$ toward singularity for a regression, so the weighting scheme that helps the mean estimator would actively hurt the regression one.
 
 ## Per-column tuning
 
-Neither $k$, $k'$, nor the choice between the mean and the regression estimator is fixed globally. For each column, `missknn` holds out roughly 25 percent of that column's observed entries, capped at 100 rows, imputes them from the remaining donors under each candidate $k$, and scores holdout error. An improvement is only accepted once it clears a fixed relative margin over the running best, 8 percent for neighborhood size and 20 percent for switching to regression, because with finite holdout data a smaller $k$ or a regression fit can look marginally better than the incumbent by chance alone, and the larger margin for regression reflects that it is being compared as the better of two noisy candidates rather than a single alternative.
+Neither $k$, $k'$, nor the choice between the mean and the regression estimator is fixed globally. For each column, `missknn` holds out roughly 25 percent of that column's observed entries, capped at 100 rows (with a floor of 5 held-out rows, so tuning still runs on very small columns), imputes them from the remaining donors under each candidate $k$, and scores holdout error, defined concretely as the mean squared error $\frac{1}{|H|}\sum_{i \in H} (x_{it} - \hat x_{it})^2$ on the raw (unstandardized) target scale for a numeric column, or the misclassification rate $\frac{1}{|H|}\sum_{i \in H} \mathbb{1}[x_{it} \neq \hat x_{it}]$ for a categorical one, with $H$ the held-out rows. An improvement is only accepted once it clears a fixed relative margin over the running best, 8 percent for neighborhood size and 20 percent for switching to regression, because with finite holdout data a smaller $k$ or a regression fit can look marginally better than the incumbent by chance alone, and the larger margin for regression reflects that it is being compared as the better of two noisy candidates rather than a single alternative.
 
 The same holdout scoring also evaluates the plain global mean or mode of the column. If nothing clears the margin against this baseline, the column is filled directly from it and neighbor search is skipped entirely, both because a $k$-point average carries needless variance when a column has no local signal to exploit, and because the global fill costs $O(1)$ per receiver rather than a full neighbor search. For columns that do need neighbor search, an unbounded search across all donors is $O(n_{\text{recv}} \times n_{\text{don}})$. When the donor pool exceeds a cap (2000 by default), a random subsample of that size is drawn once per column and reused for every receiver, keeping cost linear in the number of receivers rather than quadratic in $n$.
 

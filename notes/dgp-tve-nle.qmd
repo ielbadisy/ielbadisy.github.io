@@ -122,7 +122,47 @@ Setting `tve_shape` to any fixed value and reading `beta1_t` as constant recover
 
 ## Validation with rpsurv
 
-[`rpsurv::rpsurv()`](https://github.com/ielbadisy/rpsurv) fits the Royston-Parmar family: the log cumulative hazard is $\log H(t\mid x_1,x_2) = s_0(\log t) + x_1 s_1(\log t) + \eta(x_2)$, where $s_0$ is a restricted cubic spline in $\log t$ (argument `df`), $s_1$ is a second spline in $\log t$ requested via `tve = "x1"` (argument `tve.df`) representing $\beta_1(t) = s_1(\log t)$, and $\eta(x_2)$ is a non-linear covariate term represented by an ordinary spline basis in $x_2$ (`splines::ns()`) placed directly in the model formula. `rpsurv`'s `tve` argument name is deliberate: it flags a **time-varying effect**, not a time-varying **covariate** (a value that itself changes over follow-up, represented instead through counting-process data, unrelated to what is validated here).
+[`rpsurv::rpsurv()`](https://github.com/ielbadisy/rpsurv) fits the Royston-Parmar family: the log cumulative hazard is $\log H(t\mid x_1,x_2) = s_0(\log t) + x_1 s_1(\log t) + \eta(x_2)$, where $s_0$ is a restricted cubic spline in $\log t$ (argument `df`), $s_1$ is a second spline in $\log t$ requested via `tve = "x1"` (argument `tve.df`) representing $\beta_1(t) = s_1(\log t)$, and $\eta(x_2)$ is a non-linear covariate term represented by an ordinary spline basis in $x_2$ (`splines::ns()`) placed directly in the model formula. `rpsurv`'s `tve` argument name is deliberate: it flags a **time-varying effect**, not a time-varying **covariate** (a value that itself changes over follow-up, represented instead through counting-process data, unrelated to what is validated here). The remainder of this section spells out exactly what `rpsurv()` fits and how, so that the mapping from the DGP above to the estimator validating it has no unstated step.
+
+### The spline basis
+
+$s_0$ and $s_1$ (any `tve` term) share the same construction internally, a restricted (natural) cubic spline in the Durrleman-Simon parameterization used by Royston and Parmar (2002).[^rpsurv] The NLE term $\eta(x_2)$ in this note is a separate mechanism: it is `splines::ns()`, R's own natural-cubic-spline basis (B-spline parameterization, not the Durrleman-Simon one below), computed outside `rpsurv()` and passed in as ordinary covariate columns, so `rpsurv()` itself never distinguishes it from a ordinary linear term; the two constructions are functionally similar (both restricted/natural cubic splines) but not the same code path. Given ordered knots $k_0 < k_1 < \dots < k_{m} < k_{m+1}$ ($k_0, k_{m+1}$ the boundary knots at the min/max of the argument; $k_1,\dots,k_m$ the $m$ interior knots, $m = \texttt{df}-1$), the basis is a linear term plus one non-linear term per interior knot,
+
+$$
+s(u) = \gamma_0 + \gamma_1 u + \sum_{j=1}^{m} \gamma_{j+1}\, v_j(u), \qquad v_j(u) = (u-k_j)_+^3 - \lambda_j (u-k_0)_+^3 - (1-\lambda_j)(u-k_{m+1})_+^3,
+$$
+
+with $(a)_+ = \max(a,0)$ and $\lambda_j = (k_{m+1}-k_j)/(k_{m+1}-k_0)$. Each $v_j$ is an ordinary cubic on $[k_0,k_{m+1}]$, and the specific combination of the three truncated-cubic terms is chosen so that $v_j$, and hence $s$, is exactly linear outside $[k_0,k_{m+1}]$ (both the cubic and quadratic terms of $v_j$ cancel there), which is what keeps the fitted hazard from doing anything erratic beyond the observed follow-up range, the defining feature of a *restricted* (as opposed to an unconstrained) cubic spline. The basis has $m+1 = \texttt{df}$ non-intercept columns; together with a separate intercept term, a spline of degrees of freedom `df` therefore contributes $\texttt{df}+1$ free parameters. For $s_0$/$s_1$, both the boundary knots (min and max) and the interior knots (equally spaced quantiles) default to being computed from log *event* times only, excluding censored observations entirely from the knot-placement step, matching the convention used by `rstpm2::stpm2()` and `flexsurv::flexsurvspline()`; an interior knot that lands exactly on a boundary knot (event times piled up near one end of follow-up) makes that basis column identically zero, so `rpsurv` drops it and warns, reducing the realized spline `df` below the requested value rather than fitting a silently rank-deficient model.
+
+### The three link scales
+
+`scale` chooses how $\eta(t,x) = s_0(\log t) + x_1 s_1(\log t) + \eta(x_2)$ (the full linear predictor, spline terms plus any ordinary covariate terms) maps to survival:
+
+$$
+\begin{aligned}
+\texttt{"hazard"} \ (\text{proportional hazards}): &\quad S(t\mid x) = \exp\{-\exp(\eta)\}, & H(t\mid x) &= \exp(\eta) \\
+\texttt{"odds"} \ (\text{proportional odds}): &\quad S(t\mid x) = \frac{1}{1+\exp(\eta)}, & \frac{1-S}{S} &= \exp(\eta) \\
+\texttt{"normal"} \ (\text{probit}): &\quad S(t\mid x) = \Phi(-\eta). &&
+\end{aligned}
+$$
+
+`"hazard"` is what every use of `rpsurv()` in this note relies on (it is the model whose nesting of the Cox model and whose hazard-ratio contrast are used throughout); `"odds"` and `"normal"` are alternative link functions for the same spline-on-linear-predictor idea, not used here, included for completeness since `scale` is a real, user-facing argument. The hazard itself follows by differentiating $H(t\mid x) = -\log S(t\mid x)$ with respect to $t$ via the chain rule through $\log t$: with $\eta'(\log t)$ denoting $d\eta/d(\log t)$ (evaluated by differentiating the spline basis directly, `derivative = TRUE` in the basis constructor, not by numerical differentiation),
+
+$$
+h(t\mid x) = \frac{dH}{dt} = \frac{dH}{d\eta}\cdot \frac{d\eta}{d\log t}\cdot\frac{d\log t}{dt} = \frac{dH}{d\eta}\cdot \eta'(\log t) \cdot \frac{1}{t},
+$$
+
+which for the hazard scale ($dH/d\eta = \exp(\eta)$) gives exactly the $h = \eta'(\log t)/t \cdot \exp(\eta)$ used in Section "Uncertainty and absolute contrasts" above ("`deta`" there is this note's $\eta'(\log t)$).
+
+### Estimation
+
+Parameters (every spline coefficient across $s_0$, $s_1$, and any covariate spline, plus ordinary linear-term coefficients) are collected into one vector $\beta$ and fit by direct maximization of the exact parametric log-likelihood, not a partial likelihood: for right-censored data without truncation, writing $\eta_i = \eta(t_i, x_i;\beta)$ at each subject's own observed time,
+
+$$
+\ell(\beta) = \sum_{i=1}^n \Big[ \delta_i \log h(t_i\mid x_i) + \log S(t_i \mid x_i) \Big],
+$$
+
+the standard survival log-likelihood: an event contributes its log-hazard plus log-survival (density $= h \cdot S$ in log form), a censored observation contributes only log-survival. For left-truncated (counting-process) data, each row's contribution is conditioned on survival to its own entry time $t_i^{\text{entry}}$, replacing $\log S(t_i)$ with $\log S(t_i) - \log S(t_i^{\text{entry}})$ in the expression above, which is exactly the mechanism that lets `rpsurv` fit genuine time-varying covariates through `Surv(start, stop, status)` data without any special-casing beyond this per-row conditioning term. $\ell(\beta)$ is maximized by `stats::optim(method = "BFGS")` using an analytic gradient (implemented in C++, parallelized across subjects with `RcppParallel::parallelReduce`), not a derivative-free or expectation-maximization scheme; `logLik()`, `AIC()`, and `BIC()` used throughout this note are read directly off this $\ell(\hat\beta)$ and the count of free parameters in $\beta$, with no further approximation.
 
 `predict.rpsurv(..., type = "hr")` returns the model-implied instantaneous hazard ratio between a contrast profile (`newdata`) and a reference profile (`newdata0`) directly, computed internally as the ratio of two `type = "hazard"` predictions, the correct contrast under a time-varying effect (a naive `exp(eta1 - eta0)` is not the instantaneous hazard ratio once `tve` makes the derivative term $s_1'(\log t)$ nonzero). `type = "sdiff"` returns the survival difference the same way, and `rmst_diff()` integrates it to a restricted-mean-survival-time contrast; both support `se.fit = TRUE` via closed-form delta-method gradients. A separate practical point: because `predict.rpsurv()` requires `newdata` to contain the model's covariate columns exactly as stored at fit time, and a spline term is stored as its expanded basis columns, predicting $g(x_2)$ at new $x_2$ values requires re-evaluating the *same* `ns()` basis object used at fit time (via `predict()` on the basis, not by refitting `ns()` on the new grid) and supplying those columns by name.
 

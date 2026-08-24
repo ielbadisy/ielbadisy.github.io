@@ -77,7 +77,19 @@ $$
 \sum_{i=1}^n \min_{m \in M} d(\mathbf x_i, \mathbf x_m).
 $$
 
-Each cluster prototype under this scheme is an observed curve, not an averaged one, so the reported prototype is always a real, valid patient trajectory, and the method accepts any dissimilarity rather than requiring one compatible with a centroid update. If $K$ is not specified, `unsurv` scans a candidate range and selects the value maximizing mean silhouette width, a pragmatic exploratory default rather than an inferential test for the number of clusters.
+Each cluster prototype under this scheme is an observed curve, not an averaged one, so the reported prototype is always a real, valid patient trajectory, and the method accepts any dissimilarity rather than requiring one compatible with a centroid update.
+
+Exact minimization of the PAM objective over all $\binom{n}{K}$ possible medoid sets is NP-hard, so `cluster::pam()` solves it by the classical two-phase heuristic. **BUILD** constructs an initial medoid set greedily: the first medoid is the observation minimizing total dissimilarity to all others, and each subsequent medoid is the not-yet-selected point whose addition to the current set produces the largest reduction in the objective, until $K$ medoids are chosen. **SWAP** then iterates: for every (medoid, non-medoid) pair, evaluate the change in the objective from swapping them, and carry out the single best swap found if it improves the objective, repeating until no swap improves it further, a local, not global, optimum in general (BUILD's greedy construction is what keeps the algorithm's typical performance close to the global optimum in practice, without guaranteeing it).
+
+`eps_jitter` (default $0.001$) adds independent $\mathcal{N}(0, \texttt{eps\_jitter}^2)$ noise to every entry of the embedded feature matrix before computing dissimilarities, purely to break exact ties: two numerically identical or near-identical predicted curves would otherwise create zero or duplicate distances, which can make BUILD's greedy tie-breaking and the silhouette computation below unstable or arbitrary; the jitter is small enough to leave genuine distances essentially unchanged while resolving degeneracies. Setting `eps_jitter = 0` (used in the fully reproducible examples in this note) disables it.
+
+If $K$ is not specified, `unsurv` scans a candidate range $K \in \{2,\dots,K_{\max}\}$, fits PAM at each, and selects the value maximizing mean silhouette width. For point $i$ assigned to cluster $C$, with $a(i)$ the mean dissimilarity to every other point in $C$ and $b(i)$ the smallest such mean dissimilarity to any other cluster (the "next best" cluster for $i$),
+
+$$
+\mathrm{sil}(i) = \frac{b(i) - a(i)}{\max(a(i), b(i))} \in [-1, 1], \qquad \overline{\mathrm{sil}} = \frac{1}{n}\sum_{i=1}^n \mathrm{sil}(i),
+$$
+
+so $\mathrm{sil}(i)$ near $1$ means $i$ sits much closer to its own cluster than to the nearest alternative (well clustered), near $0$ means it is roughly equidistant from both (on a boundary), and negative means it is on average closer to another cluster than to its own (plausibly mis-clustered); $K$ is chosen to maximize the average of this quantity over all $n$ curves, a pragmatic exploratory default rather than an inferential test for the number of clusters.
 
 ```
 Require: S, time grid, preprocessing options, distance type, K or K_max
