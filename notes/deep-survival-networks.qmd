@@ -15,15 +15,103 @@ Right-censored survival data $\{(t_i, \delta_i, x_i)\}_{i=1}^n$ pair an observed
 
 ## Architecture
 
-For an input of dimension $p$ and hidden layer sizes $h_1, \dots, h_L$, the network is a sequential composition of blocks
+This section is deliberately exhaustive: every transform between raw covariates and the scalar output $f_\theta(x)$ is written out, including the pieces (initialization, batch normalization's train/eval distinction, dropout's exact scaling) that are usually left implicit because a deep learning framework handles them silently. The intent is that this note, not the `torch`/`survdnn` source, should be a sufficient reference for extending or re-deriving any part of the architecture.
+
+### From formula to design matrix
+
+Fitting starts from an R survival formula, `Surv(time, status) ~ x1 + x2 + ...`. `stats::model.frame()` and `stats::model.matrix()` turn this into a numeric design matrix exactly as `lm()`/`coxph()` would: factor covariates are expanded into indicator (dummy) columns via the formula's contrasts, and the intercept column that `model.matrix()` adds by default is dropped (`[, -1]`), since a survival network has no free intercept term of its own, the loss functions below absorb any constant shift into the network's output or into an explicit location term (AFT's $c$). Write $p$ for the resulting number of numeric predictor columns after expansion, so each row is $x_i \in \mathbb{R}^p$.
+
+### Standardization
+
+Before any layer sees the data, each column of the design matrix is $z$-scored using **training-data moments only**:
 
 $$
-z^{(0)} = x, \qquad z^{(l)} = \mathrm{Dropout}\Big(\phi\big(\mathrm{BN}(W^{(l)} z^{(l-1)} + b^{(l)})\big)\Big), \qquad l = 1, \dots, L,
+\tilde x_{ij} = \frac{x_{ij} - \bar x_j}{s_j}, \qquad \bar x_j = \frac{1}{n}\sum_{i=1}^n x_{ij}, \qquad s_j = \sqrt{\frac{1}{n-1}\sum_{i=1}^n (x_{ij}-\bar x_j)^2},
 $$
 
-where $\phi$ is one of `relu`, `leaky_relu`, `tanh`, `sigmoid`, `gelu`, `elu`, or `softplus`, $\mathrm{BN}$ is an optional batch normalization layer, and dropout is applied after each block. The output layer is a single linear map $g_\theta(z^{(L)}) = W^{(L+1)} z^{(L)} + b^{(L+1)} \in \mathbb{R}$, so the whole network is $f_\theta(x) = g_\theta(z^{(L)}(x))$. Covariates are standardized before entering the network from training-set moments, and those moments are stored on the fitted object and reapplied, not recomputed, at prediction time.
+the usual sample mean and unbiased sample standard deviation, one pair $(\bar x_j, s_j)$ per column, computed once from the training set (R's `scale()`). These $p$ pairs are stored on the fitted object (`x_center`, `x_scale`) and reused, never recomputed, on any later call to `predict()`: this is what makes prediction on new data well defined without leaking new-data information into the scaling, exactly analogous to storing a training-only imputation model rather than re-fitting one on test data. Standardization exists purely to help gradient-based optimization (unscaled covariates on very different numeric ranges produce ill-conditioned loss surfaces); it changes nothing about what the network can represent, only how easily it is fit.
 
-The scalar output $f_\theta(x)$ has no fixed meaning on its own: it is a log-risk score under the two Cox losses, a location parameter on the log-time scale under AFT, and a time-dependent log-risk score under Cox-Time. Everything downstream, including how a fitted network becomes a survival curve, depends on which of these it is.
+### Layer transform
+
+For hidden layer sizes $h_1, \dots, h_L$ (the `hidden` argument, e.g. `c(32, 16)` means $L=2$, $h_1=32$, $h_2=16$), define $z^{(0)} = \tilde x \in \mathbb{R}^p$ and, for $l = 1, \dots, L$:
+
+$$
+u^{(l)} = W^{(l)} z^{(l-1)} + b^{(l)} \in \mathbb{R}^{h_l}, \qquad W^{(l)} \in \mathbb{R}^{h_l \times h_{l-1}},\ b^{(l)} \in \mathbb{R}^{h_l}
+$$
+
+$$
+v^{(l)} = \mathrm{BN}\big(u^{(l)}\big) \quad \text{(if \texttt{batch\_norm = TRUE}, else } v^{(l)} = u^{(l)}\text{)}
+$$
+
+$$
+w^{(l)} = \phi\big(v^{(l)}\big), \qquad z^{(l)} = \mathrm{Dropout}\big(w^{(l)}\big) \quad \text{(if \texttt{dropout > 0}, else } z^{(l)} = w^{(l)}\text{)}.
+$$
+
+The output layer is a further, separate linear map with no activation, batch norm, or dropout after it:
+
+$$
+f_\theta(x) = W^{(L+1)} z^{(L)} + b^{(L+1)} \in \mathbb{R}, \qquad W^{(L+1)} \in \mathbb{R}^{1 \times h_L},\ b^{(L+1)} \in \mathbb{R}.
+$$
+
+$\theta = (W^{(1)}, b^{(1)}, \dots, W^{(L+1)}, b^{(L+1)})$ collects every trainable parameter; for the Cox-Time loss, $z^{(0)}$ is instead $(\tilde t, \tilde x) \in \mathbb{R}^{p+1}$ with time standardized the same way as the covariates (Section "Cox-Time" below), so $p_{\text{input}} = p+1$ rather than $p$.
+
+### Weight initialization
+
+Each $W^{(l)}$ and $b^{(l)}$ is initialized independently by `torch`'s default for a linear layer, Kaiming-uniform with the fan-in of that layer:
+
+$$
+W^{(l)}_{ab},\ b^{(l)}_a \ \overset{\text{iid}}{\sim}\ \mathrm{Uniform}\!\left(-\frac{1}{\sqrt{h_{l-1}}},\ \frac{1}{\sqrt{h_{l-1}}}\right),
+$$
+
+so a wider incoming layer gets a narrower initial weight range, keeping the initial output variance roughly stable across layers of different widths. This is `torch`'s library default, not a `survdnn`-specific choice; `survdnn` does not override it. Because initialization is random, `.seed` is what makes a fit reproducible: it seeds both R's and `torch`'s random number generators, which otherwise draw independently.
+
+### Activation functions
+
+$\phi$ is applied elementwise and is one of seven options, each `torch`'s standard definition at its default hyperparameters:
+
+$$
+\begin{aligned}
+\texttt{relu}(v) &= \max(0, v) \\
+\texttt{leaky\_relu}(v) &= \begin{cases} v & v \ge 0 \\ 0.01\, v & v < 0 \end{cases} \\
+\texttt{tanh}(v) &= \frac{e^{v}-e^{-v}}{e^{v}+e^{-v}} \\
+\texttt{sigmoid}(v) &= \frac{1}{1+e^{-v}} \\
+\texttt{gelu}(v) &= v\, \Phi(v), \qquad \Phi = \text{standard normal CDF (exact, not the tanh-approximation variant)} \\
+\texttt{elu}(v) &= \begin{cases} v & v \ge 0 \\ e^{v}-1 & v < 0 \end{cases} \\
+\texttt{softplus}(v) &= \log(1+e^{v})
+\end{aligned}
+$$
+
+The same $\phi$ is used at every hidden layer; `survdnn` does not support mixing activations across layers within one model.
+
+### Batch normalization
+
+When `batch_norm = TRUE`, each pre-activation coordinate $u^{(l)}_a$ ($a = 1,\dots,h_l$) is normalized **per coordinate, across the batch dimension**, then rescaled by a learnable affine transform:
+
+$$
+\mathrm{BN}(u^{(l)}_a) = \gamma^{(l)}_a \cdot \frac{u^{(l)}_a - \mu_a}{\sqrt{\sigma_a^2 + \varepsilon}} + \beta^{(l)}_a, \qquad \varepsilon = 10^{-5},
+$$
+
+where $\gamma^{(l)}_a, \beta^{(l)}_a$ are trainable parameters, initialized to 1 and 0 respectively, so batch norm starts as an identity map on the standardized scale and only deviates from it as training updates $\gamma,\beta$. Since `survdnn` always trains full-batch (Section "Training" below), $\mu_a, \sigma_a^2$ during training are the mean and (biased) variance of $u^{(l)}_a$ **over the entire training set**, recomputed every epoch as the parameters feeding into $u^{(l)}$ change, not a stochastic mini-batch estimate as batch norm is usually described. In parallel, an exponential running estimate is accumulated every epoch,
+
+$$
+\bar\mu_a \leftarrow (1-m)\,\bar\mu_a + m\,\mu_a, \qquad \bar\sigma_a^2 \leftarrow (1-m)\,\bar\sigma_a^2 + m\,\sigma_a^2, \qquad m = 0.1,
+$$
+
+and it is $\bar\mu_a, \bar\sigma_a^2$, not the batch statistics, that `predict()` uses (the layer is switched to evaluation mode, `net$eval()`, before prediction). For full-batch training this running estimate converges toward the final epochs' batch statistics as training proceeds, but is not identical to the very last epoch's batch statistics, a small, generally negligible source of train/predict discrepancy worth knowing about if a fitted model's predictions on its own training data are compared bit-for-bit against the final training loss.
+
+### Dropout
+
+When `dropout > 0` (default 0.3), each coordinate of $w^{(l)}$ is independently zeroed with probability $p_{\text{drop}} =$ `dropout` during training, and the surviving coordinates are rescaled up so the layer's expected output is unchanged (inverted dropout):
+
+$$
+z^{(l)}_a = \frac{m_a}{1-p_{\text{drop}}}\, w^{(l)}_a, \qquad m_a \overset{\text{iid}}{\sim} \mathrm{Bernoulli}(1-p_{\text{drop}}),
+$$
+
+drawn fresh for every forward pass during training. At evaluation time (`net$eval()`, used throughout `predict()`) dropout is switched off entirely, $z^{(l)} = w^{(l)}$, with no compensating scale factor needed since the training-time rescaling already made the layer's expected output consistent between the two modes.
+
+### Putting it together
+
+$f_\theta(x) = g_\theta(z^{(L)}(\tilde x))$ where $g_\theta$ is the final linear map and $z^{(L)}(\tilde x)$ is the composition of $L$ blocks above, each itself a composition of an affine map, an optional batch-norm affine renormalization, a fixed elementwise nonlinearity, and an optional stochastic masking. The scalar output $f_\theta(x)$ has no fixed meaning on its own: it is a log-risk score under the two Cox losses, a location parameter on the log-time scale under AFT, and a time-dependent log-risk score under Cox-Time. Everything downstream, including how a fitted network becomes a survival curve, depends on which of these it is, and is worked out loss by loss below.
 
 ## Loss functions
 
@@ -109,7 +197,36 @@ The Cox and Cox-L2 losses share exactly this same prediction path: nothing downs
 
 ## Training
 
-Fitting proceeds by standard gradient-based optimization: for each epoch, a forward pass computes the loss on the full training set, `backward()` accumulates gradients, and one of `adam`, `adamw`, `sgd`, `rmsprop`, or `adagrad` updates the parameters, with `adam` and `adamw` defaulting to a small weight decay of `1e-4` unless overridden. Training is full-batch rather than mini-batch, so one epoch is one optimizer step over the entire dataset. Callbacks receive the epoch index and current loss after each step and can halt training early, as with `callback_early_stopping()`. Missing values in the model variables are either dropped, `na_action = "omit"`, or treated as an error, `na_action = "fail"`, before any tensor is built. Reproducibility across R and torch's separate random number generators is handled by a single `.seed` argument, since torch keeps its own generator state for weight initialization and dropout that `set.seed()` alone does not touch.
+### Loop structure
+
+For each of the `epochs` iterations: a forward pass computes $f_\theta(x_i)$ for every training subject $i$ and the scalar loss $\ell(\theta)$ (Cox, Cox-L2, AFT, or Cox-Time, all defined below); `loss$backward()` runs reverse-mode automatic differentiation to populate $\nabla_\theta \ell$ on every parameter tensor; the optimizer's `step()` then updates $\theta$ using that gradient; and `zero_grad()` clears the accumulated gradient before the next epoch, since `torch`, like PyTorch, accumulates gradients across calls by default rather than overwriting them. Training is full-batch, not mini-batch: every epoch's forward and backward pass uses the entire training set at once, so "one epoch" and "one optimizer step" are the same thing here, unlike stochastic mini-batch training where many optimizer steps occur per epoch. This is also why the batch-normalization statistics in the previous section are exact full-dataset statistics at every step rather than noisy mini-batch estimates.
+
+### Optimizer update rules
+
+Write $g_k$ for $\nabla_\theta \ell(\theta_k)$ at step $k$ (one step = one epoch here), applied elementwise to every parameter tensor independently. All five optimizers share the same loop structure but differ in how they turn $g_k$ into a parameter update $\theta_{k+1} = \theta_k - \eta \cdot (\text{something built from } g_k \text{ and its history})$, where $\eta$ is the learning rate (`lr`, default $10^{-4}$).
+
+**SGD** (`"sgd"`) is the raw gradient step, $\theta_{k+1} = \theta_k - \eta\, g_k$ (with an optional momentum term if supplied via `optim_args`).
+
+**Adagrad** (`"adagrad"`) accumulates the sum of squared gradients per parameter and scales the step down as that accumulator grows, $s_k = s_{k-1} + g_k^2$, $\theta_{k+1} = \theta_k - \dfrac{\eta}{\sqrt{s_k}+\varepsilon}\, g_k$ ($\varepsilon=10^{-10}$, `torch`'s default), so parameters that have received large gradients so far get progressively smaller steps.
+
+**RMSprop** (`"rmsprop"`) replaces Adagrad's ever-growing sum with an exponential moving average of squared gradients, $s_k = \alpha\, s_{k-1} + (1-\alpha) g_k^2$ ($\alpha$ the smoothing constant, `torch`'s default $0.99$, its `optim_rmsprop()` argument name), $\theta_{k+1} = \theta_k - \dfrac{\eta}{\sqrt{s_k}+\varepsilon}\, g_k$ ($\varepsilon=10^{-8}$), so the effective step size adapts to recent gradient magnitude rather than the full training history.
+
+**Adam** (`"adam"`, the default) maintains exponential moving averages of both the gradient itself (first moment, $m_k$) and its square (second moment, $v_k$), each bias-corrected for their zero initialization:
+
+$$
+m_k = \beta_1 m_{k-1} + (1-\beta_1) g_k, \qquad v_k = \beta_2 v_{k-1} + (1-\beta_2) g_k^2, \qquad (\beta_1,\beta_2) = (0.9, 0.999)\ \text{(torch defaults)},
+$$
+$$
+\hat m_k = \frac{m_k}{1-\beta_1^k}, \qquad \hat v_k = \frac{v_k}{1-\beta_2^k}, \qquad \theta_{k+1} = \theta_k - \eta\, \frac{\hat m_k}{\sqrt{\hat v_k}+\varepsilon}, \qquad \varepsilon = 10^{-8}.
+$$
+
+$m_k$ smooths the gradient direction (momentum), $v_k$ adapts the step size down for parameters with consistently large gradients, and the bias correction $1-\beta_i^k$ compensates for $m_0=v_0=0$ making the raw averages biased toward zero at small $k$. If `weight_decay` is set (via `optim_args`, or the `1e-4` `survdnn` default whenever `optimizer %in% c("adam","adamw")` and the user did not override it), plain `"adam"` adds it as an $L_2$ penalty folded directly into $g_k$ before the moment updates, $g_k \leftarrow g_k + \lambda \theta_k$.
+
+**AdamW** (`"adamw"`) is otherwise identical to Adam but decouples weight decay from the gradient-based moment estimates, applying it as a separate multiplicative shrinkage at the update step, $\theta_{k+1} = \theta_k - \eta\left(\dfrac{\hat m_k}{\sqrt{\hat v_k}+\varepsilon} + \lambda \theta_k\right)$, which avoids weight decay being distorted by Adam's per-parameter adaptive scaling, the standard argument for preferring AdamW over Adam whenever nonzero weight decay is used.[^adamw]
+
+### Callbacks, missing data, and reproducibility
+
+Callbacks receive the epoch index and current loss after each step and return `TRUE`/`FALSE`; a `TRUE` halts training immediately, as with `callback_early_stopping()`, which is how early stopping is implemented, there is no separate built-in patience/tolerance mechanism outside this callback interface. Missing values in the model variables are either dropped, `na_action = "omit"` (rows with any `NA` in the formula's variables are excluded before any tensor is built, with a message reporting how many), or treated as a hard error, `na_action = "fail"`. Reproducibility across R and `torch`'s separate random number generators, which otherwise advance independently and are each responsible for a different part of the pipeline (R's for the train/validation splits used elsewhere in the package, `torch`'s for weight initialization and dropout masks), is handled by a single `.seed` argument that seeds both.
 
 ## Evaluation
 
@@ -221,3 +338,4 @@ The proportional-hazards structure of the Cox and Cox-L2 losses has a consequenc
 [^survdnn-cran]: `survdnn` package documentation, CRAN: <https://CRAN.R-project.org/package=survdnn>.
 [^survdnn-paper]: EL BADISY, I. (2026). *SurvDNN: Survival Deep Learning Models for Tabular Data*. The R Journal.
 [^coxtime-paper]: Kvamme, H., Borgan, Ø., and Scheel, I. (2019). Time-to-event prediction with neural networks and Cox regression. *Journal of Machine Learning Research*, 20(129), 1-30.
+[^adamw]: Loshchilov, I., and Hutter, F. (2019). Decoupled weight decay regularization. *International Conference on Learning Representations (ICLR)*.
