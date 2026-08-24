@@ -88,33 +88,33 @@ true_g <- function(shape, x2) {
 #' @param delta grid step for the piecewise-constant hazard approximation
 genTVE_NLE <- function(n = 1000, maxt = 5, tve_shape = "bathub", nle_shape = "quadratic",
                         cens = 0.3, delta = 0.02) {
-  x1 <- rbinom(n, 1, 0.5)      # binary, TVE covariate
-  x2 <- abs(rnorm(n))          # continuous, NLE covariate
-  gx2 <- true_g(nle_shape, x2) # time-constant, computed once
+  x1  <- rbinom(n, 1, 0.5)      # binary, TVE covariate
+  x2  <- abs(rnorm(n))          # continuous, NLE covariate
+  gx2 <- true_g(nle_shape, x2)  # time-constant, computed once
 
-  t.grid <- seq(0, maxt - delta, delta)
-  lambda <- 0.3
-  lambda.c <- switch(as.character(cens), "0.1" = 0.00001, "0.3" = 0.2, "0.5" = 0.5)
+  lambda   <- 0.3
+  lambda_c <- switch(as.character(cens), "0.1" = 0.00001, "0.3" = 0.2, "0.5" = 0.5)
+  time_grid <- seq(0, maxt - delta, delta)
 
-  t.event.pw <- matrix(nrow = n, ncol = length(t.grid))
-  for (i in seq_along(t.grid)) {
-    u <- runif(n, 0, 1)
-    ti <- t.grid[i]
-    beta1_t <- true_beta1(tve_shape, ti)
-    a <- ti - log(u) / (lambda * exp(beta1_t * x1 + gx2))
-    t.event.pw[, i] <- ifelse(a >= ti & a < (ti + delta), a, NA)
+  # one candidate draw per subject per interval (Algorithm 1, steps 2-3):
+  # valid only if it falls back inside the interval that generated it
+  candidates <- matrix(NA_real_, nrow = n, ncol = length(time_grid))
+  for (i in seq_along(time_grid)) {
+    t_i <- time_grid[i]
+    hazard_i <- lambda * exp(true_beta1(tve_shape, t_i) * x1 + gx2)
+    draw <- t_i - log(runif(n)) / hazard_i
+    valid <- draw >= t_i & draw < t_i + delta
+    candidates[valid, i] <- draw[valid]
   }
-  t.event <- apply(t.event.pw, 1, function(x) min(x, na.rm = TRUE))
-  t.event <- ifelse(t.event == Inf, 100, t.event)
 
-  u.cens <- runif(n, 0, 1)
-  t.cens <- -log(u.cens) / lambda.c
+  event_time <- apply(candidates, 1, min, na.rm = TRUE)  # Algorithm 1, step 4
+  event_time[is.infinite(event_time)] <- 100              # no valid draw before maxt
 
-  status <- as.integer(t.event < t.cens)
-  t <- pmin(t.event, t.cens)
-  t <- ifelse(t > maxt, maxt, t)
+  censor_time <- -log(runif(n)) / lambda_c
+  status <- as.integer(event_time < censor_time)
+  time   <- pmin(event_time, censor_time, maxt)
 
-  data.frame(id = 1:n, time = t, status = status, x1 = x1, x2 = x2)
+  data.frame(id = seq_len(n), time = time, status = status, x1 = x1, x2 = x2)
 }
 ```
 
