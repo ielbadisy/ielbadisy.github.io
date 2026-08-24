@@ -2,7 +2,7 @@
 title: "Deep Neural Networks for Survival Analysis with survdnn"
 subtitle: "Architecture, loss functions, and prediction in a native R torch implementation."
 author: "Imad EL BADISY"
-date: "2026-08-19"
+date: "2026-08-24"
 format:
   pdf:
     toc: true
@@ -11,73 +11,109 @@ execute:
   message: false
 ---
 
-Right-censored survival data $\{(t_i, \delta_i, x_i)\}_{i=1}^n$ pair an observed time $t_i = \min(T_i, C_i)$ and an event indicator $\delta_i = \mathbb{1}(T_i \le C_i)$ with a covariate vector $x_i \in \mathbb{R}^p$. The Cox proportional hazards model expresses the hazard as $\lambda(t \mid x) = \lambda_0(t)\exp(\beta^\top x)$, restricting covariate effects to a linear, time-constant log-hazard ratio. `survdnn` replaces the linear predictor $\beta^\top x$ with a multilayer perceptron $f_\theta(x)$, keeping the rest of the estimation machinery (partial likelihood, Breslow baseline, time-dependent risk) intact, and extends this replacement to non-proportional-hazards and accelerated failure time formulations.[^survdnn-cran] The package is implemented natively in R on top of `torch`, avoiding a Python backend.[^survdnn-paper]
+Right-censored survival data $\{(t_i, \delta_i, x_i)\}_{i=1}^n$ pair an observed time $t_i = \min(T_i, C_i)$ and an event indicator $\delta_i = \mathbb{1}(T_i \le C_i)$ with a covariate vector $x_i \in \mathbb{R}^p$. The Cox proportional hazards model expresses the hazard as $\lambda(t \mid x) = \lambda_0(t)\exp(\beta^\top x)$, restricting covariate effects to a linear, time-constant log-hazard ratio. `survdnn` replaces the linear predictor $\beta^\top x$ with a multilayer perceptron $f_\theta(x)$, keeping the estimation machinery around it (partial likelihood, Breslow baseline, time-dependent risk) intact, and extends the same replacement to non-proportional-hazards and accelerated failure time formulations.[^survdnn-cran] The package is implemented natively in R on top of `torch`, avoiding a Python backend.[^survdnn-paper]
 
 ## Architecture
 
 For an input of dimension $p$ and hidden layer sizes $h_1, \dots, h_L$, the network is a sequential composition of blocks
 
 $$
-z^{(0)} = x, \qquad z^{(l)} = \phi\!\left(\mathrm{BN}\!\left(W^{(l)} z^{(l-1)} + b^{(l)}\right)\right), \qquad l = 1, \dots, L,
+z^{(0)} = x, \qquad z^{(l)} = \mathrm{Dropout}\Big(\phi\big(\mathrm{BN}(W^{(l)} z^{(l-1)} + b^{(l)})\big)\Big), \qquad l = 1, \dots, L,
 $$
 
-where $\phi$ is one of `relu`, `leaky_relu`, `tanh`, `sigmoid`, `gelu`, `elu`, or `softplus`, $\mathrm{BN}$ is an optional batch normalization layer, and dropout with rate $p_{\text{drop}}$ is applied after each block. The output layer is a single linear map $g_\theta(z^{(L)}) = W^{(L+1)} z^{(L)} + b^{(L+1)} \in \mathbb{R}$, so the whole network is $f_\theta(x) = g_\theta(z^{(L)}(x))$. Covariates are standardized before entering the network, and the standardization constants are stored on the fitted object and reapplied at prediction time.
+where $\phi$ is one of `relu`, `leaky_relu`, `tanh`, `sigmoid`, `gelu`, `elu`, or `softplus`, $\mathrm{BN}$ is an optional batch normalization layer, and dropout is applied after each block. The output layer is a single linear map $g_\theta(z^{(L)}) = W^{(L+1)} z^{(L)} + b^{(L+1)} \in \mathbb{R}$, so the whole network is $f_\theta(x) = g_\theta(z^{(L)}(x))$. Covariates are standardized before entering the network from training-set moments, and those moments are stored on the fitted object and reapplied, not recomputed, at prediction time.
 
-Interpretation of the scalar output $f_\theta(x)$ depends on the loss used to train it: a log-risk score under Cox losses, a location parameter on the log-time scale under AFT, or a time-dependent risk score under Cox-Time.
+The scalar output $f_\theta(x)$ has no fixed meaning on its own: it is a log-risk score under the two Cox losses, a location parameter on the log-time scale under AFT, and a time-dependent log-risk score under Cox-Time. Everything downstream, including how a fitted network becomes a survival curve, depends on which of these it is.
 
 ## Loss functions
 
 ### Cox partial likelihood
 
-For a batch sorted by descending observed time, the risk set at time $t_i$ is $R(t_i) = \{j : t_j \ge t_i\}$. `survdnn` trains $f_\theta$ against the negative partial log-likelihood
+Under proportional hazards, $\lambda(t \mid x) = \lambda_0(t) e^{\eta}$ with $\eta = f_\theta(x)$. Cox's partial likelihood avoids ever estimating $\lambda_0(t)$ by conditioning on which subject, among those still at risk, is the one who fails at each observed event time. For a risk set $R(t_i) = \{j : t_j \ge t_i\}$, the probability that it is subject $i$ who fails, given that exactly one failure occurs at $t_i$, is
 
 $$
-\ell_{\text{cox}}(\theta) = -\frac{1}{n_e}\sum_{i:\,\delta_i=1}\left(f_\theta(x_i) - \log\!\!\sum_{j \in R(t_i)}\exp f_\theta(x_j)\right),
+\Pr(i \text{ fails} \mid \text{one failure in } R(t_i)) = \frac{\lambda_0(t_i) e^{\eta_i}}{\sum_{j \in R(t_i)} \lambda_0(t_i) e^{\eta_j}} = \frac{e^{\eta_i}}{\sum_{j \in R(t_i)} e^{\eta_j}},
 $$
 
-where $n_e$ is the number of events. The implementation computes the inner sum with `torch_logcumsumexp` on time-sorted linear predictors, so risk-set membership falls out of the sort order rather than an explicit double loop. An L2 variant adds $\lambda \cdot \overline{f_\theta(x)^2}$ to this loss, penalizing the magnitude of the risk score directly rather than the network weights.
-
-### Accelerated failure time (log-normal)
-
-Under the AFT loss, the network output $\mu_\theta(x)$ is the location parameter of a log-normal model for the event time: $\log T = c + \mu_\theta(x) + \sigma Z$, $Z \sim \mathcal{N}(0,1)$, where $c$ is a location offset fixed at the mean log event-time in the training data (stored as `aft_loc`) to keep the residual $\log t - c$ near zero. The scale $\sigma$ is a single learnable parameter, optimized jointly with $\theta$ as $\exp(\log\sigma)$ for positivity. The censored negative log-likelihood combines an exact-density term for events and a survival term for censored observations,
+with $\lambda_0(t_i)$ canceling top and bottom, which is exactly why no baseline hazard model is needed to train on this objective. `survdnn` trains $f_\theta$ against the negative partial log-likelihood, averaged over events,
 
 $$
-\ell_{\text{aft}}(\theta, \sigma) = \frac{1}{n}\sum_{i=1}^n \Big[\delta_i \big(\log t_i + \log\sigma + \tfrac{1}{2}z_i^2\big) - (1-\delta_i)\log S_Z(z_i)\Big], \qquad z_i = \frac{\log t_i - c - \mu_\theta(x_i)}{\sigma},
+\ell_{\text{cox}}(\theta) = -\frac{1}{n_e} \sum_{i:\, \delta_i = 1} \left( f_\theta(x_i) - \log \sum_{j \in R(t_i)} \exp f_\theta(x_j) \right),
 $$
 
-with $S_Z(z) = 1 - \Phi(z)$ the standard normal survival function, evaluated through the error function for numerical stability. This is the standard parametric censored-data likelihood, with the location term replaced by a network.
+where $n_e$ is the number of events. The inner sum is computed with `torch_logcumsumexp()` on time-sorted linear predictors, so risk-set membership falls out of the sort order and the log-sum-exp stays numerically stable rather than overflowing. An L2 variant, `"cox_l2"`, adds a penalty directly on the predicted risk scores rather than on the network weights,
+
+$$
+\ell_{\text{cox-l2}}(\theta) = \ell_{\text{cox}}(\theta) + \lambda \cdot \frac{1}{n}\sum_{i=1}^n f_\theta(x_i)^2, \qquad \lambda = 10^{-3}.
+$$
+
+Penalizing the output constrains what the network is allowed to predict regardless of how many parameters produced it, which is a more direct fix for the instability that a few extreme risk scores cause in every risk-set sum above, compared to ordinary weight decay acting on the parameters themselves.
+
+### Accelerated failure time
+
+Under the AFT loss, the network output $\mu_\theta(x)$ is the location parameter of a log-normal model for the event time,
+
+$$
+\log T = c + \mu_\theta(x) + \sigma Z, \qquad Z \sim \mathcal{N}(0, 1),
+$$
+
+where $c$ is a location offset fixed, before training, at the mean log event time among observed events in the training data (stored as `aft_loc`), and $\sigma > 0$ is a single global scale parameter optimized jointly with $\theta$ through the reparameterization $\sigma = \exp(\log \sigma)$, which keeps it positive without a constrained optimizer. Centering on $c$ keeps the network's job restricted to a zero-centered deviation instead of also having to represent the population-average log-time through its bias term. With $z_i = (\log t_i - c - \mu_\theta(x_i)) / \sigma$, the censored negative log-likelihood combines an exact density term for events with a survival term for censored observations,
+
+$$
+\ell_{\text{aft}}(\theta, \sigma) = \frac{1}{n} \sum_{i=1}^n \Big[ \delta_i \big( \log t_i + \log \sigma + \tfrac{1}{2} z_i^2 \big) - (1 - \delta_i) \log S_Z(z_i) \Big], \qquad S_Z(z) = 1 - \Phi(z),
+$$
+
+the standard parametric censored-data likelihood, with the location term replaced by a network.
 
 ### Cox-Time
 
-The Cox-Time loss extends the Cox partial likelihood to a time-varying log-risk function $g_\theta(t, x)$, taking time as an explicit network input rather than as a fixed offset.[^coxtime-paper] The contribution of an event at $t_i$ becomes
+The Cox-Time loss extends the Cox partial likelihood to a time-varying log-risk function $g_\theta(t, x)$, taking time as an explicit network input rather than treating risk as fixed per subject.[^coxtime-paper] The contribution of an event at $t_i$ becomes
 
 $$
-\ell_{\text{coxtime}}(\theta) = -\frac{1}{n_e}\sum_{i:\,\delta_i=1}\left(g_\theta(t_i, x_i) - \log\!\!\sum_{j \in R(t_i)}\exp\, g_\theta(t_i, x_j)\right),
+\ell_{\text{coxtime}}(\theta) = -\frac{1}{n_e} \sum_{i:\, \delta_i = 1} \left( g_\theta(t_i, x_i) - \log \sum_{j \in R(t_i)} \exp\, g_\theta(t_i, x_j) \right),
 $$
 
-which differs from the Cox loss only in that the denominator re-evaluates the network at $t_i$ for every subject at risk, rather than reusing a single risk score per subject. This makes the loss non-separable in `pred` alone: it needs the network and the full covariate matrix to build the $g_\theta(t_i, x_j)$ grid at every event time. The exported `coxtime_loss(pred, true)` reflects this directly, it raises an informative error rather than silently computing something incorrect, and the working implementation is the internal factory `survdnn__coxtime_loss_factory(net)`, which `survdnn()` uses when `loss = "coxtime"`. Risk-set membership is computed on raw observed time, while the time fed to the network is centered and scaled for training stability.
-
-## Training
-
-Fitting proceeds by standard gradient-based optimization: for each epoch, a forward pass computes the loss on the full training set, `backward()` accumulates gradients, and one of `adam`, `adamw`, `sgd`, `rmsprop`, or `adagrad` updates the parameters (`adam`/`adamw` default to a small weight decay of `1e-4` unless overridden). Training is full-batch rather than mini-batch, so an epoch is one optimizer step over the entire dataset. Callbacks receive the epoch index and current loss after each step and can halt training early, as with `callback_early_stopping()`. Missing values in the model variables are either dropped (`na_action = "omit"`) or treated as an error (`na_action = "fail"`) before any tensor is built.
+which differs from the Cox loss only in that the denominator re-evaluates the network at $t_i$ for every subject at risk, instead of reusing one risk score per subject computed once. This is what buys freedom from proportional hazards, and also what makes the loss expensive: building the denominator at every event time requires one forward pass per (event time, at-risk subject) pair, so training cost scales with the number of events rather than staying fixed as it does for plain Cox. Risk-set membership is always computed on raw observed time, while the time fed into the network is centered and scaled for optimization stability, exactly mirroring how covariates are standardized before entering the network.
 
 ## Prediction
 
-`predict.survdnn()` returns one of three things, depending on `type`. `type = "lp"` returns the raw network output, interpreted according to the training loss. `type = "survival"` returns predicted survival probabilities at a set of times, and `type = "risk"` returns $1 - S(t)$ at a single time.
+`predict.survdnn()` returns one of three things depending on `type`. `type = "lp"` returns the raw network output as interpreted by the training loss. `type = "survival"` returns predicted survival probabilities at a set of times. `type = "risk"` returns $1 - S(t)$ at a single time point. The mechanics of getting from a trained network to an actual curve differ completely across the four losses, because only AFT trains a fully specified parametric model; the others train a relative or time-varying risk score that still needs a baseline hazard attached.
 
-For Cox and Cox-L2 models, survival curves are not read directly off the network; they combine the fitted risk score with a Breslow estimate of the cumulative baseline hazard $H_0(t)$, obtained by refitting a one-covariate `coxph()` on the training linear predictors:
+For Cox and Cox-L2, survival curves are not read directly off the network. Predictions require refitting a one-covariate `coxph()` on the training linear predictors and extracting its Breslow cumulative baseline hazard $\hat H_0(t)$ via `survival::basehaz()`, interpolated at the requested times. This reuses `coxph()`'s existing risk-set summation and tie-handling rather than reimplementing the Breslow estimator directly against the network's gradients:
 
 $$
-\widehat{S}(t \mid x) = \exp\!\big(-\widehat{H}_0(t)\exp(f_\theta(x))\big).
+\hat S(t \mid x) = \exp\big( -\hat H_0(t) \exp(f_\theta(x)) \big).
 $$
 
-For the AFT model, survival probabilities follow directly from the log-normal form, $\widehat{S}(t\mid x) = 1 - \Phi\!\left(\frac{\log t - c - \mu_\theta(x)}{\sigma}\right)$, using the same $c$ and learned $\sigma$ stored at training time.
+For AFT, survival probabilities follow directly from the fitted log-normal model, with no post-hoc refitting step, using the stored $c$ and the learned $\hat\sigma$ from training:
 
-For Cox-Time, baseline hazard increments are estimated at each observed event time $t_k$ from the training risk sets, $d\widehat{H}_0(t_k) = dN(t_k) \big/ \sum_{j \in R(t_k)} \exp\, g_\theta(t_k, x_j)$, and cumulative hazard at a query time is obtained by summing increments at all event times up to that point, evaluated with the network at each of them: $\widehat{H}(t \mid x) = \sum_{t_k \le t} \exp\, g_\theta(t_k, x)\, d\widehat{H}_0(t_k)$. This requires one forward pass per event time per subject, which is the computational cost of allowing the risk score to vary with time.
+$$
+\hat S(t \mid x) = 1 - \Phi\!\left( \frac{\log t - c - \mu_\theta(x)}{\hat\sigma} \right).
+$$
+
+For Cox-Time, there is no closed-form Breslow shortcut, since the baseline hazard is only meaningful jointly with a time-varying $g_\theta$. Instead, baseline hazard increments are estimated at each observed training event time $t_k$ from the training risk sets,
+
+$$
+d\hat H_0(t_k) = \frac{dN(t_k)}{\sum_{j \in R(t_k)} \exp\, g_\theta(t_k, x_j)},
+$$
+
+a discrete Nelson-Aalen-style ratio of events at $t_k$ to risk-weighted exposure at $t_k$, and cumulative hazard at a query time is obtained by summing increments at all event times up to that point, each evaluated through the new subject's own network output at that grid point:
+
+$$
+\hat H(t \mid x) = \sum_{t_k \le t} \exp\, g_\theta(t_k, x)\, d\hat H_0(t_k), \qquad \hat S(t \mid x) = \exp\big( -\hat H(t \mid x) \big).
+$$
+
+This requires one forward pass per event time per subject on both the training side, to build $d\hat H_0$, and the prediction side, which is the direct computational cost of letting the risk score vary with time.
+
+The Cox and Cox-L2 losses share exactly this same prediction path: nothing downstream of the frozen network can tell them apart, since the output-level penalty in `"cox_l2"` only changes what happens during training, not the Breslow step above. AFT and Cox-Time, in contrast, each need their own prediction formula because their trained scalar means something structurally different.
+
+## Training
+
+Fitting proceeds by standard gradient-based optimization: for each epoch, a forward pass computes the loss on the full training set, `backward()` accumulates gradients, and one of `adam`, `adamw`, `sgd`, `rmsprop`, or `adagrad` updates the parameters, with `adam` and `adamw` defaulting to a small weight decay of `1e-4` unless overridden. Training is full-batch rather than mini-batch, so one epoch is one optimizer step over the entire dataset. Callbacks receive the epoch index and current loss after each step and can halt training early, as with `callback_early_stopping()`. Missing values in the model variables are either dropped, `na_action = "omit"`, or treated as an error, `na_action = "fail"`, before any tensor is built. Reproducibility across R and torch's separate random number generators is handled by a single `.seed` argument, since torch keeps its own generator state for weight initialization and dropout that `set.seed()` alone does not touch.
 
 ## Evaluation
 
-Three metrics are implemented directly against predicted survival matrices rather than delegated to an external package: the concordance index (`cindex_survmat()`), evaluated at a fixed horizon by comparing $1 - S(t^\star \mid x)$ across all admissible pairs; the IPCW-weighted Brier score (`brier()`) at a single time point, using a Kaplan-Meier estimate of the censoring distribution as weights; and the integrated Brier score (`ibs_survmat()`), a trapezoidal integral of the Brier score over a grid of times, normalized by the width of the grid. `evaluate_survdnn()` wraps these for a fitted model, and `cv_survdnn()` repeats fit-and-evaluate over stratified folds via `rsample::vfold_cv()`, stratifying on the event indicator so that fold sizes stay balanced.
+Three metrics are implemented directly against predicted survival matrices rather than delegated to an external package: the concordance index, `cindex_survmat()`, evaluated at a fixed horizon by comparing $1 - S(t^\star \mid x)$ across all admissible pairs; the IPCW-weighted Brier score, `brier()`, at a single time point, using a Kaplan-Meier estimate of the censoring distribution as weights; and the integrated Brier score, `ibs_survmat()`, a trapezoidal integral of the Brier score over a grid of times, normalized by the width of the grid. `evaluate_survdnn()` wraps these for a fitted model, and `cv_survdnn()` repeats fit-and-evaluate over stratified folds, stratifying on the event indicator so that fold sizes stay balanced across censoring rates rather than across time-to-event values.
 
 ## Example
 
@@ -141,8 +177,10 @@ summarize_cv_survdnn(res)
 
 ## Practical notes
 
-The AFT and Cox-Time losses are more expensive per epoch than plain Cox: AFT adds one learnable global parameter, and Cox-Time evaluates the network on a full $n_e \times n$ grid of (event time, subject) pairs at every step, so training cost grows with the number of events rather than staying constant. Batch normalization interacts with very small batches; since `survdnn` trains full-batch by default, this is only a concern for small datasets, where turning batch normalization off (`batch_norm = FALSE`) is often more stable than leaving it on. Dropout and weight decay are the two regularizers exposed directly; `tune_survdnn()` and `gridsearch_survdnn()` search over these together with architecture and learning-rate settings under cross-validation.
+The AFT and Cox-Time losses cost more per epoch than plain Cox: AFT adds one learnable global parameter, and Cox-Time evaluates the network on a full $n_e \times n$ grid of event-time and subject pairs at every step, so training cost grows with the number of events rather than staying constant. Batch normalization interacts poorly with very small batches; since `survdnn` trains full-batch by default this is only a concern for small datasets, where turning batch normalization off, `batch_norm = FALSE`, is often more stable than leaving it on. Dropout and weight decay are the two regularizers exposed directly, and `tune_survdnn()` and `gridsearch_survdnn()` search over these together with architecture and learning-rate settings under cross-validation.
+
+The proportional-hazards structure of the Cox and Cox-L2 losses has a consequence worth flagging for any downstream curve-shape analysis: under either loss, $\hat S_i(t) = \hat S_0(t)^{\exp(\eta_i)}$ is a scalar power transform of one shared baseline curve, so any two predicted curves from the same fitted model differ only in scale, never in shape. Methods that cluster or compare predicted curves by their shape, such as `unsurv`, are only doing genuinely curve-native work when paired with `survdnn` fit under `"aft"` or `"coxtime"`, where curve shape is free to vary across individuals rather than being tied to a single common baseline.
 
 [^survdnn-cran]: `survdnn` package documentation, CRAN: <https://CRAN.R-project.org/package=survdnn>.
-[^survdnn-paper]: EL BADISY, I. (2025). *SurvDNN: Survival Deep Learning Models for Tabular Data*. Submitted to The R Journal.
-[^coxtime-paper]: Kvamme, H., Borgan, Ø., & Scheel, I. (2019). Time-to-event prediction with neural networks and Cox regression. *Journal of Machine Learning Research*, 20(129), 1-30.
+[^survdnn-paper]: EL BADISY, I. (2026). *SurvDNN: Survival Deep Learning Models for Tabular Data*. The R Journal.
+[^coxtime-paper]: Kvamme, H., Borgan, Ø., and Scheel, I. (2019). Time-to-event prediction with neural networks and Cox regression. *Journal of Machine Learning Research*, 20(129), 1-30.

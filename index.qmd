@@ -193,9 +193,9 @@ Some methodological notes on related work.
 
 | Date | Note | Topic |
 |---|---|---|
-| 2026-05-23 | [Survival-trajectory phenotypes from individualized survival curves](notes/survival-trajectory-phenotypes.pdf) | Clustering |
-| 2026-04-25 | [Functional machine learning workflows in R](notes/functional-ml-r.pdf) | R / ML |
-| 2026-04-04 | [Dynamic RMST as an interpretable summary for predicted survival curves](notes/dynamic-rmst.pdf) | RMST |
+| 2026-08-24 | [Deep neural networks for survival analysis with survdnn](notes/deep-survival-networks.pdf) | Deep Learning |
+| 2026-08-24 | [Survival-trajectory phenotypes from individualized survival curves](notes/survival-trajectory-phenotypes.pdf) | Clustering |
+| 2026-08-24 | [Masked k-NN imputation with missknn](notes/masked-knn-imputation.pdf) | Imputation |
 
 [View all notes →](notes/index.qmd)
 
