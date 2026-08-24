@@ -257,6 +257,190 @@ fig_left + fig_right + plot_annotation(tag_levels = "A")
 
 Panel A alone gives no indication of temporal-risk subgroups; panel B recovers three visually and numerically distinct trajectory groups directly from the predicted curves, without using the observed test-set outcomes at any point, illustrating the intended `unsurv` workflow: an upstream survival learner maps covariates to individualized trajectories, and `unsurv` converts those trajectories into interpretable temporal phenotypes.
 
+## METABRIC application
+
+The synthetic example above confirms `unsurv` recovers known structure; this section applies the same pipeline to a real cohort, the METABRIC breast cancer dataset distributed with the `biostatlab` package, and adds two things the synthetic example could not: out-of-sample generalization to a genuinely held-out set, and a comparison against two baseline partitions built on the covariates rather than on predicted curves.[^unsurv-appendix]
+
+```{r metabric-data}
+library(cluster)
+
+set.seed(20260615)
+data(metabric, package = "biostatlab")
+
+raw <- metabric
+raw$os_time  <- raw$overall_survival_months
+raw$os_event <- raw$overall_survival
+
+exclude <- c("patient_id", "overall_survival_months", "overall_survival", "os_time", "os_event", "death_from_cancer")
+numeric_cols <- setdiff(names(raw)[vapply(raw, is.numeric, logical(1))], exclude)
+complete_rate <- vapply(raw[numeric_cols], function(x) mean(!is.na(x)), numeric(1))
+numeric_cols <- numeric_cols[complete_rate >= 0.90]
+vars <- vapply(raw[numeric_cols], stats::var, numeric(1), na.rm = TRUE)
+vars <- vars[is.finite(vars) & vars > 0]
+selected <- names(sort(vars, decreasing = TRUE))[seq_len(min(120L, length(vars)))]
+
+model_df <- raw[, c("os_time", "os_event", selected), drop = FALSE]
+model_df <- model_df[stats::complete.cases(model_df), , drop = FALSE]
+names(model_df) <- make.names(names(model_df), unique = TRUE)
+covariate_cols <- setdiff(names(model_df), c("os_time", "os_event"))
+
+nrow(model_df)
+```
+
+After keeping numeric predictors that are at least 90 percent observed and complete-case filtering, 1839 patients and 120 predictors remain, matching the cohort size reported in the application note. Patients are split three ways: a training set that only `survdnn` sees, a partition set used to fit `unsurv` and the two baselines, and a validation set held out from both, so cluster generalization can be checked directly rather than assumed.
+
+```{r metabric-split-fit}
+n <- nrow(model_df)
+idx_all <- sample.int(n)
+n_train <- floor(0.60 * n); n_partition <- floor(0.20 * n)
+train      <- model_df[idx_all[seq_len(n_train)], , drop = FALSE]
+partition  <- model_df[idx_all[n_train + seq_len(n_partition)], , drop = FALSE]
+validation <- model_df[idx_all[(n_train + n_partition + 1):n], , drop = FALSE]
+
+mod <- survdnn(
+  Surv(os_time, os_event) ~ .,
+  data = train,
+  hidden = c(64, 32), activation = "relu",
+  dropout = 0.10, batch_norm = TRUE,
+  epochs = 120, lr = 5e-4,
+  loss = "aft", optimizer = "adamw",
+  optim_args = list(weight_decay = 1e-5),
+  .seed = 20260615, verbose = FALSE
+)
+
+t_max <- as.numeric(quantile(train$os_time, 0.90, na.rm = TRUE))
+time_grid <- seq(max(0.1, min(train$os_time[train$os_time > 0], na.rm = TRUE)), t_max, length.out = 100)
+pred_partition  <- as.matrix(predict(mod, newdata = partition,  type = "survival", times = time_grid))
+pred_validation <- as.matrix(predict(mod, newdata = validation, type = "survival", times = time_grid))
+
+c(train = nrow(train), partition = nrow(partition), validation = nrow(validation))
+```
+
+The AFT loss is used deliberately, not arbitrarily: as the structural limitation below makes precise, a proportional-hazards learner would make curve-shape clustering here mathematically equivalent to clustering a scalar risk score, which would defeat the purpose of this application.
+
+```{r metabric-unsurv}
+fit <- unsurv(
+  S = pred_partition, times = time_grid, K = 3, K_max = 6,
+  distance = "L2", enforce_monotone = TRUE, smooth_median_width = 3,
+  standardize_cols = FALSE, eps_jitter = 0, seed = 20260615
+)
+table(fit$clusters)
+
+stab <- unsurv_stability(
+  S = pred_partition, times = time_grid, fit = fit, B = 30, frac = 0.70,
+  mode = "subsample", jitter_sd = 0.005, weight_perturb = 0.10,
+  eps_jitter = 0, return_distribution = TRUE
+)
+stab$mean
+```
+
+`unsurv` with $K=3$ on the partition set gives clusters of size 121, 102, and 144, matching the application note's reported sizes, and resampling stability over 30 subsamples is good (mean ARI 0.849), meaning the partition is not an artifact of one particular sample draw.
+
+Two baselines are fit on the same partition set: PAM on the scalar predicted risk at the median time-grid horizon, and PAM on the first five principal components of the training covariates. Validation-set patients are assigned out-of-sample to all three partitions (`unsurv` via `predict()`, nearest medoid; scalar risk via nearest cluster-mean risk; covariate PCA via nearest cluster-mean centroid in PCA-score space, with loadings fixed from the training set), and all three are relabeled by partition-set Kaplan-Meier median survival so label 1 is always the worst-survival cluster.
+
+```{r metabric-baselines}
+relabel_map_by_survival <- function(labels, time, status) {
+  old_levels <- sort(unique(as.integer(labels)))
+  meds <- vapply(old_levels, function(l) {
+    idx <- labels == l
+    sf <- survival::survfit(survival::Surv(time[idx], status[idx]) ~ 1)
+    m <- summary(sf)$table["median"]
+    if (is.na(m)) Inf else as.numeric(m)
+  }, numeric(1))
+  setNames(seq_along(order(meds)), as.character(old_levels[order(meds)]))
+}
+apply_map <- function(labels, map) unname(map[as.character(as.integer(labels))])
+
+horizon_idx <- which.min(abs(time_grid - median(time_grid)))
+scalar_risk_partition  <- 1 - pred_partition[, horizon_idx]
+scalar_risk_validation <- 1 - pred_validation[, horizon_idx]
+pam_scalar <- cluster::pam(as.matrix(scalar_risk_partition), k = 3)
+scalar_centroids <- vapply(sort(unique(pam_scalar$clustering)), function(k)
+  mean(scalar_risk_partition[pam_scalar$clustering == k]), numeric(1))
+scalar_labels_validation_raw <- vapply(scalar_risk_validation,
+  function(v) which.min(abs(v - scalar_centroids)), integer(1))
+
+x_train <- train[, covariate_cols, drop = FALSE]
+x_center <- vapply(x_train, mean, numeric(1)); x_scale <- vapply(x_train, sd, numeric(1)); x_scale[x_scale == 0] <- 1
+pca <- prcomp(scale(x_train, center = x_center, scale = x_scale), rank. = 5)
+project_pca <- function(df) {
+  x <- scale(df[, covariate_cols, drop = FALSE], center = x_center, scale = x_scale)
+  predict(pca, newdata = x)[, 1:5, drop = FALSE]
+}
+pca_scores_partition <- project_pca(partition); pca_scores_validation <- project_pca(validation)
+pam_pca <- cluster::pam(pca_scores_partition, k = 3)
+pca_centroids <- t(vapply(sort(unique(pam_pca$clustering)), function(k)
+  colMeans(pca_scores_partition[pam_pca$clustering == k, , drop = FALSE]), numeric(5)))
+d2 <- outer(rowSums(pca_scores_validation^2), rowSums(pca_centroids^2), "+") - 2 * (pca_scores_validation %*% t(pca_centroids))
+pca_labels_validation_raw <- max.col(-d2)
+
+map_curve  <- relabel_map_by_survival(fit$clusters, partition$os_time, partition$os_event)
+map_scalar <- relabel_map_by_survival(pam_scalar$clustering, partition$os_time, partition$os_event)
+map_pca    <- relabel_map_by_survival(pam_pca$clustering, partition$os_time, partition$os_event)
+
+partition_labels <- list(
+  `unsurv curve` = apply_map(fit$clusters, map_curve),
+  `Scalar risk`  = apply_map(pam_scalar$clustering, map_scalar),
+  `Covariate PCA` = apply_map(pam_pca$clustering, map_pca)
+)
+validation_labels <- list(
+  `unsurv curve` = apply_map(predict(fit, pred_validation), map_curve),
+  `Scalar risk`  = apply_map(scalar_labels_validation_raw, map_scalar),
+  `Covariate PCA` = apply_map(pca_labels_validation_raw, map_pca)
+)
+
+cmp_partition  <- unsurv_compare(partition_labels,  partition$os_time,  partition$os_event,  reference = "unsurv curve")
+cmp_validation <- unsurv_compare(validation_labels, validation$os_time, validation$os_event, reference = "unsurv curve")
+
+cmp_partition$summary
+cmp_validation$summary
+```
+
+`unsurv curve` is by definition perfectly self-similar (ARI = 1). The scalar-risk baseline is highly concordant with the curve-based partition on both sets (ARI $\ge 0.80$), showing that at this single horizon the scalar summary already captures much of the ordering information present in the full curve for this particular model; the covariate-PCA baseline is nearly unrelated to it (ARI $\le 0.09$ on both sets), since it clusters a structurally different representation, the original covariates rather than the model's survival predictions.
+
+```{r metabric-cluster-medians}
+rbind(
+  cbind(set = "partition",  cmp_partition$cluster_summary),
+  cbind(set = "validation", cmp_validation$cluster_summary)
+)
+```
+
+For the curve-based partition, median survival increases monotonically with cluster label on both the partition set and the independent validation set, so the ordering "cluster 3 has better survival than clusters 1 and 2" generalizes to patients neither `survdnn` nor `unsurv` ever saw during fitting; the same monotone ordering holds for the scalar-risk baseline. The covariate-PCA baseline's partition-set separation between its two lowest clusters is visibly weaker (a smaller median-survival gap than the other two methods) and only closes on the validation set, consistent with it tracking a different, less risk-aligned signal.
+
+```{r metabric-figure, fig.width=10, fig.height=4.5}
+cluster_pal <- c("1" = "#B22222", "2" = "#E69F00", "3" = "#1B9E77")
+curve_labels_partition <- apply_map(fit$clusters, map_curve)
+
+curve_df <- data.frame(
+  patient_id = rep(seq_len(nrow(pred_partition)), each = length(time_grid)),
+  time = rep(time_grid, times = nrow(pred_partition)),
+  survival = as.vector(t(pred_partition)),
+  cluster = factor(rep(curve_labels_partition, each = length(time_grid)))
+)
+medoid_order <- apply_map(seq_len(nrow(fit$medoids)), map_curve)
+medoids <- fit$medoids[order(medoid_order), , drop = FALSE]
+medoid_df <- data.frame(
+  time = rep(time_grid, times = nrow(medoids)),
+  survival = as.vector(t(medoids)),
+  cluster = factor(rep(sort(medoid_order), each = length(time_grid)))
+)
+
+p_curves <- ggplot(curve_df, aes(time, survival, group = patient_id, color = cluster)) +
+  geom_line(linewidth = 0.25, alpha = 0.20) +
+  geom_line(data = medoid_df, aes(time, survival, group = cluster, color = cluster), linewidth = 1.1) +
+  scale_color_manual(values = cluster_pal) +
+  labs(x = "Months", y = "Predicted survival probability", color = "Cluster") +
+  theme_minimal(base_size = 11) + theme(legend.position = "bottom")
+
+p_km <- autoplot(unsurv_compare(list(`unsurv curve` = curve_labels_partition), partition$os_time, partition$os_event)) +
+  scale_color_manual(values = cluster_pal) +
+  labs(title = NULL) + theme(strip.text = element_blank())
+
+p_curves + p_km + plot_annotation(tag_levels = "A")
+```
+
+Panel A shows `survdnn`-predicted curves on the partition set colored by `unsurv` cluster with medoid prototypes overlaid; panel B is the corresponding Kaplan-Meier curve computed from the *observed* outcomes within each cluster, included to show that the curve-based partition, fit without ever using observed outcomes, recovers groups with genuinely distinct observed survival, not just distinct predicted curves.
+
 ## A structural limitation worth carrying forward
 
 Under a proportional-hazards model, every predicted curve is $S_i(t) = S_0(t)^{\exp(\eta_i)}$, a scalar power transform of one shared baseline. Any $L_1$ or $L_2$ curve-shape distance between two such curves reduces to a monotone function of the scalar linear predictor $\eta_i$ alone, so clustering curve shapes under proportional hazards is mathematically equivalent to clustering a single number. `unsurv` is doing genuinely curve-native work only for learners that do not impose proportional hazards, such as random survival forests or a `survdnn` model fit with the AFT or Cox-Time loss, where curve shape carries information beyond one scalar summary.

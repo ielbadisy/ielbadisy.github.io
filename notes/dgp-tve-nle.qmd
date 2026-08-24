@@ -245,7 +245,7 @@ round(hr, 3)
 rmst_diff(fit, newdata = nd1, newdata0 = nd0, tau = 4, se.fit = TRUE)
 ```
 
-`rmst_diff()`'s standard error is not a bootstrap: it applies the delta method directly to the trapezoidal-weighted sum of the survival-difference gradient, exploiting that a linear combination of the (asymptotically normal) model coefficients is itself normal, so a single quadratic form gives the SE without resampling.
+Because $\beta_1(t) > 0$ everywhere under the `bathub` shape, $x_1=1$ is risk-increasing at every landmark time above, and the 95% CI on the hazard ratio excludes 1 at each of $t=1,2,3,4$; the CI width also visibly tracks the DGP's own shape, narrowest around $t=2$-$3$ where the hazard ratio dips toward its bathtub minimum and events are most informative about the contrast, and widest at $t=4$, consistent with the sparser late follow-up already flagged in the recovery plot above. The RMST difference up to $\tau=4$ is negative with a CI that excludes 0, meaning $x_1=1$ patients accumulate less restricted mean survival time than $x_1=0$ patients over that window, the correct-sign absolute-scale summary of the same risk-increasing effect the hazard ratio reports on the relative scale. `rmst_diff()`'s standard error is not a bootstrap: it applies the delta method directly to the trapezoidal-weighted sum of the survival-difference gradient, exploiting that a linear combination of the (asymptotically normal) model coefficients is itself normal, so a single quadratic form gives the SE without resampling.
 
 ## Why the validation is a fair test
 
@@ -281,86 +281,114 @@ data.frame(
 
 `coxph()` estimates $\beta$ by partial likelihood, profiling the baseline hazard out entirely; `rpsurv` instead estimates $\beta$ jointly with an explicit four-knot spline for $s_0$. The two are different estimators of the same target, not the same computation, so exact numerical agreement is not guaranteed, only asymptotic agreement under a correctly specified baseline. Both the point estimates and standard errors above match to three decimal places, which is what the nesting argument predicts: with the baseline hazard genuinely constant (an exponential DGP here) and `df = 4` more than flexible enough to represent a constant, `rpsurv`'s spline-baseline model recovers the same proportional-hazards fit as Cox regression.
 
-## Effect of baseline flexibility (df) on curve recovery
+## Effect of spline flexibility (df) on the recovered effect curves
 
-The `df` argument controls how many knots the baseline spline $s_0(\log t)$ gets; too few knots underfit real curvature in the baseline hazard, and there is no free lunch from simply setting `df` very high, since flexibility beyond what the data can resolve buys variance rather than fit. To make this concrete, data are generated from a single-arm bathtub-shaped hazard, $h(t) = \lambda_0 \exp\{\beta_1(t)\}$ with $\beta_1(t)$ the `bathub` shape from the table above, using the same piecewise-inversion machinery as Algorithm 1 with $x_1 \equiv 1$ fixed for every subject, and $S(t)$ recovered under a grid of `df` values.
+`tve.df` and the degrees of freedom of the covariate spline are resolution knobs for two *different* curves, $\beta_1(t)$ and $g(x_2)$, not for $S(t)$: a survival curve can look fine even when the effect curve underneath it is badly resolved, since $S(t)$ pools information over the whole follow-up window while $\beta_1(t)$ and $g(x_2)$ are local functions that a coarse spline can flatten out or over-wiggle without moving $S(t)$ very much. The demonstration therefore targets the effect curves directly, on one fixed TVE+NLE dataset (`bathub` and `quadratic`, as validated above).
 
-```{r df-impact-data}
-n_df <- 600
-maxt <- 5; delta <- 0.02; lambda <- 0.3
-t.grid <- seq(0, maxt - delta, delta)
-tepw <- matrix(NA_real_, n_df, length(t.grid))
-for (i in seq_along(t.grid)) {
-  u <- runif(n_df); ti <- t.grid[i]
-  h <- lambda * exp(true_beta1("bathub", ti))
-  a <- ti - log(u) / h
-  tepw[, i] <- ifelse(a >= ti & a < ti + delta, a, NA)
-}
-t_ev <- apply(tepw, 1, function(x) min(x, na.rm = TRUE))
-t_ev <- ifelse(t_ev == Inf, 100, t_ev)
-status_df <- as.integer(t_ev <= maxt)
-t_df <- pmin(t_ev, maxt)
-ddf <- data.frame(time = t_df, status = status_df)
-
-# true S(t) by direct numerical integration of the generating hazard, independent of any fitted model
-Hfun <- function(tt) sapply(tt, function(x) stats::integrate(function(s) lambda * exp(true_beta1("bathub", s)), 0, x)$value)
-tt_df <- seq(0.1, 4.8, length.out = 100)
-true_S <- exp(-Hfun(tt_df))
-
-df_grid <- c(2, 4, 6, 10)
-fits_df <- lapply(df_grid, function(d) rpsurv(Surv(time, status) ~ 1, data = ddf, df = d))
-names(fits_df) <- paste0("df", df_grid)
+```{r effect-df-setup}
+set.seed(7)
+dat_df <- genTVE_NLE(n = 1500, tve_shape = "bathub", nle_shape = "quadratic")
+basis3 <- ns(dat_df$x2, df = 3)
+B3 <- predict(basis3, dat_df$x2); colnames(B3) <- paste0("x2_ns", 1:3)
+fitdat3 <- data.frame(time = dat_df$time, status = dat_df$status, x1 = dat_df$x1, B3, check.names = FALSE)
+mkbasis3 <- function(x2v) { b <- predict(basis3, x2v); colnames(b) <- paste0("x2_ns", 1:3); b }
 ```
 
-```{r df-impact-mae}
-mae_by_df <- sapply(fits_df, function(f) mean(abs(predict(f, times = tt_df, type = "survival")$est - true_S)))
-data.frame(df = df_grid, mean_abs_error = round(mae_by_df, 4))
+Holding the NLE spline at `df = 3` and the baseline at `df = 6`, `tve.df` is varied over a grid and the recovered $\hat\beta_1(t) = \log\widehat{HR}(t)$ (contrasting $x_1=1$ against $x_1=0$ at $x_2=0$) is compared to the known truth.
+
+```{r tve-df-grid}
+t_grid_df <- seq(0.3, 4.6, length.out = 60)
+truth_beta1_df <- true_beta1("bathub", t_grid_df)
+
+tve_df_grid <- c(2, 3, 6, 10)
+beta1_curves <- lapply(tve_df_grid, function(td) {
+  fit <- rpsurv(Surv(time, status) ~ x1 + x2_ns1 + x2_ns2 + x2_ns3,
+                data = fitdat3, df = 6, tve = "x1", tve.df = td)
+  nd1 <- data.frame(x1 = 1, mkbasis3(0), check.names = FALSE)
+  nd0 <- data.frame(x1 = 0, mkbasis3(0), check.names = FALSE)
+  log(predict(fit, newdata = nd1, newdata0 = nd0, times = t_grid_df, type = "hr")$est)
+})
+mae_tve_df <- sapply(beta1_curves, function(e) mean(abs(e - truth_beta1_df)))
+data.frame(tve.df = tve_df_grid, mean_abs_error = round(mae_tve_df, 4))
 ```
 
-```{r df-impact-plot, fig.width=6, fig.height=4}
-curve_df <- do.call(rbind, lapply(seq_along(df_grid), function(i) {
-  data.frame(t = tt_df, S = predict(fits_df[[i]], times = tt_df, type = "survival")$est, df = factor(df_grid[i]))
-}))
+Separately, holding `tve.df = 6` fixed, the NLE covariate spline's own `df` is varied and the recovered $\hat g(x_2)$ (centered at $x_2=0$, since only the shape, not the arbitrary intercept, is identified) is compared to the known `quadratic` truth.
 
-ggplot(curve_df, aes(t, S, color = df)) +
+```{r nle-df-grid}
+x2_grid_df <- seq(0, 3, length.out = 30)
+truth_g_df <- true_g("quadratic", x2_grid_df) - true_g("quadratic", 0)
+
+nle_df_grid <- c(2, 3, 5, 8)
+g_curves <- lapply(nle_df_grid, function(gd) {
+  basis_k <- ns(dat_df$x2, df = gd)
+  Bk <- predict(basis_k, dat_df$x2); colnames(Bk) <- paste0("x2_ns", 1:gd)
+  fitdatk <- data.frame(time = dat_df$time, status = dat_df$status, x1 = dat_df$x1, Bk, check.names = FALSE)
+  fml <- as.formula(paste("Surv(time, status) ~ x1 +", paste0("x2_ns", 1:gd, collapse = " + ")))
+  fit <- rpsurv(fml, data = fitdatk, df = 6, tve = "x1", tve.df = 6)
+  mkbasisk <- function(x2v) { b <- predict(basis_k, x2v); colnames(b) <- paste0("x2_ns", 1:gd); b }
+  nd_g  <- data.frame(x1 = 0, mkbasisk(x2_grid_df), check.names = FALSE)
+  nd_g0 <- data.frame(x1 = 0, mkbasisk(0), check.names = FALSE)
+  predict(fit, newdata = nd_g, times = 1, type = "link")$est -
+    predict(fit, newdata = nd_g0, times = 1, type = "link")$est
+})
+mae_nle_df <- sapply(g_curves, function(e) mean(abs(e - truth_g_df)))
+data.frame(nle.df = nle_df_grid, mean_abs_error = round(mae_nle_df, 4))
+```
+
+```{r effect-df-plot, fig.width=10, fig.height=4}
+long_beta1_df <- do.call(rbind, lapply(seq_along(tve_df_grid), function(i)
+  data.frame(t = t_grid_df, beta1 = beta1_curves[[i]], tve_df = factor(tve_df_grid[i]))))
+p1 <- ggplot(long_beta1_df, aes(t, beta1, color = tve_df)) +
   geom_line(linewidth = 0.9) +
-  geom_line(data = data.frame(t = tt_df, S = true_S), aes(t, S),
+  geom_line(data = data.frame(t = t_grid_df, beta1 = truth_beta1_df), aes(t, beta1),
             color = "black", linetype = "dashed", inherit.aes = FALSE) +
-  labs(title = "Effect of df on baseline survival recovery", x = "time", y = "S(t)") +
+  labs(title = "Effect of tve.df on beta1(t)", x = "time", y = expression(beta[1](t))) +
   theme_minimal(base_size = 11)
+
+long_g_df <- do.call(rbind, lapply(seq_along(nle_df_grid), function(i)
+  data.frame(x2 = x2_grid_df, g = g_curves[[i]], nle_df = factor(nle_df_grid[i]))))
+p2 <- ggplot(long_g_df, aes(x2, g, color = nle_df)) +
+  geom_line(linewidth = 0.9) +
+  geom_line(data = data.frame(x2 = x2_grid_df, g = truth_g_df), aes(x2, g),
+            color = "black", linetype = "dashed", inherit.aes = FALSE) +
+  labs(title = "Effect of NLE spline df on g(x2)", x = expression(x[2]), y = expression(g(x[2]))) +
+  theme_minimal(base_size = 11)
+
+p1 + p2
 ```
 
-`df = 2` (too few knots to represent the bathtub curvature) visibly deviates from the true curve (dashed) through the middle of follow-up; `df = 4`, `6`, and `10` all sit close to the truth and close to each other, so once the spline has enough knots to represent the curvature actually present, adding still more buys essentially nothing further, an instance of the sieve resolution argument from the previous section: `df` is a resolution knob with diminishing returns past the point where it can already represent the true curve, not a dial to be maximized.
+The two panels tell different stories, because the two true shapes have different complexity. For $\beta_1(t)$, `tve.df = 2` and `3` (red, green) flatten through the middle of follow-up and miss the late rise entirely; `tve.df = 6` (cyan) tracks the dip and the rise closely; `tve.df = 10` (purple) starts to drift away again in the early follow-up region, a sign of fitting noise rather than signal once the spline has more knots than the curve's genuine curvature can support. For $g(x_2)$, the true shape is a simple downward-opening parabola, so `nle.df = 2` (red) already recovers it almost exactly, and each additional degree of freedom (`3`, `5`, `8`) adds visible wiggle without reducing bias, since there is no further curvature left to capture, only noise left to fit; the mean absolute error in the table above increases monotonically with `nle.df` for exactly this reason. The practical lesson is symmetric but not identical for the two curve types: under-resolving a genuinely curved effect biases it toward flat, and over-resolving a simple effect does not bias it but does inflate its variance, so the right `df` depends on the true complexity of the specific effect being estimated, not on a single rule of thumb applied to both.
 
 ## Model selection by parsimony
 
-The plot above shows that df=6 and df=10 track the truth about as well as df=4, but "about as well" is doing a lot of work if judged by eye on a curve the analyst does not have access to in real data. `AIC.rpsurv()` and `BIC.rpsurv()` formalize the comparison directly from the fitted log-likelihood, penalizing extra spline coefficients rather than requiring a known truth to compare against.[^aic-bic]
+`AIC.rpsurv()` and `BIC.rpsurv()` formalize the `tve.df` choice directly from the fitted log-likelihood, penalizing extra spline coefficients rather than requiring the known $\beta_1(t)$ used above.[^aic-bic]
 
 ```{r parsimony-table}
-parsimony_tab <- data.frame(
-  df     = df_grid,
-  loglik = round(sapply(fits_df, logLik), 2),
-  AIC    = round(sapply(fits_df, AIC), 2),
-  BIC    = round(sapply(fits_df, BIC), 2)
-)
+parsimony_tab <- do.call(rbind, lapply(tve_df_grid, function(td) {
+  fit <- rpsurv(Surv(time, status) ~ x1 + x2_ns1 + x2_ns2 + x2_ns3,
+                data = fitdat3, df = 6, tve = "x1", tve.df = td)
+  data.frame(tve.df = td, loglik = round(as.numeric(logLik(fit)), 2),
+             AIC = round(AIC(fit), 2), BIC = round(BIC(fit), 2))
+}))
 parsimony_tab
 ```
 
-Both criteria are minimized at a small `df`, not at the largest candidate, even though the largest candidate's curve looked visually indistinguishable from the truth above: the log-likelihood keeps improving slightly as `df` grows (a strictly larger spline basis can only fit the observed data at least as well), but `AIC`'s $2 \times \text{df}$ penalty and `BIC`'s $\log(n_{\text{events}}) \times \text{df}$ penalty, the latter stricter for any reasonably sized event count, both grow faster than that improvement past a certain point. The practical rule this motivates: pick the smallest `df` not clearly beaten on AIC/BIC by a larger candidate, rather than the largest `df` that still looks reasonable on a plot, since the criterion penalizes complexity that the likelihood alone cannot see the cost of.
+This is worth reading carefully against the curve-recovery result above, because the two do not agree here. Curve recovery (MAE) preferred `tve.df = 6`; AIC and BIC both prefer the smallest candidate, `tve.df = 2`, and rank the options in decreasing order of `tve.df` from there. The reason is that the extra spline coefficients between `tve.df = 2` and `tve.df = 6` improve the log-likelihood only marginally, by about 3 nats on 1500 subjects, well within the noise a `2 x tve.df` AIC penalty (and the stricter `log(n_events) x tve.df` BIC penalty) is designed to discount. AIC and BIC answer "does this extra flexibility earn its keep in the likelihood of the observed event times," which is a real and useful question, but it is not the same question as "does this flexibility recover the true shape of $\beta_1(t)$," and a time-varying effect can be genuine, and even visible in a curve-recovery check against a known truth, while still being too weak a signal in a finite, moderately censored sample for the likelihood to reward modeling it. In practice this means AIC/BIC are a necessary check against overfitting, not a substitute for subject-matter judgment about whether a time-varying or non-linear effect is scientifically expected in the first place; a purely likelihood-driven `tve.df` selection here would have under-modeled a real, moderate-sized effect.
 
 ## Model-fit diagnostics
 
-Once a model is selected, `rpsurv` provides two complementary residual-based checks, neither of which requires knowing the true generating hazard, unlike the simulation-based validation above. `residuals(fit, type = "coxsnell")` returns $r_i = \hat H(t_i \mid x_i)$;[^coxsnell1968] under a correctly specified model these residuals behave like a censored sample from a unit-exponential distribution, so plotting their own Nelson-Aalen cumulative hazard against themselves should track the 45-degree line. `km_compare_plot()` instead overlays the nonparametric Kaplan-Meier curve against the model's fitted survival curve directly on the outcome scale.
+Once a working `tve.df` is chosen (here, `tve.df = 6`, on the strength of the curve-recovery check above, since the AIC/BIC comparison alone would have under-selected it), `rpsurv` provides two residual-based checks that do not require knowing the true generating hazard, unlike the simulation-based validation earlier in this note. `residuals(fit, type = "coxsnell")` returns $r_i = \hat H(t_i \mid x_i)$;[^coxsnell1968] under a correctly specified model these behave like a censored sample from a unit-exponential distribution, so their own Nelson-Aalen cumulative hazard plotted against themselves should track the 45-degree line. `km_compare_plot()` instead overlays the nonparametric Kaplan-Meier curve against the model's fitted survival curve directly on the outcome scale, here stratified by $x_1$ to check the fit within each arm separately rather than only on average.
 
 ```{r diagnostics-plot, fig.width=9, fig.height=4.2}
-fit_sel <- fits_df[[which.min(parsimony_tab$BIC)]]
+fit_diag <- rpsurv(Surv(time, status) ~ x1 + x2_ns1 + x2_ns2 + x2_ns3,
+                    data = fitdat3, df = 6, tve = "x1", tve.df = 6)
 
 par(mfrow = c(1, 2))
-coxsnell_plot(fit_sel, main = "Cox-Snell residual check")
-km_compare_plot(fit_sel, main = "Kaplan-Meier vs. rpsurv")
+coxsnell_plot(fit_diag, main = "Cox-Snell residual check")
+km_compare_plot(fit_diag, by = "x1", main = "Kaplan-Meier vs. rpsurv, by x1")
 ```
 
-Both diagnostics support the model selected by parsimony above: the Cox-Snell points track the reference line closely across the observed residual range, and the fitted survival curve overlays the Kaplan-Meier step function everywhere follow-up data exist. Neither diagnostic by itself proves the baseline shape was recovered exactly right, an overly smooth or overly wiggly $s_0$ can both leave a Cox-Snell plot looking reasonable at moderate sample sizes, which is why the earlier sections used a known DGP for a direct check; but a poor Cox-Snell or KM-vs-model plot is a reliable signal that something is wrong, and both are available on real data where the ground truth is not.
+Both diagnostics support the chosen model: the Cox-Snell points track the reference line closely across the observed residual range with no systematic curvature, and the fitted survival curve overlays the Kaplan-Meier step function within both the $x_1=0$ and $x_1=1$ strata throughout follow-up, including through the crossing/compression pattern induced by the time-varying effect. Neither diagnostic proves the effect curves were recovered exactly right on their own terms, an overly smooth or overly wiggly $\beta_1(t)$ can both leave these plots looking reasonable at this sample size, which is exactly why the previous two sections used a known DGP for a direct check rather than relying on residual diagnostics alone; but a poor Cox-Snell or KM-vs-model fit would have been a reliable warning sign, and both remain available on real data where, unlike here, the ground truth is not.
 
 ## Practical notes
 
