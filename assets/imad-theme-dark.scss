@@ -9,7 +9,9 @@ $primary:                    $spc-primary-light;
 $secondary:                  $spc-secondary-light;
 // Colors: custom variables
 $primary-dark:               $spc-primary;
-$secondary-light:            $spc-secondary;
+// hover state: must stay LIGHTER than $secondary on a dark background,
+// otherwise links/icons drop to ~2:1 contrast on hover
+$secondary-light:            lighten($spc-secondary-light, 8%);
 $accent:                     $spc-accent; 
 $accent-light:               $spc-accent-light;
 $accent-dark:                $spc-accent-dark;

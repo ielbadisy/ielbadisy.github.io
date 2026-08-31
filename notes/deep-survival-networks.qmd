@@ -2,7 +2,7 @@
 title: "Deep Neural Networks for Survival Analysis with survdnn"
 subtitle: "Architecture, loss functions, and prediction in a native R torch implementation."
 author: "Imad EL BADISY"
-date: "2026-08-24"
+date: "2026-08-22"
 format:
   pdf:
     toc: true

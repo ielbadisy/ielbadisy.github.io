@@ -2,7 +2,7 @@
 title: "Generating Time-Varying and Non-Linear Covariate Effects for Survival Simulation"
 subtitle: "A piecewise-exponential grid-inversion data-generating process, validated against rpsurv."
 author: "Imad EL BADISY"
-date: "2026-08-24"
+date: "2026-06-10"
 format:
   pdf:
     toc: true

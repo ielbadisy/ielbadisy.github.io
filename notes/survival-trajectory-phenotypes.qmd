@@ -2,7 +2,7 @@
 title: "Survival-Trajectory Phenotypes from Individualized Survival Curves with unsurv"
 subtitle: "Validity projection, time-weighted integral distances, and medoid clustering for predicted survival curves."
 author: "Imad EL BADISY"
-date: "2026-08-24"
+date: "2026-07-27"
 format:
   pdf:
     toc: true

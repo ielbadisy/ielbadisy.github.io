@@ -2,7 +2,7 @@
 title: "Masked k-NN Imputation with missknn"
 subtitle: "Distance masking, per-column tuning, and donor-pool capping for mixed tabular data."
 author: "Imad EL BADISY"
-date: "2026-08-24"
+date: "2026-07-02"
 format:
   pdf:
     toc: true

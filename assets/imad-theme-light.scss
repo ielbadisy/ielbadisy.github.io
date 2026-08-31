@@ -17,7 +17,7 @@ $accent-dark:                $spc-accent-dark;
 // Body
 $body-color:                 $primary-dark;
 $body-bg:                    $spc-bg-0;
-$body-secondary:             #6C757D;
+$body-secondary:             #5A626B; // darker than #6c757d for comfortable AA on white
 
 // Fonts
 
@@ -297,9 +297,9 @@ p code:not(.sourceCode), li code:not(.sourceCode), td code:not(.sourceCode) {
 // subtitle + Learn More About Me
 .subtitle {
   font-size: 1.2em;
-  // links within subtitles
+  // links within subtitles (light mode: indigo on light bg, not white)
   a {
-    color: white;
+    color: $secondary;
     text-decoration: underline !important;
     &:hover {
       text-decoration: none !important;
