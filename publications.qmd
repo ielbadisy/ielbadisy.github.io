@@ -9,8 +9,8 @@ title-block-banner: false
 
 ## Selected articles
 
-- **El Badisy I.** (2026). SurvDNN: Survival Deep Learning Models for Tabular Data. *The R Journal*, 18(1):384-399. [doi:10.32614/RJ-2026-008](https://doi.org/10.32614/RJ-2026-008)
 - **El Badisy I.** (2026). unsurv: Clustering Individualized Survival Curves. *Bioinformatics Advances*, vbag218. [doi:10.1093/bioadv/vbag218](https://doi.org/10.1093/bioadv/vbag218)
+- **El Badisy I.** (2026). SurvDNN: Survival Deep Learning Models for Tabular Data. *The R Journal*, 18(1):384-399. [doi:10.32614/RJ-2026-008](https://doi.org/10.32614/RJ-2026-008)
 - **El Badisy I.** (2026). funcml: Functional Machine Learning Software for R. [doi:10.5281/zenodo.20707605](https://doi.org/10.5281/zenodo.20707605)
 - **El Badisy I.**, Assarag B., Belrhiti Z. (2026). Interpretable clinical decision support systems in high-risk pregnancy: a scoping review of models, methods, and implementation. *BMC Pregnancy and Childbirth*, 26(1):125. [doi:10.1186/s12884-025-08614-9](https://doi.org/10.1186/s12884-025-08614-9)
 - Kadi C., Ahmadi N., Houdou A., **El Badisy I.**, et al. (2025). Differentiating Latent Tuberculosis from Active Tuberculosis Through Activation Phenotypes and Chemokine Markers HLA-DR, CD38, MCP-1, and RANTES: A Systematic Review and Meta-Analysis. *Biomarker Insights*, 20:11772719241312776. [doi:10.1177/11772719241312776](https://doi.org/10.1177/11772719241312776)
