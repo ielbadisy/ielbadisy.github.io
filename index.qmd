@@ -46,32 +46,13 @@ Get in touch at [elbadisyimad@gmail.com](mailto:elbadisyimad@gmail.com) or [ielb
 
 ## About me
 
-::: {.grid}
-
-::: {.g-col-12 .g-col-md-6 #about-me-1}
-
 **Research engineer in health data science building open-source tools for reproducible research.**
 
 I hold a PhD in Biomedical Sciences from Aix-Marseille University (SESSTIM laboratory) on missing data and machine learning methods for survival analysis. I develop software, including [survalis](https://github.com/ielbadisy/survalis) for interpretable survival machine learning, [survdnn](https://cran.r-project.org/package=survdnn) for deep survival models, and [funcml](https://github.com/ielbadisy/funcml) for functional machine learning, and design agentic workflows that bridge statistical rigor with modern computation. See my full list on the [software](packages.qmd) page.
 
 I work at the intersection of survival analysis, machine learning, missing data, and functional data methods. Moroccan and French national, husband and father.
 
-:::
-
-::: {.g-col-12 .g-col-md-6 #about-me-2}
-
-<p><strong>Institutions and roles</strong></p>
-<ul class="fa-ul">
-   <li><span class="fa-li"><i class="fa-solid fa-briefcase"></i></span>Head of AI and Data Science Service · 2026–present · CM6RI, Rabat</li>
-   <li><span class="fa-li"><i class="fa-solid fa-briefcase"></i></span>Research Engineer in Health Data Science · 2021–2026 · CM6RI, Rabat</li>
-   <li><span class="fa-li"><i class="fa-solid fa-graduation-cap"></i></span>Ph.D. in Biomedical Sciences · Aix-Marseille Université, SESSTIM · 2025</li>
-   <li><span class="fa-li"><i class="fa-solid fa-file-lines"></i></span><a href="background.qmd">Education &amp; experience</a> · <a href="cv/cv.pdf">CV (PDF)</a></li>
-</ul>
-
-:::
-
-:::
-<!-- end grid -->
+See my [education and experience](background.qmd) or download my [CV (PDF)](cv/cv.pdf).
 
 ## Research
 

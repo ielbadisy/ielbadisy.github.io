@@ -72,15 +72,15 @@ website:
 format:
   html:
     theme:
-      light:
-        - cosmo
-        - assets/imad-theme-light.scss
-        - assets/imad/colors-light.scss
-        - assets/imad/fonts.scss
       dark:
         - cosmo
         - assets/imad-theme-dark.scss
         - assets/imad/colors-dark.scss
+        - assets/imad/fonts.scss
+      light:
+        - cosmo
+        - assets/imad-theme-light.scss
+        - assets/imad/colors-light.scss
         - assets/imad/fonts.scss
     css: assets/overrides.css
     toc: false

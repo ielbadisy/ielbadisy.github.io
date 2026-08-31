@@ -9,14 +9,14 @@ title-block-banner: false
 
 ## Selected articles
 
-- **El Badisy I.** (2026). SurvDNN: Survival Deep Learning Models for Tabular Data. *The R Journal*, 18(1):384-399.
-- **El Badisy I.** (2026). unsurv: Clustering Individualized Survival Curves. *Bioinformatics Advances*, vbag218.
+- **El Badisy I.** (2026). SurvDNN: Survival Deep Learning Models for Tabular Data. *The R Journal*, 18(1):384-399. [doi:10.32614/RJ-2026-008](https://doi.org/10.32614/RJ-2026-008)
+- **El Badisy I.** (2026). unsurv: Clustering Individualized Survival Curves. *Bioinformatics Advances*, vbag218. [doi:10.1093/bioadv/vbag218](https://doi.org/10.1093/bioadv/vbag218)
 - **El Badisy I.** (2026). funcml: Functional Machine Learning Software for R. [doi:10.5281/zenodo.20707605](https://doi.org/10.5281/zenodo.20707605)
-- **El Badisy I.**, Assarag B., Belrhiti Z. (2026). Interpretable clinical decision support systems in high-risk pregnancy: a scoping review of models, methods, and implementation. *BMC Pregnancy and Childbirth*, 26(1):125.
-- **El Badisy I.**, Graffeo N., Khalis M., Giorgi R. (2024). Multi-metric comparison of machine learning imputation methods with application to breast cancer survival. *BMC Medical Research Methodology*, 24(1):191.
-- **El Badisy I.**, BenBrahim Z., Khalis M., et al. (2024). Risk factors affecting patient survival with colorectal cancer in Morocco: survival analysis using an interpretable machine learning approach. *Scientific Reports*, 14(1):3556.
-- Houdou A., **El Badisy I.**, Khomsi K., et al. (2024). Interpretable machine learning approaches for forecasting and predicting air pollution: A systematic review. *Aerosol and Air Quality Research*, 24(1):230151.
-- Kadi C., Ahmadi N., Houdou A., **El Badisy I.**, et al. (2025). Differentiating Latent Tuberculosis from Active Tuberculosis Through Activation Phenotypes and Chemokine Markers HLA-DR, CD38, MCP-1, and RANTES: A Systematic Review and Meta-Analysis. *Biomarker Insights*, 20:11772719241312776.
+- **El Badisy I.**, Assarag B., Belrhiti Z. (2026). Interpretable clinical decision support systems in high-risk pregnancy: a scoping review of models, methods, and implementation. *BMC Pregnancy and Childbirth*, 26(1):125. [doi:10.1186/s12884-025-08614-9](https://doi.org/10.1186/s12884-025-08614-9)
+- Kadi C., Ahmadi N., Houdou A., **El Badisy I.**, et al. (2025). Differentiating Latent Tuberculosis from Active Tuberculosis Through Activation Phenotypes and Chemokine Markers HLA-DR, CD38, MCP-1, and RANTES: A Systematic Review and Meta-Analysis. *Biomarker Insights*, 20:11772719241312776. [doi:10.1177/11772719241312776](https://doi.org/10.1177/11772719241312776)
+- **El Badisy I.**, Graffeo N., Khalis M., Giorgi R. (2024). Multi-metric comparison of machine learning imputation methods with application to breast cancer survival. *BMC Medical Research Methodology*, 24(1):191. [doi:10.1186/s12874-024-02305-3](https://doi.org/10.1186/s12874-024-02305-3)
+- **El Badisy I.**, BenBrahim Z., Khalis M., et al. (2024). Risk factors affecting patient survival with colorectal cancer in Morocco: survival analysis using an interpretable machine learning approach. *Scientific Reports*, 14(1):3556. [doi:10.1038/s41598-024-51304-3](https://doi.org/10.1038/s41598-024-51304-3)
+- Houdou A., **El Badisy I.**, Khomsi K., et al. (2024). Interpretable machine learning approaches for forecasting and predicting air pollution: A systematic review. *Aerosol and Air Quality Research*, 24(1):230151. [doi:10.4209/aaqr.230151](https://doi.org/10.4209/aaqr.230151)
 
 ## Selected talks
 

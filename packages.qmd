@@ -26,8 +26,8 @@ title-block-banner: false
 <div class="card-body">
 <h3 class="card-title">unsurv</h3>
 <p class="card-text">Unsupervised clustering of individualized survival curves.</p>
-<p class="card-text"><a href="https://github.com/ielbadisy/unsurv">GitHub</a> | <a href="https://ielbadisy.r-universe.dev/unsurv">R-universe</a></p>
-<p class="card-text"><small><strong>Cite:</strong> EL BADISY, I. (2026). <em>unsurv: Unsupervised Clustering of Individualized Survival Curves</em>. R package version 0.5.0. <a href="https://github.com/ielbadisy/unsurv">github.com/ielbadisy/unsurv</a></small></p>
+<p class="card-text"><a href="https://cran.r-project.org/package=unsurv">CRAN</a> | <a href="https://cran.r-project.org/web/packages/unsurv/unsurv.pdf">PDF docs</a> | <a href="https://ielbadisy.r-universe.dev/unsurv">R-universe</a></p>
+<p class="card-text"><small><strong>Cite:</strong> EL BADISY, I. (2026). <em>unsurv: Unsupervised Clustering of Individualized Survival Curves</em>. R package version 0.5.0. <a href="https://doi.org/10.32614/CRAN.package.unsurv">doi:10.32614/CRAN.package.unsurv</a></small></p>
 </div>
 </div>
 </div>
@@ -87,7 +87,7 @@ title-block-banner: false
 <h3 class="card-title">survdnn</h3>
 <p class="card-text">Deep neural networks for right-censored survival analysis.</p>
 <p class="card-text"><a href="https://cran.r-project.org/package=survdnn">CRAN</a> | <a href="https://cran.r-project.org/web/packages/survdnn/survdnn.pdf">PDF docs</a> | <a href="https://ielbadisy.r-universe.dev/survdnn">R-universe</a></p>
-<p class="card-text"><small><strong>Cite:</strong> EL BADISY, I. (2026). <em>survdnn: Deep Neural Networks for Survival Analysis with R 'torch'</em>. R package version 0.7.6. <a href="https://doi.org/10.32614/CRAN.package.survdnn">doi:10.32614/CRAN.package.survdnn</a></small></p>
+<p class="card-text"><small><strong>Cite:</strong> EL BADISY, I. (2026). <em>survdnn: Deep Neural Networks for Survival Analysis with R 'torch'</em>. R package version 1.0.0. <a href="https://doi.org/10.32614/CRAN.package.survdnn">doi:10.32614/CRAN.package.survdnn</a></small></p>
 </div>
 </div>
 </div>
@@ -117,7 +117,7 @@ title-block-banner: false
 <h3 class="card-title">densemlp</h3>
 <p class="card-text">Dense neural networks for tabular classification and regression.</p>
 <p class="card-text"><a href="https://cran.r-project.org/package=densemlp">CRAN</a> | <a href="https://cran.r-project.org/web/packages/densemlp/densemlp.pdf">PDF docs</a> | <a href="https://ielbadisy.r-universe.dev/densemlp">R-universe</a></p>
-<p class="card-text"><small><strong>Cite:</strong> EL BADISY, I. (2026). <em>densemlp: Dense Neural Networks for Tabular Classification and Regression</em>. R package version 0.5.0. <a href="https://doi.org/10.32614/CRAN.package.densemlp">doi:10.32614/CRAN.package.densemlp</a></small></p>
+<p class="card-text"><small><strong>Cite:</strong> EL BADISY, I. (2026). <em>densemlp: Dense Neural Networks for Tabular Classification and Regression</em>. R package version 0.6.0. <a href="https://doi.org/10.32614/CRAN.package.densemlp">doi:10.32614/CRAN.package.densemlp</a></small></p>
 </div>
 </div>
 </div>
