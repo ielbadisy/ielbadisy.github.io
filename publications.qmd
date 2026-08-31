@@ -1,0 +1,26 @@
+---
+title: "Publications"
+description: |
+  Selected peer-reviewed articles, software papers,<br>
+  and conference talks.
+page-layout: full
+title-block-banner: false
+---
+
+## Selected articles
+
+- **El Badisy I.** (2026). SurvDNN: Survival Deep Learning Models for Tabular Data. *The R Journal*, 18(1):384-399.
+- **El Badisy I.** (2026). unsurv: Clustering Individualized Survival Curves. *Bioinformatics Advances*, vbag218.
+- **El Badisy I.** (2026). funcml: Functional Machine Learning Software for R. [doi:10.5281/zenodo.20707605](https://doi.org/10.5281/zenodo.20707605)
+- **El Badisy I.**, Assarag B., Belrhiti Z. (2026). Interpretable clinical decision support systems in high-risk pregnancy: a scoping review of models, methods, and implementation. *BMC Pregnancy and Childbirth*, 26(1):125.
+- **El Badisy I.**, Graffeo N., Khalis M., Giorgi R. (2024). Multi-metric comparison of machine learning imputation methods with application to breast cancer survival. *BMC Medical Research Methodology*, 24(1):191.
+- **El Badisy I.**, BenBrahim Z., Khalis M., et al. (2024). Risk factors affecting patient survival with colorectal cancer in Morocco: survival analysis using an interpretable machine learning approach. *Scientific Reports*, 14(1):3556.
+- Houdou A., **El Badisy I.**, Khomsi K., et al. (2024). Interpretable machine learning approaches for forecasting and predicting air pollution: A systematic review. *Aerosol and Air Quality Research*, 24(1):230151.
+- Kadi C., Ahmadi N., Houdou A., **El Badisy I.**, et al. (2025). Differentiating Latent Tuberculosis from Active Tuberculosis Through Activation Phenotypes and Chemokine Markers HLA-DR, CD38, MCP-1, and RANTES: A Systematic Review and Meta-Analysis. *Biomarker Insights*, 20:11772719241312776.
+
+## Selected talks
+
+- **El Badisy I.** et al. (2023). Comparison of missing data imputation methods in Cox regression with time-varying and non-linear covariate effects. *ISCB 2023*, Rome.
+- **El Badisy I.** et al. (2023). Missing data imputation using a meta-algorithm, metaCART: A simulation study under MCAR. *EpiClin 2023*, Nancy.
+
+[Full publication list &rarr;](cv/cv.pdf)

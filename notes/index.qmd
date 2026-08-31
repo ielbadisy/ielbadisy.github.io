@@ -1,26 +1,12 @@
 ---
 title: "Notes"
-format: html
+description: |
+  Methodological notes connected to my R packages and current projects,
+  written up as short PDFs with equations, code, rendered results, and references.
+page-layout: full
+title-block-banner: false
+toc: false
 ---
-
-<ul class="menu">
-  <li><a href="../index.qmd">Home</a></li>
-  <li><a href="../index.qmd#about">About</a></li>
-  <li><a href="../index.qmd#research">Research</a></li>
-  <li><a href="../index.qmd#consulting">Consulting</a></li>
-  <li><a href="../index.qmd#teaching">Teaching</a></li>
-  <li><a href="../index.qmd#software">Software</a></li>
-  <li><a href="../index.qmd#publications">Publications</a></li>
-  <li><a href="../index.qmd#contact">Contact</a></li>
-</ul>
-
-<hr>
-
-<p class="subtitle">
-Methodological notes connected to my R packages and current projects, written up as short PDFs with equations, code examples, rendered results, and references.
-</p>
-
-## Notes
 
 | Date | Note | Tags |
 |---|---|---|
@@ -29,8 +15,4 @@ Methodological notes connected to my R packages and current projects, written up
 | 2026-08-24 | [Masked k-NN imputation with `missknn`](masked-knn-imputation.pdf) | <span class="tag">Missing Data</span> <span class="tag">Imputation</span> <span class="tag">missknn</span> |
 | 2026-08-24 | [Generating time-varying and non-linear covariate effects with `rpsurv`](dgp-tve-nle.pdf) | <span class="tag">Survival Analysis</span> <span class="tag">Simulation</span> <span class="tag">rpsurv</span> |
 
-<hr>
-
-<footer>
-<a href="../index.qmd">Back to homepage</a>
-</footer>
+: {tbl-colwidths="[15,55,30]"}

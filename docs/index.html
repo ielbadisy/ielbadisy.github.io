@@ -6,7 +6,6 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Imad El Badisy, Research Engineer in Health Data Science, PhD. Biostatistics, survival analysis, missing data, and interpretable machine learning for health research.">
 
 <title>Imad El Badisy</title>
 <style>
@@ -24,328 +23,405 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
 <script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-html/tabby.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-html-eb71d4f0124c4d5ff63526840ab633f6.min.css" rel="stylesheet" append-hash="true" data-mode="light">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-5796e3eb9ea01e45975d7246408f328b.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-69c62992ee055750431bd41ebe52e1f4.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-5796e3eb9ea01e45975d7246408f328b.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-f45381d5fad7ded584fdadf3de29eeb6.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-31bae44e3666640a95646fe44b93d5c6.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-f45381d5fad7ded584fdadf3de29eeb6.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/quarto-contrib/fontawesome6-1.2.0/all.min.css" rel="stylesheet">
+<link href="site_libs/quarto-contrib/fontawesome6-1.2.0/latex-fontsize.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
 <style>html{ scroll-behavior: smooth; }</style>
-<meta name="google-site-verification" content="BL7llVzTysRFTmiaUvROhyznMMrs97Muk8fofExd6LI">
+<link rel="stylesheet" href="assets/about.css"> <meta name="google-site-verification" content="BL7llVzTysRFTmiaUvROhyznMMrs97Muk8fofExd6LI">
 
 
-<link rel="stylesheet" href="styles.css">
-<link rel="canonical" href="https://elbadisyimad.com/">
+<link rel="stylesheet" href="assets/overrides.css">
+<meta property="og:title" content="Imad El Badisy">
+<meta property="og:description" content="Research Engineer in Health Data Science">
+<meta property="og:image" content="https://elbadisyimad.com/profile.jpg">
+<meta property="og:site_name" content="Imad El Badisy">
+<meta property="og:locale" content="en_US">
+<meta property="og:image:alt" content="Imad El Badisy">
+<meta name="twitter:title" content="Imad El Badisy">
+<meta name="twitter:description" content="Research Engineer in Health Data Science">
+<meta name="twitter:image" content="https://elbadisyimad.com/profile.jpg">
+<meta name="twitter:image:alt" content="Imad El Badisy">
+<meta name="twitter:card" content="summary_large_image">
 </head>
 
-<body>
+<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
 
-
-<header id="title-block-header">
-<h1 class="title">Imad El Badisy</h1>
-
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Imad El Badisy</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./background.html"> 
+<span class="menu-text">Background</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./teaching.html"> 
+<span class="menu-text">Teaching</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./packages.html"> 
+<span class="menu-text">Software</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./publications.html"> 
+<span class="menu-text">Publications</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./notes/index.html"> 
+<span class="menu-text">Notes</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./cv/cv.pdf" target="_blank"> 
+<span class="menu-text">CV</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+    <a href="https://github.com/ielbadisy" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
 </header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content column-page" id="quarto-document-content">
 
 
-<ul class="menu">
+
+
+
+<div class="quarto-about-trestles column-page">
+  <div class="about-entity">
+    <img src="profile.jpg" alt="Imad El Badisy" class="about-image
+  rounded " style="width: 10em;">
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Imad El Badisy, PhD</h1>
+<p class="subtitle lead">Research Engineer in Health Data Science</p>
+</div>
+<div class="quarto-title-meta column-page">
+  </div>
+</header>
+    <div class="about-links">
+  <a href="https://ma.linkedin.com/in/imad-el-badisy-360018281" class="about-link" rel="" target="">
+    <i class="bi bi-linkedin"></i>
+     <span class="about-link-text"></span>
+  </a>
+  <a href="https://github.com/ielbadisy" class="about-link" rel="" target="">
+    <i class="bi bi-github"></i>
+     <span class="about-link-text"></span>
+  </a>
+  <a href="https://scholar.google.com/scholar?q=Imad+EL+BADISY" class="about-link" rel="" target="">
+     <span class="about-link-text"><i class="fa-solid fa-graduation-cap" aria-label="graduation-cap"></i></span>
+  </a>
+  <a href="mailto:elbadisyimad@gmail.com" class="about-link" rel="" target="">
+     <span class="about-link-text"><i class="fa-solid fa-envelope" aria-label="envelope"></i></span>
+  </a>
+</div>
+  </div>
+  <div class="about-contents"><div id="hero-heading">
+<div class="h1">
+Hi, I’m Imad
+</div>
+<p>I am a research engineer in health data science and computational methodologist building open-source tools and methodology for reproducible health research.</p>
+<p>My work sits at the intersection of survival analysis, machine learning, missing data imputation, and agentic computation, with a focus on making advanced statistical methods accessible to health researchers. Learn more about my research in the <a href="./packages.html">software packages</a> I build.</p>
+<p>Get in touch at <a href="mailto:elbadisyimad@gmail.com">elbadisyimad@gmail.com</a> or <a href="mailto:ielbadisy@cm6.ma">ielbadisy@cm6.ma</a>. <i class="fa-solid fa-feather-pointed" aria-label="feather-pointed"></i></p>
+</div></div>
+</div>
+
+<section id="about-me" class="level2">
+<h2 data-anchor-id="about-me">About me</h2>
+<div class="grid">
+<div id="about-me-1" class="g-col-12 g-col-md-6">
+<p><strong>Research engineer in health data science building open-source tools for reproducible research.</strong></p>
+<p>I hold a PhD in Biomedical Sciences from Aix-Marseille University (SESSTIM laboratory) on missing data and machine learning methods for survival analysis. I develop software, including <a href="https://github.com/ielbadisy/survalis">survalis</a> for interpretable survival machine learning, <a href="https://cran.r-project.org/package=survdnn">survdnn</a> for deep survival models, and <a href="https://github.com/ielbadisy/funcml">funcml</a> for functional machine learning, and design agentic workflows that bridge statistical rigor with modern computation. See my full list on the <a href="./packages.html">software</a> page.</p>
+<p>I work at the intersection of survival analysis, machine learning, missing data, and functional data methods. Moroccan and French national, husband and father.</p>
+</div>
+<div id="about-me-2" class="g-col-12 g-col-md-6">
+<p>
+<strong>Institutions and roles</strong>
+</p>
+<ul class="fa-ul">
 <li>
-<a href="#about">About</a>
+<span class="fa-li"><i class="fa-solid fa-briefcase"></i></span>Head of AI and Data Science Service · 2026–present · CM6RI, Rabat
 </li>
 <li>
-<a href="#research">Research</a>
+<span class="fa-li"><i class="fa-solid fa-briefcase"></i></span>Research Engineer in Health Data Science · 2021–2026 · CM6RI, Rabat
 </li>
 <li>
-<a href="#software">Software</a>
+<span class="fa-li"><i class="fa-solid fa-graduation-cap"></i></span>Ph.D.&nbsp;in Biomedical Sciences · Aix-Marseille Université, SESSTIM · 2025
 </li>
 <li>
-<a href="#publications">Publications</a>
-</li>
-<li>
-<a href="#contact">Contact</a>
-</li>
-<li>
-<a href="cv/cv.pdf">CV</a>
+<span class="fa-li"><i class="fa-solid fa-file-lines"></i></span><a href="./background.html">Education &amp; experience</a> · <a href="cv/cv.pdf">CV (PDF)</a>
 </li>
 </ul>
-<hr>
-<div class="identity">
-<img class="profile-photo" src="profile.jpg" alt="Portrait of Imad El Badisy">
-<p class="role">
-Research Engineer in Health Data Science, PhD
-</p>
-<p class="affiliation">
-Mohammed VI Center for Research and Innovation · AI &amp; Data Science
-</p>
-<p class="links">
-<a href="mailto:elbadisyimad@gmail.com">Email</a> · <a href="https://github.com/ielbadisy">GitHub</a> · <a href="https://scholar.google.com/scholar?q=Imad+EL+BADISY">Google Scholar</a> · <a href="https://ma.linkedin.com/in/imad-el-badisy-360018281">LinkedIn</a>
-</p>
 </div>
-<h2 id="about" class="anchored">About</h2>
-<p>Research Engineer in Health Data Science (PhD) and computational methodologist working at the interface of biostatistics, machine learning, and applied health data analytics. I hold a PhD in Biomedical Sciences from Aix-Marseille University (SESSTIM laboratory) on missing data and machine learning methods for survival analysis.</p>
-<p>My work focuses on developing algorithms and statistical methodology for health data analysis, covering survival analysis, missing data imputation, and machine learning. I develop open-source R packages for survival analysis, missing data, and interpretable machine learning, and contribute as a consultant and trainer in biostatistics and health data science. Moroccan and French national, husband and father.</p>
-<h2 id="contact" class="anchored">Contact</h2>
-<p>For collaboration, methodological support, or consulting requests, please reach out by email.</p>
-<table class="caption-top">
-<colgroup>
-<col style="width: 20%">
-<col style="width: 80%">
-</colgroup>
-<tbody>
-<tr class="odd">
-<td>Personal Email</td>
-<td><a href="mailto:elbadisyimad@gmail.com">elbadisyimad@gmail.com</a></td>
-</tr>
-<tr class="even">
-<td>Institutional Email</td>
-<td><a href="mailto:ielbadisy@cm6.ma">ielbadisy@cm6.ma</a></td>
-</tr>
-<tr class="odd">
-<td>GitHub</td>
-<td><a href="https://github.com/ielbadisy">github.com/ielbadisy</a></td>
-</tr>
-<tr class="even">
-<td>LinkedIn</td>
-<td><a href="https://ma.linkedin.com/in/imad-el-badisy-360018281">imad-el-badisy-360018281</a></td>
-</tr>
-</tbody>
-</table>
-<div class="split">
-<section id="education" class="split-col">
-<h2 class="anchored">Education</h2>
-<table class="caption-top">
-<colgroup>
-<col style="width: 40%">
-<col style="width: 40%">
-<col style="width: 20%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Degree</th>
-<th>Institution</th>
-<th>Period</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>PhD in Biomedical Sciences</td>
-<td>Aix-Marseille University, SESSTIM, Marseille</td>
-<td>2021 – 2025</td>
-</tr>
-<tr class="even">
-<td>Master 2, Quantitative Methods for Health Research</td>
-<td>Aix-Marseille University, SESSTIM, Marseille</td>
-<td>2018 – 2019</td>
-</tr>
-<tr class="odd">
-<td>Master 1, Applied Mathematics and Statistics</td>
-<td>Université Clermont Auvergne, UFR de mathématiques, Clermont-Ferrand</td>
-<td>2017 – 2018</td>
-</tr>
-<tr class="even">
-<td>Master 2, Health Economics</td>
-<td>Université Clermont Auvergne, CERDI, Clermont-Ferrand</td>
-<td>2017</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="experience" class="split-col">
-<h2 class="anchored">Experience</h2>
-<table class="caption-top">
-<colgroup>
-<col style="width: 40%">
-<col style="width: 40%">
-<col style="width: 20%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Position</th>
-<th>Institution</th>
-<th>Period</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Head of AI and Data Science Service</td>
-<td>CM6RI, Rabat, Morocco</td>
-<td>Jan.&nbsp;2026 – Present</td>
-</tr>
-<tr class="even">
-<td>Research Engineer</td>
-<td>CM6RI, Rabat, Morocco</td>
-<td>Nov.&nbsp;2021 – Jan.&nbsp;2026</td>
-</tr>
-<tr class="odd">
-<td>Data Science Education Officer</td>
-<td>The GRAPH Network, Switzerland</td>
-<td>Sep.&nbsp;2023 – Dec.&nbsp;2023</td>
-</tr>
-<tr class="even">
-<td>Research and Development Engineer</td>
-<td>IMT Atlantique, Brest, France</td>
-<td>Sep.&nbsp;2019 – Sep.&nbsp;2021</td>
-</tr>
-<tr class="odd">
-<td>Biostatistician</td>
-<td>INSERM, Clermont-Ferrand, France</td>
-<td>Jan.&nbsp;2019 – Jun.&nbsp;2019</td>
-</tr>
-<tr class="even">
-<td>Health Economist Intern</td>
-<td>Université de Sherbrooke, Quebec, Canada</td>
-<td>Feb.&nbsp;2017 – Sep.&nbsp;2017</td>
-</tr>
-</tbody>
-</table>
-</section>
 </div>
-<div class="split">
-<section id="research" class="split-col">
-<h2 class="anchored">Research</h2>
-<ul>
-<li><strong>Survival machine learning</strong>: Individualized survival prediction | neural survival models | RMST-based summaries, and trajectory phenotyping.</li>
-<li><strong>Missing data</strong>: Evaluation of imputation strategies</li>
-<li><strong>Interpretable ML</strong>: Explanation workflows aligned with clinical reasoning, including SHAP-style attributions, PDP/ICE/ALE, and stability diagnostics.</li>
-<li><strong>Agentic data science</strong>: Autonomous agents that orchestrate analytical workflows for health research.</li>
-</ul>
+<!-- end grid -->
 </section>
-<section id="consulting" class="split-col">
-<h2 class="anchored">Consulting</h2>
+<section id="research" class="level2">
+<h2 data-anchor-id="research">Research</h2>
+<p>My research develops computational methods for health data: survival machine learning (individualized prediction, neural survival models, RMST summaries, trajectory phenotyping), missing-data imputation, interpretable ML for clinical reasoning, and agentic data science for analytical workflows.</p>
+</section>
+<section id="consulting" class="level2">
+<h2 data-anchor-id="consulting">Consulting</h2>
 <p>I provide independent methodological and statistical consulting for health research teams, from study design through publication.</p>
 <ul>
 <li>Study design and analysis plan review</li>
-<li>Statistical methodology</li>
+<li>Statistical methodology (survival analysis, functional data, predictive modeling)</li>
 <li>Evidence synthesis</li>
 <li>Machine learning prediction for health outcomes</li>
 <li>Custom R package and tool development</li>
 </ul>
-<p>Engagements are scoped individually: short advisory sessions, analysis support on a specific study, or longer-term collaboration. <a href="#contact">Get in touch →</a></p>
+<p>Engagements are scoped individually: short advisory sessions, analysis support on a specific study, or longer-term collaboration. <a href="./contact.html">Get in touch →</a></p>
+
+
+
 </section>
-</div>
-<h2 id="teaching" class="anchored">Teaching</h2>
-<table class="caption-top">
-<colgroup>
-<col style="width: 45%">
-<col style="width: 40%">
-<col style="width: 15%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Course</th>
-<th>Institution</th>
-<th>Period</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>AI for Public Health (ML, NLP, applied AI)</td>
-<td>Aix-Marseille University, SESSTIM, Marseille, France</td>
-<td>2022 – present</td>
-</tr>
-<tr class="even">
-<td>Introduction to Biostatistics</td>
-<td>University Mohammed VI of Health Sciences (UM6SS), Casablanca, Morocco</td>
-<td>2021 – present</td>
-</tr>
-<tr class="odd">
-<td>Quantitative Epidemiology and Machine Learning</td>
-<td>Institut Mines-Télécom, IMT Atlantique, Brest, France</td>
-<td>2020 – present</td>
-</tr>
-</tbody>
-</table>
-<p><em>Outside working hours:</em> I organize <strong>Methods in Health Data Science with R (MHDSR)</strong>, an independent training pathway covering applied biostatistics, survival analysis, machine learning, and meta-analysis with R, delivered live to research teams and open cohorts:</p>
-<ul>
-<li><strong>BIOSTATR</strong>: Applied Biostatistics with R (foundations)</li>
-<li><strong>ML4HOR</strong>: Machine Learning for Health Outcomes with R (prediction)</li>
-<li><strong>METAR</strong>: Conducting Meta-Analysis with R (evidence synthesis)</li>
-</ul>
-<p>Visit <a href="https://mhdsr.com">mhdsr.com</a> for details, or <a href="#contact">get in touch →</a> for more information.</p>
-<h2 id="software" class="anchored">Selected Software</h2>
-<ul>
-<li><p>El Badisy I (2026). <em>survalis: Interpretable Survival Machine Learning Framework</em>. R package version 1.0.0, <a href="https://CRAN.R-project.org/package=survalis" class="uri">https://CRAN.R-project.org/package=survalis</a>.</p></li>
-<li><p>El Badisy I (2026). <em>survdnn: Deep Neural Networks for Survival Analysis with R ‘torch’</em>. R package version 0.7.6, <a href="https://CRAN.R-project.org/package=survdnn" class="uri">https://CRAN.R-project.org/package=survdnn</a>.</p></li>
-<li><p>El Badisy I (2026). <em>funcml: Functional Machine Learning Framework</em>. R package version 0.9.0, <a href="https://CRAN.R-project.org/package=funcml" class="uri">https://CRAN.R-project.org/package=funcml</a>.</p></li>
-<li><p>El Badisy I (2026). <em>unsurv: Unsupervised Clustering of Individualized Survival Curves</em>. R package version 0.5.0, <a href="https://github.com/ielbadisy/unsurv" class="uri">https://github.com/ielbadisy/unsurv</a>.</p></li>
-<li><p>El Badisy I (2026). <em>tvrmst: Time-Varying Restricted Mean Survival Time from Survival Matrices</em>. R package version 0.0.6, <a href="https://CRAN.R-project.org/package=tvrmst" class="uri">https://CRAN.R-project.org/package=tvrmst</a>.</p></li>
-<li><p>El Badisy I (2026). <em>mcstatsim: Monte Carlo Statistical Simulation Tools Using a Functional Approach</em>. R package version 0.5.1, <a href="https://CRAN.R-project.org/package=mcstatsim" class="uri">https://CRAN.R-project.org/package=mcstatsim</a>.</p></li>
-<li><p>El Badisy I (2023). <em>missCforest: Ensemble Conditional Trees for Missing Data Imputation</em>. doi:10.32614/CRAN.package.missCforest <a href="https://doi.org/10.32614/CRAN.package.missCforest" class="uri">https://doi.org/10.32614/CRAN.package.missCforest</a>, R package version 0.0.8, <a href="https://CRAN.R-project.org/package=missCforest" class="uri">https://CRAN.R-project.org/package=missCforest</a>.</p></li>
-<li><p>El Badisy I (2026). <em>functionals: Functional Programming with Parallelism and Progress Tracking</em>. R package version 0.5.1, <a href="https://CRAN.R-project.org/package=functionals" class="uri">https://CRAN.R-project.org/package=functionals</a>.</p></li>
-<li><p>El Badisy I (2026). <em>mimar: Compact Multiple Imputation, Assessment, and Reporting</em>. R package version 1.0.0, <a href="https://CRAN.R-project.org/package=mimar" class="uri">https://CRAN.R-project.org/package=mimar</a>.</p></li>
-<li><p>El Badisy I (2026). <em>testflow: A Workflow for Statistical Testing and Interpretation</em>. R package version 1.0.0, <a href="https://CRAN.R-project.org/package=testflow" class="uri">https://CRAN.R-project.org/package=testflow</a>.</p></li>
-<li><p>El Badisy I (2026). <em>densemlp: Dense Neural Networks for Tabular Classification and Regression</em>. R package version 0.5.0, <a href="https://CRAN.R-project.org/package=densemlp" class="uri">https://CRAN.R-project.org/package=densemlp</a>.</p></li>
-<li><p>El Badisy I (2026). <em>CEACT: Cost-Effectiveness Analysis Toolkit for Clinical Trials</em>. R package version 0.5.0, <a href="https://CRAN.R-project.org/package=CEACT" class="uri">https://CRAN.R-project.org/package=CEACT</a>.</p></li>
-<li><p>El Badisy I (2026). <em>missknn: Fast Masked K-Nearest Neighbor Imputation</em>. R package version 1.1.2, <a href="https://CRAN.R-project.org/package=missknn" class="uri">https://CRAN.R-project.org/package=missknn</a>.</p></li>
-</ul>
-<p>All packages on <a href="https://CRAN.R-project.org/search/?query=el+badisy">CRAN</a> · also available via <a href="https://ielbadisy.r-universe.dev">R-universe</a></p>
-<h2 id="publications" class="anchored">Selected Publications</h2>
-<ul>
-<li><p><strong>El Badisy I.</strong> (2026). SurvDNN: Survival Deep Learning Models for Tabular Data. <em>The R Journal</em>, 18(1):384-399.</p></li>
-<li><p><strong>El Badisy I.</strong> (2026). unsurv: Clustering Individualized Survival Curves. <em>Bioinformatics Advances</em>, vbag218.</p></li>
-<li><p><strong>El Badisy I.</strong> (2026). funcml: Functional Machine Learning Software for R. <a href="https://doi.org/10.5281/zenodo.20707605">https://doi.org/10.5281/zenodo.20707605</a></p></li>
-<li><p><strong>El Badisy I.</strong>, Assarag B., Belrhiti Z. (2026). Interpretable clinical decision support systems in high-risk pregnancy: a scoping review of models, methods, and implementation. <em>BMC Pregnancy and Childbirth</em>, 26(1):125.</p></li>
-<li><p><strong>El Badisy I.</strong>, Graffeo N., Khalis M., Giorgi R. (2024). Multi-metric comparison of machine learning imputation methods with application to breast cancer survival. <em>BMC Medical Research Methodology</em>, 24(1):191.</p></li>
-<li><p><strong>El Badisy I.</strong>, BenBrahim Z., Khalis M., et al.&nbsp;(2024). Risk factors affecting patient survival with colorectal cancer in Morocco: survival analysis using an interpretable machine learning approach. <em>Scientific Reports</em>, 14(1):3556.</p></li>
-<li><p>Houdou A., <strong>El Badisy I.</strong>, Khomsi K., et al.&nbsp;(2024). Interpretable machine learning approaches for forecasting and predicting air pollution: A systematic review. <em>Aerosol and Air Quality Research</em>, 24(1):230151.</p></li>
-<li><p>Kadi C., Ahmadi N., Houdou A., <strong>El Badisy I.</strong>, et al.&nbsp;(2025). Differentiating Latent Tuberculosis from Active Tuberculosis Through Activation Phenotypes and Chemokine Markers HLA-DR, CD38, MCP-1, and RANTES: A Systematic Review and Meta-Analysis. <em>Biomarker Insights</em>, 20:11772719241312776.</p></li>
-</ul>
-<p><strong>Selected talks:</strong></p>
-<ul>
-<li><strong>El Badisy I.</strong> et al.&nbsp;(2023). Comparison of missing data imputation methods in Cox regression with time-varying and non-linear covariate effects. <em>ISCB 2023</em>, Rome.</li>
-<li><strong>El Badisy I.</strong> et al.&nbsp;(2023). Missing data imputation using a meta-algorithm, metaCART: A simulation study under MCAR. <em>EpiClin 2023</em>, Nancy.</li>
-</ul>
-<p><a href="cv/cv.pdf">Full publication list →</a></p>
-<h2 id="notes" class="anchored">Notes</h2>
-<p>Some methodological notes on related work.</p>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th>Date</th>
-<th>Note</th>
-<th>Topic</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>2026-08-24</td>
-<td><a href="notes/deep-survival-networks.pdf">Deep neural networks for survival analysis with survdnn</a></td>
-<td>Deep Learning</td>
-</tr>
-<tr class="even">
-<td>2026-08-24</td>
-<td><a href="notes/survival-trajectory-phenotypes.pdf">Survival-trajectory phenotypes from individualized survival curves</a></td>
-<td>Clustering</td>
-</tr>
-<tr class="odd">
-<td>2026-08-24</td>
-<td><a href="notes/masked-knn-imputation.pdf">Masked k-NN imputation with missknn</a></td>
-<td>Imputation</td>
-</tr>
-</tbody>
-</table>
-<p><a href="./notes/index.html">View all notes →</a></p>
-<hr>
-<footer>
-© 2026 Imad El Badisy · Built with <a href="https://quarto.org">Quarto</a>
-</footer>
 
-
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
-    const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
-    tabsets.forEach(function(tabset) {
-      const tabby = new Tabby('#' + tabset.id);
-    });
-    const icon = "";
-    const anchorJS = new window.AnchorJS();
-    anchorJS.options = {
-      placement: 'right',
-      icon: icon
-    };
-    anchorJS.add('.anchored');
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
     const isCodeAnnotation = (el) => {
       for (const clz of el.classList) {
         if (clz.startsWith('code-annotation-')) {                     
@@ -437,7 +513,7 @@ Mohammed VI Center for Research and Innovation · AI &amp; Data Science
         },
         interactive: true,
         interactiveBorder: 10,
-        theme: 'light-border',
+        theme: 'quarto',
         placement: 'bottom-start',
       };
       if (contentFn) {
@@ -737,6 +813,20 @@ Mohammed VI Center for Research and Innovation · AI &amp; Data Science
     }
   });
   </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2026 Imad El Badisy ∙ Made with <a href="https://quarto.org">Quarto</a></p>
+</div>   
+    <div class="nav-footer-center">
+<p><a class="link-dark me-1" href="https://ma.linkedin.com/in/imad-el-badisy-360018281" title="LinkedIn" target="_blank" rel="noopener"><i class="fa-brands fa-linkedin" aria-label="linkedin"></i></a> <a class="link-dark me-1" href="https://github.com/ielbadisy" title="GitHub" target="_blank" rel="noopener"><i class="fa-brands fa-github" aria-label="github"></i></a> <a class="link-dark me-1" href="https://scholar.google.com/scholar?q=Imad+EL+BADISY" title="Google Scholar" target="_blank" rel="noopener"><i class="fa-solid fa-graduation-cap" aria-label="graduation-cap"></i></a> <a class="link-dark me-1" href="mailto:elbadisyimad@gmail.com" title="Email" target="_blank" rel="noopener"><i class="fa-solid fa-envelope" aria-label="envelope"></i></a></p>
+</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
 
 
 

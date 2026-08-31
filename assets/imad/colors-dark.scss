@@ -1,0 +1,19 @@
+/*-- scss:defaults --*/
+
+// Primary: light slate for dark mode
+$spc-primary:              #cfd8e3;
+$spc-primary-light:        #a0b4c8;
+
+// Secondary: INDIGO for dark mode (biostatlab.org uses teal #4dd0e1 here)
+$spc-secondary:            #818CF8;
+$spc-secondary-light:      #A5B4FC;
+
+// Accent
+$spc-accent:               #312E81;
+$spc-accent-light:         #1E1B4B;
+$spc-accent-dark:          #A5B4FC;
+
+// Backgrounds (dark mode layers)
+$spc-bg-00:                #111827;
+$spc-bg-0:                 #1a1a2e;
+$spc-bg-1:                 #2b2b3b;

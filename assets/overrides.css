@@ -1,0 +1,157 @@
+/* Global layout overrides: wider content column, more
+   breathing room, larger readable type. Accent recolored orange -> blue;
+   logo rules dropped (elbadisyimad.com has no logo). */
+
+/* Quarto/Bootstrap defines a more specific body.fullcontent .page-columns rule
+   that otherwise wins over a plain .page-columns override, so match its
+   selector (and add !important as a safety net) to actually take effect.
+   Keep every named grid line Quarto's own CSS references (page-start/page-end
+   in particular: .column-page{grid-column:page-start/page-end}). */
+body.fullcontent:not(.floating):not(.docked) .page-columns,
+.page-columns {
+  grid-template-columns:
+    [screen-start] 1fr
+    [page-start page-start-inset body-start-outset body-start body-content-start]
+    clamp(320px, 92%, 1700px)
+    [body-content-end body-end body-end-outset page-end-inset page-end]
+    1fr [screen-end] !important;
+}
+
+body {
+  font-size: 1.18rem;
+  line-height: 1.7;
+}
+
+p {
+  margin-bottom: 1.15em;
+}
+
+h2 {
+  margin-top: 2.6rem;
+  margin-bottom: 1rem;
+}
+
+h3 {
+  margin-top: 1.6rem;
+  margin-bottom: 0.6rem;
+}
+
+.course-grid,
+.grid {
+  row-gap: 2rem;
+}
+
+table {
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.fiche {
+  width: 96%;
+  max-width: 1600px;
+  font-size: 1.05rem !important;
+  line-height: 1.55 !important;
+}
+
+.fiche-meta,
+.fiche-info,
+.fiche-schedule,
+.fiche-footer {
+  font-size: 0.98rem !important;
+}
+
+/* Cohort/course details as a scannable labelled strip. */
+.course-facts {
+  display: grid;
+  grid-template-columns: 1fr 1.8fr 1fr 1.4fr;
+  gap: 0;
+  margin: 1.5rem 0;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--bs-border-color, #dee2e6);
+  border-top: 3px solid var(--bs-secondary, #4338CA);
+  border-radius: 10px;
+  background: rgba(67, 56, 202, 0.035);
+}
+
+.course-facts > div {
+  min-width: 0;
+  padding: 1rem 1.15rem;
+}
+
+.course-facts > div + div {
+  border-left: 1px solid var(--bs-border-color, #dee2e6);
+}
+
+.course-fact-label {
+  display: block;
+  margin-bottom: 0.4rem;
+  color: var(--bs-secondary, #4338CA);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.course-fact-value {
+  display: block;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.course-facts small {
+  color: var(--bs-secondary-color, #6c757d);
+  font-size: 0.88em;
+}
+
+@media (max-width: 900px) {
+  .course-facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .course-facts > div:nth-child(odd) {
+    border-left: 0;
+  }
+
+  .course-facts > div:nth-child(n + 3) {
+    border-top: 1px solid var(--bs-border-color, #dee2e6);
+  }
+}
+
+@media (max-width: 575px) {
+  .course-facts {
+    grid-template-columns: 1fr;
+  }
+
+  .course-facts > div + div {
+    border-top: 1px solid var(--bs-border-color, #dee2e6);
+    border-left: 0;
+  }
+}
+
+/* Quiet bordered/tinted callout, no button. */
+.announcement {
+  border: 1px solid var(--bs-secondary, #4338CA);
+  background: rgba(67, 56, 202, 0.06);
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  margin: 1.25rem 0 1.5rem;
+}
+
+.announcement p {
+  margin-bottom: 0;
+}
+
+/* Notes listing tags */
+.tag {
+  display: inline-block;
+  margin: 0.08rem 0.14rem 0.08rem 0;
+  padding: 0.06rem 0.5rem;
+  border: 1px solid var(--bs-border-color, #dee2e6);
+  border-radius: 999px;
+  background: var(--spc-accent-light, #E0E7FF);
+  color: var(--spc-secondary, #4338CA);
+  font-size: 0.8rem;
+  white-space: nowrap;
+}

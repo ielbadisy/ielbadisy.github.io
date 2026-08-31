@@ -1,0 +1,187 @@
+/* title */
+.title {
+  font-size: 3.2rem;
+  font-weight: 700;
+  line-height: 1.1em !important;
+}
+
+/* global body copy */
+body {
+  font-size: 1.08rem;
+  line-height: 1.7;
+}
+
+p, li {
+  font-size: 1.05rem;
+  line-height: 1.72;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.45rem;
+}
+
+h4 {
+  font-size: 1.2rem;
+}
+
+/* allow the landing page to span the full viewport width */
+.page-layout-full .quarto-title-banner,
+.page-layout-full .page-columns,
+.page-layout-full .content,
+.page-layout-full .page-body,
+.page-layout-full main,
+.page-layout-full .quarto-about-solana,
+.page-layout-full .about-entity,
+.page-layout-full #quarto-content,
+.page-layout-full #quarto-document-content,
+.page-layout-full .column-page {
+  max-width: 100% !important;
+  width: 100% !important;
+}
+
+.page-layout-full #quarto-document-content {
+  max-width: 100% !important;
+}
+
+.page-layout-full .quarto-about-solana {
+  padding-left: clamp(0.75rem, 2vw, 2rem);
+  padding-right: clamp(0.75rem, 2vw, 2rem);
+}
+
+.page-layout-full .page-columns,
+.page-layout-full .column-page {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+/* subtitle + Learn More About Me */
+.subtitle {
+  font-family: "Petrona";
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* heading, subtitle, and blurb */
+.entity-contents {
+  text-align: right !important;
+  padding: 0 2em 0 2em;
+}
+
+/* blurb */
+.about-contents {
+  padding: 0 0 0 2em !important;
+}
+
+/* social links: block of links */
+.about-entity .about-links {
+  justify-content: flex-end !important;
+  column-gap: 0em !important;
+  font-size: 1.2em !important;
+}
+
+/* social links: individual links */
+.about-entity .about-link {
+  padding: 0.25em 0.25em !important;
+  border: none !important;  
+}
+
+/* Learn More About Me */
+.about-links.subtitle {
+  font-size: 1em !important;
+  font-family: "Red Hat Text";
+  justify-content: flex-end !important;
+}
+
+/* image */
+.about-image {
+  margin-top: -2em;
+  padding: 0 2em 0em 0;
+  width: min(34vw, 28em) !important;
+  max-width: 100% !important;
+}
+
+/* homepage hero text */
+.quarto-about-solana .about-contents,
+.quarto-about-solana .about-contents p,
+.quarto-about-solana .entity-contents,
+.quarto-about-solana .entity-contents p {
+  font-size: 1.22rem;
+  line-height: 1.9;
+}
+
+.quarto-about-solana .subtitle {
+  font-size: 1.22rem;
+}
+
+.quarto-about-solana .title {
+  font-size: clamp(3.2rem, 5vw, 4.6rem);
+}
+
+.listing-title,
+.description p {
+  max-width: min(100%, 100ch);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* // Home
+
+// social links
+.about-entity {
+  // block of links
+  .about-links {
+    column-gap: 0em !important;
+    font-size: 1.2em;
+  }
+  // individual links
+  .about-link {
+    padding: 0.25em 0.25em !important;
+    border: none !important;
+  }
+} */
+
+/* mobile query up for screens up to ~992px wide */
+@media screen and (max-width: 991.98px) {
+    /* move text up & center */
+    .entity-contents {
+      order: 2 !important;
+      margin: -4em 0 0 0 !important;
+      padding: 0 0 0 0em !important;
+      text-align: center !important;
+    }
+
+    /* center subtitle */
+    .subtitle {
+      text-align: center !important;
+    }
+
+    /* social links: block of links */
+    .about-entity .about-links {
+      justify-content: center !important;
+      font-size: 1em !important;
+    }
+
+    /* blurb */
+    .about-contents {
+      padding: 0 0 0 0em !important;
+    }
+
+    /* center Learn More About Me */
+    .about-links.subtitle {
+      justify-content: center !important;
+    }
+
+    /* move image up, adjust padding */
+    .about-image {
+      order: 1 !important;
+      padding: 0 2em 0 2em !important;
+    }
+}

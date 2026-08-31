@@ -1,0 +1,65 @@
+/* Cobalt-inspired code block theme, scoped to pages that include this file */
+
+div.sourceCode {
+  background-color: #002240 !important;
+  border-radius: 6px;
+  border: 1px solid #0d3a5f;
+}
+
+div.sourceCode pre.sourceCode {
+  background-color: transparent !important;
+  color: #ffffff;
+}
+
+div.sourceCode code.sourceCode {
+  color: #ffffff;
+}
+
+/* keywords, control flow, other tokens */
+div.sourceCode code span.kw,
+div.sourceCode code span.cf,
+div.sourceCode code span.ot {
+  color: #ff9d00 !important;
+  font-weight: 600;
+}
+
+/* function calls */
+div.sourceCode code span.fu {
+  color: #ffc600 !important;
+}
+
+/* strings */
+div.sourceCode code span.st,
+div.sourceCode code span.ss,
+div.sourceCode code span.vs {
+  color: #ffee80 !important;
+}
+
+/* numbers */
+div.sourceCode code span.dv,
+div.sourceCode code span.fl,
+div.sourceCode code span.bn,
+div.sourceCode code span.cn {
+  color: #ff628c !important;
+}
+
+/* comments */
+div.sourceCode code span.co {
+  color: #0088ff !important;
+  font-style: italic;
+}
+
+/* variables */
+div.sourceCode code span.va {
+  color: #9effff !important;
+}
+
+/* operators, punctuation */
+div.sourceCode code span.op {
+  color: #ffffff !important;
+}
+
+/* code-copy button stays legible on the dark background */
+div.sourceCode .code-copy-button {
+  filter: invert(1);
+}
