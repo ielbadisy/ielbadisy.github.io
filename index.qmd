@@ -1,206 +1,90 @@
 ---
-title: "Imad El Badisy"
-description: "Imad El Badisy, Research Engineer in Health Data Science, PhD. Biostatistics, survival analysis, missing data, and interpretable machine learning for health research."
+title: "Imad El Badisy, PhD"
+pagetitle: "Imad El Badisy"
+subtitle: Research Engineer in Health Data Science
+image: profile.jpg
+image-alt: "Imad El Badisy"
+about:
+  template: trestles
+  image-width: 10em
+  image-shape: rounded
+  id: hero-heading
+  links:
+    - icon: linkedin
+      aria-label: "LinkedIn"
+      href: https://ma.linkedin.com/in/imad-el-badisy-360018281
+    - icon: github
+      aria-label: GitHub
+      href: https://github.com/ielbadisy
+    - text: "{{< fa graduation-cap >}}"
+      aria-label: "Google Scholar"
+      href: https://scholar.google.com/scholar?q=Imad+EL+BADISY
+    - text: "{{< fa envelope >}}"
+      aria-label: Email
+      href: mailto:elbadisyimad@gmail.com
 format:
   html:
-    include-in-header:
-      text: |
-        <meta name="google-site-verification" content="BL7llVzTysRFTmiaUvROhyznMMrs97Muk8fofExd6LI" />
+    page-layout: full
+
+header-includes: >
+  <link rel="stylesheet" href="assets/about.css">
+  <meta name="google-site-verification" content="BL7llVzTysRFTmiaUvROhyznMMrs97Muk8fofExd6LI" />
+resources:
+  - assets/about.css
 ---
 
-<ul class="menu">
-  <li><a href="#about">About</a></li>
-  <li><a href="#research">Research</a></li>
-  <li><a href="#software">Software</a></li>
-  <li><a href="#publications">Publications</a></li>
-  <li><a href="#contact">Contact</a></li>
-  <li><a href="cv/cv.pdf">CV</a></li>
+::: {#hero-heading}
+<div class="h1">Hi, I'm Imad</div>
+
+I am a research engineer in health data science and computational methodologist building open-source tools and methodology for reproducible health research.
+
+My work sits at the intersection of survival analysis, machine learning, missing data imputation, and agentic computation, with a focus on making advanced statistical methods accessible to health researchers. Learn more about my research in the [software packages](packages.qmd) I build.
+
+Get in touch at [elbadisyimad@gmail.com](mailto:elbadisyimad@gmail.com) or [ielbadisy@cm6.ma](mailto:ielbadisy@cm6.ma). {{< fa feather-pointed >}}
+
+:::
+
+## About me
+
+::: {.grid}
+
+::: {.g-col-12 .g-col-md-6 #about-me-1}
+
+**Research engineer in health data science building open-source tools for reproducible research.**
+
+I hold a PhD in Biomedical Sciences from Aix-Marseille University (SESSTIM laboratory) on missing data and machine learning methods for survival analysis. I develop software, including [survalis](https://github.com/ielbadisy/survalis) for interpretable survival machine learning, [survdnn](https://cran.r-project.org/package=survdnn) for deep survival models, and [funcml](https://github.com/ielbadisy/funcml) for functional machine learning, and design agentic workflows that bridge statistical rigor with modern computation. See my full list on the [software](packages.qmd) page.
+
+I work at the intersection of survival analysis, machine learning, missing data, and functional data methods. Moroccan and French national, husband and father.
+
+:::
+
+::: {.g-col-12 .g-col-md-6 #about-me-2}
+
+<p><strong>Institutions and roles</strong></p>
+<ul class="fa-ul">
+   <li><span class="fa-li"><i class="fa-solid fa-briefcase"></i></span>Head of AI and Data Science Service · 2026–present · CM6RI, Rabat</li>
+   <li><span class="fa-li"><i class="fa-solid fa-briefcase"></i></span>Research Engineer in Health Data Science · 2021–2026 · CM6RI, Rabat</li>
+   <li><span class="fa-li"><i class="fa-solid fa-graduation-cap"></i></span>Ph.D. in Biomedical Sciences · Aix-Marseille Université, SESSTIM · 2025</li>
+   <li><span class="fa-li"><i class="fa-solid fa-file-lines"></i></span><a href="background.qmd">Education &amp; experience</a> · <a href="cv/cv.pdf">CV (PDF)</a></li>
 </ul>
 
-<hr>
+:::
 
-<div class="identity">
-  <img class="profile-photo" src="profile.jpg" alt="Portrait of Imad El Badisy">
-  <p class="role">Research Engineer in Health Data Science, PhD</p>
+:::
+<!-- end grid -->
 
-  <p class="affiliation">
-    Mohammed VI Center for Research and Innovation · AI & Data Science
-  </p>
-  <p class="links">
-    <a href="mailto:elbadisyimad@gmail.com">Email</a> ·
-    <a href="https://github.com/ielbadisy">GitHub</a> ·
-    <a href="https://scholar.google.com/scholar?q=Imad+EL+BADISY">Google Scholar</a> ·
-    <a href="https://ma.linkedin.com/in/imad-el-badisy-360018281">LinkedIn</a>
-  </p>
-</div>
+## Research
 
-## About {#about}
+My research develops computational methods for health data: survival machine learning (individualized prediction, neural survival models, RMST summaries, trajectory phenotyping), missing-data imputation, interpretable ML for clinical reasoning, and agentic data science for analytical workflows.
 
-Research Engineer in Health Data Science (PhD) and computational methodologist working at the interface of biostatistics, machine learning, and applied health data analytics. I hold a PhD in Biomedical Sciences from Aix-Marseille University (SESSTIM laboratory) on missing data and machine learning methods for survival analysis.
-
-My work focuses on developing algorithms and statistical methodology for health data analysis, covering survival analysis, missing data imputation, and machine learning. I develop open-source R packages for survival analysis, missing data, and interpretable machine learning, and contribute as a consultant and trainer in biostatistics and health data science. Moroccan and French national, husband and father.
-
-## Contact {#contact}
-
-For collaboration, methodological support, or consulting requests, please reach out by email.
-
-| | |
-|---|---|
-| Personal Email | [elbadisyimad@gmail.com](mailto:elbadisyimad@gmail.com) |
-| Institutional Email | [ielbadisy@cm6.ma](mailto:ielbadisy@cm6.ma) |
-| GitHub | [github.com/ielbadisy](https://github.com/ielbadisy) |
-| LinkedIn | [imad-el-badisy-360018281](https://ma.linkedin.com/in/imad-el-badisy-360018281) |
-
-: {tbl-colwidths="[20,80]"}
-
-<div class="split">
-<div class="split-col">
-
-## Education {#education}
-
-| Degree | Institution | Period |
-|---|---|---|
-| PhD in Biomedical Sciences | Aix-Marseille University, SESSTIM, Marseille | 2021 – 2025 |
-| Master 2, Quantitative Methods for Health Research | Aix-Marseille University, SESSTIM, Marseille | 2018 – 2019 |
-| Master 1, Applied Mathematics and Statistics | Université Clermont Auvergne, UFR de mathématiques, Clermont-Ferrand | 2017 – 2018 |
-| Master 2, Health Economics | Université Clermont Auvergne, CERDI, Clermont-Ferrand | 2017 |
-
-: {tbl-colwidths="[40,40,20]"}
-
-</div>
-<div class="split-col">
-
-## Experience {#experience}
-
-| Position | Institution | Period |
-|---|---|---|
-| Head of AI and Data Science Service | CM6RI, Rabat, Morocco | Jan. 2026 – Present |
-| Research Engineer | CM6RI, Rabat, Morocco | Nov. 2021 – Jan. 2026 |
-| Data Science Education Officer | The GRAPH Network, Switzerland | Sep. 2023 – Dec. 2023 |
-| Research and Development Engineer | IMT Atlantique, Brest, France | Sep. 2019 – Sep. 2021 |
-| Biostatistician | INSERM, Clermont-Ferrand, France | Jan. 2019 – Jun. 2019 |
-| Health Economist Intern | Université de Sherbrooke, Quebec, Canada | Feb. 2017 – Sep. 2017 |
-
-: {tbl-colwidths="[40,40,20]"}
-
-</div>
-</div>
-
-<div class="split">
-<div class="split-col">
-
-## Research {#research}
-
-- **Survival machine learning**: Individualized survival prediction | neural survival models | RMST-based summaries, and trajectory phenotyping.
-- **Missing data**: Evaluation of imputation strategies
-- **Interpretable ML**: Explanation workflows aligned with clinical reasoning, including SHAP-style attributions, PDP/ICE/ALE, and stability diagnostics.
-- **Agentic data science**: Autonomous agents that orchestrate analytical workflows for health research.
-
-</div>
-<div class="split-col">
-
-## Consulting {#consulting}
+## Consulting
 
 I provide independent methodological and statistical consulting for health research teams, from study design through publication.
 
 - Study design and analysis plan review
-- Statistical methodology
+- Statistical methodology (survival analysis, functional data, predictive modeling)
 - Evidence synthesis
 - Machine learning prediction for health outcomes
 - Custom R package and tool development
 
-Engagements are scoped individually: short advisory sessions, analysis support on a specific study, or longer-term collaboration. [Get in touch →](#contact)
-
-</div>
-</div>
-
-## Teaching {#teaching}
-
-| Course | Institution | Period |
-|---|---|---|
-| AI for Public Health (ML, NLP, applied AI) | Aix-Marseille University, SESSTIM, Marseille, France | 2022 – present |
-| Introduction to Biostatistics | University Mohammed VI of Health Sciences (UM6SS), Casablanca, Morocco | 2021 – present |
-| Quantitative Epidemiology and Machine Learning | Institut Mines-Télécom, IMT Atlantique, Brest, France | 2020 – present |
-
-: {tbl-colwidths="[45,40,15]"}
-
-*Outside working hours:* I organize **Methods in Health Data Science with R (MHDSR)**, an independent training pathway covering applied biostatistics, survival analysis, machine learning, and meta-analysis with R, delivered live to research teams and open cohorts:
-
-- **BIOSTATR**: Applied Biostatistics with R (foundations)
-- **ML4HOR**: Machine Learning for Health Outcomes with R (prediction)
-- **METAR**: Conducting Meta-Analysis with R (evidence synthesis)
-
-Visit [mhdsr.com](https://mhdsr.com) for details, or [get in touch →](#contact) for more information.
-
-## Selected Software {#software}
-
-- El Badisy I (2026). _survalis: Interpretable Survival Machine Learning Framework_. R package version 1.0.0, <https://CRAN.R-project.org/package=survalis>.
-
-- El Badisy I (2026). _survdnn: Deep Neural Networks for Survival Analysis with R 'torch'_. R package version 0.7.6, <https://CRAN.R-project.org/package=survdnn>.
-
-- El Badisy I (2026). _funcml: Functional Machine Learning Framework_. R package version 0.9.0, <https://CRAN.R-project.org/package=funcml>.
-
-- El Badisy I (2026). _unsurv: Unsupervised Clustering of Individualized Survival Curves_. R package version 0.5.0, <https://github.com/ielbadisy/unsurv>.
-
-- El Badisy I (2026). _tvrmst: Time-Varying Restricted Mean Survival Time from Survival Matrices_. R package version 0.0.6, <https://CRAN.R-project.org/package=tvrmst>.
-
-- El Badisy I (2026). _mcstatsim: Monte Carlo Statistical Simulation Tools Using a Functional Approach_. R package version 0.5.1, <https://CRAN.R-project.org/package=mcstatsim>.
-
-- El Badisy I (2023). _missCforest: Ensemble Conditional Trees for Missing Data Imputation_. doi:10.32614/CRAN.package.missCforest <https://doi.org/10.32614/CRAN.package.missCforest>, R package version 0.0.8, <https://CRAN.R-project.org/package=missCforest>.
-
-- El Badisy I (2026). _functionals: Functional Programming with Parallelism and Progress Tracking_. R package version 0.5.1, <https://CRAN.R-project.org/package=functionals>.
-
-- El Badisy I (2026). _mimar: Compact Multiple Imputation, Assessment, and Reporting_. R package version 1.0.0, <https://CRAN.R-project.org/package=mimar>.
-
-- El Badisy I (2026). _testflow: A Workflow for Statistical Testing and Interpretation_. R package version 1.0.0, <https://CRAN.R-project.org/package=testflow>.
-
-- El Badisy I (2026). _densemlp: Dense Neural Networks for Tabular Classification and Regression_. R package version 0.5.0, <https://CRAN.R-project.org/package=densemlp>.
-
-- El Badisy I (2026). _CEACT: Cost-Effectiveness Analysis Toolkit for Clinical Trials_. R package version 0.5.0, <https://CRAN.R-project.org/package=CEACT>.
-
-- El Badisy I (2026). _missknn: Fast Masked K-Nearest Neighbor Imputation_. R package version 1.1.2, <https://CRAN.R-project.org/package=missknn>.
-
-All packages on [CRAN](https://CRAN.R-project.org/search/?query=el+badisy) · also available via [R-universe](https://ielbadisy.r-universe.dev)
-
-## Selected Publications {#publications}
-
-- **El Badisy I.** (2026). SurvDNN: Survival Deep Learning Models for Tabular Data. *The R Journal*, 18(1):384-399.
-
-- **El Badisy I.** (2026). unsurv: Clustering Individualized Survival Curves. *Bioinformatics Advances*, vbag218.
-
-- **El Badisy I.** (2026). funcml: Functional Machine Learning Software for R. [https://doi.org/10.5281/zenodo.20707605](https://doi.org/10.5281/zenodo.20707605)
-
-- **El Badisy I.**, Assarag B., Belrhiti Z. (2026). Interpretable clinical decision support systems in high-risk pregnancy: a scoping review of models, methods, and implementation. *BMC Pregnancy and Childbirth*, 26(1):125.
-
-- **El Badisy I.**, Graffeo N., Khalis M., Giorgi R. (2024). Multi-metric comparison of machine learning imputation methods with application to breast cancer survival. *BMC Medical Research Methodology*, 24(1):191.
-
-- **El Badisy I.**, BenBrahim Z., Khalis M., et al. (2024). Risk factors affecting patient survival with colorectal cancer in Morocco: survival analysis using an interpretable machine learning approach. *Scientific Reports*, 14(1):3556.
-
-- Houdou A., **El Badisy I.**, Khomsi K., et al. (2024). Interpretable machine learning approaches for forecasting and predicting air pollution: A systematic review. *Aerosol and Air Quality Research*, 24(1):230151.
-
-- Kadi C., Ahmadi N., Houdou A., **El Badisy I.**, et al. (2025). Differentiating Latent Tuberculosis from Active Tuberculosis Through Activation Phenotypes and Chemokine Markers HLA-DR, CD38, MCP-1, and RANTES: A Systematic Review and Meta-Analysis. *Biomarker Insights*, 20:11772719241312776.
-
-**Selected talks:**
-
-- **El Badisy I.** et al. (2023). Comparison of missing data imputation methods in Cox regression with time-varying and non-linear covariate effects. *ISCB 2023*, Rome.
-- **El Badisy I.** et al. (2023). Missing data imputation using a meta-algorithm, metaCART: A simulation study under MCAR. *EpiClin 2023*, Nancy.
-
-[Full publication list →](cv/cv.pdf)
-
-## Notes {#notes}
-
-Some methodological notes on related work.
-
-| Date | Note | Topic |
-|---|---|---|
-| 2026-08-24 | [Deep neural networks for survival analysis with survdnn](notes/deep-survival-networks.pdf) | Deep Learning |
-| 2026-08-24 | [Survival-trajectory phenotypes from individualized survival curves](notes/survival-trajectory-phenotypes.pdf) | Clustering |
-| 2026-08-24 | [Masked k-NN imputation with missknn](notes/masked-knn-imputation.pdf) | Imputation |
-
-[View all notes →](notes/index.qmd)
-
-<hr>
-
-<footer>
-© 2026 Imad El Badisy · Built with <a href="https://quarto.org">Quarto</a>
-</footer>
+Engagements are scoped individually: short advisory sessions, analysis support on a specific study, or longer-term collaboration. [Get in touch &rarr;](contact.qmd)

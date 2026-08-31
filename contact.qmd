@@ -1,0 +1,26 @@
+---
+pagetitle: Imad El Badisy - Contact
+name: Contact
+page-layout: article
+header-includes: >
+  <link rel="stylesheet" href="assets/contact.css">
+resources:
+  - assets/contact.css
+---
+
+::: {#note}
+
+# Get in touch {{< fa feather-pointed >}}
+
+Feel free to reach out about collaborations, consulting, or simply to say hello.
+
+I also welcome feedback on my educational materials and R packages, whether something was helpful or could be improved.
+
+<p class="contact-email">
+<a href="mailto:elbadisyimad@gmail.com">{{< fa envelope >}} elbadisyimad@gmail.com</a>
+</p>
+
+<a class="link-dark me-1" href="https://ma.linkedin.com/in/imad-el-badisy-360018281" title="LinkedIn" target="_blank" rel="noopener">{{< fa brands linkedin >}}</a>
+<a class="link-dark me-1" href="https://github.com/ielbadisy" title="GitHub" target="_blank" rel="noopener">{{< fa brands github >}}</a>
+
+:::

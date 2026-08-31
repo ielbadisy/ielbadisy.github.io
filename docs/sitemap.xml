@@ -2,10 +2,38 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://elbadisyimad.com/notes/index.html</loc>
-    <lastmod>2026-08-24T11:18:52.072Z</lastmod>
+    <lastmod>2026-08-31T19:34:39.654Z</lastmod>
+  </url>
+  <url>
+    <loc>https://elbadisyimad.com/accessibility.html</loc>
+    <lastmod>2026-08-31T19:39:42.524Z</lastmod>
+  </url>
+  <url>
+    <loc>https://elbadisyimad.com/contact.html</loc>
+    <lastmod>2026-08-31T19:34:39.571Z</lastmod>
+  </url>
+  <url>
+    <loc>https://elbadisyimad.com/packages.html</loc>
+    <lastmod>2026-08-31T19:35:46.589Z</lastmod>
+  </url>
+  <url>
+    <loc>https://elbadisyimad.com/background.html</loc>
+    <lastmod>2026-08-31T19:34:39.571Z</lastmod>
   </url>
   <url>
     <loc>https://elbadisyimad.com/index.html</loc>
-    <lastmod>2026-08-24T19:54:54.043Z</lastmod>
+    <lastmod>2026-08-31T19:35:06.607Z</lastmod>
+  </url>
+  <url>
+    <loc>https://elbadisyimad.com/teaching.html</loc>
+    <lastmod>2026-08-31T19:39:24.141Z</lastmod>
+  </url>
+  <url>
+    <loc>https://elbadisyimad.com/publications.html</loc>
+    <lastmod>2026-08-31T19:34:39.571Z</lastmod>
+  </url>
+  <url>
+    <loc>https://elbadisyimad.com/license.html</loc>
+    <lastmod>2026-08-31T19:34:39.571Z</lastmod>
   </url>
 </urlset>

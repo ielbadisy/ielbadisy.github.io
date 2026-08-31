@@ -1,0 +1,145 @@
+---
+title: "Software"
+description: |
+  Open-source software for survival analysis, machine learning,<br>
+  and functional data analysis in health research.
+page-layout: full
+title-block-banner: false
+---
+
+## Packages
+
+```{=html}
+<div class="grid">
+<div class="g-col-6 g-col-md-4">
+<div class="card h-100">
+<div class="card-body">
+<h3 class="card-title">functionals</h3>
+<p class="card-text">Functional programming utilities.</p>
+<p class="card-text"><a href="https://cran.r-project.org/package=functionals">CRAN</a> | <a href="https://cran.r-project.org/web/packages/functionals/functionals.pdf">PDF docs</a> | <a href="https://ielbadisy.r-universe.dev/functionals">R-universe</a></p>
+<p class="card-text"><small><strong>Cite:</strong> EL BADISY, I. (2025). <em>functionals: Functional Programming with Parallelism and Progress Tracking</em>. R package version 0.5.1. <a href="https://doi.org/10.32614/CRAN.package.functionals">doi:10.32614/CRAN.package.functionals</a></small></p>
+</div>
+</div>
+</div>
+<div class="g-col-6 g-col-md-4">
+<div class="card h-100">
+<div class="card-body">
+<h3 class="card-title">unsurv</h3>
+<p class="card-text">Unsupervised clustering of individualized survival curves.</p>
+<p class="card-text"><a href="https://github.com/ielbadisy/unsurv">GitHub</a> | <a href="https://ielbadisy.r-universe.dev/unsurv">R-universe</a></p>
+<p class="card-text"><small><strong>Cite:</strong> EL BADISY, I. (2026). <em>unsurv: Unsupervised Clustering of Individualized Survival Curves</em>. R package version 0.5.0. <a href="https://github.com/ielbadisy/unsurv">github.com/ielbadisy/unsurv</a></small></p>
+</div>
+</div>
+</div>
+<div class="g-col-6 g-col-md-4">
+<div class="card h-100">
+<div class="card-body">
+<h3 class="card-title">tvrmst</h3>
+<p class="card-text">Time-varying RMST tooling.</p>
+<p class="card-text"><a href="https://cran.r-project.org/package=tvrmst">CRAN</a> | <a href="https://cran.r-project.org/web/packages/tvrmst/tvrmst.pdf">PDF docs</a> | <a href="https://ielbadisy.r-universe.dev/tvrmst">R-universe</a></p>
+<p class="card-text"><small><strong>Cite:</strong> EL BADISY, I. (2026). <em>tvrmst: Time-Varying Restricted Mean Survival Time from Survival Matrices</em>. R package version 0.0.6. <a href="https://doi.org/10.32614/CRAN.package.tvrmst">doi:10.32614/CRAN.package.tvrmst</a></small></p>
+</div>
+</div>
+</div>
+<div class="g-col-6 g-col-md-4">
+<div class="card h-100">
+<div class="card-body">
+<h3 class="card-title">mcstatsim</h3>
+<p class="card-text">Monte Carlo statistical simulation.</p>
+<p class="card-text"><a href="https://cran.r-project.org/package=mcstatsim">CRAN</a> | <a href="https://cran.r-project.org/web/packages/mcstatsim/mcstatsim.pdf">PDF docs</a> | <a href="https://ielbadisy.r-universe.dev/mcstatsim">R-universe</a></p>
+<p class="card-text"><small><strong>Cite:</strong> EL BADISY, I. (2024). <em>mcstatsim: Monte Carlo Statistical Simulation Tools Using a Functional Approach</em>. R package version 0.5.1. <a href="https://doi.org/10.32614/CRAN.package.mcstatsim">doi:10.32614/CRAN.package.mcstatsim</a></small></p>
+</div>
+</div>
+</div>
+<div class="g-col-6 g-col-md-4">
+<div class="card h-100">
+<div class="card-body">
+<h3 class="card-title">missCforest</h3>
+<p class="card-text">Missing-data random forest methods.</p>
+<p class="card-text"><a href="https://cran.r-project.org/package=missCforest">CRAN</a> | <a href="https://cran.r-project.org/web/packages/missCforest/missCforest.pdf">PDF docs</a> | <a href="https://ielbadisy.r-universe.dev/missCforest">R-universe</a></p>
+<p class="card-text"><small><strong>Cite:</strong> El Badisy, I. (2023). <em>missCforest: Ensemble Conditional Trees for Missing Data Imputation</em>. R package version 0.0.8. <a href="https://doi.org/10.32614/CRAN.package.missCforest">doi:10.32614/CRAN.package.missCforest</a></small></p>
+</div>
+</div>
+</div>
+<div class="g-col-6 g-col-md-4">
+<div class="card h-100">
+<div class="card-body">
+<h3 class="card-title">survalis</h3>
+<p class="card-text">Survival machine learning framework.</p>
+<p class="card-text"><a href="https://cran.r-project.org/package=survalis">CRAN</a> | <a href="https://cran.r-project.org/web/packages/survalis/survalis.pdf">PDF docs</a> | <a href="https://ielbadisy.r-universe.dev/survalis">R-universe</a></p>
+<p class="card-text"><small><strong>Cite:</strong> El Badisy, I. (2026). <em>survalis: Interpretable Survival Machine Learning Framework</em>. R package version 1.0.0. <a href="https://doi.org/10.32614/CRAN.package.survalis">doi:10.32614/CRAN.package.survalis</a></small></p>
+</div>
+</div>
+</div>
+<div class="g-col-6 g-col-md-4">
+<div class="card h-100">
+<div class="card-body">
+<h3 class="card-title">funcml</h3>
+<p class="card-text">Functional machine learning framework.</p>
+<p class="card-text"><a href="https://cran.r-project.org/package=funcml">CRAN</a> | <a href="https://cran.r-project.org/web/packages/funcml/funcml.pdf">PDF docs</a> | <a href="https://ielbadisy.r-universe.dev/funcml">R-universe</a></p>
+<p class="card-text"><small><strong>Cite:</strong> EL BADISY, I. (2026). <em>funcml: Functional Machine Learning Framework</em>. R package version 0.9.0. <a href="https://doi.org/10.32614/CRAN.package.funcml">doi:10.32614/CRAN.package.funcml</a></small></p>
+</div>
+</div>
+</div>
+<div class="g-col-6 g-col-md-4">
+<div class="card h-100">
+<div class="card-body">
+<h3 class="card-title">survdnn</h3>
+<p class="card-text">Deep neural networks for right-censored survival analysis.</p>
+<p class="card-text"><a href="https://cran.r-project.org/package=survdnn">CRAN</a> | <a href="https://cran.r-project.org/web/packages/survdnn/survdnn.pdf">PDF docs</a> | <a href="https://ielbadisy.r-universe.dev/survdnn">R-universe</a></p>
+<p class="card-text"><small><strong>Cite:</strong> EL BADISY, I. (2026). <em>survdnn: Deep Neural Networks for Survival Analysis with R 'torch'</em>. R package version 0.7.6. <a href="https://doi.org/10.32614/CRAN.package.survdnn">doi:10.32614/CRAN.package.survdnn</a></small></p>
+</div>
+</div>
+</div>
+<div class="g-col-6 g-col-md-4">
+<div class="card h-100">
+<div class="card-body">
+<h3 class="card-title">mimar</h3>
+<p class="card-text">Compact multiple imputation, assessment, and reporting.</p>
+<p class="card-text"><a href="https://cran.r-project.org/package=mimar">CRAN</a> | <a href="https://cran.r-project.org/web/packages/mimar/mimar.pdf">PDF docs</a> | <a href="https://ielbadisy.r-universe.dev/mimar">R-universe</a></p>
+<p class="card-text"><small><strong>Cite:</strong> EL BADISY, I. (2026). <em>mimar: Compact Multiple Imputation, Assessment, and Reporting</em>. R package version 1.0.0. <a href="https://doi.org/10.32614/CRAN.package.mimar">doi:10.32614/CRAN.package.mimar</a></small></p>
+</div>
+</div>
+</div>
+<div class="g-col-6 g-col-md-4">
+<div class="card h-100">
+<div class="card-body">
+<h3 class="card-title">testflow</h3>
+<p class="card-text">Statistical testing, interpretation, and ggplot2-based visualization.</p>
+<p class="card-text"><a href="https://cran.r-project.org/package=testflow">CRAN</a> | <a href="https://cran.r-project.org/web/packages/testflow/testflow.pdf">PDF docs</a> | <a href="https://ielbadisy.r-universe.dev/testflow">R-universe</a></p>
+<p class="card-text"><small><strong>Cite:</strong> EL BADISY, I. (2026). <em>testflow: A Workflow for Statistical Testing, Interpretation, and 'ggplot2'-Based Visualization</em>. R package version 1.0.0. <a href="https://doi.org/10.32614/CRAN.package.testflow">doi:10.32614/CRAN.package.testflow</a></small></p>
+</div>
+</div>
+</div>
+<div class="g-col-6 g-col-md-4">
+<div class="card h-100">
+<div class="card-body">
+<h3 class="card-title">densemlp</h3>
+<p class="card-text">Dense neural networks for tabular classification and regression.</p>
+<p class="card-text"><a href="https://cran.r-project.org/package=densemlp">CRAN</a> | <a href="https://cran.r-project.org/web/packages/densemlp/densemlp.pdf">PDF docs</a> | <a href="https://ielbadisy.r-universe.dev/densemlp">R-universe</a></p>
+<p class="card-text"><small><strong>Cite:</strong> EL BADISY, I. (2026). <em>densemlp: Dense Neural Networks for Tabular Classification and Regression</em>. R package version 0.5.0. <a href="https://doi.org/10.32614/CRAN.package.densemlp">doi:10.32614/CRAN.package.densemlp</a></small></p>
+</div>
+</div>
+</div>
+<div class="g-col-6 g-col-md-4">
+<div class="card h-100">
+<div class="card-body">
+<h3 class="card-title">CEACT</h3>
+<p class="card-text">Cost-effectiveness analysis toolkit for clinical trials.</p>
+<p class="card-text"><a href="https://cran.r-project.org/package=CEACT">CRAN</a> | <a href="https://cran.r-project.org/web/packages/CEACT/CEACT.pdf">PDF docs</a> | <a href="https://ielbadisy.r-universe.dev/CEACT">R-universe</a></p>
+<p class="card-text"><small><strong>Cite:</strong> EL BADISY, I. (2026). <em>CEACT: Cost-Effectiveness Analysis Toolkit for Clinical Trials</em>. R package version 0.5.0. <a href="https://doi.org/10.32614/CRAN.package.CEACT">doi:10.32614/CRAN.package.CEACT</a></small></p>
+</div>
+</div>
+</div>
+<div class="g-col-6 g-col-md-4">
+<div class="card h-100">
+<div class="card-body">
+<h3 class="card-title">missknn</h3>
+<p class="card-text">Fast masked k-nearest neighbor imputation.</p>
+<p class="card-text"><a href="https://cran.r-project.org/package=missknn">CRAN</a> | <a href="https://cran.r-project.org/web/packages/missknn/missknn.pdf">PDF docs</a> | <a href="https://ielbadisy.r-universe.dev/missknn">R-universe</a></p>
+<p class="card-text"><small><strong>Cite:</strong> EL BADISY, I. (2026). <em>missknn: Fast Masked K-Nearest Neighbor Imputation</em>. R package version 1.1.2. <a href="https://doi.org/10.32614/CRAN.package.missknn">doi:10.32614/CRAN.package.missknn</a></small></p>
+</div>
+</div>
+</div>
+</div>
+```

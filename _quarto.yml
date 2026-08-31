@@ -1,34 +1,95 @@
 project:
   type: website
   output-dir: docs
-  resources:
-    - profile.jpg
-    - MHDSR-combined-syllabus.pdf
-    - robots.txt
   render:
     - index.qmd
-    - cv/cv.qmd
+    - background.qmd
+    - teaching.qmd
+    - packages.qmd
+    - publications.qmd
+    - contact.qmd
+    - license.qmd
+    - accessibility.qmd
+    - 404.qmd
     - notes/index.qmd
-    - notes/survival-trajectory-phenotypes.qmd
     - notes/deep-survival-networks.qmd
+    - notes/survival-trajectory-phenotypes.qmd
     - notes/masked-knn-imputation.qmd
     - notes/dgp-tve-nle.qmd
+  resources:
+    - cv/cv.pdf
+    - notes/img/**
+    - CNAME
+    - robots.txt
+    - profile.jpg
 
 website:
   title: "Imad El Badisy"
-  site-url: "https://elbadisyimad.com"
-  description: "Imad EL BADISY, Research Engineer in Health Data Science, PhD. Biostatistics, survival analysis, missing data, and interpretable machine learning for health research."
-  navbar: false
+  site-url: https://elbadisyimad.com
+  description: "Imad El Badisy, Research Engineer in Health Data Science, PhD. Biostatistics, survival analysis, missing data, and interpretable machine learning for health research."
+  page-navigation: true
+  back-to-top-navigation: true
+  open-graph:
+    locale: en_US
+    site-name: "Imad El Badisy"
+  twitter-card: true
 
-canonical-url: true
+  navbar:
+    title: "Imad El Badisy"
+    tools:
+    - icon: github
+      href: https://github.com/ielbadisy
+    right:
+      - text: Background
+        aria-label: "Background"
+        href: background.qmd
+      - text: Teaching
+        aria-label: "Teaching"
+        href: teaching.qmd
+      - text: Software
+        aria-label: "Software"
+        href: packages.qmd
+      - text: Publications
+        aria-label: "Publications"
+        href: publications.qmd
+      - text: Notes
+        aria-label: "Notes"
+        href: notes/index.qmd
+      - text: CV
+        aria-label: "CV"
+        href: cv/cv.pdf
+        target: _blank
+
+  page-footer:
+    left: >-
+     &#169; 2026 Imad El Badisy &#8729; Made with [Quarto](https://quarto.org)
+    center: |
+      <a class="link-dark me-1" href="https://ma.linkedin.com/in/imad-el-badisy-360018281" title="LinkedIn" target="_blank" rel="noopener">{{< fa brands linkedin >}}</a>
+      <a class="link-dark me-1" href="https://github.com/ielbadisy" title="GitHub" target="_blank" rel="noopener">{{< fa brands github >}}</a>
+      <a class="link-dark me-1" href="https://scholar.google.com/scholar?q=Imad+EL+BADISY" title="Google Scholar" target="_blank" rel="noopener">{{< fa graduation-cap >}}</a>
+      <a class="link-dark me-1" href="mailto:elbadisyimad@gmail.com" title="Email" target="_blank" rel="noopener">{{< fa envelope >}}</a>
 
 format:
   html:
-    theme: none
-    css: styles.css
+    theme:
+      light:
+        - cosmo
+        - assets/imad-theme-light.scss
+        - assets/imad/colors-light.scss
+        - assets/imad/fonts.scss
+      dark:
+        - cosmo
+        - assets/imad-theme-dark.scss
+        - assets/imad/colors-dark.scss
+        - assets/imad/fonts.scss
+    css: assets/overrides.css
     toc: false
-    page-layout: article
     smooth-scroll: true
     anchor-sections: true
-    code-copy: true
     html-math-method: mathjax
+    code-link: true
+    pagetitle: "{{< meta title >}}"
+    lightbox: true
+
+execute:
+  freeze: auto

@@ -1,0 +1,29 @@
+---
+title: "Teaching"
+description: |
+  University courses and independent training in biostatistics,<br>
+  machine learning, and health data science.
+page-layout: full
+title-block-banner: false
+---
+
+## University courses
+
+| Course | Institution | Period |
+|---|---|---|
+| AI for Public Health (ML, NLP, applied AI) | Aix-Marseille University, SESSTIM, Marseille, France | 2022 – present |
+| Introduction to Biostatistics | University Mohammed VI of Health Sciences (UM6SS), Casablanca, Morocco | 2021 – present |
+| Quantitative Epidemiology and Machine Learning | Institut Mines-Télécom, IMT Atlantique, Brest, France | 2020 – present |
+
+: {tbl-colwidths="[45,40,15]"}
+
+## MHDSR: Methods in Health Data Science with R
+
+Outside working hours I organize **MHDSR**, an independent
+training pathway covering applied biostatistics, survival analysis, machine
+learning, and meta-analysis with R, delivered live to research teams and open
+cohorts:
+
+- **BIOSTATR**: Applied Biostatistics with R (foundations)
+- **ML4HOR**: Machine Learning for Health Outcomes with R (prediction)
+- **METAR**: Conducting Meta-Analysis with R (evidence synthesis)

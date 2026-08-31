@@ -1,0 +1,149 @@
+[
+  {
+    "objectID": "notes/index.html",
+    "href": "notes/index.html",
+    "title": "Notes",
+    "section": "",
+    "text": "Date\nNote\nTags\n\n\n\n\n2026-08-24\nDeep neural networks for survival analysis with survdnn\nSurvival Analysis Deep Learning survdnn\n\n\n2026-08-24\nSurvival-trajectory phenotypes with unsurv\nSurvival Analysis Clustering unsurv\n\n\n2026-08-24\nMasked k-NN imputation with missknn\nMissing Data Imputation missknn\n\n\n2026-08-24\nGenerating time-varying and non-linear covariate effects with rpsurv\nSurvival Analysis Simulation rpsurv\n\n\n\n\n\n\n Back to top"
+  },
+  {
+    "objectID": "accessibility.html",
+    "href": "accessibility.html",
+    "title": "Accessibility commitment",
+    "section": "",
+    "text": "Travel back to the home page."
+  },
+  {
+    "objectID": "accessibility.html#feedback",
+    "href": "accessibility.html#feedback",
+    "title": "Accessibility commitment",
+    "section": "Feedback",
+    "text": "Feedback\nI welcome feedback on the accessibility of this site and the educational materials I create. Please let me know if you encounter any accessibility barriers by using the contact page and I’ll do my best to respond promptly."
+  },
+  {
+    "objectID": "accessibility.html#accessibility-practices",
+    "href": "accessibility.html#accessibility-practices",
+    "title": "Accessibility commitment",
+    "section": "Accessibility practices",
+    "text": "Accessibility practices\nThis site has been designed with the following features in mind:\n\nA color palette that meets WCAG 2.1 AA standards for contrast\nAlternative text for all informative images\nReadable font faces, chosen to avoid impostor letter shapes and mirroring\nA table of contents in the blog post sidebar for easier navigation\n\nI’m not a web developer, but I try to regularly audit the site for accessibility failures and fix what I can, using tools such as the WAVE Web Accessibility Evaluation Tool."
+  },
+  {
+    "objectID": "contact.html",
+    "href": "contact.html",
+    "title": "Get in touch ",
+    "section": "",
+    "text": "Feel free to reach out about collaborations, consulting, or simply to say hello.\nI also welcome feedback on my educational materials and R packages, whether something was helpful or could be improved.\n\n elbadisyimad@gmail.com\n\n \n\n\n\n\n\n Back to top"
+  },
+  {
+    "objectID": "packages.html",
+    "href": "packages.html",
+    "title": "Software",
+    "section": "",
+    "text": "Functional programming utilities.\nCRAN | PDF docs | R-universe\nCite: EL BADISY, I. (2025). functionals: Functional Programming with Parallelism and Progress Tracking. R package version 0.5.1. doi:10.32614/CRAN.package.functionals\n\n\n\n\n\n\n\nUnsupervised clustering of individualized survival curves.\nGitHub | R-universe\nCite: EL BADISY, I. (2026). unsurv: Unsupervised Clustering of Individualized Survival Curves. R package version 0.5.0. github.com/ielbadisy/unsurv\n\n\n\n\n\n\n\nTime-varying RMST tooling.\nCRAN | PDF docs | R-universe\nCite: EL BADISY, I. (2026). tvrmst: Time-Varying Restricted Mean Survival Time from Survival Matrices. R package version 0.0.6. doi:10.32614/CRAN.package.tvrmst\n\n\n\n\n\n\n\nMonte Carlo statistical simulation.\nCRAN | PDF docs | R-universe\nCite: EL BADISY, I. (2024). mcstatsim: Monte Carlo Statistical Simulation Tools Using a Functional Approach. R package version 0.5.1. doi:10.32614/CRAN.package.mcstatsim\n\n\n\n\n\n\n\nMissing-data random forest methods.\nCRAN | PDF docs | R-universe\nCite: El Badisy, I. (2023). missCforest: Ensemble Conditional Trees for Missing Data Imputation. R package version 0.0.8. doi:10.32614/CRAN.package.missCforest\n\n\n\n\n\n\n\nSurvival machine learning framework.\nCRAN | PDF docs | R-universe\nCite: El Badisy, I. (2026). survalis: Interpretable Survival Machine Learning Framework. R package version 1.0.0. doi:10.32614/CRAN.package.survalis\n\n\n\n\n\n\n\nFunctional machine learning framework.\nCRAN | PDF docs | R-universe\nCite: EL BADISY, I. (2026). funcml: Functional Machine Learning Framework. R package version 0.9.0. doi:10.32614/CRAN.package.funcml\n\n\n\n\n\n\n\nDeep neural networks for right-censored survival analysis.\nCRAN | PDF docs | R-universe\nCite: EL BADISY, I. (2026). survdnn: Deep Neural Networks for Survival Analysis with R 'torch'. R package version 0.7.6. doi:10.32614/CRAN.package.survdnn\n\n\n\n\n\n\n\nCompact multiple imputation, assessment, and reporting.\nCRAN | PDF docs | R-universe\nCite: EL BADISY, I. (2026). mimar: Compact Multiple Imputation, Assessment, and Reporting. R package version 1.0.0. doi:10.32614/CRAN.package.mimar\n\n\n\n\n\n\n\nStatistical testing, interpretation, and ggplot2-based visualization.\nCRAN | PDF docs | R-universe\nCite: EL BADISY, I. (2026). testflow: A Workflow for Statistical Testing, Interpretation, and 'ggplot2'-Based Visualization. R package version 1.0.0. doi:10.32614/CRAN.package.testflow\n\n\n\n\n\n\n\nDense neural networks for tabular classification and regression.\nCRAN | PDF docs | R-universe\nCite: EL BADISY, I. (2026). densemlp: Dense Neural Networks for Tabular Classification and Regression. R package version 0.5.0. doi:10.32614/CRAN.package.densemlp\n\n\n\n\n\n\n\nCost-effectiveness analysis toolkit for clinical trials.\nCRAN | PDF docs | R-universe\nCite: EL BADISY, I. (2026). CEACT: Cost-Effectiveness Analysis Toolkit for Clinical Trials. R package version 0.5.0. doi:10.32614/CRAN.package.CEACT\n\n\n\n\n\n\n\nFast masked k-nearest neighbor imputation.\nCRAN | PDF docs | R-universe\nCite: EL BADISY, I. (2026). missknn: Fast Masked K-Nearest Neighbor Imputation. R package version 1.1.2. doi:10.32614/CRAN.package.missknn"
+  },
+  {
+    "objectID": "packages.html#packages",
+    "href": "packages.html#packages",
+    "title": "Software",
+    "section": "",
+    "text": "Functional programming utilities.\nCRAN | PDF docs | R-universe\nCite: EL BADISY, I. (2025). functionals: Functional Programming with Parallelism and Progress Tracking. R package version 0.5.1. doi:10.32614/CRAN.package.functionals\n\n\n\n\n\n\n\nUnsupervised clustering of individualized survival curves.\nGitHub | R-universe\nCite: EL BADISY, I. (2026). unsurv: Unsupervised Clustering of Individualized Survival Curves. R package version 0.5.0. github.com/ielbadisy/unsurv\n\n\n\n\n\n\n\nTime-varying RMST tooling.\nCRAN | PDF docs | R-universe\nCite: EL BADISY, I. (2026). tvrmst: Time-Varying Restricted Mean Survival Time from Survival Matrices. R package version 0.0.6. doi:10.32614/CRAN.package.tvrmst\n\n\n\n\n\n\n\nMonte Carlo statistical simulation.\nCRAN | PDF docs | R-universe\nCite: EL BADISY, I. (2024). mcstatsim: Monte Carlo Statistical Simulation Tools Using a Functional Approach. R package version 0.5.1. doi:10.32614/CRAN.package.mcstatsim\n\n\n\n\n\n\n\nMissing-data random forest methods.\nCRAN | PDF docs | R-universe\nCite: El Badisy, I. (2023). missCforest: Ensemble Conditional Trees for Missing Data Imputation. R package version 0.0.8. doi:10.32614/CRAN.package.missCforest\n\n\n\n\n\n\n\nSurvival machine learning framework.\nCRAN | PDF docs | R-universe\nCite: El Badisy, I. (2026). survalis: Interpretable Survival Machine Learning Framework. R package version 1.0.0. doi:10.32614/CRAN.package.survalis\n\n\n\n\n\n\n\nFunctional machine learning framework.\nCRAN | PDF docs | R-universe\nCite: EL BADISY, I. (2026). funcml: Functional Machine Learning Framework. R package version 0.9.0. doi:10.32614/CRAN.package.funcml\n\n\n\n\n\n\n\nDeep neural networks for right-censored survival analysis.\nCRAN | PDF docs | R-universe\nCite: EL BADISY, I. (2026). survdnn: Deep Neural Networks for Survival Analysis with R 'torch'. R package version 0.7.6. doi:10.32614/CRAN.package.survdnn\n\n\n\n\n\n\n\nCompact multiple imputation, assessment, and reporting.\nCRAN | PDF docs | R-universe\nCite: EL BADISY, I. (2026). mimar: Compact Multiple Imputation, Assessment, and Reporting. R package version 1.0.0. doi:10.32614/CRAN.package.mimar\n\n\n\n\n\n\n\nStatistical testing, interpretation, and ggplot2-based visualization.\nCRAN | PDF docs | R-universe\nCite: EL BADISY, I. (2026). testflow: A Workflow for Statistical Testing, Interpretation, and 'ggplot2'-Based Visualization. R package version 1.0.0. doi:10.32614/CRAN.package.testflow\n\n\n\n\n\n\n\nDense neural networks for tabular classification and regression.\nCRAN | PDF docs | R-universe\nCite: EL BADISY, I. (2026). densemlp: Dense Neural Networks for Tabular Classification and Regression. R package version 0.5.0. doi:10.32614/CRAN.package.densemlp\n\n\n\n\n\n\n\nCost-effectiveness analysis toolkit for clinical trials.\nCRAN | PDF docs | R-universe\nCite: EL BADISY, I. (2026). CEACT: Cost-Effectiveness Analysis Toolkit for Clinical Trials. R package version 0.5.0. doi:10.32614/CRAN.package.CEACT\n\n\n\n\n\n\n\nFast masked k-nearest neighbor imputation.\nCRAN | PDF docs | R-universe\nCite: EL BADISY, I. (2026). missknn: Fast Masked K-Nearest Neighbor Imputation. R package version 1.1.2. doi:10.32614/CRAN.package.missknn"
+  },
+  {
+    "objectID": "background.html",
+    "href": "background.html",
+    "title": "Background",
+    "section": "",
+    "text": "Degree\nInstitution\nPeriod\n\n\n\n\nPhD in Biomedical Sciences\nAix-Marseille University, SESSTIM, Marseille\n2021 – 2025\n\n\nMaster 2, Quantitative Methods for Health Research\nAix-Marseille University, SESSTIM, Marseille\n2018 – 2019\n\n\nMaster 1, Applied Mathematics and Statistics\nUniversité Clermont Auvergne, Clermont-Ferrand\n2017 – 2018\n\n\nMaster 2, Health Economics\nUniversité Clermont Auvergne, CERDI, Clermont-Ferrand\n2017"
+  },
+  {
+    "objectID": "background.html#education",
+    "href": "background.html#education",
+    "title": "Background",
+    "section": "",
+    "text": "Degree\nInstitution\nPeriod\n\n\n\n\nPhD in Biomedical Sciences\nAix-Marseille University, SESSTIM, Marseille\n2021 – 2025\n\n\nMaster 2, Quantitative Methods for Health Research\nAix-Marseille University, SESSTIM, Marseille\n2018 – 2019\n\n\nMaster 1, Applied Mathematics and Statistics\nUniversité Clermont Auvergne, Clermont-Ferrand\n2017 – 2018\n\n\nMaster 2, Health Economics\nUniversité Clermont Auvergne, CERDI, Clermont-Ferrand\n2017"
+  },
+  {
+    "objectID": "background.html#experience",
+    "href": "background.html#experience",
+    "title": "Background",
+    "section": "Experience",
+    "text": "Experience\n\n\n\n\n\n\n\n\nPosition\nInstitution\nPeriod\n\n\n\n\nHead of AI and Data Science Service\nCM6RI, Rabat, Morocco\nJan. 2026 – Present\n\n\nResearch Engineer in Health Data Science\nCM6RI, Rabat, Morocco\nNov. 2021 – Jan. 2026\n\n\nData Science Education Officer\nThe GRAPH Network, Switzerland\nSep. 2023 – Dec. 2023\n\n\nResearch and Development Engineer\nIMT Atlantique, Brest, France\nSep. 2019 – Sep. 2021\n\n\nBiostatistician\nINSERM, Clermont-Ferrand, France\nJan. 2019 – Jun. 2019\n\n\nHealth Economist Intern\nUniversité de Sherbrooke, Quebec, Canada\nFeb. 2017 – Sep. 2017\n\n\n\n Download full CV (PDF)"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Imad El Badisy, PhD",
+    "section": "",
+    "text": "Hi, I’m Imad\n\nI am a research engineer in health data science and computational methodologist building open-source tools and methodology for reproducible health research.\nMy work sits at the intersection of survival analysis, machine learning, missing data imputation, and agentic computation, with a focus on making advanced statistical methods accessible to health researchers. Learn more about my research in the software packages I build.\nGet in touch at elbadisyimad@gmail.com or ielbadisy@cm6.ma."
+  },
+  {
+    "objectID": "index.html#about-me",
+    "href": "index.html#about-me",
+    "title": "Imad El Badisy, PhD",
+    "section": "About me",
+    "text": "About me\n\n\nResearch engineer in health data science building open-source tools for reproducible research.\nI hold a PhD in Biomedical Sciences from Aix-Marseille University (SESSTIM laboratory) on missing data and machine learning methods for survival analysis. I develop software, including survalis for interpretable survival machine learning, survdnn for deep survival models, and funcml for functional machine learning, and design agentic workflows that bridge statistical rigor with modern computation. See my full list on the software page.\nI work at the intersection of survival analysis, machine learning, missing data, and functional data methods. Moroccan and French national, husband and father.\n\n\n\nInstitutions and roles\n\n\n\nHead of AI and Data Science Service · 2026–present · CM6RI, Rabat\n\n\nResearch Engineer in Health Data Science · 2021–2026 · CM6RI, Rabat\n\n\nPh.D. in Biomedical Sciences · Aix-Marseille Université, SESSTIM · 2025\n\n\nEducation & experience · CV (PDF)"
+  },
+  {
+    "objectID": "index.html#research",
+    "href": "index.html#research",
+    "title": "Imad El Badisy, PhD",
+    "section": "Research",
+    "text": "Research\nMy research develops computational methods for health data: survival machine learning (individualized prediction, neural survival models, RMST summaries, trajectory phenotyping), missing-data imputation, interpretable ML for clinical reasoning, and agentic data science for analytical workflows."
+  },
+  {
+    "objectID": "index.html#consulting",
+    "href": "index.html#consulting",
+    "title": "Imad El Badisy, PhD",
+    "section": "Consulting",
+    "text": "Consulting\nI provide independent methodological and statistical consulting for health research teams, from study design through publication.\n\nStudy design and analysis plan review\nStatistical methodology (survival analysis, functional data, predictive modeling)\nEvidence synthesis\nMachine learning prediction for health outcomes\nCustom R package and tool development\n\nEngagements are scoped individually: short advisory sessions, analysis support on a specific study, or longer-term collaboration. Get in touch →"
+  },
+  {
+    "objectID": "teaching.html",
+    "href": "teaching.html",
+    "title": "Teaching",
+    "section": "",
+    "text": "Course\nInstitution\nPeriod\n\n\n\n\nAI for Public Health (ML, NLP, applied AI)\nAix-Marseille University, SESSTIM, Marseille, France\n2022 – present\n\n\nIntroduction to Biostatistics\nUniversity Mohammed VI of Health Sciences (UM6SS), Casablanca, Morocco\n2021 – present\n\n\nQuantitative Epidemiology and Machine Learning\nInstitut Mines-Télécom, IMT Atlantique, Brest, France\n2020 – present"
+  },
+  {
+    "objectID": "teaching.html#university-courses",
+    "href": "teaching.html#university-courses",
+    "title": "Teaching",
+    "section": "",
+    "text": "Course\nInstitution\nPeriod\n\n\n\n\nAI for Public Health (ML, NLP, applied AI)\nAix-Marseille University, SESSTIM, Marseille, France\n2022 – present\n\n\nIntroduction to Biostatistics\nUniversity Mohammed VI of Health Sciences (UM6SS), Casablanca, Morocco\n2021 – present\n\n\nQuantitative Epidemiology and Machine Learning\nInstitut Mines-Télécom, IMT Atlantique, Brest, France\n2020 – present"
+  },
+  {
+    "objectID": "teaching.html#mhdsr-methods-in-health-data-science-with-r",
+    "href": "teaching.html#mhdsr-methods-in-health-data-science-with-r",
+    "title": "Teaching",
+    "section": "MHDSR: Methods in Health Data Science with R",
+    "text": "MHDSR: Methods in Health Data Science with R\nOutside working hours I organize MHDSR, an independent training pathway covering applied biostatistics, survival analysis, machine learning, and meta-analysis with R, delivered live to research teams and open cohorts:\n\nBIOSTATR: Applied Biostatistics with R (foundations)\nML4HOR: Machine Learning for Health Outcomes with R (prediction)\nMETAR: Conducting Meta-Analysis with R (evidence synthesis)"
+  },
+  {
+    "objectID": "publications.html",
+    "href": "publications.html",
+    "title": "Publications",
+    "section": "",
+    "text": "El Badisy I. (2026). SurvDNN: Survival Deep Learning Models for Tabular Data. The R Journal, 18(1):384-399.\nEl Badisy I. (2026). unsurv: Clustering Individualized Survival Curves. Bioinformatics Advances, vbag218.\nEl Badisy I. (2026). funcml: Functional Machine Learning Software for R. doi:10.5281/zenodo.20707605\nEl Badisy I., Assarag B., Belrhiti Z. (2026). Interpretable clinical decision support systems in high-risk pregnancy: a scoping review of models, methods, and implementation. BMC Pregnancy and Childbirth, 26(1):125.\nEl Badisy I., Graffeo N., Khalis M., Giorgi R. (2024). Multi-metric comparison of machine learning imputation methods with application to breast cancer survival. BMC Medical Research Methodology, 24(1):191.\nEl Badisy I., BenBrahim Z., Khalis M., et al. (2024). Risk factors affecting patient survival with colorectal cancer in Morocco: survival analysis using an interpretable machine learning approach. Scientific Reports, 14(1):3556.\nHoudou A., El Badisy I., Khomsi K., et al. (2024). Interpretable machine learning approaches for forecasting and predicting air pollution: A systematic review. Aerosol and Air Quality Research, 24(1):230151.\nKadi C., Ahmadi N., Houdou A., El Badisy I., et al. (2025). Differentiating Latent Tuberculosis from Active Tuberculosis Through Activation Phenotypes and Chemokine Markers HLA-DR, CD38, MCP-1, and RANTES: A Systematic Review and Meta-Analysis. Biomarker Insights, 20:11772719241312776."
+  },
+  {
+    "objectID": "publications.html#selected-articles",
+    "href": "publications.html#selected-articles",
+    "title": "Publications",
+    "section": "",
+    "text": "El Badisy I. (2026). SurvDNN: Survival Deep Learning Models for Tabular Data. The R Journal, 18(1):384-399.\nEl Badisy I. (2026). unsurv: Clustering Individualized Survival Curves. Bioinformatics Advances, vbag218.\nEl Badisy I. (2026). funcml: Functional Machine Learning Software for R. doi:10.5281/zenodo.20707605\nEl Badisy I., Assarag B., Belrhiti Z. (2026). Interpretable clinical decision support systems in high-risk pregnancy: a scoping review of models, methods, and implementation. BMC Pregnancy and Childbirth, 26(1):125.\nEl Badisy I., Graffeo N., Khalis M., Giorgi R. (2024). Multi-metric comparison of machine learning imputation methods with application to breast cancer survival. BMC Medical Research Methodology, 24(1):191.\nEl Badisy I., BenBrahim Z., Khalis M., et al. (2024). Risk factors affecting patient survival with colorectal cancer in Morocco: survival analysis using an interpretable machine learning approach. Scientific Reports, 14(1):3556.\nHoudou A., El Badisy I., Khomsi K., et al. (2024). Interpretable machine learning approaches for forecasting and predicting air pollution: A systematic review. Aerosol and Air Quality Research, 24(1):230151.\nKadi C., Ahmadi N., Houdou A., El Badisy I., et al. (2025). Differentiating Latent Tuberculosis from Active Tuberculosis Through Activation Phenotypes and Chemokine Markers HLA-DR, CD38, MCP-1, and RANTES: A Systematic Review and Meta-Analysis. Biomarker Insights, 20:11772719241312776."
+  },
+  {
+    "objectID": "publications.html#selected-talks",
+    "href": "publications.html#selected-talks",
+    "title": "Publications",
+    "section": "Selected talks",
+    "text": "Selected talks\n\nEl Badisy I. et al. (2023). Comparison of missing data imputation methods in Cox regression with time-varying and non-linear covariate effects. ISCB 2023, Rome.\nEl Badisy I. et al. (2023). Missing data imputation using a meta-algorithm, metaCART: A simulation study under MCAR. EpiClin 2023, Nancy.\n\nFull publication list →"
+  },
+  {
+    "objectID": "license.html",
+    "href": "license.html",
+    "title": "License",
+    "section": "",
+    "text": "Content on this site, including the notes, is released under a Creative Commons Attribution-ShareAlike 4.0 International License unless stated otherwise on the page.\n\n  \n\nSoftware released under my packages is licensed independently; see each package’s repository for its specific license.\n\n\n\n Back to top"
+  }
+]

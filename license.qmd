@@ -1,0 +1,13 @@
+---
+comments: false
+date: "2021-06-01T09:00:00+00:00"
+title: "License"
+---
+
+Content on this site, including the [notes](notes/index.qmd), is released under a [Creative Commons Attribution-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-sa/4.0/) unless stated otherwise on the page.
+
+<center>
+{{< fa brands creative-commons size=2xl >}} {{< fa brands creative-commons-by size=2xl >}} {{< fa brands creative-commons-sa size=2xl >}}
+</center>
+
+Software released under [my packages](https://github.com/ielbadisy) is licensed independently; see each package's repository for its specific license.

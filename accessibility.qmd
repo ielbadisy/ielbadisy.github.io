@@ -1,0 +1,22 @@
+---
+comments: false
+date: "2021-06-01T10:00:00+00:00"
+title: "Accessibility commitment"
+---
+
+Travel back to the [home page](/).
+
+## Feedback
+
+I welcome feedback on the accessibility of this site and the educational materials I create. Please let me know if you encounter any accessibility barriers by using the [contact page](contact.qmd) and I'll do my best to respond promptly.
+
+## Accessibility practices
+
+This site has been designed with the following features in mind:
+
+- A color palette that meets WCAG 2.1 AA standards for contrast
+- Alternative text for all informative images
+- Readable font faces, chosen to avoid impostor letter shapes and mirroring
+- A table of contents in the blog post sidebar for easier navigation
+
+I'm not a web developer, but I try to regularly audit the site for accessibility failures and fix what I can, using tools such as the [WAVE Web Accessibility Evaluation Tool](https://wave.webaim.org/).

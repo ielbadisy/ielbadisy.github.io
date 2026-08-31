@@ -1,0 +1,12 @@
+#note {
+  max-width: 40em;
+}
+
+.contact-email {
+  margin: 1.5em 0;
+}
+
+.contact-email a {
+  font-size: 1.2em;
+  font-weight: 600;
+}
