@@ -1,6 +1,7 @@
 ---
 title: "Imad El Badisy, PhD"
 pagetitle: "Imad El Badisy"
+description: "Imad El Badisy, Research Engineer in Health Data Science, PhD."
 subtitle: Research Engineer in Health Data Science
 image: profile.jpg
 image-alt: "Imad El Badisy"
@@ -38,7 +39,7 @@ resources:
 
 I am a research engineer in health data science and computational methodologist building open-source tools and methodology for reproducible health research.
 
-My work sits at the intersection of survival analysis, machine learning, missing data imputation, and agentic computation, with a focus on making advanced statistical methods accessible to health researchers. Learn more about my research in the [software packages](packages.qmd) I build.
+My focus is making advanced statistical methods accessible to health researchers. Learn more from the [software packages](packages.qmd) I build.
 
 Get in touch at [elbadisyimad@gmail.com](mailto:elbadisyimad@gmail.com) or [ielbadisy@cm6.ma](mailto:ielbadisy@cm6.ma). {{< fa feather-pointed >}}
 
@@ -46,11 +47,9 @@ Get in touch at [elbadisyimad@gmail.com](mailto:elbadisyimad@gmail.com) or [ielb
 
 ## About me
 
-**Research engineer in health data science building open-source tools for reproducible research.**
-
 I hold a PhD in Biomedical Sciences from Aix-Marseille University (SESSTIM laboratory) on missing data and machine learning methods for survival analysis. I develop software, including [survalis](https://github.com/ielbadisy/survalis) for interpretable survival machine learning, [survdnn](https://cran.r-project.org/package=survdnn) for deep survival models, and [funcml](https://github.com/ielbadisy/funcml) for functional machine learning, and design agentic workflows that bridge statistical rigor with modern computation. See my full list on the [software](packages.qmd) page.
 
-I work at the intersection of survival analysis, machine learning, missing data, and functional data methods. Moroccan and French national, husband and father.
+Moroccan and French national, husband and father.
 
 See my [education and experience](background.qmd) or download my [CV (PDF)](cv/cv.pdf).
 

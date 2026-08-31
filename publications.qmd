@@ -9,14 +9,29 @@ title-block-banner: false
 
 ## Selected articles
 
+### 2026
+
 - **El Badisy I.** (2026). unsurv: Clustering Individualized Survival Curves. *Bioinformatics Advances*, vbag218. [doi:10.1093/bioadv/vbag218](https://doi.org/10.1093/bioadv/vbag218)
 - **El Badisy I.** (2026). SurvDNN: Survival Deep Learning Models for Tabular Data. *The R Journal*, 18(1):384-399. [doi:10.32614/RJ-2026-008](https://doi.org/10.32614/RJ-2026-008)
-- **El Badisy I.** (2026). funcml: Functional Machine Learning Software for R. [doi:10.5281/zenodo.20707605](https://doi.org/10.5281/zenodo.20707605)
+- **El Badisy I.** (2026). funcml: Functional Machine Learning Software for R. *Zenodo*. [doi:10.5281/zenodo.20707605](https://doi.org/10.5281/zenodo.20707605)
 - **El Badisy I.**, Assarag B., Belrhiti Z. (2026). Interpretable clinical decision support systems in high-risk pregnancy: a scoping review of models, methods, and implementation. *BMC Pregnancy and Childbirth*, 26(1):125. [doi:10.1186/s12884-025-08614-9](https://doi.org/10.1186/s12884-025-08614-9)
-- Kadi C., Ahmadi N., Houdou A., **El Badisy I.**, et al. (2025). Differentiating Latent Tuberculosis from Active Tuberculosis Through Activation Phenotypes and Chemokine Markers HLA-DR, CD38, MCP-1, and RANTES: A Systematic Review and Meta-Analysis. *Biomarker Insights*, 20:11772719241312776. [doi:10.1177/11772719241312776](https://doi.org/10.1177/11772719241312776)
-- **El Badisy I.**, Graffeo N., Khalis M., Giorgi R. (2024). Multi-metric comparison of machine learning imputation methods with application to breast cancer survival. *BMC Medical Research Methodology*, 24(1):191. [doi:10.1186/s12874-024-02305-3](https://doi.org/10.1186/s12874-024-02305-3)
+- Bnimoussa J., Bouaddi O., **El Badisy I.**, Khalis M. (2026). Drivers of youth mental health and wellbeing: a large-scale cross-sectional study in Morocco. *BMJ Open*, 16(6):e110683. [doi:10.1136/bmjopen-2025-110683](https://doi.org/10.1136/bmjopen-2025-110683)
+- Lamchabbek N., Huybrechts I., **El Badisy I.**, et al. (2026). Global assessment of the relationship between breast cancer risk and dietary intake: an ecological study. *American Journal of Health Promotion*, 40(5):591-600. [doi:10.1177/08901171251389792](https://doi.org/10.1177/08901171251389792)
+- Bouaddi O., **El Badisy I.**, Charaka H., et al. (2026). Leveraging the positive deviance approach to drive behavior change in noncommunicable diseases: a scoping review. *Public Health Challenges*, 5(1):e70074. [doi:10.1002/puh2.70074](https://doi.org/10.1002/puh2.70074)
+- Lamchabbek N., Mrah S., Mane N., **El Badisy I.**, et al. (2026). Adherence to WCRF/AICR cancer prevention recommendations and reduction in breast cancer risk: results of a large-scale case-control study in Morocco. *British Journal of Nutrition*. [doi:10.1017/S0007114526106527](https://doi.org/10.1017/S0007114526106527)
+
+### 2025
+
+- Houdou A., Khomsi K., Delle Monache L., **El Badisy I.**, et al. (2025). Enhancing 5-day particulate matter (PM10) forecasts in Morocco using U-net: a deep learning approach. *Atmospheric Research*, 328:108439. [doi:10.1016/j.atmosres.2025.108439](https://doi.org/10.1016/j.atmosres.2025.108439)
+- Kadi C., Ahmadi N., Houdou A., **El Badisy I.**, et al. (2025). Differentiating latent tuberculosis from active tuberculosis through activation phenotypes and chemokine markers HLA-DR, CD38, MCP-1, and RANTES: a systematic review and meta-analysis. *Biomarker Insights*, 20:11772719241312776. [doi:10.1177/11772719241312776](https://doi.org/10.1177/11772719241312776)
+
+### 2024
+
+- Houdou A., **El Badisy I.**, Khomsi K., et al. (2024). Interpretable machine learning approaches for forecasting and predicting air pollution: a systematic review. *Aerosol and Air Quality Research*, 24(1):230151. [doi:10.4209/aaqr.230151](https://doi.org/10.4209/aaqr.230151)
 - **El Badisy I.**, BenBrahim Z., Khalis M., et al. (2024). Risk factors affecting patient survival with colorectal cancer in Morocco: survival analysis using an interpretable machine learning approach. *Scientific Reports*, 14(1):3556. [doi:10.1038/s41598-024-51304-3](https://doi.org/10.1038/s41598-024-51304-3)
-- Houdou A., **El Badisy I.**, Khomsi K., et al. (2024). Interpretable machine learning approaches for forecasting and predicting air pollution: A systematic review. *Aerosol and Air Quality Research*, 24(1):230151. [doi:10.4209/aaqr.230151](https://doi.org/10.4209/aaqr.230151)
+- **El Badisy I.**, Graffeo N., Khalis M., Giorgi R. (2024). Multi-metric comparison of machine learning imputation methods with application to breast cancer survival. *BMC Medical Research Methodology*, 24(1):191. [doi:10.1186/s12874-024-02305-3](https://doi.org/10.1186/s12874-024-02305-3)
+- Zbiri S., Belghiti Alaoui A., **El Badisy I.**, et al. (2024). Private hospitals in low- and middle-income countries: a typology using the cluster method, the case of Morocco. *BMC Health Services Research*, 24(1):1231. [doi:10.1186/s12913-024-11660-2](https://doi.org/10.1186/s12913-024-11660-2)
+- Abdala S.A., Khomsi K., Houdou A., **El Badisy I.**, et al. (2024). Emission reduction strategies and health: a systematic review on the tools and methods to assess co-benefits. *BMJ Open*, 14(12):e083214. [doi:10.1136/bmjopen-2023-083214](https://doi.org/10.1136/bmjopen-2023-083214)
 
 ## Selected talks
 

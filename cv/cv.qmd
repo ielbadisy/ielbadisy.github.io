@@ -87,7 +87,7 @@ Research Engineer in Health Data Science, PhD, working at the interface of biost
 
 \cvrow{{\bf Mohammed VI Center for Research and Innovation (CM6RI)}}{Rabat, Morocco}
 \vspace{-0.17cm}
-\cvrow{\textit{Research Engineer}}{Nov. 2021 – Jan. 2026}
+\cvrow{\textit{Research Engineer in Health Data Science}}{Nov. 2021 – Jan. 2026}
 \vspace{-0.16cm}
 * Conducted methodological and applied research in health (oncology, fertility, other biomedical domains)
 * Provided methodological support to researchers in computational biostatistics, statistical modeling, and machine learning
@@ -172,7 +172,7 @@ Research Engineer in Health Data Science, PhD, working at the interface of biost
 
 \vspace{3pt}
 
-\textit{Outside working hours:} Organizer of Methods in Health Data Science with R (MHDSR), an independent training pathway (BIOSTATR, ML4HOR, METAR) covering applied biostatistics, machine learning, and meta-analysis with R
+\textit{Outside working hours:} Organizer of Methods in Health Data Science with R (MHDSR), an independent training pathway (BIOSTATR, ML4HOR) covering applied biostatistics, survival analysis, and machine learning with R
 
 \vspace{6pt}
 

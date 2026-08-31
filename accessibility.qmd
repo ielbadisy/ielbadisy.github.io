@@ -17,6 +17,6 @@ This site has been designed with the following features in mind:
 - A color palette that meets WCAG 2.1 AA standards for contrast
 - Alternative text for all informative images
 - Readable font faces, chosen to avoid impostor letter shapes and mirroring
-- A table of contents in the blog post sidebar for easier navigation
+- A light and dark theme, with a toggle in the navigation bar
 
 I'm not a web developer, but I try to regularly audit the site for accessibility failures and fix what I can, using tools such as the [WAVE Web Accessibility Evaluation Tool](https://wave.webaim.org/).

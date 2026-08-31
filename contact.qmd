@@ -1,6 +1,5 @@
 ---
-pagetitle: Imad El Badisy - Contact
-name: Contact
+pagetitle: "Contact"
 page-layout: article
 header-includes: >
   <link rel="stylesheet" href="assets/contact.css">
