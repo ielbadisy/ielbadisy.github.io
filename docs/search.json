@@ -116,7 +116,7 @@
     "href": "teaching.html#mhdsr-methods-in-health-data-science-with-r",
     "title": "Teaching",
     "section": "MHDSR: Methods in Health Data Science with R",
-    "text": "MHDSR: Methods in Health Data Science with R\nOutside working hours I organize MHDSR, an independent training pathway covering applied biostatistics, survival analysis, machine learning, and meta-analysis with R, delivered live to research teams and open cohorts:\n\nBIOSTATR: Applied Biostatistics with R (foundations)\nML4HOR: Machine Learning for Health Outcomes with R (prediction)\nMETAR: Conducting Meta-Analysis with R (evidence synthesis)"
+    "text": "MHDSR: Methods in Health Data Science with R\nOutside working hours I organize MHDSR, an independent training pathway covering applied biostatistics, survival analysis, and machine learning with R, delivered live to research teams and open cohorts:\n\nBIOSTATR: Applied Biostatistics with R (foundations)\nML4HOR: Machine Learning for Health Outcomes with R (prediction)"
   },
   {
     "objectID": "publications.html",

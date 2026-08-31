@@ -20,10 +20,9 @@ title-block-banner: false
 ## MHDSR: Methods in Health Data Science with R
 
 Outside working hours I organize **MHDSR**, an independent
-training pathway covering applied biostatistics, survival analysis, machine
-learning, and meta-analysis with R, delivered live to research teams and open
+training pathway covering applied biostatistics, survival analysis, and
+machine learning with R, delivered live to research teams and open
 cohorts:
 
 - **BIOSTATR**: Applied Biostatistics with R (foundations)
 - **ML4HOR**: Machine Learning for Health Outcomes with R (prediction)
-- **METAR**: Conducting Meta-Analysis with R (evidence synthesis)
