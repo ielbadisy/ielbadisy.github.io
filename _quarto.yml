@@ -15,7 +15,7 @@ project:
     - notes/deep-survival-networks.qmd
     - notes/survival-trajectory-phenotypes.qmd
     - notes/masked-knn-imputation.qmd
-    - notes/dgp-tve-nle.qmd
+    # - notes/dgp-tve-nle.qmd  # hidden until the DGP paper is submitted
   resources:
     - cv/cv.pdf
     - notes/img/**

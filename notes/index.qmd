@@ -13,6 +13,5 @@ toc: false
 | 2026-08-22 | [Deep neural networks for survival analysis with `survdnn`](deep-survival-networks.pdf) | <span class="tag">Survival Analysis</span> <span class="tag">Deep Learning</span> <span class="tag">survdnn</span> |
 | 2026-07-27 | [Survival-trajectory phenotypes with `unsurv`](survival-trajectory-phenotypes.pdf) | <span class="tag">Survival Analysis</span> <span class="tag">Clustering</span> <span class="tag">unsurv</span> |
 | 2026-07-02 | [Masked k-NN imputation with `missknn`](masked-knn-imputation.pdf) | <span class="tag">Missing Data</span> <span class="tag">Imputation</span> <span class="tag">missknn</span> |
-| 2026-06-10 | [Generating time-varying and non-linear covariate effects with `rpsurv`](dgp-tve-nle.pdf) | <span class="tag">Survival Analysis</span> <span class="tag">Simulation</span> <span class="tag">rpsurv</span> |
 
 : {tbl-colwidths="[15,55,30]"}
