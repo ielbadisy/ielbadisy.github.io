@@ -144,6 +144,6 @@
     "href": "notes/index.html",
     "title": "Notes",
     "section": "",
-    "text": "Date\nNote\nTags\n\n\n\n\n2026-08-22\nDeep neural networks for survival analysis with survdnn\nSurvival Analysis Deep Learning survdnn\n\n\n2026-07-27\nSurvival-trajectory phenotypes with unsurv\nSurvival Analysis Clustering unsurv\n\n\n2026-07-02\nMasked k-NN imputation with missknn\nMissing Data Imputation missknn\n\n\n\n\n\n\n Back to top"
+    "text": "Date\nNote\nTags\n\n\n\n\n2026-08-22\nDeep neural networks for survival analysis with survdnn\nSurvival Analysis Deep Learning survdnn\n\n\n2026-07-27\nSurvival-trajectory phenotypes with unsurv\nSurvival Analysis Clustering unsurv\n\n\n2026-07-02\nMasked k-NN imputation with missknn\nMissing Data Imputation missknn\n\n\n2026-06-10\nGenerating time-varying and non-linear covariate effects with rpsurv\nSurvival Analysis Simulation rpsurv\n\n\n\n\n\n\n Back to top"
   }
 ]
