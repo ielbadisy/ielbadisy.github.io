@@ -22,7 +22,7 @@ Machine learning in R has long suffered from a fragmentation problem. Fitting a 
 | `fit()` | Train any learner via a common formula interface |
 | `evaluate()` | Resampling-based performance with any metric |
 | `tune()` | Grid or random hyperparameter search |
-| `compare_learners()` | Benchmark multiple models side by side |
+| `compare()` | Benchmark multiple models side by side |
 | `interpret()` | 14 model-agnostic interpretability methods |
 | `estimate()` | Plug-in g-computation for ATE/CATE estimation |
 
@@ -48,7 +48,7 @@ evaluate(data = iris, formula = Sepal.Length ~ ., model = "ranger", resampling =
 ```{r}
 #| label: compare
 # compare to a regularized regression
-compare_learners(
+compare(
   data = iris,
   formula = Sepal.Length ~ .,
   models = c("ranger", "glmnet"),

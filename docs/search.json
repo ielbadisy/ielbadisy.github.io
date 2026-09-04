@@ -77,6 +77,188 @@
     "text": "Footnotes\n\n\nThe pipeline was built in R using grf for causal forests, the GRF calibration test, and AIPW average treatment effect estimation; glmnet for elastic-net variable selection; and xgboost for gradient-boosted CATE estimation. The co-association consensus step was inspired by Evidence Accumulation Clustering (Fred & Jain, 2005, IEEE TPAMI).↩︎"
   },
   {
+    "objectID": "blog/2026-03-30-survalis/index.html",
+    "href": "blog/2026-03-30-survalis/index.html",
+    "title": "survalis: An Interpretable Survival Machine Learning Framework in R",
+    "section": "",
+    "text": "Comparing survival models in R usually means learning a different interface for each one: coxph(), randomForestSRC::rfsrc(), xgboost::xgb.train(), and a deep survival network all expect different data shapes and return different prediction objects. survalis was built to close that gap: a unified framework for survival machine learning with a consistent contract for fitting, prediction, evaluation, and interpretation."
+  },
+  {
+    "objectID": "blog/2026-03-30-survalis/index.html#core-philosophy",
+    "href": "blog/2026-03-30-survalis/index.html#core-philosophy",
+    "title": "survalis: An Interpretable Survival Machine Learning Framework in R",
+    "section": "Core philosophy",
+    "text": "Core philosophy\nEvery learner in survalis follows the same pattern:\n\n\nfit_*() functions return a standardized mlsurv_model object\n\npredict_*() functions return a data.frame of survival probabilities, one row per subject, one column per requested time (t=100, t=200, …)\nEvaluation is fully modular: any fit_*/predict_* pair plugs into cv_survlearner() or score_survmodel()\n\nEverything downstream (benchmarking, calibration, interpretation) is designed to work on that same survival-probability matrix, regardless of which learner produced it"
+  },
+  {
+    "objectID": "blog/2026-03-30-survalis/index.html#why-explicit-fit_coxph-fit_rsf-instead-of-one-fitlearner-...",
+    "href": "blog/2026-03-30-survalis/index.html#why-explicit-fit_coxph-fit_rsf-instead-of-one-fitlearner-...",
+    "title": "survalis: An Interpretable Survival Machine Learning Framework in R",
+    "section": "Why explicit fit_coxph() / fit_rsf() instead of one fit(learner = ...)\n",
+    "text": "Why explicit fit_coxph() / fit_rsf() instead of one fit(learner = ...)\n\nThis is a deliberate departure from funcml, my general-purpose ML package, where fit(y ~ ., data, learner = \"ranger\") collapses every learner behind one verb and a string argument. survalis keeps a named function per learner, fit_coxph(), fit_rsf(), fit_survdnn(), and so on, instead of a single dispatcher.\nThe reason is that the survival setting is not just “regression with a different loss.” Every learner here already has to negotiate right-censoring, risk sets, and time-varying prediction targets on its own terms, and each one leans on a different underlying package (survival, randomForestSRC, xgboost, torch, flexsurv, …) with its own quirks around ties, time horizons, and baseline hazard estimation. Hiding fit_coxph and fit_rsf behind a shared fit(learner = \"rsf\") string would trade a small amount of typing for a layer of indirection between the call site and the model-specific machinery it actually invokes, machinery that, in survival analysis, is rarely interchangeable enough to be worth hiding. Keeping the learner name in the function name is a compactness choice: the API surface is larger (nineteen fit_*()/predict_*() pairs instead of one), but each call is self-describing and there is one fewer level of abstraction between what you write and what runs.\nWhat survalis does unify is everything after fitting: predict_*() always returns the same survival-probability matrix shape, so cindex_survmat(), brier(), cv_survlearner(), and benchmark() never need to know which fit_*() produced it. The genericity lives at the evaluation/interpretation layer, not at the fitting layer.\nThat output shape was a deliberate constraint, not an incidental one. A Cox model naturally hands back a linear predictor or a hazard ratio; a random survival forest hands back an ensemble of terminal-node curves; a deep survival network hands back whatever its loss was trained on (a Cox partial likelihood, an AFT loss, a discrete-time hazard). fit_survdnn() itself can predict a linear predictor if asked, since its loss functions include a Cox-style formulation. survalis standardizes on the survival-probability matrix anyway, over times t=100, t=200, and so on, because a matrix is, by construction, a richer object than a scalar: a linear predictor collapses a subject’s entire risk trajectory into one number and one implicit ranking, while a survival curve preserves how that risk actually unfolds over the follow-up window, which is what a fixed-horizon metric, a time-varying AUC, or a calibration curve each need to read back out at a different point. Forcing every predict_*() to that one shape throws away learner-specific detail on the way out (a Cox model’s clean linear score, a forest’s raw ensemble votes), but it is exactly what makes cindex_survmat(), brier(), timeroc_survmat(), and every interpretation function in the package learner-agnostic, without asking any of them to reconstruct a survival curve from a scalar first. The alternative, keeping each learner’s native output format and writing metric functions that branch on model class, is the design survalis specifically avoids."
+  },
+  {
+    "objectID": "blog/2026-03-30-survalis/index.html#nineteen-learners-one-interface",
+    "href": "blog/2026-03-30-survalis/index.html#nineteen-learners-one-interface",
+    "title": "survalis: An Interpretable Survival Machine Learning Framework in R",
+    "section": "Nineteen learners, one interface",
+    "text": "Nineteen learners, one interface\n\nlibrary(survalis)\nlist_survlearners()\n\n            learner                 fit                 predict\n             &lt;char&gt;              &lt;char&gt;                  &lt;char&gt;\n 1:           coxph           fit_coxph           predict_coxph\n 2:           aalen           fit_aalen           predict_aalen\n 3:          glmnet          fit_glmnet          predict_glmnet\n 4:       selectcox       fit_selectcox       predict_selectcox\n 5:          aftgee          fit_aftgee          predict_aftgee\n 6:     flexsurvreg     fit_flexsurvreg     predict_flexsurvreg\n 7:           stpm2           fit_stpm2           predict_stpm2\n 8:         bnnsurv         fit_bnnsurv         predict_bnnsurv\n 9:           rpart           fit_rpart           predict_rpart\n10:            bart            fit_bart            predict_bart\n11:         xgboost         fit_xgboost         predict_xgboost\n12:        coxboost        fit_coxboost        predict_coxboost\n13:          ranger          fit_ranger          predict_ranger\n14:             rsf             fit_rsf             predict_rsf\n15:         cforest         fit_cforest         predict_cforest\n16:      blackboost      fit_blackboost      predict_blackboost\n17:         survsvm         fit_survsvm         predict_survsvm\n18:         survdnn         fit_survdnn         predict_survdnn\n19:            orsf            fit_orsf            predict_orsf\n20: survmetalearner fit_survmetalearner predict_survmetalearner\n            learner                 fit                 predict\n             &lt;char&gt;              &lt;char&gt;                  &lt;char&gt;\n                tune has_fit has_predict has_tune available\n              &lt;char&gt;  &lt;lgcl&gt;      &lt;lgcl&gt;   &lt;lgcl&gt;    &lt;lgcl&gt;\n 1:             &lt;NA&gt;    TRUE        TRUE    FALSE      TRUE\n 2:             &lt;NA&gt;    TRUE        TRUE    FALSE      TRUE\n 3:      tune_glmnet    TRUE        TRUE     TRUE      TRUE\n 4:   tune_selectcox    TRUE        TRUE     TRUE      TRUE\n 5:             &lt;NA&gt;    TRUE        TRUE    FALSE      TRUE\n 6: tune_flexsurvreg    TRUE        TRUE     TRUE      TRUE\n 7:             &lt;NA&gt;    TRUE        TRUE    FALSE      TRUE\n 8:     tune_bnnsurv    TRUE        TRUE     TRUE      TRUE\n 9:       tune_rpart    TRUE        TRUE     TRUE      TRUE\n10:        tune_bart    TRUE        TRUE     TRUE      TRUE\n11:     tune_xgboost    TRUE        TRUE     TRUE      TRUE\n12:    tune_coxboost    TRUE        TRUE     TRUE      TRUE\n13:      tune_ranger    TRUE        TRUE     TRUE      TRUE\n14:         tune_rsf    TRUE        TRUE     TRUE      TRUE\n15:     tune_cforest    TRUE        TRUE     TRUE      TRUE\n16:  tune_blackboost    TRUE        TRUE     TRUE      TRUE\n17:     tune_survsvm    TRUE        TRUE     TRUE      TRUE\n18:     tune_survdnn    TRUE        TRUE     TRUE      TRUE\n19:        tune_orsf    TRUE        TRUE     TRUE      TRUE\n20:             &lt;NA&gt;    TRUE        TRUE    FALSE      TRUE\n                tune has_fit has_predict has_tune available\n              &lt;char&gt;  &lt;lgcl&gt;      &lt;lgcl&gt;   &lt;lgcl&gt;    &lt;lgcl&gt;\n\n\nThat list spans semiparametric (coxph, aalen), parametric (flexsurvreg, stpm2, aftgee), tree-based and ensemble (rpart, rsf, cforest, orsf), boosting (xgboost, blackboost), kernel (survsvm), and deep-learning (survdnn, bnnsurv) learners, plus survmetalearner for combining several of them. Most also ship a matching tune_*() function for grid or random hyperparameter search."
+  },
+  {
+    "objectID": "blog/2026-03-30-survalis/index.html#a-minimal-example",
+    "href": "blog/2026-03-30-survalis/index.html#a-minimal-example",
+    "title": "survalis: An Interpretable Survival Machine Learning Framework in R",
+    "section": "A minimal example",
+    "text": "A minimal example\n\nlibrary(survival)\n\ntimes &lt;- c(90, 180, 270)\n\nmod &lt;- fit_coxph(Surv(time, status) ~ age + karno + celltype, data = veteran)\nsp &lt;- predict_coxph(mod, newdata = veteran, times = times)\n\nhead(sp)\n\n       t=90      t=180       t=270\n1 0.6640601 0.37822072 0.257579996\n2 0.7361432 0.48310054 0.362410259\n3 0.6104309 0.30966354 0.194867900\n4 0.6541127 0.36490330 0.245015675\n5 0.7375010 0.48521958 0.364629899\n6 0.1897037 0.01929484 0.004055248\n\n\n\ntimes_fine &lt;- seq(0, 300, by = 10)\nsp_fine &lt;- predict_coxph(mod, newdata = veteran[1:8, ], times = times_fine)\n\np &lt;- plot_survmat(sp_fine)\nggplot2::ggsave(\"featured.png\", p, width = 7, height = 4.5, dpi = 150)\np\n\n\n\n\n\n\n\nDiscrimination and calibration are single function calls away, at a fixed horizon or cross-validated across folds:\n\ny &lt;- Surv(veteran$time, veteran$status)\n\nc(\n  cindex = cindex_survmat(y, sp, t_star = 180),\n  brier  = survalis::brier(y, sp[[\"t=180\"]], t_star = 180)\n)\n\ncindex.C index    brier.brier \n      0.733744       0.134603 \n\n\nSwap fit_coxph/predict_coxph for any other pair in list_survlearners() and every downstream call, cindex_survmat(), brier(), cv_survlearner(), benchmark(), stays exactly the same."
+  },
+  {
+    "objectID": "blog/2026-03-30-survalis/index.html#beyond-prediction-interpretation",
+    "href": "blog/2026-03-30-survalis/index.html#beyond-prediction-interpretation",
+    "title": "survalis: An Interpretable Survival Machine Learning Framework in R",
+    "section": "Beyond prediction: interpretation",
+    "text": "Beyond prediction: interpretation\nBecause every learner returns the same survival-probability shape, survalis’s interpretability layer works uniformly across all of them: permutation variable importance (compute_varimp()), accumulated local effects and partial dependence (compute_ale(), compute_pdp()), SHAP-based attribution (compute_shap()), pairwise interaction strength (compute_interactions()), counterfactual recommendations (compute_counterfactual()), and surrogate-tree explanations (compute_surrogate(), compute_tree_surrogate()), each with a matching plot_*() function."
+  },
+  {
+    "objectID": "blog/2026-03-30-survalis/index.html#install",
+    "href": "blog/2026-03-30-survalis/index.html#install",
+    "title": "survalis: An Interpretable Survival Machine Learning Framework in R",
+    "section": "Install",
+    "text": "Install\ninstall.packages(\"survalis\")"
+  },
+  {
+    "objectID": "blog/2026-03-30-survalis/index.html#links",
+    "href": "blog/2026-03-30-survalis/index.html#links",
+    "title": "survalis: An Interpretable Survival Machine Learning Framework in R",
+    "section": "Links",
+    "text": "Links\n\nCRAN.R-project.org/package=survalis\nGitHub: github.com/ielbadisy/survalis\n\n\n\nBack to blog"
+  },
+  {
+    "objectID": "blog/2025-10-01-survdnn/index.html",
+    "href": "blog/2025-10-01-survdnn/index.html",
+    "title": "survdnn: Deep Neural Networks for Survival Analysis in R",
+    "section": "",
+    "text": "Survival analysis has traditionally been dominated by the Cox proportional hazards model and its semi-parametric extensions. Deep learning offers an alternative: one that can capture non-linear covariate effects and complex interactions without manual feature engineering. survdnn brings that capability to R via the torch backend, with the same formula-based interface that R users already know."
+  },
+  {
+    "objectID": "blog/2025-10-01-survdnn/index.html#what-is-survdnn",
+    "href": "blog/2025-10-01-survdnn/index.html#what-is-survdnn",
+    "title": "survdnn: Deep Neural Networks for Survival Analysis in R",
+    "section": "What is survdnn?",
+    "text": "What is survdnn?\nsurvdnn (v0.7.6) trains multilayer perceptrons for right-censored survival data. It supports four loss functions, built-in cross-validation, hyperparameter tuning, survival curve prediction, and standard evaluation metrics.\nInstall:\ninstall.packages(\"torch\")   # backend\ninstall.packages(\"survdnn\")"
+  },
+  {
+    "objectID": "blog/2025-10-01-survdnn/index.html#fitting-a-model",
+    "href": "blog/2025-10-01-survdnn/index.html#fitting-a-model",
+    "title": "survdnn: Deep Neural Networks for Survival Analysis in R",
+    "section": "Fitting a model",
+    "text": "Fitting a model\nThe entry point is survdnn(), which takes a Surv() formula:\n\nlibrary(survival)\nlibrary(survdnn)\ntorch::torch_manual_seed(1)\n\nfit &lt;- survdnn(\n  formula   = Surv(time, status) ~ age + sex + ph.ecog + ph.karno,\n  data      = lung,\n  hidden    = c(64, 32),\n  activation = \"relu\",\n  loss      = \"cox\",\n  epochs    = 300,\n  lr        = 1e-3,\n  dropout   = 0.3,\n  batch_norm = TRUE,\n  verbose   = FALSE\n)\n\nfit"
+  },
+  {
+    "objectID": "blog/2025-10-01-survdnn/index.html#loss-functions",
+    "href": "blog/2025-10-01-survdnn/index.html#loss-functions",
+    "title": "survdnn: Deep Neural Networks for Survival Analysis in R",
+    "section": "Loss functions",
+    "text": "Loss functions\nFour loss functions are available, covering the major families of deep survival models:\n\n\n\n\n\n\n\nLoss\nModel family\nWhen to use\n\n\n\n\"cox\"\nBreslow Cox partial likelihood\nStandard proportional hazards assumption\n\n\n\"cox_l2\"\nL2-penalized Cox\nRegularization for wide feature sets\n\n\n\"aft\"\nAccelerated failure time\nLog-linear relationship preferred\n\n\n\"coxtime\"\nCoxTime (Kvamme et al., JMLR 2019)\nTime-varying covariate effects"
+  },
+  {
+    "objectID": "blog/2025-10-01-survdnn/index.html#prediction-and-survival-curves",
+    "href": "blog/2025-10-01-survdnn/index.html#prediction-and-survival-curves",
+    "title": "survdnn: Deep Neural Networks for Survival Analysis in R",
+    "section": "Prediction and survival curves",
+    "text": "Prediction and survival curves\n\n# predict linear predictor (risk score)\nhead(predict(fit, newdata = lung, type = \"lp\"))\n\n[1]  0.1397203 -0.2062566 -0.9678885  0.1454131 -0.7345585 -1.1179752\n\n# predict survival curves on a time grid\ntimes &lt;- seq(0, 1000, by = 50)\nsurv  &lt;- predict(fit, newdata = lung, type = \"survival\", times = times)\nhead(surv)\n\n        t=0      t=50     t=100     t=150     t=200     t=250     t=300\n1 0.9951746 0.9361534 0.8451717 0.7604267 0.6144562 0.5117045 0.4266991\n2 0.9965835 0.9543929 0.8877925 0.8238434 0.7085186 0.6224762 0.5473946\n3 0.9984034 0.9784408 0.9459462 0.9134979 0.8513897 0.8014476 0.7547645\n4 0.9951471 0.9358008 0.8443605 0.7592386 0.6127502 0.5097510 0.4246295\n5 0.9979842 0.9728526 0.9322323 0.8920343 0.8161431 0.7561600 0.7009718\n6 0.9986257 0.9814173 0.9533005 0.9250892 0.8706953 0.8265549 0.7849473\n      t=350     t=400     t=450     t=500     t=550      t=600      t=650\n1 0.3291391 0.2446004 0.1935003 0.1582133 0.1135787 0.08159666 0.05483936\n2 0.4555458 0.3692460 0.3128289 0.2712947 0.2145830 0.16981532 0.12819513\n3 0.6927352 0.6280267 0.5812417 0.5438405 0.4874379 0.43699172 0.38323199\n4 0.3270575 0.2426419 0.1916944 0.1565566 0.1121769 0.08043761 0.05393788\n5 0.6290261 0.5557598 0.5039996 0.4633978 0.4035571 0.35155256 0.29784911\n6 0.7290997 0.6700901 0.6268990 0.5920222 0.5387818 0.49043253 0.43803954\n       t=700      t=750       t=800       t=850       t=900       t=950\n1 0.03171439 0.01237621 0.007940308 0.004207006 0.001865832 0.001865832\n2 0.08701532 0.04471476 0.032664382 0.020839752 0.011723673 0.011723673\n3 0.31981080 0.23436366 0.202402368 0.164090863 0.125440661 0.125440661\n4 0.03109568 0.01206975 0.007724095 0.004077636 0.001800081 0.001800081\n5 0.23701727 0.16006584 0.133011865 0.102049314 0.072695858 0.072695858\n6 0.37488195 0.28688417 0.252875078 0.211093807 0.167527461 0.167527461\n       t=1000\n1 0.001865832\n2 0.011723673\n3 0.125440661\n4 0.001800081\n5 0.072695858\n6 0.167527461\n\n\n\np &lt;- plot(fit, newdata = lung[1:5, ], times = times)\nggplot2::ggsave(\"featured.png\", p, width = 7, height = 4.5, dpi = 150)\np"
+  },
+  {
+    "objectID": "blog/2025-10-01-survdnn/index.html#evaluation",
+    "href": "blog/2025-10-01-survdnn/index.html#evaluation",
+    "title": "survdnn: Deep Neural Networks for Survival Analysis in R",
+    "section": "Evaluation",
+    "text": "Evaluation\nevaluate_survdnn() computes the concordance index and integrated Brier score from the fitted model:\n\nevaluate_survdnn(fit, metrics = c(\"cindex\", \"ibs\"), times = seq(100, 800, by = 200), newdata = lung)\n\n# A tibble: 2 × 2\n  metric value\n  &lt;chr&gt;  &lt;dbl&gt;\n1 cindex 0.689\n2 ibs    0.162"
+  },
+  {
+    "objectID": "blog/2025-10-01-survdnn/index.html#hyperparameter-tuning-with-cross-validation",
+    "href": "blog/2025-10-01-survdnn/index.html#hyperparameter-tuning-with-cross-validation",
+    "title": "survdnn: Deep Neural Networks for Survival Analysis in R",
+    "section": "Hyperparameter tuning with cross-validation",
+    "text": "Hyperparameter tuning with cross-validation\ntune_survdnn() runs a grid search over the hyperparameter space with K-fold cross-validation. param_grid is a named list crossed via tidyr::crossing(), and must include hidden, lr, activation, epochs, .loss_fn, and loss_name:\ngrid &lt;- list(\n  hidden     = list(c(16), c(32, 16)),\n  lr         = c(1e-3, 1e-4),\n  activation = c(\"relu\"),\n  epochs     = c(200),\n  .loss_fn   = list(cox_loss, aft_loss),\n  loss_name  = c(\"cox\", \"aft\")\n)\n\ntuned &lt;- tune_survdnn(\n  formula = Surv(time, status) ~ age + sex + ph.ecog,\n  data    = lung,\n  times   = c(90, 300),\n  metrics = \"cindex\",\n  param_grid = grid,\n  folds   = 5,\n  return  = \"summary\"\n)"
+  },
+  {
+    "objectID": "blog/2025-10-01-survdnn/index.html#architecture",
+    "href": "blog/2025-10-01-survdnn/index.html#architecture",
+    "title": "survdnn: Deep Neural Networks for Survival Analysis in R",
+    "section": "Architecture",
+    "text": "Architecture\nUnder the hood, survdnn() builds an MLP via build_dnn(): linear layers with optional batch normalization and dropout between each hidden layer, terminating in a single linear output. The torch optimizer (Adam by default) is configurable via optimizer and optim_args."
+  },
+  {
+    "objectID": "blog/2025-10-01-survdnn/index.html#methodological-background",
+    "href": "blog/2025-10-01-survdnn/index.html#methodological-background",
+    "title": "survdnn: Deep Neural Networks for Survival Analysis in R",
+    "section": "Methodological background",
+    "text": "Methodological background\nsurvdnn’s design, loss functions, and benchmarks against classical and machine learning survival models are described in El Badisy (2026), “SurvDNN: Survival Deep Learning Models for Tabular Data”, The R Journal, RJ-2026-008."
+  },
+  {
+    "objectID": "blog/2025-10-01-survdnn/index.html#links",
+    "href": "blog/2025-10-01-survdnn/index.html#links",
+    "title": "survdnn: Deep Neural Networks for Survival Analysis in R",
+    "section": "Links",
+    "text": "Links\n\nGitHub: github.com/ielbadisy/survdnn\n\nPaper: RJ-2026-008\n\n\n\nBack to blog"
+  },
+  {
+    "objectID": "blog/2025-06-01-funcml/index.html",
+    "href": "blog/2025-06-01-funcml/index.html",
+    "title": "funcml: A Formula-First Framework for Machine Learning in R",
+    "section": "",
+    "text": "Machine learning in R has long suffered from a fragmentation problem. Fitting a random forest, a regularized linear model, and a neural network each requires learning a different package, a different formula syntax, and a different set of conventions for prediction and evaluation. funcml was built to close that gap."
+  },
+  {
+    "objectID": "blog/2025-06-01-funcml/index.html#what-is-funcml",
+    "href": "blog/2025-06-01-funcml/index.html#what-is-funcml",
+    "title": "funcml: A Formula-First Framework for Machine Learning in R",
+    "section": "What is funcml?",
+    "text": "What is funcml?\nfuncml provides a unified, formula-first interface to supervised learning in R. Six top-level verbs cover the full ML workflow:\n\n\nVerb\nWhat it does\n\n\n\nfit()\nTrain any learner via a common formula interface\n\n\nevaluate()\nResampling-based performance with any metric\n\n\ntune()\nGrid or random hyperparameter search\n\n\ncompare()\nBenchmark multiple models side by side\n\n\ninterpret()\n14 model-agnostic interpretability methods\n\n\nestimate()\nPlug-in g-computation for ATE/CATE estimation\n\n\n\nInstall from CRAN:\ninstall.packages(\"funcml\")"
+  },
+  {
+    "objectID": "blog/2025-06-01-funcml/index.html#a-minimal-example",
+    "href": "blog/2025-06-01-funcml/index.html#a-minimal-example",
+    "title": "funcml: A Formula-First Framework for Machine Learning in R",
+    "section": "A minimal example",
+    "text": "A minimal example\n\nlibrary(funcml)\n\n# fit a random forest\nfit_rf &lt;- fit(Sepal.Length ~ ., data = iris, model = \"ranger\")\n\n# evaluate with 5-fold CV\nevaluate(data = iris, formula = Sepal.Length ~ ., model = \"ranger\", resampling = cv(5), seed = 1)\n\n&lt;funcml_eval&gt; model: ranger | task: regression\n  metric   mean     sd n std_error conf_level conf_low conf_high\n1   rmse 0.3391 0.0451 5    0.0202       0.95   0.2830    0.3951\n2    mae 0.2771 0.0303 5    0.0136       0.95   0.2394    0.3147\n3    mse 0.1166 0.0322 5    0.0144       0.95   0.0767    0.1565\n4  medae 0.2428 0.0391 5    0.0175       0.95   0.1943    0.2913\n5   mape 0.0478 0.0050 5    0.0022       0.95   0.0416    0.0540\n6    rsq 0.8236 0.0552 5    0.0247       0.95   0.7550    0.8922\n\n\n\n# compare to a regularized regression\ncompare(\n  data = iris,\n  formula = Sepal.Length ~ .,\n  models = c(\"ranger\", \"glmnet\"),\n  resampling = cv(5),\n  seed = 1\n)\n\n&lt;funcml_compare&gt; task: regression | tuned: FALSE\n    model metric    mean     sd n std_error conf_level conf_low conf_high tuned\n1  ranger   rmse  0.3391 0.0451 5    0.0202       0.95   0.2830    0.3951 FALSE\n2  ranger    mae  0.2771 0.0303 5    0.0136       0.95   0.2394    0.3147 FALSE\n3  ranger    mse  0.1166 0.0322 5    0.0144       0.95   0.0767    0.1565 FALSE\n4  ranger  medae  0.2428 0.0391 5    0.0175       0.95   0.1943    0.2913 FALSE\n5  ranger   mape  0.0478 0.0050 5    0.0022       0.95   0.0416    0.0540 FALSE\n6  ranger    rsq  0.8236 0.0552 5    0.0247       0.95   0.7550    0.8922 FALSE\n7  glmnet   rmse  0.8258 0.0670 5    0.0300       0.95   0.7426    0.9090 FALSE\n8  glmnet    mae  0.6914 0.0683 5    0.0305       0.95   0.6066    0.7762 FALSE\n9  glmnet    mse  0.6856 0.1110 5    0.0496       0.95   0.5478    0.8234 FALSE\n10 glmnet  medae  0.6252 0.0687 5    0.0307       0.95   0.5399    0.7104 FALSE\n11 glmnet   mape  0.1205 0.0104 5    0.0047       0.95   0.1076    0.1335 FALSE\n12 glmnet    rsq -0.0175 0.0208 5    0.0093       0.95  -0.0433    0.0084 FALSE\n   rank\n1     1\n2     1\n3     1\n4     1\n5     1\n6     1\n7     2\n8     2\n9     2\n10    2\n11    2\n12    2"
+  },
+  {
+    "objectID": "blog/2025-06-01-funcml/index.html#interpretability-built-in",
+    "href": "blog/2025-06-01-funcml/index.html#interpretability-built-in",
+    "title": "funcml: A Formula-First Framework for Machine Learning in R",
+    "section": "Interpretability built in",
+    "text": "Interpretability built in\ninterpret() wraps 14 methods, from permutation importance and partial dependence plots to SHAP values and accumulated local effects, behind a single call:\n\ninterpret(fit_rf, data = iris, method = \"pdp\", features = \"Petal.Width\")$result$curves |&gt; head()\n\n      feature     value     yhat\n1 Petal.Width 0.1000000 5.567361\n2 Petal.Width 0.2142857 5.585780\n3 Petal.Width 0.3285714 5.595121\n4 Petal.Width 0.4428571 5.676712\n5 Petal.Width 0.5571429 5.669333\n6 Petal.Width 0.6714286 5.680577"
+  },
+  {
+    "objectID": "blog/2025-06-01-funcml/index.html#causal-estimation",
+    "href": "blog/2025-06-01-funcml/index.html#causal-estimation",
+    "title": "funcml: A Formula-First Framework for Machine Learning in R",
+    "section": "Causal estimation",
+    "text": "Causal estimation\nWhen the research question goes beyond prediction, estimate() wraps plug-in g-computation to estimate average and conditional treatment effects:\n\nset.seed(1)\nn &lt;- 200\nX1 &lt;- rnorm(n); X2 &lt;- rnorm(n)\nA &lt;- rbinom(n, 1, plogis(0.3 * X1))\nY &lt;- 1 + 0.5 * A + 0.4 * X1 - 0.2 * X2 + rnorm(n)\nmydata &lt;- data.frame(Y, A, X1, X2)\n\n# ATE of treatment A on outcome Y, adjusted for covariates X\nestimate(\n  data      = mydata,\n  formula   = Y ~ A + X1 + X2,\n  model     = \"ranger\",\n  treatment = \"A\",\n  estimand  = \"ATE\",\n  seed      = 1\n)\n\n&lt;funcml_estimand&gt; ATE via g-computation\nTreatment: A (1 vs 0)\nEstimate: 0.4531 | SE: 0.0156 | 95% normal CI [0.4225, 0.4836]"
+  },
+  {
+    "objectID": "blog/2025-06-01-funcml/index.html#the-learner-registry",
+    "href": "blog/2025-06-01-funcml/index.html#the-learner-registry",
+    "title": "funcml: A Formula-First Framework for Machine Learning in R",
+    "section": "The learner registry",
+    "text": "The learner registry\nfuncml ships with 26 learners spanning linear models, tree ensembles, SVMs, neural networks, additive models, boosting, and stacking. All are accessed by name:\n\nlist_learners()[, c(\"learner\", \"has_tune\")]\n\n        learner has_tune\n17     adaboost     TRUE\n24         bart     TRUE\n11          C50     TRUE\n20      cforest     TRUE\n19        ctree     TRUE\n7      densemlp     TRUE\n8     e1071_svm     TRUE\n13        earth     TRUE\n16          fda     TRUE\n14          gam     TRUE\n10          gbm     TRUE\n1           glm     TRUE\n3        glmnet     TRUE\n12         kknn     TRUE\n21          lda     TRUE\n23     lightgbm     TRUE\n6           mlp     TRUE\n15   naivebayes     TRUE\n5          nnet     TRUE\n18          pls     TRUE\n22          qda     TRUE\n9  randomForest     TRUE\n4        ranger     TRUE\n2         rpart     TRUE\n26     stacking     TRUE\n27 superlearner     TRUE\n25      xgboost     TRUE"
+  },
+  {
+    "objectID": "blog/2025-06-01-funcml/index.html#citation",
+    "href": "blog/2025-06-01-funcml/index.html#citation",
+    "title": "funcml: A Formula-First Framework for Machine Learning in R",
+    "section": "Citation",
+    "text": "Citation\n@software{El_Badisy_funcml_2026,\n  author  = {El Badisy, Imad},\n  license = {GPL-3.0-only},\n  month   = apr,\n  title   = {{funcml}},\n  doi     = {10.5281/zenodo.20707605},\n  url     = {https://doi.org/10.5281/zenodo.20707605},\n  version = {0.7.1},\n  year    = {2026}\n}"
+  },
+  {
+    "objectID": "blog/2025-06-01-funcml/index.html#links",
+    "href": "blog/2025-06-01-funcml/index.html#links",
+    "title": "funcml: A Formula-First Framework for Machine Learning in R",
+    "section": "Links",
+    "text": "Links\n\nGitHub: github.com/ielbadisy/funcml\n\nCRAN: CRAN.R-project.org/package=funcml\n\nCitation: doi:10.5281/zenodo.20707605\n\n\n\nBack to blog"
+  },
+  {
     "objectID": "notes/index.html",
     "href": "notes/index.html",
     "title": "Notes",
@@ -228,7 +410,210 @@
     "href": "blog/index.html",
     "title": "Blog",
     "section": "",
-    "text": "Notes and write-ups on the R packages and methods I build, mostly biostatistics, survival analysis, and machine learning for health data.\n\n\n\n\n\n\n\n\n\n\nAPI Design in the Era of LLMs\n\n\nWhy interface stability has quietly become a correctness property\n\n\n\nR\n\nmachine-learning\n\nessay\n\n\n\n\n\n\nAug 27, 2026\n\n\n\n\n\n\n\nAbstraction versus Reality\n\n\nOn the fantasy of trading a screen for a farm\n\n\n\nessay\n\n\n\n\n\n\nAug 24, 2026\n\n\n\n\n\n\n\nWhat I Learned from the GMDS Biostatistics Competition 2026\n\n\nEnsembling heterogeneous treatment effect estimators, and where the pipeline breaks when every component is evaluated separately\n\n\n\nR\n\ncausal-inference\n\nbiostatistics\n\nmachine-learning\n\n\n\n\n\n\nAug 20, 2026\n\n\n\n\n\nNo matching items\n Back to top"
+    "text": "Notes and write-ups on the R packages and methods I build, mostly biostatistics, survival analysis, and machine learning for health data.\n\n\n\n\n\n\n\n\n\n\nAPI Design in the Era of LLMs\n\n\nWhy interface stability has quietly become a correctness property\n\n\n\nR\n\nmachine-learning\n\nessay\n\n\n\n\n\n\nAug 27, 2026\n\n\n\n\n\n\n\nAbstraction versus Reality\n\n\nOn the fantasy of trading a screen for a farm\n\n\n\nessay\n\n\n\n\n\n\nAug 24, 2026\n\n\n\n\n\n\n\nWhat I Learned from the GMDS Biostatistics Competition 2026\n\n\nEnsembling heterogeneous treatment effect estimators, and where the pipeline breaks when every component is evaluated separately\n\n\n\nR\n\ncausal-inference\n\nbiostatistics\n\nmachine-learning\n\n\n\n\n\n\nAug 20, 2026\n\n\n\n\n\n\n\nsurvalis is now on CRAN\n\n\nA unified benchmarking, evaluation, and interpretability interface for survival machine learning in R, from first submission to release\n\n\n\nR\n\nsurvival-analysis\n\nmachine-learning\n\npackages\n\n\n\n\n\n\nAug 18, 2026\n\n\n\n\n\n\n\nsurvalis: An Interpretable Survival Machine Learning Framework in R\n\n\nOne fit/predict contract across 19 survival learners, with benchmarking, calibration, and model-agnostic interpretation built in\n\n\n\nR\n\nsurvival-analysis\n\nmachine-learning\n\npackages\n\n\n\n\n\n\nMar 30, 2026\n\n\n\n\n\n\n\nunsurv: Unsupervised Clustering of Individualized Survival Curves\n\n\nPAM clustering on survival probability matrices with automatic K selection, monotonic enforcement, and plotting\n\n\n\nR\n\nsurvival-analysis\n\nclustering\n\npackages\n\n\n\n\n\n\nDec 1, 2025\n\n\n\n\n\n\n\nsurvdnn: Deep Neural Networks for Survival Analysis in R\n\n\nCox, AFT, and CoxTime losses with a formula interface, cross-validation, and calibration, powered by torch\n\n\n\nR\n\nsurvival-analysis\n\ndeep-learning\n\npackages\n\n\n\n\n\n\nOct 1, 2025\n\n\n\n\n\n\n\nmimar: Compact Multiple Imputation, Assessment, and Reporting in R\n\n\nArtificial amputation, chained-equations MI with ML imputers, diagnostic evaluation, and pooling, in one package\n\n\n\nR\n\nmissing-data\n\npackages\n\n\n\n\n\n\nAug 15, 2025\n\n\n\n\n\n\n\nfuncml: A Formula-First Framework for Machine Learning in R\n\n\nOne consistent API across 20+ learners, resampling, tuning, interpretation, and causal estimation\n\n\n\nR\n\nmachine-learning\n\npackages\n\n\n\n\n\n\nJun 1, 2025\n\n\n\n\n\nNo matching items\n Back to top"
+  },
+  {
+    "objectID": "blog/2025-08-15-mimar/index.html",
+    "href": "blog/2025-08-15-mimar/index.html",
+    "title": "mimar: Compact Multiple Imputation, Assessment, and Reporting in R",
+    "section": "",
+    "text": "Missing data is the rule, not the exception, in health research. Yet most workflows still string together three or four packages: one to characterize missingness, one to impute, one to pool, one to evaluate, with no consistent API across them. mimar brings all of that under one roof."
+  },
+  {
+    "objectID": "blog/2025-08-15-mimar/index.html#what-is-mimar",
+    "href": "blog/2025-08-15-mimar/index.html#what-is-mimar",
+    "title": "mimar: Compact Multiple Imputation, Assessment, and Reporting in R",
+    "section": "What is mimar?",
+    "text": "What is mimar?\nmimar (v0.8.0) covers the full missing-data analysis cycle:\n\n\nAmputation: artificially introduce missingness into a complete dataset for simulation studies\n\nImputation: single or multiple imputation via chained equations with a choice of statistical or ML imputers\n\nEvaluation: diagnostic metrics comparing imputed distributions to observed and (when known) true values\n\nPooling: Rubin’s rules applied to post-imputation model estimates\n\nInstall:\ninstall.packages(\"mimar\")"
+  },
+  {
+    "objectID": "blog/2025-08-15-mimar/index.html#artificial-amputation",
+    "href": "blog/2025-08-15-mimar/index.html#artificial-amputation",
+    "title": "mimar: Compact Multiple Imputation, Assessment, and Reporting in R",
+    "section": "Artificial amputation",
+    "text": "Artificial amputation\nampute() introduces controlled missingness into a complete data frame, specifying the mechanism (MCAR, MAR, MNAR) and the proportion of missing cells:\n\nlibrary(mimar)\n\nset.seed(1)\namp &lt;- ampute(iris, prop = 0.25, mechanism = \"MCAR\")\n\nhead(amp$data)       # the amputed data frame\n\n   Sepal.Length Sepal.Width Petal.Length Petal.Width Species\n          &lt;num&gt;       &lt;num&gt;        &lt;num&gt;       &lt;num&gt;  &lt;fctr&gt;\n1:          5.1         3.5          1.4         0.2  setosa\n2:          4.9         3.0           NA         0.2  setosa\n3:          4.7         3.2          1.3         0.2    &lt;NA&gt;\n4:          4.6         3.1          1.5          NA  setosa\n5:           NA         3.6          1.4          NA  setosa\n6:          5.4          NA          1.7         0.4  setosa"
+  },
+  {
+    "objectID": "blog/2025-08-15-mimar/index.html#multiple-imputation",
+    "href": "blog/2025-08-15-mimar/index.html#multiple-imputation",
+    "title": "mimar: Compact Multiple Imputation, Assessment, and Reporting in R",
+    "section": "Multiple imputation",
+    "text": "Multiple imputation\nimpute() runs chained equations with any registered imputer. The default is predictive mean matching (\"pmm\"), but ML-based imputers are equally accessible:\n\n# PMM: the safe default\nimp_pmm &lt;- impute(amp, m = 5, imputer = \"pmm\", maxit = 5)\n\n# Random forest imputation\nimp_rf &lt;- impute(amp, m = 5, imputer = \"ranger\")\n\n# XGBoost imputation\nimp_xgb &lt;- impute(amp, m = 5, imputer = \"xgboost\")\n\nclass(imp_pmm)\n\n[1] \"mimar_imputation\" \"list\"            \n\n\nimpute() returns a mimar_imputation object containing all m completed datasets alongside metadata for downstream steps."
+  },
+  {
+    "objectID": "blog/2025-08-15-mimar/index.html#available-imputers",
+    "href": "blog/2025-08-15-mimar/index.html#available-imputers",
+    "title": "mimar: Compact Multiple Imputation, Assessment, and Reporting in R",
+    "section": "Available imputers",
+    "text": "Available imputers\n\nimputer_registry()[, c(\"imputer\", \"implementation\", \"stochastic\")]\n\n         imputer implementation stochastic\n          &lt;char&gt;         &lt;char&gt;     &lt;lgcl&gt;\n 1:         mean          mimar      FALSE\n 2:       median          mimar      FALSE\n 3:         mode          mimar      FALSE\n 4:        naive          mimar      FALSE\n 5:         norm          mimar       TRUE\n 6:          pmm          mimar       TRUE\n 7:         spmm          mimar       TRUE\n 8:       logreg          mimar       TRUE\n 9:      polyreg          mimar       TRUE\n10:           rf        wrapped       TRUE\n11:       ranger        wrapped       TRUE\n12:        rpart        wrapped       TRUE\n13:       nbayes        wrapped       TRUE\n14:          svm        wrapped       TRUE\n15:         bart        wrapped       TRUE\n16:       glmnet        wrapped       TRUE\n17:          gbm        wrapped       TRUE\n18:      xgboost        wrapped       TRUE\n19:          knn          mimar       TRUE\n20:      hotdeck          mimar       TRUE\n21:         famd        wrapped       TRUE\n22: superlearner          mimar       TRUE\n23:           sl          mimar       TRUE\n24:     densemlp        wrapped       TRUE\n25:      missknn        wrapped       TRUE\n         imputer implementation stochastic\n          &lt;char&gt;         &lt;char&gt;     &lt;lgcl&gt;"
+  },
+  {
+    "objectID": "blog/2025-08-15-mimar/index.html#evaluation",
+    "href": "blog/2025-08-15-mimar/index.html#evaluation",
+    "title": "mimar: Compact Multiple Imputation, Assessment, and Reporting in R",
+    "section": "Evaluation",
+    "text": "Evaluation\nWhen the true values are known (after amputation, or from a simulation), evaluate() computes recovery metrics comparing imputed to true values:\n\ndiag &lt;- evaluate(imp_pmm)\ndiag$distribution       # observed vs. imputed means, SDs, unique counts\n\n       variable    type missing observed_unique imputed_unique observed_mean\n         &lt;char&gt;  &lt;char&gt;   &lt;int&gt;           &lt;int&gt;          &lt;int&gt;         &lt;num&gt;\n1: Sepal.Length numeric      33              33             28      5.837607\n2:  Sepal.Width numeric      39              22             19      3.075676\n3: Petal.Length numeric      34              42             38      3.755172\n4:  Petal.Width numeric      34              21             21      1.252586\n5:      Species  factor      31               3              3            NA\n   imputed_mean observed_sd imputed_sd\n          &lt;num&gt;       &lt;num&gt;      &lt;num&gt;\n1:     5.987273   0.8377645  0.7791618\n2:     3.035385   0.4509014  0.4011957\n3:     3.770000   1.8037808  1.5557433\n4:     1.076471   0.7519784  0.7701759\n5:           NA          NA         NA"
+  },
+  {
+    "objectID": "blog/2025-08-15-mimar/index.html#completing-and-pooling",
+    "href": "blog/2025-08-15-mimar/index.html#completing-and-pooling",
+    "title": "mimar: Compact Multiple Imputation, Assessment, and Reporting in R",
+    "section": "Completing and pooling",
+    "text": "Completing and pooling\nExtract a single completed dataset or pool regression estimates across all m imputations using Rubin’s rules:\n\ncompleted &lt;- complete(imp_pmm, which = 1)\nhead(completed)\n\n   Sepal.Length Sepal.Width Petal.Length Petal.Width    Species\n          &lt;num&gt;       &lt;num&gt;        &lt;num&gt;       &lt;num&gt;     &lt;fctr&gt;\n1:          5.1         3.5          1.4         0.2     setosa\n2:          4.9         3.0          1.4         0.2     setosa\n3:          4.7         3.2          1.3         0.2 versicolor\n4:          4.6         3.1          1.5         0.2     setosa\n5:          5.1         3.6          1.4         0.5     setosa\n6:          5.4         3.3          1.7         0.4     setosa\n\n# fit a model on each completed dataset, then pool the coefficients\ncompleted_list &lt;- lapply(seq_len(imp_pmm$m), function(k) complete(imp_pmm, which = k))\nfits  &lt;- lapply(completed_list, function(d) lm(Sepal.Length ~ Sepal.Width + Petal.Length + Petal.Width, data = d))\nbetas &lt;- lapply(fits, coef)\nvars  &lt;- lapply(fits, function(f) diag(vcov(f)))\n\npool(betas, variance = vars)\n\nmimar pooled results\n           term   estimate  std.error statistic    df      p.value   conf.low\n         &lt;char&gt;      &lt;num&gt;      &lt;num&gt;     &lt;num&gt; &lt;num&gt;        &lt;num&gt;      &lt;num&gt;\n1:  (Intercept)  2.1204880 0.23942658  8.856527   Inf 8.254583e-19  1.6512205\n2:  Sepal.Width  0.5861945 0.06375298  9.194779   Inf 3.757668e-20  0.4612410\n3: Petal.Length  0.7034397 0.05719104 12.299822   Inf 9.077385e-35  0.5913473\n4:  Petal.Width -0.5639728 0.12879778 -4.378746   Inf 1.193641e-05 -0.8164118\n    conf.high     m within_variance between_variance total_variance\n        &lt;num&gt; &lt;int&gt;           &lt;num&gt;            &lt;num&gt;          &lt;num&gt;\n1:  2.5897555     5     0.057325087                0    0.057325087\n2:  0.7111480     5     0.004064442                0    0.004064442\n3:  0.8155320     5     0.003270815                0    0.003270815\n4: -0.3115338     5     0.016588867                0    0.016588867\n   relative_increase_variance   rule\n                        &lt;num&gt; &lt;char&gt;\n1:                          0  rubin\n2:                          0  rubin\n3:                          0  rubin\n4:                          0  rubin"
+  },
+  {
+    "objectID": "blog/2025-08-15-mimar/index.html#when-to-use-mimar",
+    "href": "blog/2025-08-15-mimar/index.html#when-to-use-mimar",
+    "title": "mimar: Compact Multiple Imputation, Assessment, and Reporting in R",
+    "section": "When to use mimar",
+    "text": "When to use mimar\nmimar is designed for:\n\n\nSimulation studies: amputate, impute, evaluate recovery under controlled conditions\n\nApplied health research: handle missing covariates or outcomes before regression or survival analysis\n\nML-driven imputation: when the imputation model is complex enough to warrant a tree ensemble or gradient booster"
+  },
+  {
+    "objectID": "blog/2025-08-15-mimar/index.html#links",
+    "href": "blog/2025-08-15-mimar/index.html#links",
+    "title": "mimar: Compact Multiple Imputation, Assessment, and Reporting in R",
+    "section": "Links",
+    "text": "Links\n\nGitHub: github.com/ielbadisy/mimar\n\n\n\nBack to blog"
+  },
+  {
+    "objectID": "blog/2025-12-01-unsurv/index.html",
+    "href": "blog/2025-12-01-unsurv/index.html",
+    "title": "unsurv: Unsupervised Clustering of Individualized Survival Curves",
+    "section": "",
+    "text": "Survival analysis typically ends at the population level: a single estimated curve, or a hazard ratio summarizing the average effect of a covariate. But individualized survival curves, one per patient, open a richer question: can we identify subgroups of patients with similar prognosis trajectories, without ever labeling anyone in advance?\nunsurv answers that question. It clusters individualized survival curves using Partitioning Around Medoids (PAM), with principled preprocessing choices (monotonic enforcement, weighted distances, automatic K selection) and a clean set of plotting helpers."
+  },
+  {
+    "objectID": "blog/2025-12-01-unsurv/index.html#what-is-unsurv",
+    "href": "blog/2025-12-01-unsurv/index.html#what-is-unsurv",
+    "title": "unsurv: Unsupervised Clustering of Individualized Survival Curves",
+    "section": "What is unsurv?",
+    "text": "What is unsurv?\nunsurv (v0.6.0) takes a matrix of survival probabilities (rows are subjects, columns are time points) and returns cluster assignments, medoid curves, and a silhouette diagnostic.\nInstall:\ninstall.packages(\"unsurv\")"
+  },
+  {
+    "objectID": "blog/2025-12-01-unsurv/index.html#the-core-idea",
+    "href": "blog/2025-12-01-unsurv/index.html#the-core-idea",
+    "title": "unsurv: Unsupervised Clustering of Individualized Survival Curves",
+    "section": "The core idea",
+    "text": "The core idea\nSuppose you have estimated individual survival curves \\(S_i(t_1), \\ldots, S_i(t_m)\\) for \\(n\\) patients on a shared time grid \\(t_1 &lt; \\cdots &lt; t_m\\) (from any model: Kaplan–Meier stratified by covariates, a Cox model, a random survival forest, or survdnn). Stack them into an \\(n \\times m\\) matrix \\(\\mathbf{S}\\) and pass it to unsurv().\nThe algorithm:\n\nOptionally enforce monotone non-increasing curves.\nOptionally smooth curves with a median filter.\nCompute a weighted distance matrix (\\(L_1\\) or \\(L_2\\)) using trapezoidal weights by default, so time points in regions of faster change contribute more.\nRun PAM on the distance matrix.\nIf \\(K\\) is unspecified, select the \\(K \\in \\{2, \\ldots, K_\\text{max}\\}\\) that maximizes mean silhouette width."
+  },
+  {
+    "objectID": "blog/2025-12-01-unsurv/index.html#basic-usage",
+    "href": "blog/2025-12-01-unsurv/index.html#basic-usage",
+    "title": "unsurv: Unsupervised Clustering of Individualized Survival Curves",
+    "section": "Basic usage",
+    "text": "Basic usage\n\nlibrary(unsurv)\n\n# Simulate survival curves from two latent risk groups\nset.seed(42)\nn     &lt;- 100\ntimes &lt;- seq(0, 5, length.out = 40)\ngrp   &lt;- sample(1:2, n, replace = TRUE)\nrates &lt;- ifelse(grp == 1, 0.2, 0.8)\nS     &lt;- outer(rates, times, function(r, t) exp(-r * t))\nS     &lt;- S + matrix(rnorm(n * length(times), sd = 0.02), nrow = n)\n\n# Cluster with automatic K selection\nfit &lt;- unsurv(S, times, K = NULL, K_max = 6, seed = 123)\n\nfit$K               # selected number of clusters\n\n[1] 2\n\ntable(fit$clusters) # cluster assignment per subject\n\n\n 1  2 \n44 56 \n\nfit$silhouette_mean # mean silhouette width at the selected K\n\n[1] 0.9393843"
+  },
+  {
+    "objectID": "blog/2025-12-01-unsurv/index.html#distance-and-weighting-options",
+    "href": "blog/2025-12-01-unsurv/index.html#distance-and-weighting-options",
+    "title": "unsurv: Unsupervised Clustering of Individualized Survival Curves",
+    "section": "Distance and weighting options",
+    "text": "Distance and weighting options\n\n# L1 (Manhattan) distance: more robust to outlier curves\nfit_l1 &lt;- unsurv(S, times, K = 2, distance = \"L1\")\n\n# Custom time weights: emphasize early time points\nw &lt;- rev(seq_along(times))\nfit_w &lt;- unsurv(S, times, K = 2, weights = w / sum(w))"
+  },
+  {
+    "objectID": "blog/2025-12-01-unsurv/index.html#monotonic-enforcement-and-smoothing",
+    "href": "blog/2025-12-01-unsurv/index.html#monotonic-enforcement-and-smoothing",
+    "title": "unsurv: Unsupervised Clustering of Individualized Survival Curves",
+    "section": "Monotonic enforcement and smoothing",
+    "text": "Monotonic enforcement and smoothing\nRaw predicted survival curves from flexible models may not be strictly non-increasing. unsurv corrects this before clustering:\n\nfit &lt;- unsurv(\n  S, times, K = NULL, K_max = 6, seed = 123,\n  enforce_monotone   = TRUE,  # project each curve to isotonic\n  smooth_median_width = 5      # median filter of width 5 over time\n)"
+  },
+  {
+    "objectID": "blog/2025-12-01-unsurv/index.html#predicting-clusters-for-new-subjects",
+    "href": "blog/2025-12-01-unsurv/index.html#predicting-clusters-for-new-subjects",
+    "title": "unsurv: Unsupervised Clustering of Individualized Survival Curves",
+    "section": "Predicting clusters for new subjects",
+    "text": "Predicting clusters for new subjects\n\n# newdata: n_new x m matrix of survival curves for new patients\npred &lt;- predict(fit, newdata = S[1:5, ])\npred\n\n[1] 1 2 1 2 1"
+  },
+  {
+    "objectID": "blog/2025-12-01-unsurv/index.html#plotting",
+    "href": "blog/2025-12-01-unsurv/index.html#plotting",
+    "title": "unsurv: Unsupervised Clustering of Individualized Survival Curves",
+    "section": "Plotting",
+    "text": "Plotting\n\nplot(fit)"
+  },
+  {
+    "objectID": "blog/2025-12-01-unsurv/index.html#combining-with-a-survival-model",
+    "href": "blog/2025-12-01-unsurv/index.html#combining-with-a-survival-model",
+    "title": "unsurv: Unsupervised Clustering of Individualized Survival Curves",
+    "section": "Combining with a survival model",
+    "text": "Combining with a survival model\nA natural pipeline is:\n\nFit individualized survival curves with a model of your choice (e.g., survdnn, rfsrc, Cox with spline terms).\nPredict \\(\\hat{S}_i(t)\\) on a common time grid.\nPass the resulting matrix to unsurv() to discover prognostic subgroups.\nUse cluster membership as a stratification variable or as a phenotype to interrogate.\n\n\nlibrary(survival)\nlibrary(survdnn)\ntorch::torch_manual_seed(1)\n\ndnn_fit &lt;- survdnn(Surv(time, status) ~ age + sex + ph.ecog + ph.karno, data = lung,\n                   hidden = c(64, 32), loss = \"cox\", epochs = 100, verbose = FALSE)\n\ntimes_grid &lt;- seq(0, 1000, by = 25)\nS_hat &lt;- as.matrix(predict(dnn_fit, newdata = lung, type = \"survival\", times = times_grid))\n\nclust &lt;- unsurv(S_hat, times_grid, K = NULL, K_max = 5, seed = 1)\ntable(clust$clusters)\n\n\n  1   2   3 \n113  70  43"
+  },
+  {
+    "objectID": "blog/2025-12-01-unsurv/index.html#methodological-background",
+    "href": "blog/2025-12-01-unsurv/index.html#methodological-background",
+    "title": "unsurv: Unsupervised Clustering of Individualized Survival Curves",
+    "section": "Methodological background",
+    "text": "Methodological background\nunsurv’s preprocessing choices, distance weighting, medoid-based clustering, and stability assessment are described in El Badisy (2026), “unsurv: Clustering Individualized Survival Curves”, Bioinformatics Advances, doi:10.1093/bioadv/vbag218, with a demonstration on the METABRIC breast cancer cohort using survdnn-predicted curves."
+  },
+  {
+    "objectID": "blog/2025-12-01-unsurv/index.html#links",
+    "href": "blog/2025-12-01-unsurv/index.html#links",
+    "title": "unsurv: Unsupervised Clustering of Individualized Survival Curves",
+    "section": "Links",
+    "text": "Links\n\nGitHub: github.com/ielbadisy/unsurv\n\nPaper: doi:10.1093/bioadv/vbag218\n\n\n\nBack to blog"
+  },
+  {
+    "objectID": "blog/2026-08-18-survalis-cran-release/index.html",
+    "href": "blog/2026-08-18-survalis-cran-release/index.html",
+    "title": "survalis is now on CRAN",
+    "section": "",
+    "text": "survalis is now on CRAN: CRAN.R-project.org/package=survalis. It provides one consistent interface, fit_*() / predict_*() pairs returning a standardized mlsurv_model and a survival-probability matrix, across 19 survival learners (semiparametric, parametric, tree-based, ensemble, boosting, kernel, and deep-learning), plus benchmarking, evaluation, calibration, and model-agnostic interpretation on top.\nThis post walks through what changed between the first CRAN submission candidate (0.7.0) and the current release (0.9.0): the new implementations, and the corrections made along the way."
+  },
+  {
+    "objectID": "blog/2026-08-18-survalis-cran-release/index.html#one-entry-point-for-benchmarking-benchmark",
+    "href": "blog/2026-08-18-survalis-cran-release/index.html#one-entry-point-for-benchmarking-benchmark",
+    "title": "survalis is now on CRAN",
+    "section": "One entry point for benchmarking: benchmark()\n",
+    "text": "One entry point for benchmarking: benchmark()\n\nComparing learners used to mean choosing between benchmark_default_survlearners() (plain k-fold CV) and benchmark_tuned_survlearners() (nested CV with per-learner hyperparameter tuning). benchmark() now dispatches to either from a single tune argument:\n\nlibrary(survalis)\nlibrary(survival)\n\ntimes &lt;- c(30, 90, 180)\n\nres &lt;- benchmark(\n  Surv(time, status) ~ age + karno + celltype,\n  data = veteran,\n  learners = c(\"coxph\", \"rsf\"),\n  times = times,\n  metrics = c(\"cindex\", \"ibs\"),\n  tune = FALSE,\n  folds = 5,\n  seed = 1\n)\n\nres\n\n                         splits     id  fold metric value learner\n                         &lt;list&gt; &lt;char&gt; &lt;int&gt; &lt;char&gt; &lt;num&gt;  &lt;char&gt;\n 1: &lt;vfold_split[109x28x137x8]&gt;  Fold1     1 cindex 0.739   coxph\n 2: &lt;vfold_split[109x28x137x8]&gt;  Fold1     1    ibs 0.173   coxph\n 3: &lt;vfold_split[109x28x137x8]&gt;  Fold2     2 cindex 0.697   coxph\n 4: &lt;vfold_split[109x28x137x8]&gt;  Fold2     2    ibs 0.156   coxph\n 5: &lt;vfold_split[110x27x137x8]&gt;  Fold3     3 cindex 0.703   coxph\n 6: &lt;vfold_split[110x27x137x8]&gt;  Fold3     3    ibs 0.166   coxph\n 7: &lt;vfold_split[110x27x137x8]&gt;  Fold4     4 cindex 0.717   coxph\n 8: &lt;vfold_split[110x27x137x8]&gt;  Fold4     4    ibs 0.168   coxph\n 9: &lt;vfold_split[110x27x137x8]&gt;  Fold5     5 cindex 0.754   coxph\n10: &lt;vfold_split[110x27x137x8]&gt;  Fold5     5    ibs 0.152   coxph\n11: &lt;vfold_split[109x28x137x8]&gt;  Fold1     1 cindex 0.636     rsf\n12: &lt;vfold_split[109x28x137x8]&gt;  Fold1     1    ibs 0.171     rsf\n13: &lt;vfold_split[109x28x137x8]&gt;  Fold2     2 cindex 0.697     rsf\n14: &lt;vfold_split[109x28x137x8]&gt;  Fold2     2    ibs 0.172     rsf\n15: &lt;vfold_split[110x27x137x8]&gt;  Fold3     3 cindex 0.720     rsf\n16: &lt;vfold_split[110x27x137x8]&gt;  Fold3     3    ibs 0.158     rsf\n17: &lt;vfold_split[110x27x137x8]&gt;  Fold4     4 cindex 0.677     rsf\n18: &lt;vfold_split[110x27x137x8]&gt;  Fold4     4    ibs 0.188     rsf\n19: &lt;vfold_split[110x27x137x8]&gt;  Fold5     5 cindex 0.722     rsf\n20: &lt;vfold_split[110x27x137x8]&gt;  Fold5     5    ibs 0.151     rsf\n                         splits     id  fold metric value learner\n                         &lt;list&gt; &lt;char&gt; &lt;int&gt; &lt;char&gt; &lt;num&gt;  &lt;char&gt;\n\n\ntune = TRUE runs the same call as nested CV, dispatching to benchmark_tuned_survlearners() with outer_folds/inner_folds instead. benchmark_default_survlearners() and benchmark_tuned_survlearners() both remain available directly for callers who don’t need the dispatch."
+  },
+  {
+    "objectID": "blog/2026-08-18-survalis-cran-release/index.html#time-dependent-discrimination-timeroc_survmat",
+    "href": "blog/2026-08-18-survalis-cran-release/index.html#time-dependent-discrimination-timeroc_survmat",
+    "title": "survalis is now on CRAN",
+    "section": "Time-dependent discrimination: timeroc_survmat()\n",
+    "text": "Time-dependent discrimination: timeroc_survmat()\n\nThe C-index and the Brier score summarize discrimination and calibration at a single horizon. timeroc_survmat() adds a vectorized cumulative/dynamic AUC curve over a vector of evaluation times, matching timeROC::timeROC(weighting = \"marginal\") to about 1e-3 (Uno et al. 2007 / Heagerty and Zheng 2005):\n\ny &lt;- Surv(veteran$time, veteran$status)\nmod_rsf &lt;- fit_rsf(Surv(time, status) ~ age + karno + celltype, data = veteran, ntree = 200)\nsp_rsf &lt;- predict_rsf(mod_rsf, newdata = veteran, times = times)\n\ntimeroc_survmat(y, predicted = sp_rsf, times = times)\n\n  time      auc\n1   30 0.886782\n2   90 0.882498\n3  180 0.897919"
+  },
+  {
+    "objectID": "blog/2026-08-18-survalis-cran-release/index.html#a-native-kaplan-meier-plot-plot_survcurve",
+    "href": "blog/2026-08-18-survalis-cran-release/index.html#a-native-kaplan-meier-plot-plot_survcurve",
+    "title": "survalis is now on CRAN",
+    "section": "A native Kaplan-Meier plot: plot_survcurve()\n",
+    "text": "A native Kaplan-Meier plot: plot_survcurve()\n\nplot_survcurve() adds a survminer-style Kaplan-Meier curve with a confidence ribbon, a log-rank p-value annotation, and an aligned number-at-risk table, built directly on theme_survalis() / scale_color_survalis() rather than depending on the survminer package. The risk table is composed with patchwork.\n\nplot_survcurve(Surv(time, status) ~ celltype, data = veteran)"
+  },
+  {
+    "objectID": "blog/2026-08-18-survalis-cran-release/index.html#a-consistent-visual-system-theme_survalis-and-the-color-scales",
+    "href": "blog/2026-08-18-survalis-cran-release/index.html#a-consistent-visual-system-theme_survalis-and-the-color-scales",
+    "title": "survalis is now on CRAN",
+    "section": "A consistent visual system: theme_survalis() and the color scales",
+    "text": "A consistent visual system: theme_survalis() and the color scales\nEvery plotting function used to call theme_minimal() with its own base_size, and grouped plots fell back to ggplot2’s default hue palette except for plot_survcurve(). theme_survalis() and the colorblind-friendly scale_color_survalis() / scale_fill_survalis() (ColorBrewer “Dark2”-based, interpolated beyond 8 levels) were retrofitted across every plotting function, plot_ale(), plot_pdp(), plot_shap(), plot_interactions(), plot_calibration(), plot_counterfactual(), plot_surrogate(), plot_tree_surrogate(), plot_varimp(), plot_survmat(), plot_survmetalearner_weights(), plot_benchmark(), cv_plot(), plot_survcurve(), so package figures read as one system instead of thirteen independent styles. Single-series hardcoded colors (\"steelblue\", \"pink\", \"tomato\", ad-hoc green/red hex codes) were replaced the same way, and every plot that can show both positive and negative values now draws a dashed zero-reference line.\nAs of 0.9.0, every one of those functions also takes a title argument: pass a custom string, leave it out for the previous auto-generated title, or pass title = NULL to drop it entirely for journals that require caption-only figures."
+  },
+  {
+    "objectID": "blog/2026-08-18-survalis-cran-release/index.html#uncertainty-in-variable-importance-plot_varimp",
+    "href": "blog/2026-08-18-survalis-cran-release/index.html#uncertainty-in-variable-importance-plot_varimp",
+    "title": "survalis is now on CRAN",
+    "section": "Uncertainty in variable importance: plot_varimp()\n",
+    "text": "Uncertainty in variable importance: plot_varimp()\n\ncompute_varimp() computes permutation-based importance by repeating a metric drop over n_repetitions permutations per feature. It used to summarize those repetitions down to a single point estimate and discard them. plot_varimp() now draws the full per-repetition distribution as a boxplot instead of a lone point, and compute_varimp() keeps the raw values as a \"raw_scores\" attribute so the plot can use them (falling back to the old point-plot for hand-built summary tables without that attribute):\n\nmod_cox &lt;- fit_coxph(Surv(time, status) ~ age + karno + celltype, data = veteran)\nvi &lt;- compute_varimp(mod_cox, times = times, metric = \"ibs\", n_repetitions = 15, seed = 1)\n\np &lt;- plot_varimp(vi)\nggplot2::ggsave(\"featured.png\", p, width = 7, height = 4.5, dpi = 150)\np"
+  },
+  {
+    "objectID": "blog/2026-08-18-survalis-cran-release/index.html#migration-to-data.table",
+    "href": "blog/2026-08-18-survalis-cran-release/index.html#migration-to-data.table",
+    "title": "survalis is now on CRAN",
+    "section": "Migration to data.table",
+    "text": "Migration to data.table\nEvery internal data-manipulation path, the CV/metrics engine (cv_survlearner(), cv_summary(), score_survmodel()), all nineteen tune_*() functions, cv_survmetalearner(), benchmark_tuned_survlearners(), compute_shap(), compute_calibration(), plot_survmat(), compute_varimp(), and the descriptive list_*() helpers, was migrated file by file from dplyr/tidyr/purrr/tibble to data.table. dplyr, tidyr, purrr, and tibble are no longer in Imports at all; data.table is now the sole data-manipulation engine. cv_summary()/score_survmodel() and summarise_benchmark() now round summary statistics to 3 decimals by default, consistently."
+  },
+  {
+    "objectID": "blog/2026-08-18-survalis-cran-release/index.html#corrections-along-the-way",
+    "href": "blog/2026-08-18-survalis-cran-release/index.html#corrections-along-the-way",
+    "title": "survalis is now on CRAN",
+    "section": "Corrections along the way",
+    "text": "Corrections along the way\nA few of these were silent correctness bugs, not just style:\n\n\nauc_survmat() case definition. Cases were defined as events with time &lt;= t_star instead of the canonical Uno/timeROC time &lt; t_star. This fed directly into the \"auc\" metric used throughout score_survmodel(), benchmark_*(), and fit_survmetalearner(), so it was corrected everywhere at once.\n\nSilently dropped learners in nested tuning. benchmark_tuned_survlearners() selected tuning-result columns with tuning_results[1, cols, drop = FALSE], relying on data.frame [ semantics; data.table’s [ doesn’t select columns from a variable the same way, so every fold for a data.table-migrated learner errored and the learner was quietly dropped with a warning. Fixed with a .select_cols() helper that works for both data.frame/tibble and data.table inputs.\n\ntune_survsvm(refit_best = TRUE) crashes. A top-ranked grid candidate could fail to refit on the full dataset (a quadprog QP infeasibility that only shows up on certain BLAS backends, including CRAN’s OpenBLAS check machine). It now falls back to the next-best candidate and only errors if every candidate fails.\n\nplot_interactions(type = \"heatmap\") readability. The white -&gt; steelblue gradient had too little contrast in the mid-range and the zero-valued diagonal blended into the low end. Switched to a perceptually uniform viridis scale, flipped afterward so high interaction values read as dark rather than bright, matching conventional heatmap reading.\n\nplot_pdp() per-time facets. Free y-axis scales made survival-probability panels visually incomparable across facets; now fixed to [0, 1] via coord_cartesian().\n\nStale generated docs breaking CI. Three .Rd files had hand-drifted out of sync with their roxygen source, using \\donttest{} (which CI runs) instead of \\dontrun{}, causing an example to fail on an undefined object. Regenerated from source and verified with R CMD check --run-donttest."
+  },
+  {
+    "objectID": "blog/2026-08-18-survalis-cran-release/index.html#links",
+    "href": "blog/2026-08-18-survalis-cran-release/index.html#links",
+    "title": "survalis is now on CRAN",
+    "section": "Links",
+    "text": "Links\n\nCRAN.R-project.org/package=survalis\nGitHub: github.com/ielbadisy/survalis\n\n\n\nBack to blog"
   },
   {
     "objectID": "blog/2026-08-24-causality-and-abstraction/index.html",
