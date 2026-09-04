@@ -16,6 +16,16 @@ project:
     - notes/survival-trajectory-phenotypes.qmd
     - notes/masked-knn-imputation.qmd
     - notes/dgp-tve-nle.qmd
+    - blog/index.qmd
+    - blog/2026-08-20-gmds-biostatistics-competition-2026/index.qmd
+    - blog/2026-08-24-causality-and-abstraction/index.qmd
+    - blog/2026-08-27-api-design-in-the-era-of-llms/index.qmd
+    - "!blog/2025-06-01-funcml/"
+    - "!blog/2025-08-15-mimar/"
+    - "!blog/2025-10-01-survdnn/"
+    - "!blog/2025-12-01-unsurv/"
+    - "!blog/2026-03-30-survalis/"
+    - "!blog/2026-08-18-survalis-cran-release/"
   resources:
     - cv/cv.pdf
     - notes/img/**
@@ -57,6 +67,9 @@ website:
       - text: Notes
         aria-label: "Notes"
         href: notes/index.qmd
+      - text: Blog
+        aria-label: "Blog"
+        href: blog/index.qmd
       - text: CV
         aria-label: "CV"
         href: cv/cv.pdf

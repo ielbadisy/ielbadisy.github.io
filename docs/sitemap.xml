@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://elbadisyimad.com/blog/2026-08-27-api-design-in-the-era-of-llms/index.html</loc>
+    <lastmod>2026-09-04T18:42:47.875Z</lastmod>
+  </url>
+  <url>
+    <loc>https://elbadisyimad.com/blog/2026-08-20-gmds-biostatistics-competition-2026/index.html</loc>
+    <lastmod>2026-09-04T18:41:56.859Z</lastmod>
+  </url>
+  <url>
     <loc>https://elbadisyimad.com/notes/index.html</loc>
     <lastmod>2026-09-02T08:17:51.303Z</lastmod>
   </url>
@@ -35,5 +43,13 @@
   <url>
     <loc>https://elbadisyimad.com/license.html</loc>
     <lastmod>2026-08-31T19:50:13.286Z</lastmod>
+  </url>
+  <url>
+    <loc>https://elbadisyimad.com/blog/index.html</loc>
+    <lastmod>2026-09-04T19:05:07.916Z</lastmod>
+  </url>
+  <url>
+    <loc>https://elbadisyimad.com/blog/2026-08-24-causality-and-abstraction/index.html</loc>
+    <lastmod>2026-09-04T18:41:18.091Z</lastmod>
   </url>
 </urlset>

@@ -2,7 +2,9 @@
 title: "Blog"
 listing:
   contents:
-    - "**/index.qmd"
+    - "2026-08-20-gmds-biostatistics-competition-2026/index.qmd"
+    - "2026-08-24-causality-and-abstraction/index.qmd"
+    - "2026-08-27-api-design-in-the-era-of-llms/index.qmd"
   sort: "date desc"
   type: default
   categories: false
@@ -18,17 +20,6 @@ format:
     page-layout: full
 title-block-banner: false
 ---
-
-<ul class="menu">
-  <li><a href="../index.qmd">Home</a></li>
-  <li><a href="../index.qmd#about">About</a></li>
-  <li><a href="../index.qmd#research">Research</a></li>
-  <li><a href="../index.qmd#software">Software</a></li>
-  <li><a href="../index.qmd#publications">Publications</a></li>
-  <li><a href="../index.qmd#contact">Contact</a></li>
-</ul>
-
-<hr>
 
 <p class="subtitle">
 Notes and write-ups on the R packages and methods I build, mostly biostatistics, survival analysis, and machine learning for health data.
