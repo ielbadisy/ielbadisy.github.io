@@ -47,7 +47,7 @@ Get in touch at [elbadisyimad@gmail.com](mailto:elbadisyimad@gmail.com) or [ielb
 
 ## About me
 
-I hold a PhD in Biomedical Sciences from Aix-Marseille University (SESSTIM laboratory) on missing data and machine learning methods for survival analysis. I develop software, including [survalis](https://github.com/ielbadisy/survalis) for interpretable survival machine learning, [survdnn](https://cran.r-project.org/package=survdnn) for deep survival models, and [funcml](https://github.com/ielbadisy/funcml) for functional machine learning, and design agentic workflows that bridge statistical rigor with modern computation. See my full list on the [software](packages.qmd) page.
+I hold a PhD in Biomedical Sciences from Aix-Marseille University (SESSTIM laboratory) on missing data and machine learning methods for survival analysis. I develop software and design agentic workflows that bridge statistical rigor with modern computation. See my full list on the [software](packages.qmd) page.
 
 Moroccan and French national, husband and father.
 
@@ -65,6 +65,5 @@ I provide independent methodological and statistical consulting for health resea
 - Statistical methodology (survival analysis, functional data, predictive modeling)
 - Evidence synthesis
 - Machine learning prediction for health outcomes
+- Health economics and cost-effectiveness studies
 - Custom R package and tool development
-
-Engagements are scoped individually: short advisory sessions, analysis support on a specific study, or longer-term collaboration. [Get in touch &rarr;](contact.qmd)

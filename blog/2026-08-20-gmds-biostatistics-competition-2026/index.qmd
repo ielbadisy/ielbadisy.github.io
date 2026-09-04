@@ -1,0 +1,129 @@
+---
+title: "What I Learned from the GMDS Biostatistics Competition 2026"
+subtitle: "Ensembling heterogeneous treatment effect estimators, and where the pipeline breaks when every component is evaluated separately"
+author: "Imad El Badisy"
+date: "2026-08-20"
+categories: [R, causal-inference, biostatistics, machine-learning]
+citation: false
+---
+
+Participating in the **GMDS Biostatistics Competition 2026** was a useful opportunity to test an idea that I had been interested in for some time: can heterogeneous treatment effect estimation be made more robust by combining several learners rather than relying on a single model?
+
+My submission used a unified R pipeline for the five competition tasks. The central idea was to estimate individual treatment effects using several approaches, including random forests, elastic-net models, gradient boosting, and causal forests[^pkgs], and then combine their subgroup assignments through a co-association consensus framework inspired by Evidence Accumulation Clustering.
+
+The competition was particularly valuable because the evaluation did not simply tell me whether the overall approach worked. It highlighted **which components of the pipeline were robust and which ones need to be redesigned**.
+
+## What worked
+
+One lesson was that combining complementary evidence can be effective for detecting treatment effect heterogeneity.
+
+For this task, I combined three signals: the GRF calibration test, an interaction test between treatment and the estimated subgroup, and a comparison of treatment effects between the subgroup and its complement. The final decision was based on majority voting.
+
+This reinforced my view that heterogeneous treatment effect detection should not necessarily depend on a single diagnostic.
+
+The consensus framework also appeared useful for estimating the overall size of a treatment-responsive subgroup. This suggests that ensemble approaches may capture the **population structure** reasonably well even when individual patient assignments remain imperfect.
+
+## What I would change
+
+The competition also exposed several weaknesses that I would address differently in a future analysis.
+
+### 1. Variable selection needs its own ensemble strategy
+
+I used elastic-net regression with treatment-covariate interactions to distinguish predictive from prognostic variables. Variables with non-zero interaction coefficients were classified as predictive, while non-zero main effects were considered prognostic.
+
+In retrospect, this was probably too dependent on a single model.
+
+Using `lambda.min` is primarily designed to optimize predictive performance rather than recover the true sparse variable structure. In future work, I would investigate approaches such as:
+
+* stability selection,
+* stronger penalization such as `lambda.1se`,
+* hierarchical interaction selection,
+* model-based variable importance from causal forests,
+* and consensus variable selection across several HTE learners.
+
+The same ensemble philosophy used for treatment effect estimation should probably also be applied to variable discovery.
+
+### 2. Do not binarize CATE estimates too early
+
+For subgroup assignment, each learner's CATE estimate was converted into a binary benefiter/non-benefiter decision according to whether the estimated treatment effect was above or below zero. These binary partitions were then combined through a co-association matrix.
+
+This is simple and robust, but it discards a large amount of information.
+
+A predicted treatment effect of `0.001` and another of `1.5` receive exactly the same label, while two estimates close to zero but with opposite signs are considered completely different.
+
+In a future implementation, I would preserve the continuous CATE predictions longer and build the consensus directly from standardized treatment-effect estimates.
+
+For example, instead of clustering binary assignments, one could cluster patients using the matrix
+
+$$
+\left[
+\hat{\tau}_{RF},\;
+\hat{\tau}_{glmnet},\;
+\hat{\tau}_{XGB},\;
+\hat{\tau}_{GRF}
+\right].
+$$
+
+This would allow both the direction and magnitude of predicted treatment benefit to contribute to the consensus.
+
+### 3. Subgroup discovery and treatment-effect estimation must be separated
+
+This is probably the most important lesson.
+
+After identifying the subgroup, I estimated treatment effects within the subgroup and its complement using AIPW through `grf::average_treatment_effect()`.
+
+However, the same dataset contributed to both subgroup discovery and subsequent estimation.
+
+That creates an important statistical problem: we identify patients partly because they appear to have large treatment effects and then estimate the treatment effect in those same selected patients.
+
+Even a sophisticated estimator such as AIPW does not automatically remove the bias introduced by **data-adaptive subgroup selection**.
+
+In future work, I would therefore use a fully cross-fitted pipeline:
+
+$$
+\text{training data} \rightarrow \text{CATE model} \rightarrow \text{subgroup rule}
+$$
+
+followed by application of that rule to independent out-of-fold observations:
+
+$$
+\text{out-of-fold patients} \rightarrow \text{subgroup assignment} \rightarrow \text{treatment-effect estimation}.
+$$
+
+Repeated cross-fitting could then be used to stabilize both subgroup membership and effect estimates.
+
+## The broader lesson
+
+The most useful lesson from this competition is that **good subgroup discovery does not automatically imply good treatment-effect estimation**.
+
+There are several distinct statistical problems hidden inside what we often call heterogeneous treatment effect analysis:
+
+$$
+\text{Detect HTE} \neq \text{Identify modifiers} \neq \text{Assign patients} \neq \text{Estimate subgroup prevalence} \neq \text{Estimate subgroup treatment effects}.
+$$
+
+A method can perform well on one of these objectives and poorly on another.
+
+For future HTE work, I would therefore design the pipeline around these objectives separately, while maintaining a coherent overall framework:
+
+$$
+\boxed{
+\text{Ensemble CATE estimation} +
+\text{Consensus variable selection} +
+\text{Continuous consensus subgrouping} +
+\text{Cross-fitting} +
+\text{Independent effect estimation}
+}
+$$
+
+That is probably the main value of participating in methodological competitions: not simply trying to rank well, but discovering **where an apparently reasonable statistical pipeline breaks when every component is evaluated separately**.
+
+I will certainly take these lessons into the next version of the approach.
+
+[^pkgs]: The pipeline was built in R using [grf](https://grf-labs.github.io/grf/) for causal forests, the GRF calibration test, and AIPW average treatment effect estimation; [glmnet](https://glmnet.stanford.edu/) for elastic-net variable selection; and [xgboost](https://xgboost.readthedocs.io/) for gradient-boosted CATE estimation. The co-association consensus step was inspired by Evidence Accumulation Clustering (Fred & Jain, 2005, *IEEE TPAMI*).
+
+<hr>
+
+<footer>
+<a href="../index.qmd">Back to blog</a>
+</footer>

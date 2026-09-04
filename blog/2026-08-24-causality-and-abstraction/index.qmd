@@ -1,0 +1,18 @@
+---
+title: "Abstraction versus Reality"
+subtitle: "On the fantasy of trading a screen for a farm"
+author: "Imad El Badisy"
+date: "2026-08-24"
+categories: [essay]
+citation: false
+---
+
+The fantasy of leaving technology for a farm is less about rejecting progress than recovering causality. In the digital world, effort often disappears into abstractions: bugs, metrics, systems, notifications. In the physical world, actions leave traces. You plant, water, build, repair, and something visibly changes.
+
+Perhaps the real dilemma is not technology versus nature, but abstraction versus reality. Humans can live through screens, but we still seem to need the reassurance that our hands can change something we can touch.
+
+<hr>
+
+<footer>
+<a href="../index.qmd">Back to blog</a>
+</footer>
