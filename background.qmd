@@ -27,7 +27,7 @@ title-block-banner: false
 | PhD in Biomedical Sciences | Aix-Marseille University, SESSTIM, Marseille, France | 2021 – 2025 |
 | Master 2, Quantitative Methods for Health Research | Aix-Marseille University, SESSTIM, Marseille, France | 2018 – 2019 |
 | Master 1, Applied Mathematics and Statistics | Université Clermont Auvergne, Clermont-Ferrand, France | 2017 – 2018 |
-| Master 2, Health Economics | Université Clermont Auvergne, CERDI, Clermont-Ferrand, France | 2017 |
+| Master 2, Health Economics | Université Clermont Auvergne, CERDI, Clermont-Ferrand, France | 2016 – 2017 |
 
 : {tbl-colwidths="[40,40,20]"}
 

@@ -114,40 +114,25 @@ window.Quarto = {
 </header>
 
 
-<p>Participating in the <strong>GMDS Biostatistics Competition 2026</strong> was a useful opportunity to test an idea that I had been interested in for some time: can heterogeneous treatment effect estimation be made more robust by combining several learners rather than relying on a single model?</p>
-<p>My submission used a unified R pipeline for the five competition tasks. The central idea was to estimate individual treatment effects using several approaches, including random forests, elastic-net models, gradient boosting, and causal forests<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>, and then combine their subgroup assignments through a co-association consensus framework inspired by Evidence Accumulation Clustering.</p>
-<p>The competition was particularly valuable because the evaluation did not simply tell me whether the overall approach worked. It highlighted <strong>which components of the pipeline were robust and which ones need to be redesigned</strong>.</p>
+<p>I signed up for the GMDS Biostatistics Competition 2026 mostly to test something I’d been curious about for a while: whether heterogeneous treatment effect estimation gets more robust if you combine several learners instead of picking one and trusting it.</p>
+<p>My submission ran a single R pipeline across the five competition tasks. I estimated individual treatment effects with a handful of approaches - random forests, elastic-net models, gradient boosting, and causal forests<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> - and then combined their subgroup assignments through a co-association consensus step inspired by Evidence Accumulation Clustering.</p>
+<p>What made the competition useful wasn’t just finding out whether the overall approach worked. It was seeing exactly which parts of the pipeline held up and which ones didn’t.</p>
 <section id="what-worked" class="level2">
 <h2 class="anchored" data-anchor-id="what-worked">What worked</h2>
-<p>One lesson was that combining complementary evidence can be effective for detecting treatment effect heterogeneity.</p>
-<p>For this task, I combined three signals: the GRF calibration test, an interaction test between treatment and the estimated subgroup, and a comparison of treatment effects between the subgroup and its complement. The final decision was based on majority voting.</p>
-<p>This reinforced my view that heterogeneous treatment effect detection should not necessarily depend on a single diagnostic.</p>
-<p>The consensus framework also appeared useful for estimating the overall size of a treatment-responsive subgroup. This suggests that ensemble approaches may capture the <strong>population structure</strong> reasonably well even when individual patient assignments remain imperfect.</p>
+<p>Combining complementary evidence turned out to help with detecting treatment effect heterogeneity in the first place. I used three signals here - the GRF calibration test, an interaction test between treatment and the estimated subgroup, and a comparison of treatment effects between the subgroup and its complement - and decided by majority vote. That left me more convinced that HTE detection shouldn’t lean on a single diagnostic.</p>
+<p>The consensus framework also did a reasonable job estimating how large the treatment-responsive subgroup was overall, even in cases where individual patient assignments were shaky. Ensemble methods seem to recover the population-level structure before they recover the individual-level labels.</p>
 </section>
 <section id="what-i-would-change" class="level2">
 <h2 class="anchored" data-anchor-id="what-i-would-change">What I would change</h2>
-<p>The competition also exposed several weaknesses that I would address differently in a future analysis.</p>
+<p>A few things didn’t hold up as well, and I’d do them differently next time.</p>
 <section id="variable-selection-needs-its-own-ensemble-strategy" class="level3">
 <h3 class="anchored" data-anchor-id="variable-selection-needs-its-own-ensemble-strategy">1. Variable selection needs its own ensemble strategy</h3>
-<p>I used elastic-net regression with treatment-covariate interactions to distinguish predictive from prognostic variables. Variables with non-zero interaction coefficients were classified as predictive, while non-zero main effects were considered prognostic.</p>
-<p>In retrospect, this was probably too dependent on a single model.</p>
-<p>Using <code>lambda.min</code> is primarily designed to optimize predictive performance rather than recover the true sparse variable structure. In future work, I would investigate approaches such as:</p>
-<ul>
-<li>stability selection,</li>
-<li>stronger penalization such as <code>lambda.1se</code>,</li>
-<li>hierarchical interaction selection,</li>
-<li>model-based variable importance from causal forests,</li>
-<li>and consensus variable selection across several HTE learners.</li>
-</ul>
-<p>The same ensemble philosophy used for treatment effect estimation should probably also be applied to variable discovery.</p>
+<p>I used elastic-net regression with treatment-covariate interactions to separate predictive variables from prognostic ones - non-zero interaction coefficients as predictive, non-zero main effects as prognostic. In hindsight this leaned on a single model too heavily, and <code>lambda.min</code> is tuned for predictive performance, not for recovering the true sparse structure. Things I’d try instead: stability selection, stronger penalization like <code>lambda.1se</code>, hierarchical interaction selection, importance measures from causal forests, and consensus variable selection across several HTE learners. Basically the same ensemble idea I used for treatment effects, applied one step earlier to variable discovery.</p>
 </section>
-<section id="do-not-binarize-cate-estimates-too-early" class="level3">
-<h3 class="anchored" data-anchor-id="do-not-binarize-cate-estimates-too-early">2. Do not binarize CATE estimates too early</h3>
-<p>For subgroup assignment, each learner’s CATE estimate was converted into a binary benefiter/non-benefiter decision according to whether the estimated treatment effect was above or below zero. These binary partitions were then combined through a co-association matrix.</p>
-<p>This is simple and robust, but it discards a large amount of information.</p>
-<p>A predicted treatment effect of <code>0.001</code> and another of <code>1.5</code> receive exactly the same label, while two estimates close to zero but with opposite signs are considered completely different.</p>
-<p>In a future implementation, I would preserve the continuous CATE predictions longer and build the consensus directly from standardized treatment-effect estimates.</p>
-<p>For example, instead of clustering binary assignments, one could cluster patients using the matrix</p>
+<section id="dont-binarize-cate-estimates-too-early" class="level3">
+<h3 class="anchored" data-anchor-id="dont-binarize-cate-estimates-too-early">2. Don’t binarize CATE estimates too early</h3>
+<p>For subgroup assignment, each learner’s CATE estimate got collapsed into a binary benefiter / non-benefiter call based on whether it was above or below zero, and those binary calls fed the co-association matrix. Simple, robust, and it throws away a lot of information: a predicted effect of <code>0.001</code> gets the same label as <code>1.5</code>, while two estimates that are both close to zero but on opposite sides of it get treated as completely different.</p>
+<p>Next time I’d keep the continuous CATE predictions around longer and build the consensus straight from standardized treatment-effect estimates - cluster patients on the matrix</p>
 <p><span class="math display">\[
 \left[
 \hat{\tau}_{RF},\;
@@ -161,41 +146,26 @@ window.Quarto = {
 <section id="subgroup-discovery-and-treatment-effect-estimation-must-be-separated" class="level3">
 <h3 class="anchored" data-anchor-id="subgroup-discovery-and-treatment-effect-estimation-must-be-separated">3. Subgroup discovery and treatment-effect estimation must be separated</h3>
 <p>This is probably the most important lesson.</p>
-<p>After identifying the subgroup, I estimated treatment effects within the subgroup and its complement using AIPW through <code>grf::average_treatment_effect()</code>.</p>
-<p>However, the same dataset contributed to both subgroup discovery and subsequent estimation.</p>
-<p>That creates an important statistical problem: we identify patients partly because they appear to have large treatment effects and then estimate the treatment effect in those same selected patients.</p>
-<p>Even a sophisticated estimator such as AIPW does not automatically remove the bias introduced by <strong>data-adaptive subgroup selection</strong>.</p>
-<p>In future work, I would therefore use a fully cross-fitted pipeline:</p>
+<p>After identifying the subgroup, I estimated treatment effects within it and its complement using AIPW via <code>grf::average_treatment_effect()</code>. The problem is that the same dataset fed both steps: patients get selected partly because they look like they have a large treatment effect, and then the treatment effect gets estimated in that same selected group. AIPW is a good estimator, but it doesn’t fix bias that comes from data-adaptive subgroup selection on its own.</p>
+<p>What I’d do instead is cross-fit the whole thing: build the CATE model and subgroup rule on a training fold,</p>
 <p><span class="math display">\[
 \text{training data} \rightarrow \text{CATE model} \rightarrow \text{subgroup rule}
 \]</span></p>
-<p>followed by application of that rule to independent out-of-fold observations:</p>
+<p>then apply that rule to a held-out fold and estimate the effect only there,</p>
 <p><span class="math display">\[
 \text{out-of-fold patients} \rightarrow \text{subgroup assignment} \rightarrow \text{treatment-effect estimation}.
 \]</span></p>
-<p>Repeated cross-fitting could then be used to stabilize both subgroup membership and effect estimates.</p>
+<p>Repeating that across folds should stabilize both the subgroup membership and the effect estimates.</p>
 </section>
 </section>
 <section id="the-broader-lesson" class="level2">
 <h2 class="anchored" data-anchor-id="the-broader-lesson">The broader lesson</h2>
-<p>The most useful lesson from this competition is that <strong>good subgroup discovery does not automatically imply good treatment-effect estimation</strong>.</p>
-<p>There are several distinct statistical problems hidden inside what we often call heterogeneous treatment effect analysis:</p>
+<p>The thing I keep coming back to is that good subgroup discovery doesn’t automatically give you good treatment-effect estimation. “Heterogeneous treatment effect analysis” is really several different problems stacked on top of each other:</p>
 <p><span class="math display">\[
 \text{Detect HTE} \neq \text{Identify modifiers} \neq \text{Assign patients} \neq \text{Estimate subgroup prevalence} \neq \text{Estimate subgroup treatment effects}.
 \]</span></p>
-<p>A method can perform well on one of these objectives and poorly on another.</p>
-<p>For future HTE work, I would therefore design the pipeline around these objectives separately, while maintaining a coherent overall framework:</p>
-<p><span class="math display">\[
-\boxed{
-\text{Ensemble CATE estimation} +
-\text{Consensus variable selection} +
-\text{Continuous consensus subgrouping} +
-\text{Cross-fitting} +
-\text{Independent effect estimation}
-}
-\]</span></p>
-<p>That is probably the main value of participating in methodological competitions: not simply trying to rank well, but discovering <strong>where an apparently reasonable statistical pipeline breaks when every component is evaluated separately</strong>.</p>
-<p>I will certainly take these lessons into the next version of the approach.</p>
+<p>A method can be good at one of these and bad at another, and it’s easy to miss that if you only evaluate the pipeline end to end. Next time I’d rather design around these pieces separately - ensemble CATE estimation, consensus variable selection, continuous consensus subgrouping, cross-fitting, and independent effect estimation - and then wire them together, instead of treating the pipeline as one black box.</p>
+<p>That’s probably the real value of entering a competition like this: not the ranking, but finding out exactly where a pipeline that looked fine end-to-end breaks once you check each piece on its own. I’ll be carrying these lessons into the next version.</p>
 <hr>
 <footer>
 <a href="../index.qmd">Back to blog</a>

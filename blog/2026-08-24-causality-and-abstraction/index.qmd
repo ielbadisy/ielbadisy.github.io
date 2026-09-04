@@ -7,9 +7,9 @@ categories: [essay]
 citation: false
 ---
 
-The fantasy of leaving technology for a farm is less about rejecting progress than recovering causality. In the digital world, effort often disappears into abstractions: bugs, metrics, systems, notifications. In the physical world, actions leave traces. You plant, water, build, repair, and something visibly changes.
+I think about the farm fantasy sometimes, the one where you quit and go grow vegetables. It's not really about rejecting technology. It's about wanting your effort to leave a trace again. Half of what I do in a day disappears into abstractions - a bug fixed, a metric moved, a notification cleared - and none of it is visible the next morning unless I go looking for it. Plant something and water it, and by the weekend you can see the difference.
 
-Perhaps the real dilemma is not technology versus nature, but abstraction versus reality. Humans can live through screens, but we still seem to need the reassurance that our hands can change something we can touch.
+So maybe it's not technology versus nature. It's abstraction versus something you can put your hands on. I can live through a screen fine. I just don't fully believe I've done anything until I can touch it.
 
 <hr>
 
