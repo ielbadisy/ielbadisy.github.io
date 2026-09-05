@@ -10,7 +10,974 @@
 <atom:link href="https://elbadisyimad.com/blog/index.xml" rel="self" type="application/rss+xml"/>
 <description>Imad El Badisy, Research Engineer in Health Data Science, PhD.</description>
 <generator>quarto-1.8.24</generator>
-<lastBuildDate>Wed, 26 Aug 2026 23:00:00 GMT</lastBuildDate>
+<lastBuildDate>Fri, 04 Sep 2026 23:00:00 GMT</lastBuildDate>
+<item>
+  <title>basetable: A Tutorial</title>
+  <dc:creator>Imad El Badisy</dc:creator>
+  <link>https://elbadisyimad.com/blog/2026-09-05-basetable-tutorial/</link>
+  <description><![CDATA[ <p>I get more questions about how to actually use <code>basetable</code> day to day than about anything in the benchmarks, so this post takes the README and adds worked examples for the handful of functions that carry most of the day-to-day work and the performance story: <code><a href="https://rdrr.io/r/base/subset.html">subset()</a></code>, <code><a href="https://rdrr.io/r/base/transform.html">transform()</a></code>, <code><a href="https://rdrr.io/r/stats/aggregate.html">aggregate()</a></code>, <code><a href="https://rdrr.io/r/base/merge.html">merge()</a></code> / <code>semimerge()</code>, and <code>describe()</code>. The README itself is unchanged below - the new material is the “Tutorial” section in the middle, and the figures and tables in “Performance” are exactly as published, with a link to the script that generated them.</p>
+<section id="basetable" class="level1"><h1>basetable</h1>
+<!-- badges: start -->
+<p><a href="https://github.com/ielbadisy/basetable/actions/workflows/R-CMD-check.yaml"><img src="https://github.com/ielbadisy/basetable/actions/workflows/R-CMD-check.yaml/badge.svg" class="img-fluid" alt="R-CMD-check"></a> <a href="https://lifecycle.r-lib.org/articles/stages.html#stable"><img src="https://img.shields.io/badge/lifecycle-stable-brightgreen.svg" class="img-fluid" alt="Lifecycle: stable"></a> <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" class="img-fluid" alt="License: MIT"></a> <!-- badges: end --></p>
+<p><code>basetable</code> is a fast in-memory data-manipulation package for R with a <strong>base-R interface</strong> and <strong>no dependencies</strong>. You write <code><a href="https://rdrr.io/r/base/subset.html">subset()</a></code>, <code><a href="https://rdrr.io/r/base/transform.html">transform()</a></code>, <code><a href="https://rdrr.io/r/stats/aggregate.html">aggregate()</a></code>, <code><a href="https://rdrr.io/r/base/merge.html">merge()</a></code>, <code><a href="https://rdrr.io/r/base/split.html">split()</a></code>, and the work runs on the package’s own C++ engine. There is no <code>data.table</code>, no <code>dplyr</code>, no Arrow underneath, and nothing in <code>Imports</code> beyond the base and recommended packages (<code>parallel</code>, <code>stats</code>, <code>utils</code>).</p>
+<p>Every verb returns a <code>basetable</code>: an ordinary <code>data.frame</code> with one extra class so it prints compactly and <code>[</code> keeps the class. <code><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame()</a></code> strips it back to a plain frame.</p>
+<p>This is a deliberately focused tool. It is aimed at</p>
+<ul>
+<li>people <strong>teaching or learning base R</strong> who want speed without the cognitive load of tidy evaluation or <code>[i, j, by]</code>, and</li>
+<li>codebases already built on <code><a href="https://rdrr.io/r/base/subset.html">subset()</a></code> / <code><a href="https://rdrr.io/r/base/merge.html">merge()</a></code> / <code><a href="https://rdrr.io/r/stats/aggregate.html">aggregate()</a></code> that want a faster engine <strong>without a rewrite</strong>.</li>
+</ul>
+<section id="design" class="level2"><h2 class="anchored" data-anchor-id="design">Design</h2>
+<ul>
+<li>
+<strong>Base-style naming and semantics.</strong> Functions read like <code><a href="https://rdrr.io/r/base/subset.html">subset()</a></code>, <code><a href="https://rdrr.io/r/base/transform.html">transform()</a></code>, <code><a href="https://rdrr.io/r/stats/aggregate.html">aggregate()</a></code>, <code><a href="https://rdrr.io/r/base/merge.html">merge()</a></code>, <code><a href="https://rdrr.io/r/base/split.html">split()</a></code>.</li>
+<li>
+<strong>A native C++ engine.</strong> Projection, filtering, ordering, distinct, grouping, all join kinds, row-bind and <code><a href="https://rdrr.io/r/base/subset.html">subset()</a></code> predicate evaluation run in compiled <code>.Call</code> kernels. There is no third-party compute backend.</li>
+<li>
+<strong>Explicit, standard-evaluation interfaces.</strong> Column names are strings, not captured symbols (with the marked exceptions <code><a href="https://rdrr.io/r/base/subset.html">subset()</a></code> and <code><a href="https://rdrr.io/r/base/transform.html">transform()</a></code> inherit from base R).</li>
+<li>
+<strong>Zero hard dependencies.</strong> <code>data.table</code> and <code>dplyr</code> appear only in <code>Suggests</code>, and only as competitors in the benchmark vignette.</li>
+</ul></section><section id="installation" class="level2"><h2 class="anchored" data-anchor-id="installation">Installation</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># install.packages("pak")</span></span>
+<span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">pak</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://pak.r-lib.org/reference/pak.html">pak</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"ielbadisy/basetable"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span></code></pre></div></div>
+</section><section id="minimal-examples" class="level2"><h2 class="anchored" data-anchor-id="minimal-examples">Minimal examples</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># nested</span></span>
+<span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">basetable</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/pkg/basetable/man/describe.html">describe</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span></span>
+<span>  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">basetable</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/pkg/basetable/man/subset.html">transform</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span></span>
+<span>    <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">basetable</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/pkg/basetable/man/subset.html">subset</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">mtcars</span>, <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">cyl</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">==</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">6</span>, select <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"mpg"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"hp"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"wt"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"cyl"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span>,</span>
+<span>    power <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">hp</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">wt</span></span>
+<span>  <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span></code></pre></div></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># basetable: 5 x 14
+  column   class n missing missing_prop distinct       mean         sd
+1    mpg numeric 7       0            0        6  19.742857  1.4535670
+2     hp numeric 7       0            0        4 122.285714 24.2604911
+3     wt numeric 7       0            0        6   3.117143  0.3563455
+4    cyl numeric 7       0            0        1   6.000000  0.0000000
+5  power numeric 7       0            0        6  39.927938 10.8533912
+        min       q25    median      q75      max top
+1  17.80000  18.65000  19.70000  21.0000  21.4000    
+2 105.00000 110.00000 110.00000 123.0000 175.0000    
+3   2.62000   2.82250   3.21500   3.4400   3.4600    
+4   6.00000   6.00000   6.00000   6.0000   6.0000    
+5  30.34682  34.98522  35.75581  40.1228  63.1769    </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># pipe</span></span>
+<span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">mtcars</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span></span>
+<span>  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">basetable</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/pkg/basetable/man/pick.html">pick</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"mpg"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"hp"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"wt"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"cyl"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span></span>
+<span>  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">basetable</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/pkg/basetable/man/subset.html">transform</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span>power <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">hp</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">wt</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span></span>
+<span>  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">basetable</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/pkg/basetable/man/aggregate.html">aggregate</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span>by <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"cyl"</span>, value <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"mpg"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"power"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span>, fun <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">mean</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span></code></pre></div></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># basetable: 3 x 3
+  cyl      mpg    power
+1   4 26.66364 37.92533
+2   6 19.74286 39.92794
+3   8 15.10000 53.85964</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># table-1 style summary</span></span>
+<span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">basetable</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/pkg/basetable/man/summarytab.html">summarytab</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span></span>
+<span>  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">basetable</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/pkg/basetable/man/subset.html">transform</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">mtcars</span>, am <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">am</span>, labels <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Automatic"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Manual"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span>,</span>
+<span>  vars <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"mpg"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"hp"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span>, by <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"am"</span>, p_value <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span></span>
+<span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span></code></pre></div></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># basetable: 2 x 6
+  variable     level    Automatic       Manual      Overall p_value
+1      mpg Mean (SD)   17.1 (3.8)   24.4 (6.2)   20.1 (6.0) 0.00137
+2       hp Mean (SD) 160.3 (53.9) 126.8 (84.1) 146.7 (68.6)   0.221</code></pre>
+</div>
+</div>
+<p>Every call above is qualified with <code>basetable::</code>. That’s not just belt and braces for the README: <code>basetable</code> intentionally reuses the base-R names <code><a href="https://rdrr.io/r/base/subset.html">subset()</a></code>, <code><a href="https://rdrr.io/r/base/transform.html">transform()</a></code>, <code><a href="https://rdrr.io/r/base/merge.html">merge()</a></code> and <code><a href="https://rdrr.io/r/base/split.html">split()</a></code>, and attaching it with a plain <code><a href="https://github.com/ielbadisy/basetable">library(basetable)</a></code> puts those ahead of <code>base</code> on the search path for the rest of the session - which can surprise other code, including tooling, that calls the base versions unqualified. Qualifying the calls, as in “Using basetable alongside dplyr and data.table” below, sidesteps that entirely.</p>
+</section><section id="tutorial" class="level2"><h2 class="anchored" data-anchor-id="tutorial">Tutorial</h2>
+<p>The examples above are the pitch. The rest of this section is the short list of functions that carry most of the day-to-day work, one at a time.</p>
+<section id="filtering-subset" class="level3"><h3 class="anchored" data-anchor-id="filtering-subset">Filtering: <code>subset()</code>
+</h3>
+<p>Same syntax as <code><a href="https://rdrr.io/r/base/subset.html">base::subset()</a></code> - a condition on the unquoted column names, plus an optional <code>select</code> - running on the C++ engine instead of R:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">basetable</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/pkg/basetable/man/subset.html">subset</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">mtcars</span>, <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">cyl</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">==</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">6</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&amp;</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">hp</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">100</span>, select <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"mpg"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"hp"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"wt"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"cyl"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span></code></pre></div></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># basetable: 7 x 4
+   mpg  hp    wt cyl
+1 21.0 110 2.620   6
+2 21.0 110 2.875   6
+3 21.4 110 3.215   6
+4 18.1 105 3.460   6
+5 19.2 123 3.440   6
+6 17.8 123 3.440   6
+7 19.7 175 2.770   6</code></pre>
+</div>
+</div>
+</section><section id="creating-columns-transform" class="level3"><h3 class="anchored" data-anchor-id="creating-columns-transform">Creating columns: <code>transform()</code>
+</h3>
+<p>Adds or overwrites columns from expressions on the existing ones, and later expressions in the same call can use columns created earlier in it:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">mtcars</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span></span>
+<span>  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">basetable</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/pkg/basetable/man/subset.html">transform</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span>power <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">hp</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">wt</span>, efficient <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">mpg</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">mpg</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span></code></pre></div></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># basetable: 32 x 13
+    mpg cyl  disp  hp drat    wt  qsec vs am gear carb    power efficient
+1  21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4 41.98473      TRUE
+2  21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4 38.26087      TRUE
+3  22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1 40.08621      TRUE
+4  21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1 34.21462      TRUE
+5  18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2 50.87209     FALSE
+6  18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1 30.34682     FALSE
+7  14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4 68.62745     FALSE
+8  24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2 19.43574      TRUE
+9  22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2 30.15873      TRUE
+10 19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4 35.75581     FALSE
+# 22 more rows</code></pre>
+</div>
+</div>
+</section><section id="grouped-summaries-aggregate" class="level3"><h3 class="anchored" data-anchor-id="grouped-summaries-aggregate">Grouped summaries: <code>aggregate()</code>
+</h3>
+<p>This is the one with the biggest gap in the benchmarks below - grouped reductions accumulate in compiled code without materialising intermediate columns, so a <code>sd</code> or a <code>count</code> by group allocates close to nothing:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">basetable</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/pkg/basetable/man/aggregate.html">aggregate</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">airquality</span>, by <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Month"</span>, value <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Ozone"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Temp"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span>, fun <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">mean</span>, na.rm <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span></code></pre></div></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># basetable: 5 x 3
+  Month    Ozone     Temp
+1     5 23.61538 65.54839
+2     6 29.44444 79.10000
+3     7 59.11538 83.90323
+4     8 59.96154 83.96774
+5     9 31.44828 76.90000</code></pre>
+</div>
+</div>
+</section><section id="joins-merge-and-semimerge" class="level3"><h3 class="anchored" data-anchor-id="joins-merge-and-semimerge">Joins: <code>merge()</code> and <code>semimerge()</code>
+</h3>
+<p><code><a href="https://rdrr.io/r/base/merge.html">merge()</a></code> covers inner, left, right, and full joins through the same <code>all</code> / <code>all.x</code> / <code>all.y</code> arguments as <code><a href="https://rdrr.io/r/base/merge.html">base::merge()</a></code>, rows come back in input order rather than sorted by key. <code>semimerge()</code> filters one table by matches in another without adding columns - the join-as-filter case that a plain <code><a href="https://rdrr.io/r/base/merge.html">merge()</a></code> would otherwise need a follow-up <code><a href="https://rdrr.io/r/base/subset.html">subset()</a></code> for:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">left</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span>id <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">4</span>, x <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">letters</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">[</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">4</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">]</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">right</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span>id <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span>, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">5</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span>, y <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">LETTERS</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">[</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">4</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">]</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span></span>
+<span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">basetable</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/pkg/basetable/man/merge.html">merge</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">left</span>, <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">right</span>, by <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"id"</span>, all.x <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span></code></pre></div></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># basetable: 4 x 3
+  id x    y
+1  1 a &lt;NA&gt;
+2  2 b    B
+3  3 c    C
+4  4 d &lt;NA&gt;</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">basetable</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/pkg/basetable/man/semimerge.html">semimerge</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">left</span>, <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">right</span>, by <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"id"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span></code></pre></div></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># basetable: 2 x 2
+  id x
+1  2 b
+2  3 c</code></pre>
+</div>
+</div>
+</section><section id="exploration-describe-and-summarytab" class="level3"><h3 class="anchored" data-anchor-id="exploration-describe-and-summarytab">Exploration: <code>describe()</code> and <code>summarytab()</code>
+</h3>
+<p><code>describe()</code> is the quick per-column numeric summary; <code>summarytab()</code> builds a table-1-style comparison across a grouping variable, shown already in the minimal examples above with a p-value column:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">basetable</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/pkg/basetable/man/describe.html">describe</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">mtcars</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span></code></pre></div></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># basetable: 11 x 14
+   column   class  n missing missing_prop distinct       mean          sd
+1     mpg numeric 32       0            0       25  20.090625   6.0269481
+2     cyl numeric 32       0            0        3   6.187500   1.7859216
+3    disp numeric 32       0            0       27 230.721875 123.9386938
+4      hp numeric 32       0            0       22 146.687500  68.5628685
+5    drat numeric 32       0            0       22   3.596563   0.5346787
+6      wt numeric 32       0            0       29   3.217250   0.9784574
+7    qsec numeric 32       0            0       30  17.848750   1.7869432
+8      vs numeric 32       0            0        2   0.437500   0.5040161
+9      am numeric 32       0            0        2   0.406250   0.4989909
+10   gear numeric 32       0            0        3   3.687500   0.7378041
+      min       q25  median    q75     max top
+1  10.400  15.42500  19.200  22.80  33.900    
+2   4.000   4.00000   6.000   8.00   8.000    
+3  71.100 120.82500 196.300 326.00 472.000    
+4  52.000  96.50000 123.000 180.00 335.000    
+5   2.760   3.08000   3.695   3.92   4.930    
+6   1.513   2.58125   3.325   3.61   5.424    
+7  14.500  16.89250  17.710  18.90  22.900    
+8   0.000   0.00000   0.000   1.00   1.000    
+9   0.000   0.00000   0.000   1.00   1.000    
+10  3.000   3.00000   4.000   4.00   5.000    
+# 1 more rows</code></pre>
+</div>
+</div>
+</section></section><section id="performance" class="level2"><h2 class="anchored" data-anchor-id="performance">Performance</h2>
+<p>Timing and memory below come from the <a href="https://bench.r-lib.org"><code>bench</code></a> package at 1,000,000 rows on one Linux machine. The script that produced both figures and both tables is <a href="https://github.com/ielbadisy/basetable/blob/main/inst/benchmarks/make-readme-figures.R"><code>inst/benchmarks/make-readme-figures.R</code></a>; the <a href="https://github.com/ielbadisy/basetable/blob/main/vignettes/benchmarking.Rmd"><code>Benchmarks</code> vignette</a> has the full reproducible report. <code>basetable</code> is compared with <code>data.table</code> and <code>dplyr</code>.</p>
+<section id="speed" class="level3"><h3 class="anchored" data-anchor-id="speed">Speed</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="benchmark-time.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Median runtime by engine at 1e6 rows"><img src="https://elbadisyimad.com/blog/2026-09-05-basetable-tutorial/benchmark-time.png" class="img-fluid figure-img" alt="Median runtime by engine at 1e6 rows"></a></p>
+<figcaption>Median runtime by engine at 1e6 rows</figcaption></figure>
+</div>
+</section><section id="memory" class="level3"><h3 class="anchored" data-anchor-id="memory">Memory</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure"><p><a href="benchmark-memory.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Memory allocated by engine at 1e6 rows"><img src="https://elbadisyimad.com/blog/2026-09-05-basetable-tutorial/benchmark-memory.png" class="img-fluid figure-img" alt="Memory allocated by engine at 1e6 rows"></a></p>
+<figcaption>Memory allocated by engine at 1e6 rows</figcaption></figure>
+</div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead><tr class="header">
+<th>Operation</th>
+<th style="text-align: right;">basetable</th>
+<th style="text-align: right;">data.table</th>
+<th style="text-align: right;">dplyr</th>
+<th style="text-align: right;">basetable mem</th>
+<th style="text-align: right;">data.table mem</th>
+<th style="text-align: right;">dplyr mem</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>filter</td>
+<td style="text-align: right;">7 ms</td>
+<td style="text-align: right;">10 ms</td>
+<td style="text-align: right;">10 ms</td>
+<td style="text-align: right;">15 MB</td>
+<td style="text-align: right;">21 MB</td>
+<td style="text-align: right;">28 MB</td>
+</tr>
+<tr class="even">
+<td>sort (string key)</td>
+<td style="text-align: right;">58 ms</td>
+<td style="text-align: right;">44 ms</td>
+<td style="text-align: right;">102 ms</td>
+<td style="text-align: right;">34 MB</td>
+<td style="text-align: right;">47 MB</td>
+<td style="text-align: right;">69 MB</td>
+</tr>
+<tr class="odd">
+<td>distinct</td>
+<td style="text-align: right;">5 ms</td>
+<td style="text-align: right;">8 ms</td>
+<td style="text-align: right;">13 ms</td>
+<td style="text-align: right;">0.03 MB</td>
+<td style="text-align: right;">20 MB</td>
+<td style="text-align: right;">12 MB</td>
+</tr>
+<tr class="even">
+<td>count by group</td>
+<td style="text-align: right;">23 ms</td>
+<td style="text-align: right;">40 ms</td>
+<td style="text-align: right;">738 ms</td>
+<td style="text-align: right;">1 MB</td>
+<td style="text-align: right;">30 MB</td>
+<td style="text-align: right;">30 MB</td>
+</tr>
+<tr class="odd">
+<td>sd by group</td>
+<td style="text-align: right;">10 ms</td>
+<td style="text-align: right;">16 ms</td>
+<td style="text-align: right;">42 ms</td>
+<td style="text-align: right;">0.05 MB</td>
+<td style="text-align: right;">27 MB</td>
+<td style="text-align: right;">36 MB</td>
+</tr>
+<tr class="even">
+<td>equi join</td>
+<td style="text-align: right;">16 ms</td>
+<td style="text-align: right;">15 ms</td>
+<td style="text-align: right;">66 ms</td>
+<td style="text-align: right;">8 MB</td>
+<td style="text-align: right;">8 MB</td>
+<td style="text-align: right;">101 MB</td>
+</tr>
+<tr class="odd">
+<td>semi join</td>
+<td style="text-align: right;">13 ms</td>
+<td style="text-align: right;">67 ms</td>
+<td style="text-align: right;">52 ms</td>
+<td style="text-align: right;">4 MB</td>
+<td style="text-align: right;">58 MB</td>
+<td style="text-align: right;">82 MB</td>
+</tr>
+</tbody>
+</table>
+<p>(<code>equi join</code> pins <code>data.table</code> to <code>sort = FALSE</code>, matching <code><a href="https://rdrr.io/pkg/basetable/man/merge.html">basetable::merge()</a></code>, which returns rows in input order.)</p>
+<p><code>basetable</code> is faster than <code>data.table</code> on <code>filter</code>, <code>distinct</code>, grouped <code>count</code>, <code>sd</code> by group and <code>semi join</code>, and is level with it on <code>equi join</code>. Against <code>dplyr</code> it is faster on every operation here, by more than 30x on high-cardinality <code>count</code>. The one operation it loses is string <code>sort</code>.</p>
+</section><section id="memory-ranked-by-advantage" class="level3"><h3 class="anchored" data-anchor-id="memory-ranked-by-advantage">Memory, ranked by advantage</h3>
+<p><code>basetable</code> allocates the least (or tied least) on every operation measured. The size of the edge splits in two: overwhelming on grouped reductions, where the result is tiny and nothing intermediate is materialised in R; modest on operations that return a full table, where the output frame itself sets a floor.</p>
+<table class="caption-top table">
+<thead><tr class="header">
+<th>Operation</th>
+<th style="text-align: right;">basetable</th>
+<th style="text-align: right;">data.table</th>
+<th style="text-align: right;">dplyr</th>
+<th style="text-align: right;">basetable vs data.table</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>distinct</td>
+<td style="text-align: right;">0.03 MB</td>
+<td style="text-align: right;">20 MB</td>
+<td style="text-align: right;">12 MB</td>
+<td style="text-align: right;">~700x less</td>
+</tr>
+<tr class="even">
+<td>sd by group</td>
+<td style="text-align: right;">0.05 MB</td>
+<td style="text-align: right;">27 MB</td>
+<td style="text-align: right;">36 MB</td>
+<td style="text-align: right;">~500x less</td>
+</tr>
+<tr class="odd">
+<td>count by group</td>
+<td style="text-align: right;">1 MB</td>
+<td style="text-align: right;">30 MB</td>
+<td style="text-align: right;">30 MB</td>
+<td style="text-align: right;">~30x less</td>
+</tr>
+<tr class="even">
+<td>semi join</td>
+<td style="text-align: right;">4 MB</td>
+<td style="text-align: right;">58 MB</td>
+<td style="text-align: right;">82 MB</td>
+<td style="text-align: right;">~15x less</td>
+</tr>
+<tr class="odd">
+<td>filter</td>
+<td style="text-align: right;">15 MB</td>
+<td style="text-align: right;">21 MB</td>
+<td style="text-align: right;">28 MB</td>
+<td style="text-align: right;">~1.4x less</td>
+</tr>
+<tr class="even">
+<td>sort (string key)</td>
+<td style="text-align: right;">34 MB</td>
+<td style="text-align: right;">47 MB</td>
+<td style="text-align: right;">69 MB</td>
+<td style="text-align: right;">~1.4x less</td>
+</tr>
+<tr class="odd">
+<td>equi join</td>
+<td style="text-align: right;">8 MB</td>
+<td style="text-align: right;">8 MB</td>
+<td style="text-align: right;">101 MB</td>
+<td style="text-align: right;">~parity</td>
+</tr>
+</tbody>
+</table>
+<p>These are R-level allocations as reported by <code>bench</code>. The C++ engine also uses <code>malloc</code>’d scratch buffers (radix keys, per-thread row-position vectors) that <code>bench</code> does not count, so peak process memory during a sort or filter is higher than the figure above; <code>data.table</code> does the same.</p>
+<p>The one gap is <strong>sorting</strong>: <code>orderrows()</code> is a stable parallel radix, ~20x faster than base <code><a href="https://rdrr.io/r/base/order.html">order()</a></code>, but still ~1.3x of <code>data.table</code>, whose hand-tuned parallel radix is the one operation <code>basetable</code> does not match.</p>
+</section></section><section id="positioning" class="level2"><h2 class="anchored" data-anchor-id="positioning">Positioning</h2>
+<p><code>data.table</code> is faster on some workloads (notably sorting) and has a far larger ecosystem; <code>dplyr</code> is the tidyverse standard. <code>basetable</code> is a good fit when you want:</p>
+<ul>
+<li>
+<strong>base-R syntax</strong> and semantics, not <code>[i, j, by]</code>, tidy evaluation, or a method-chained frame object;</li>
+<li>
+<strong>no dependencies</strong> to install, pin, or reason about;</li>
+<li>a package small enough to <strong>read end to end</strong>, teach from, and hand to a language model as a stable target;</li>
+<li>competitive speed and best-in-class memory on the everyday operations (filter, group, join, distinct) without changing how you write code.</li>
+</ul>
+<p>Grouping is a <code>by</code> argument on the verb that needs it (<code><a href="https://rdrr.io/r/stats/aggregate.html">aggregate()</a></code>, <code>count()</code>, <code>summaries()</code>, <code><a href="https://rdrr.io/r/base/transform.html">transform()</a></code>, <code><a href="https://rdrr.io/r/base/subset.html">subset()</a></code>, <code>samplerows()</code>, <code>firstby()</code>, …), not a stateful <code>group_by()</code>. The group is named at the call and never persists, so there is no <code>ungroup()</code> to forget.</p>
+</section><section id="using-basetable-alongside-dplyr-and-data.table" class="level2"><h2 class="anchored" data-anchor-id="using-basetable-alongside-dplyr-and-data.table">Using basetable alongside dplyr and data.table</h2>
+<p><code>basetable</code> reuses base-R verb names (<code><a href="https://rdrr.io/r/base/subset.html">subset()</a></code>, <code><a href="https://rdrr.io/r/base/merge.html">merge()</a></code>, <code><a href="https://rdrr.io/r/base/transform.html">transform()</a></code>, <code><a href="https://rdrr.io/r/base/split.html">split()</a></code>, <code><a href="https://rdrr.io/r/stats/aggregate.html">aggregate()</a></code>) on purpose. It does <strong>not</strong> ship the dplyr-coined verbs (<code><a href="https://rdrr.io/r/stats/filter.html">filter()</a></code>, <code>select()</code>, <code>mutate()</code>, <code>arrange()</code>, <code>summarise()</code>, <code>distinct()</code>, <code>glimpse()</code>, …), so it can be attached next to <code>dplyr</code> without shadowing its grammar. The two names it shares with <code>dplyr</code> are <code>count()</code> and <code>pick()</code>, kept because they read as base-style verbs; with both packages attached, whichever was attached <strong>last</strong> wins for those (and for the base-R names <code>data.table</code> also defines). Two fixes:</p>
+<ul>
+<li>call it explicitly: <code>basetable::transform(...)</code>;</li>
+<li>or <code>conflicted::conflict_prefer("transform", "basetable")</code> once per session.</li>
+</ul></section><section id="operation-dictionary" class="level2"><h2 class="anchored" data-anchor-id="operation-dictionary">Operation dictionary</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead><tr class="header">
+<th>Family</th>
+<th>Exported functions</th>
+<th>Base reference</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Row subsetting</td>
+<td><code><a href="https://rdrr.io/r/base/subset.html">subset()</a></code></td>
+<td><code><a href="https://rdrr.io/r/base/subset.html">base::subset()</a></code></td>
+</tr>
+<tr class="even">
+<td>Column keep / drop / rename</td>
+<td>
+<code>pick()</code>, <code><a href="https://rdrr.io/r/base/drop.html">drop()</a></code>, <code>renamecols()</code>
+</td>
+<td>
+<code>[</code>, <code>names&lt;-()</code>
+</td>
+</tr>
+<tr class="odd">
+<td>Transformation</td>
+<td>
+<code><a href="https://rdrr.io/r/base/transform.html">transform()</a></code>, <code><a href="https://rdrr.io/r/base/with.html">within()</a></code>
+</td>
+<td>base equivalents</td>
+</tr>
+<tr class="even">
+<td>Ordering</td>
+<td><code>orderrows()</code></td>
+<td><code><a href="https://rdrr.io/r/base/order.html">order()</a></code></td>
+</tr>
+<tr class="odd">
+<td>Distinct / duplicates</td>
+<td>
+<code>uniquerows()</code>, <code>duplicaterows()</code>, <code>removeduplicates()</code>
+</td>
+<td>
+<code><a href="https://rdrr.io/r/base/unique.html">unique()</a></code>, <code><a href="https://rdrr.io/r/base/duplicated.html">duplicated()</a></code>
+</td>
+</tr>
+<tr class="even">
+<td>Aggregation</td>
+<td>
+<code><a href="https://rdrr.io/r/stats/aggregate.html">aggregate()</a></code>, <code>count()</code>, <code>summaries()</code>
+</td>
+<td>
+<code><a href="https://rdrr.io/r/stats/aggregate.html">aggregate()</a></code>, <code><a href="https://rdrr.io/r/base/table.html">table()</a></code>
+</td>
+</tr>
+<tr class="odd">
+<td>Recoding</td>
+<td>
+<code>recode()</code>, <code>collapsevalues()</code>, <code>casewhen()</code>, <code>replacewhere()</code>
+</td>
+<td>
+<code><a href="https://rdrr.io/r/base/ifelse.html">ifelse()</a></code>, <code><a href="https://rdrr.io/r/base/switch.html">switch()</a></code>
+</td>
+</tr>
+<tr class="even">
+<td>Joins</td>
+<td>
+<code><a href="https://rdrr.io/r/base/merge.html">merge()</a></code>, <code>semimerge()</code>, <code>antimerge()</code>, <code>updatemerge()</code>, <code>crossmerge()</code>, <code>nonequimerge()</code>, <code>overlapmerge()</code>, <code>rangemerge()</code>, <code>rollingmerge()</code>
+</td>
+<td><code><a href="https://rdrr.io/r/base/merge.html">merge()</a></code></td>
+</tr>
+<tr class="odd">
+<td>Row / column bind</td>
+<td><code>rbindfill()</code></td>
+<td><code><a href="https://rdrr.io/r/base/cbind.html">rbind()</a></code></td>
+</tr>
+<tr class="even">
+<td>Split / apply</td>
+<td>
+<code><a href="https://rdrr.io/r/base/split.html">split()</a></code>, <code>applyby()</code>
+</td>
+<td><code><a href="https://rdrr.io/r/base/split.html">split()</a></code></td>
+</tr>
+<tr class="odd">
+<td>Reshaping</td>
+<td>
+<code>tolong()</code>, <code>towide()</code>, <code><a href="https://rdrr.io/r/stats/reshape.html">reshape()</a></code>, <code><a href="https://rdrr.io/r/utils/stack.html">stack()</a></code>, <code><a href="https://rdrr.io/r/utils/stack.html">unstack()</a></code>
+</td>
+<td>base equivalents</td>
+</tr>
+<tr class="even">
+<td>Completion</td>
+<td><code>completegrid()</code></td>
+<td>
+<code><a href="https://rdrr.io/r/base/expand.grid.html">expand.grid()</a></code> + join</td>
+</tr>
+<tr class="odd">
+<td>File I/O</td>
+<td>
+<code>btread()</code>, <code>btwrite()</code>; <code><a href="https://rdrr.io/r/stats/aggregate.html">aggregate()</a></code> / <code>count()</code> / <code>uniquerows()</code> / <code>freq()</code> also take a file path</td>
+<td>
+<code><a href="https://rdrr.io/r/utils/read.table.html">read.delim()</a></code>, fused file to result</td>
+</tr>
+<tr class="even">
+<td>Inspection</td>
+<td>
+<code>preview()</code>, <code>dims()</code>, <code>types()</code>, <code>headtail()</code>
+</td>
+<td>
+<code><a href="https://rdrr.io/r/utils/str.html">str()</a></code>, <code><a href="https://rdrr.io/r/base/dim.html">dim()</a></code>, <code><a href="https://rdrr.io/r/utils/head.html">head()</a></code>
+</td>
+</tr>
+<tr class="odd">
+<td>EDA</td>
+<td>
+<code>describe()</code>, <code>missingness()</code>, <code><a href="https://rdrr.io/r/stats/profile.html">profile()</a></code>, <code>freq()</code>, <code>summarytab()</code>, <code>compare()</code>
+</td>
+<td>base summaries</td>
+</tr>
+</tbody>
+</table>
+<p><code>btread()</code> memory-maps the file and, with <code>lazy = TRUE</code>, returns columns as ALTREP vectors parsed on first access. <code><a href="https://rdrr.io/r/stats/aggregate.html">aggregate()</a></code>, <code>count()</code>, <code>uniquerows()</code> and <code>freq()</code> accept a single file path as their first argument and fuse the parse with the grouping, so unused columns are never materialised.</p>
+</section><section id="status" class="level2"><h2 class="anchored" data-anchor-id="status">Status</h2>
+<p>Every exported function has direct test coverage. Vignettes cover getting started, data manipulation, exploration, a complete function reference, and benchmarks. CI checks release R on Linux, macOS and Windows plus oldrel and devel.</p>
+<hr>
+<footer><a href="../../blog/index.html">Back to blog</a>
+</footer>
+
+</section></section><a onclick="window.scrollTo(0, 0); return false;" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a> ]]></description>
+  <category>R</category>
+  <category>packages</category>
+  <category>tutorial</category>
+  <guid>https://elbadisyimad.com/blog/2026-09-05-basetable-tutorial/</guid>
+  <pubDate>Fri, 04 Sep 2026 23:00:00 GMT</pubDate>
+</item>
 <item>
   <title>API Design in the Era of LLMs</title>
   <dc:creator>Imad El Badisy</dc:creator>
@@ -457,8 +1424,8 @@ font-style: inherit;">)</span></span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  time      auc
 1   30 0.886782
-2   90 0.882498
-3  180 0.897919</code></pre>
+2   90 0.882384
+3  180 0.897727</code></pre>
 </div>
 </div>
 </section><section id="a-native-kaplan-meier-plot-plot_survcurve" class="level2"><h2 class="anchored" data-anchor-id="a-native-kaplan-meier-plot-plot_survcurve">A native Kaplan-Meier plot: <code>plot_survcurve()</code>
