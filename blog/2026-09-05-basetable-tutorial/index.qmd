@@ -10,7 +10,7 @@ execute:
   message: false
 ---
 
-I get more questions about how to actually use `basetable` day to day than about anything in the benchmarks, so this post takes the README and adds worked examples for the handful of functions that carry most of the day-to-day work and the performance story: `subset()`, `transform()`, `aggregate()`, `merge()` / `semimerge()`, and `describe()`. The README itself is unchanged below - the new material is the "Tutorial" section in the middle, and the figures and tables in "Performance" are exactly as published, with a link to the script that generated them.
+`basetable` is a fast, dependency-free data-manipulation package for R that keeps the base-R interface people already know. This post walks through the package: what it is, how to install it, and worked examples for the handful of functions that carry most of the day-to-day work - `subset()`, `transform()`, `aggregate()`, `merge()` / `semimerge()`, and `describe()` - followed by how it stacks up against `data.table` and `dplyr` on speed and memory.
 
 # basetable
 
@@ -89,14 +89,14 @@ basetable::summarytab(
 )
 ```
 
-Every call above is qualified with `basetable::`. That's not just belt and
-braces for the README: `basetable` intentionally reuses the base-R names
-`subset()`, `transform()`, `merge()` and `split()`, and attaching it with a
-plain `library(basetable)` puts those ahead of `base` on the search path for
-the rest of the session - which can surprise other code, including tooling,
-that calls the base versions unqualified. Qualifying the calls, as in
+Every call above is qualified with `basetable::`, and for good reason:
+`basetable` intentionally reuses the base-R names `subset()`, `transform()`,
+`merge()` and `split()`, so attaching it with a plain `library(basetable)`
+puts those ahead of `base` on the search path for the rest of the session -
+which can surprise other code, including tooling, that calls the base
+versions unqualified. Qualifying the calls, as described in
 "[Using basetable alongside dplyr and data.table](#using-basetable-alongside-dplyr-and-data-table)"
-below, sidesteps that entirely.
+below, avoids that entirely.
 
 ## Tutorial
 
