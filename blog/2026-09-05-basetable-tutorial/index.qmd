@@ -54,6 +54,12 @@ This is a deliberately focused tool. It is aimed at
 ## Installation
 
 ```r
+install.packages("basetable")
+```
+
+Or the development version:
+
+```r
 # install.packages("pak")
 pak::pak("ielbadisy/basetable")
 ```

@@ -37,7 +37,17 @@
 <li>
 <strong>Zero hard dependencies.</strong> <code>data.table</code> and <code>dplyr</code> appear only in <code>Suggests</code>, and only as competitors in the benchmark vignette.</li>
 </ul></section><section id="installation" class="level2"><h2 class="anchored" data-anchor-id="installation">Installation</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">(</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"basetable"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">)</span></span></code></pre></div></div>
+<p>Or the development version:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># install.packages("pak")</span></span>
 <span><span class="fu" style="color: #4758AB;
@@ -55,7 +65,7 @@ background-color: null;
 font-style: inherit;">)</span></span></code></pre></div></div>
 </section><section id="minimal-examples" class="level2"><h2 class="anchored" data-anchor-id="minimal-examples">Minimal examples</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># nested</span></span>
 <span><span class="fu" style="color: #4758AB;
@@ -141,7 +151,7 @@ font-style: inherit;">)</span></span></code></pre></div></div>
 4   6.00000   6.00000   6.00000   6.0000   6.0000    
 5  30.34682  34.98522  35.75581  40.1228  63.1769    </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># pipe</span></span>
 <span><span class="va" style="color: #111111;
@@ -235,7 +245,7 @@ font-style: inherit;">)</span></span></code></pre></div></div>
 2   6 19.74286 39.92794
 3   8 15.10000 53.85964</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># table-1 style summary</span></span>
 <span><span class="fu" style="color: #4758AB;
@@ -320,7 +330,7 @@ font-style: inherit;">)</span></span></code></pre></div></div>
 </h3>
 <p>Same syntax as <code><a href="https://rdrr.io/r/base/subset.html">base::subset()</a></code> - a condition on the unquoted column names, plus an optional <code>select</code> - running on the C++ engine instead of R:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">basetable</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -379,7 +389,7 @@ font-style: inherit;">)</span></span></code></pre></div></div>
 </h3>
 <p>Adds or overwrites columns from expressions on the existing ones, and later expressions in the same call can use columns created earlier in it:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">mtcars</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -437,7 +447,7 @@ font-style: inherit;">)</span></span></code></pre></div></div>
 </h3>
 <p>This is the one with the biggest gap in the benchmarks below - grouped reductions accumulate in compiled code without materialising intermediate columns, so a <code>sd</code> or a <code>count</code> by group allocates close to nothing:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">basetable</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -488,7 +498,7 @@ font-style: inherit;">)</span></span></code></pre></div></div>
 </h3>
 <p><code><a href="https://rdrr.io/r/base/merge.html">merge()</a></code> covers inner, left, right, and full joins through the same <code>all</code> / <code>all.x</code> / <code>all.y</code> arguments as <code><a href="https://rdrr.io/r/base/merge.html">base::merge()</a></code>, rows come back in input order rather than sorted by key. <code>semimerge()</code> filters one table by matches in another without adding columns - the join-as-filter case that a plain <code><a href="https://rdrr.io/r/base/merge.html">merge()</a></code> would otherwise need a follow-up <code><a href="https://rdrr.io/r/base/subset.html">subset()</a></code> for:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">left</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -592,7 +602,7 @@ font-style: inherit;">)</span></span></code></pre></div></div>
 3  3 c    C
 4  4 d &lt;NA&gt;</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">basetable</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -622,7 +632,7 @@ font-style: inherit;">)</span></span></code></pre></div></div>
 </h3>
 <p><code>describe()</code> is the quick per-column numeric summary; <code>summarytab()</code> builds a table-1-style comparison across a grouping variable, shown already in the minimal examples above with a p-value column:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">basetable</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -1424,8 +1434,8 @@ font-style: inherit;">)</span></span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  time      auc
 1   30 0.886782
-2   90 0.882384
-3  180 0.897727</code></pre>
+2   90 0.882498
+3  180 0.897919</code></pre>
 </div>
 </div>
 </section><section id="a-native-kaplan-meier-plot-plot_survcurve" class="level2"><h2 class="anchored" data-anchor-id="a-native-kaplan-meier-plot-plot_survcurve">A native Kaplan-Meier plot: <code>plot_survcurve()</code>
@@ -2799,7 +2809,7 @@ font-style: inherit;">torch</span><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/pkg/torch/man/torch_manual_seed.html">torch_manual_seed</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://torch.mlverse.org/docs/reference/torch_manual_seed.html">torch_manual_seed</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="fl" style="color: #AD0000;
 background-color: null;
