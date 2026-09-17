@@ -19,6 +19,7 @@ title-block-banner: false
 - Lamchabbek N., Huybrechts I., **El Badisy I.**, et al. (2026). Global assessment of the relationship between breast cancer risk and dietary intake: an ecological study. *American Journal of Health Promotion*, 40(5):591-600. [doi:10.1177/08901171251389792](https://doi.org/10.1177/08901171251389792)
 - Bouaddi O., **El Badisy I.**, Charaka H., et al. (2026). Leveraging the positive deviance approach to drive behavior change in noncommunicable diseases: a scoping review. *Public Health Challenges*, 5(1):e70074. [doi:10.1002/puh2.70074](https://doi.org/10.1002/puh2.70074)
 - Lamchabbek N., Mrah S., Mane N., **El Badisy I.**, et al. (2026). Adherence to WCRF/AICR cancer prevention recommendations and reduction in breast cancer risk: results of a large-scale case-control study in Morocco. *British Journal of Nutrition*. [doi:10.1017/S0007114526106527](https://doi.org/10.1017/S0007114526106527)
+- Bichri K., Chihab Eddine M., Sqalli Houssaini M., Rghioui M., **El Badisy I.**, Ghazi B. (2026). DZIP3 is associated with the cytoskeletal dynamics in glioblastoma and mitochondrial machinery regulation. *Frontiers in Bioinformatics*, 6:1878616. [doi:10.3389/fbinf.2026.1878616](https://doi.org/10.3389/fbinf.2026.1878616)
 
 ### 2025
 

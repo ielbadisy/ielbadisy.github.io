@@ -1165,7 +1165,7 @@ font-style: inherit;">)</span></span></code></pre></div></div>
 <p>This post walks through what changed between the first CRAN submission candidate (0.7.0) and the current release (0.9.0): the new implementations, and the corrections made along the way.</p>
 <section id="one-entry-point-for-benchmarking-benchmark" class="level2"><h2 class="anchored" data-anchor-id="one-entry-point-for-benchmarking-benchmark">One entry point for benchmarking: <code>benchmark()</code>
 </h2>
-<p>Comparing learners used to mean choosing between <code><a href="https://rdrr.io/pkg/survalis/man/benchmark_default_survlearners.html">benchmark_default_survlearners()</a></code> (plain k-fold CV) and <code><a href="https://rdrr.io/pkg/survalis/man/benchmark_tuned_survlearners.html">benchmark_tuned_survlearners()</a></code> (nested CV with per-learner hyperparameter tuning). <code><a href="https://rdrr.io/pkg/survalis/man/benchmark.html">benchmark()</a></code> now dispatches to either from a single <code>tune</code> argument:</p>
+<p>Comparing learners used to mean choosing between <code>benchmark_default_survlearners()</code> (plain k-fold CV) and <code>benchmark_tuned_survlearners()</code> (nested CV with per-learner hyperparameter tuning). <code>benchmark()</code> now dispatches to either from a single <code>tune</code> argument:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw" style="color: #003B4F;
 background-color: null;
@@ -1212,7 +1212,7 @@ font-style: inherit;">res</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/pkg/survalis/man/benchmark.html">benchmark</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">benchmark</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span></span>
 <span>  <span class="fu" style="color: #4758AB;
@@ -1323,10 +1323,10 @@ font-style: inherit;">res</span></span></code></pre></div></div>
                          &lt;list&gt; &lt;char&gt; &lt;int&gt; &lt;char&gt; &lt;num&gt;  &lt;char&gt;</code></pre>
 </div>
 </div>
-<p><code>tune = TRUE</code> runs the same call as nested CV, dispatching to <code><a href="https://rdrr.io/pkg/survalis/man/benchmark_tuned_survlearners.html">benchmark_tuned_survlearners()</a></code> with <code>outer_folds</code>/<code>inner_folds</code> instead. <code><a href="https://rdrr.io/pkg/survalis/man/benchmark_default_survlearners.html">benchmark_default_survlearners()</a></code> and <code><a href="https://rdrr.io/pkg/survalis/man/benchmark_tuned_survlearners.html">benchmark_tuned_survlearners()</a></code> both remain available directly for callers who don’t need the dispatch.</p>
+<p><code>tune = TRUE</code> runs the same call as nested CV, dispatching to <code>benchmark_tuned_survlearners()</code> with <code>outer_folds</code>/<code>inner_folds</code> instead. <code>benchmark_default_survlearners()</code> and <code>benchmark_tuned_survlearners()</code> both remain available directly for callers who don’t need the dispatch.</p>
 </section><section id="time-dependent-discrimination-timeroc_survmat" class="level2"><h2 class="anchored" data-anchor-id="time-dependent-discrimination-timeroc_survmat">Time-dependent discrimination: <code>timeroc_survmat()</code>
 </h2>
-<p>The C-index and the Brier score summarize discrimination and calibration at a single horizon. <code><a href="https://rdrr.io/pkg/survalis/man/timeroc_survmat.html">timeroc_survmat()</a></code> adds a vectorized cumulative/dynamic AUC curve over a vector of evaluation times, matching <code>timeROC::timeROC(weighting = "marginal")</code> to about 1e-3 (Uno et al.&nbsp;2007 / Heagerty and Zheng 2005):</p>
+<p>The C-index and the Brier score summarize discrimination and calibration at a single horizon. <code>timeroc_survmat()</code> adds a vectorized cumulative/dynamic AUC curve over a vector of evaluation times, matching <code>timeROC::timeROC(weighting = "marginal")</code> to about 1e-3 (Uno et al.&nbsp;2007 / Heagerty and Zheng 2005):</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
 background-color: null;
@@ -1357,7 +1357,7 @@ font-style: inherit;">mod_rsf</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/pkg/survalis/man/fit_rsf.html">fit_rsf</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">fit_rsf</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -1398,7 +1398,7 @@ font-style: inherit;">sp_rsf</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/pkg/survalis/man/predict_rsf.html">predict_rsf</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">predict_rsf</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
@@ -1416,7 +1416,7 @@ font-style: inherit;">)</span></span>
 <span></span>
 <span><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/pkg/survalis/man/timeroc_survmat.html">timeroc_survmat</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">timeroc_survmat</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
@@ -1440,11 +1440,11 @@ font-style: inherit;">)</span></span></code></pre></div></div>
 </div>
 </section><section id="a-native-kaplan-meier-plot-plot_survcurve" class="level2"><h2 class="anchored" data-anchor-id="a-native-kaplan-meier-plot-plot_survcurve">A native Kaplan-Meier plot: <code>plot_survcurve()</code>
 </h2>
-<p><code><a href="https://rdrr.io/pkg/survalis/man/plot_survcurve.html">plot_survcurve()</a></code> adds a survminer-style Kaplan-Meier curve with a confidence ribbon, a log-rank p-value annotation, and an aligned number-at-risk table, built directly on <code><a href="https://rdrr.io/pkg/survalis/man/theme_survalis.html">theme_survalis()</a></code> / <code><a href="https://rdrr.io/pkg/survalis/man/survalis-scales.html">scale_color_survalis()</a></code> rather than depending on the survminer package. The risk table is composed with <code>patchwork</code>.</p>
+<p><code>plot_survcurve()</code> adds a survminer-style Kaplan-Meier curve with a confidence ribbon, a log-rank p-value annotation, and an aligned number-at-risk table, built directly on <code>theme_survalis()</code> / <code>scale_color_survalis()</code> rather than depending on the survminer package. The risk table is composed with <code>patchwork</code>.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/pkg/survalis/man/plot_survcurve.html">plot_survcurve</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">plot_survcurve</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -1475,11 +1475,11 @@ font-style: inherit;">)</span></span></code></pre></div></div>
 </div>
 </div>
 </section><section id="a-consistent-visual-system-theme_survalis-and-the-color-scales" class="level2"><h2 class="anchored" data-anchor-id="a-consistent-visual-system-theme_survalis-and-the-color-scales">A consistent visual system: <code>theme_survalis()</code> and the color scales</h2>
-<p>Every plotting function used to call <code>theme_minimal()</code> with its own <code>base_size</code>, and grouped plots fell back to ggplot2’s default hue palette except for <code><a href="https://rdrr.io/pkg/survalis/man/plot_survcurve.html">plot_survcurve()</a></code>. <code><a href="https://rdrr.io/pkg/survalis/man/theme_survalis.html">theme_survalis()</a></code> and the colorblind-friendly <code><a href="https://rdrr.io/pkg/survalis/man/survalis-scales.html">scale_color_survalis()</a></code> / <code><a href="https://rdrr.io/pkg/survalis/man/survalis-scales.html">scale_fill_survalis()</a></code> (ColorBrewer “Dark2”-based, interpolated beyond 8 levels) were retrofitted across every plotting function, <code><a href="https://rdrr.io/pkg/survalis/man/plot_ale.html">plot_ale()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/plot_pdp.html">plot_pdp()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/plot_shap.html">plot_shap()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/plot_interactions.html">plot_interactions()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/plot_calibration.html">plot_calibration()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/plot_counterfactual.html">plot_counterfactual()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/plot_surrogate.html">plot_surrogate()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/plot_tree_surrogate.html">plot_tree_surrogate()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/plot_varimp.html">plot_varimp()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/plot_survmat.html">plot_survmat()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/plot_survmetalearner_weights.html">plot_survmetalearner_weights()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/plot_benchmark.html">plot_benchmark()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/cv_plot.html">cv_plot()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/plot_survcurve.html">plot_survcurve()</a></code>, so package figures read as one system instead of thirteen independent styles. Single-series hardcoded colors (<code>"steelblue"</code>, <code>"pink"</code>, <code>"tomato"</code>, ad-hoc green/red hex codes) were replaced the same way, and every plot that can show both positive and negative values now draws a dashed zero-reference line.</p>
+<p>Every plotting function used to call <code>theme_minimal()</code> with its own <code>base_size</code>, and grouped plots fell back to ggplot2’s default hue palette except for <code>plot_survcurve()</code>. <code>theme_survalis()</code> and the colorblind-friendly <code>scale_color_survalis()</code> / <code>scale_fill_survalis()</code> (ColorBrewer “Dark2”-based, interpolated beyond 8 levels) were retrofitted across every plotting function, <code>plot_ale()</code>, <code>plot_pdp()</code>, <code>plot_shap()</code>, <code>plot_interactions()</code>, <code>plot_calibration()</code>, <code>plot_counterfactual()</code>, <code>plot_surrogate()</code>, <code>plot_tree_surrogate()</code>, <code>plot_varimp()</code>, <code>plot_survmat()</code>, <code>plot_survmetalearner_weights()</code>, <code>plot_benchmark()</code>, <code>cv_plot()</code>, <code>plot_survcurve()</code>, so package figures read as one system instead of thirteen independent styles. Single-series hardcoded colors (<code>"steelblue"</code>, <code>"pink"</code>, <code>"tomato"</code>, ad-hoc green/red hex codes) were replaced the same way, and every plot that can show both positive and negative values now draws a dashed zero-reference line.</p>
 <p>As of 0.9.0, every one of those functions also takes a <code>title</code> argument: pass a custom string, leave it out for the previous auto-generated title, or pass <code>title = NULL</code> to drop it entirely for journals that require caption-only figures.</p>
 </section><section id="uncertainty-in-variable-importance-plot_varimp" class="level2"><h2 class="anchored" data-anchor-id="uncertainty-in-variable-importance-plot_varimp">Uncertainty in variable importance: <code>plot_varimp()</code>
 </h2>
-<p><code><a href="https://rdrr.io/pkg/survalis/man/compute_varimp.html">compute_varimp()</a></code> computes permutation-based importance by repeating a metric drop over <code>n_repetitions</code> permutations per feature. It used to summarize those repetitions down to a single point estimate and discard them. <code><a href="https://rdrr.io/pkg/survalis/man/plot_varimp.html">plot_varimp()</a></code> now draws the full per-repetition distribution as a boxplot instead of a lone point, and <code><a href="https://rdrr.io/pkg/survalis/man/compute_varimp.html">compute_varimp()</a></code> keeps the raw values as a <code>"raw_scores"</code> attribute so the plot can use them (falling back to the old point-plot for hand-built summary tables without that attribute):</p>
+<p><code>compute_varimp()</code> computes permutation-based importance by repeating a metric drop over <code>n_repetitions</code> permutations per feature. It used to summarize those repetitions down to a single point estimate and discard them. <code>plot_varimp()</code> now draws the full per-repetition distribution as a boxplot instead of a lone point, and <code>compute_varimp()</code> keeps the raw values as a <code>"raw_scores"</code> attribute so the plot can use them (falling back to the old point-plot for hand-built summary tables without that attribute):</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
 background-color: null;
@@ -1487,7 +1487,7 @@ font-style: inherit;">mod_cox</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/pkg/survalis/man/fit_coxph.html">fit_coxph</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">fit_coxph</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -1524,7 +1524,7 @@ font-style: inherit;">vi</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/pkg/survalis/man/compute_varimp.html">compute_varimp</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">compute_varimp</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
@@ -1554,7 +1554,7 @@ font-style: inherit;">p</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/pkg/survalis/man/plot_varimp.html">plot_varimp</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">plot_varimp</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
@@ -1599,20 +1599,20 @@ font-style: inherit;">p</span></span></code></pre></div></div>
 </div>
 </div>
 </section><section id="migration-to-data.table" class="level2"><h2 class="anchored" data-anchor-id="migration-to-data.table">Migration to data.table</h2>
-<p>Every internal data-manipulation path, the CV/metrics engine (<code><a href="https://rdrr.io/pkg/survalis/man/cv_survlearner.html">cv_survlearner()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/cv_summary.html">cv_summary()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/score_survmodel.html">score_survmodel()</a></code>), all nineteen <code>tune_*()</code> functions, <code><a href="https://rdrr.io/pkg/survalis/man/cv_survmetalearner.html">cv_survmetalearner()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/benchmark_tuned_survlearners.html">benchmark_tuned_survlearners()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/compute_shap.html">compute_shap()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/compute_calibration.html">compute_calibration()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/plot_survmat.html">plot_survmat()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/compute_varimp.html">compute_varimp()</a></code>, and the descriptive <code>list_*()</code> helpers, was migrated file by file from dplyr/tidyr/purrr/tibble to data.table. <code>dplyr</code>, <code>tidyr</code>, <code>purrr</code>, and <code>tibble</code> are no longer in <code>Imports</code> at all; data.table is now the sole data-manipulation engine. <code><a href="https://rdrr.io/pkg/survalis/man/cv_summary.html">cv_summary()</a></code>/<code><a href="https://rdrr.io/pkg/survalis/man/score_survmodel.html">score_survmodel()</a></code> and <code><a href="https://rdrr.io/pkg/survalis/man/summarise_benchmark.html">summarise_benchmark()</a></code> now round summary statistics to 3 decimals by default, consistently.</p>
+<p>Every internal data-manipulation path, the CV/metrics engine (<code>cv_survlearner()</code>, <code>cv_summary()</code>, <code>score_survmodel()</code>), all nineteen <code>tune_*()</code> functions, <code>cv_survmetalearner()</code>, <code>benchmark_tuned_survlearners()</code>, <code>compute_shap()</code>, <code>compute_calibration()</code>, <code>plot_survmat()</code>, <code>compute_varimp()</code>, and the descriptive <code>list_*()</code> helpers, was migrated file by file from dplyr/tidyr/purrr/tibble to data.table. <code>dplyr</code>, <code>tidyr</code>, <code>purrr</code>, and <code>tibble</code> are no longer in <code>Imports</code> at all; data.table is now the sole data-manipulation engine. <code>cv_summary()</code>/<code>score_survmodel()</code> and <code>summarise_benchmark()</code> now round summary statistics to 3 decimals by default, consistently.</p>
 </section><section id="corrections-along-the-way" class="level2"><h2 class="anchored" data-anchor-id="corrections-along-the-way">Corrections along the way</h2>
 <p>A few of these were silent correctness bugs, not just style:</p>
 <ul>
 <li>
-<strong><code><a href="https://rdrr.io/pkg/survalis/man/auc_survmat.html">auc_survmat()</a></code> case definition.</strong> Cases were defined as events with <code>time &lt;= t_star</code> instead of the canonical Uno/timeROC <code>time &lt; t_star</code>. This fed directly into the <code>"auc"</code> metric used throughout <code><a href="https://rdrr.io/pkg/survalis/man/score_survmodel.html">score_survmodel()</a></code>, <code>benchmark_*()</code>, and <code><a href="https://rdrr.io/pkg/survalis/man/fit_survmetalearner.html">fit_survmetalearner()</a></code>, so it was corrected everywhere at once.</li>
+<strong><code>auc_survmat()</code> case definition.</strong> Cases were defined as events with <code>time &lt;= t_star</code> instead of the canonical Uno/timeROC <code>time &lt; t_star</code>. This fed directly into the <code>"auc"</code> metric used throughout <code>score_survmodel()</code>, <code>benchmark_*()</code>, and <code>fit_survmetalearner()</code>, so it was corrected everywhere at once.</li>
 <li>
-<strong>Silently dropped learners in nested tuning.</strong> <code><a href="https://rdrr.io/pkg/survalis/man/benchmark_tuned_survlearners.html">benchmark_tuned_survlearners()</a></code> selected tuning-result columns with <code>tuning_results[1, cols, drop = FALSE]</code>, relying on data.frame <code>[</code> semantics; data.table’s <code>[</code> doesn’t select columns from a variable the same way, so every fold for a data.table-migrated learner errored and the learner was quietly dropped with a warning. Fixed with a <code>.select_cols()</code> helper that works for both data.frame/tibble and data.table inputs.</li>
+<strong>Silently dropped learners in nested tuning.</strong> <code>benchmark_tuned_survlearners()</code> selected tuning-result columns with <code>tuning_results[1, cols, drop = FALSE]</code>, relying on data.frame <code>[</code> semantics; data.table’s <code>[</code> doesn’t select columns from a variable the same way, so every fold for a data.table-migrated learner errored and the learner was quietly dropped with a warning. Fixed with a <code>.select_cols()</code> helper that works for both data.frame/tibble and data.table inputs.</li>
 <li>
 <strong><code>tune_survsvm(refit_best = TRUE)</code> crashes.</strong> A top-ranked grid candidate could fail to refit on the full dataset (a <code>quadprog</code> QP infeasibility that only shows up on certain BLAS backends, including CRAN’s OpenBLAS check machine). It now falls back to the next-best candidate and only errors if every candidate fails.</li>
 <li>
 <strong><code>plot_interactions(type = "heatmap")</code> readability.</strong> The <code>white -&gt; steelblue</code> gradient had too little contrast in the mid-range and the zero-valued diagonal blended into the low end. Switched to a perceptually uniform viridis scale, flipped afterward so high interaction values read as dark rather than bright, matching conventional heatmap reading.</li>
 <li>
-<strong><code><a href="https://rdrr.io/pkg/survalis/man/plot_pdp.html">plot_pdp()</a></code> per-time facets.</strong> Free y-axis scales made survival-probability panels visually incomparable across facets; now fixed to <code>[0, 1]</code> via <code>coord_cartesian()</code>.</li>
+<strong><code>plot_pdp()</code> per-time facets.</strong> Free y-axis scales made survival-probability panels visually incomparable across facets; now fixed to <code>[0, 1]</code> via <code>coord_cartesian()</code>.</li>
 <li>
 <strong>Stale generated docs breaking CI.</strong> Three <code>.Rd</code> files had hand-drifted out of sync with their roxygen source, using <code>\donttest{}</code> (which CI runs) instead of <code>\dontrun{}</code>, causing an example to fail on an undefined object. Regenerated from source and verified with <code>R CMD check --run-donttest</code>.</li>
 </ul></section><section id="links" class="level2"><h2 class="anchored" data-anchor-id="links">Links</h2>
@@ -1646,15 +1646,15 @@ font-style: inherit;">p</span></span></code></pre></div></div>
 <code>fit_*()</code> functions return a standardized <code>mlsurv_model</code> object</li>
 <li>
 <code>predict_*()</code> functions return a <code>data.frame</code> of survival probabilities, one row per subject, one column per requested time (<code>t=100</code>, <code>t=200</code>, …)</li>
-<li>Evaluation is fully modular: any <code>fit_*</code>/<code>predict_*</code> pair plugs into <code><a href="https://rdrr.io/pkg/survalis/man/cv_survlearner.html">cv_survlearner()</a></code> or <code><a href="https://rdrr.io/pkg/survalis/man/score_survmodel.html">score_survmodel()</a></code>
+<li>Evaluation is fully modular: any <code>fit_*</code>/<code>predict_*</code> pair plugs into <code>cv_survlearner()</code> or <code>score_survmodel()</code>
 </li>
 <li>Everything downstream (benchmarking, calibration, interpretation) is designed to work on that same survival-probability matrix, regardless of which learner produced it</li>
 </ul></section><section id="why-explicit-fit_coxph-fit_rsf-instead-of-one-fitlearner-..." class="level2"><h2 class="anchored" data-anchor-id="why-explicit-fit_coxph-fit_rsf-instead-of-one-fitlearner-...">Why explicit <code>fit_coxph()</code> / <code>fit_rsf()</code> instead of one <code>fit(learner = ...)</code>
 </h2>
-<p>This is a deliberate departure from <code>funcml</code>, my general-purpose ML package, where <code>fit(y ~ ., data, learner = "ranger")</code> collapses every learner behind one verb and a string argument. survalis keeps a named function per learner, <code><a href="https://rdrr.io/pkg/survalis/man/fit_coxph.html">fit_coxph()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/fit_rsf.html">fit_rsf()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/fit_survdnn.html">fit_survdnn()</a></code>, and so on, instead of a single dispatcher.</p>
+<p>This is a deliberate departure from <code>funcml</code>, my general-purpose ML package, where <code>fit(y ~ ., data, learner = "ranger")</code> collapses every learner behind one verb and a string argument. survalis keeps a named function per learner, <code>fit_coxph()</code>, <code>fit_rsf()</code>, <code>fit_survdnn()</code>, and so on, instead of a single dispatcher.</p>
 <p>The reason is that the survival setting is not just “regression with a different loss.” Every learner here already has to negotiate right-censoring, risk sets, and time-varying prediction targets on its own terms, and each one leans on a different underlying package (<code>survival</code>, <code>randomForestSRC</code>, <code>xgboost</code>, <code>torch</code>, <code>flexsurv</code>, …) with its own quirks around ties, time horizons, and baseline hazard estimation. Hiding <code>fit_coxph</code> and <code>fit_rsf</code> behind a shared <code>fit(learner = "rsf")</code> string would trade a small amount of typing for a layer of indirection between the call site and the model-specific machinery it actually invokes, machinery that, in survival analysis, is rarely interchangeable enough to be worth hiding. Keeping the learner name in the function name is a compactness choice: the API surface is larger (nineteen <code>fit_*()</code>/<code>predict_*()</code> pairs instead of one), but each call is self-describing and there is one fewer level of abstraction between what you write and what runs.</p>
-<p>What survalis does unify is everything <em>after</em> fitting: <code>predict_*()</code> always returns the same survival-probability matrix shape, so <code><a href="https://rdrr.io/pkg/survalis/man/cindex_survmat.html">cindex_survmat()</a></code>, <code><a href="https://rdrr.io/pkg/survival/man/brier.html">brier()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/cv_survlearner.html">cv_survlearner()</a></code>, and <code><a href="https://rdrr.io/pkg/survalis/man/benchmark.html">benchmark()</a></code> never need to know which <code>fit_*()</code> produced it. The genericity lives at the evaluation/interpretation layer, not at the fitting layer.</p>
-<p>That output shape was a deliberate constraint, not an incidental one. A Cox model naturally hands back a linear predictor or a hazard ratio; a random survival forest hands back an ensemble of terminal-node curves; a deep survival network hands back whatever its loss was trained on (a Cox partial likelihood, an AFT loss, a discrete-time hazard). <code><a href="https://rdrr.io/pkg/survalis/man/fit_survdnn.html">fit_survdnn()</a></code> itself can predict a linear predictor if asked, since its loss functions include a Cox-style formulation. survalis standardizes on the survival-probability matrix anyway, over times <code>t=100</code>, <code>t=200</code>, and so on, because a matrix is, by construction, a richer object than a scalar: a linear predictor collapses a subject’s entire risk trajectory into one number and one implicit ranking, while a survival curve preserves how that risk actually unfolds over the follow-up window, which is what a fixed-horizon metric, a time-varying AUC, or a calibration curve each need to read back out at a different point. Forcing every <code>predict_*()</code> to that one shape throws away learner-specific detail on the way out (a Cox model’s clean linear score, a forest’s raw ensemble votes), but it is exactly what makes <code><a href="https://rdrr.io/pkg/survalis/man/cindex_survmat.html">cindex_survmat()</a></code>, <code><a href="https://rdrr.io/pkg/survival/man/brier.html">brier()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/timeroc_survmat.html">timeroc_survmat()</a></code>, and every interpretation function in the package learner-agnostic, without asking any of them to reconstruct a survival curve from a scalar first. The alternative, keeping each learner’s native output format and writing metric functions that branch on model class, is the design survalis specifically avoids.</p>
+<p>What survalis does unify is everything <em>after</em> fitting: <code>predict_*()</code> always returns the same survival-probability matrix shape, so <code>cindex_survmat()</code>, <code><a href="https://rdrr.io/pkg/survival/man/brier.html">brier()</a></code>, <code>cv_survlearner()</code>, and <code>benchmark()</code> never need to know which <code>fit_*()</code> produced it. The genericity lives at the evaluation/interpretation layer, not at the fitting layer.</p>
+<p>That output shape was a deliberate constraint, not an incidental one. A Cox model naturally hands back a linear predictor or a hazard ratio; a random survival forest hands back an ensemble of terminal-node curves; a deep survival network hands back whatever its loss was trained on (a Cox partial likelihood, an AFT loss, a discrete-time hazard). <code>fit_survdnn()</code> itself can predict a linear predictor if asked, since its loss functions include a Cox-style formulation. survalis standardizes on the survival-probability matrix anyway, over times <code>t=100</code>, <code>t=200</code>, and so on, because a matrix is, by construction, a richer object than a scalar: a linear predictor collapses a subject’s entire risk trajectory into one number and one implicit ranking, while a survival curve preserves how that risk actually unfolds over the follow-up window, which is what a fixed-horizon metric, a time-varying AUC, or a calibration curve each need to read back out at a different point. Forcing every <code>predict_*()</code> to that one shape throws away learner-specific detail on the way out (a Cox model’s clean linear score, a forest’s raw ensemble votes), but it is exactly what makes <code>cindex_survmat()</code>, <code><a href="https://rdrr.io/pkg/survival/man/brier.html">brier()</a></code>, <code>timeroc_survmat()</code>, and every interpretation function in the package learner-agnostic, without asking any of them to reconstruct a survival curve from a scalar first. The alternative, keeping each learner’s native output format and writing metric functions that branch on model class, is the design survalis specifically avoids.</p>
 </section><section id="nineteen-learners-one-interface" class="level2"><h2 class="anchored" data-anchor-id="nineteen-learners-one-interface">Nineteen learners, one interface</h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw" style="color: #003B4F;
@@ -1669,7 +1669,7 @@ background-color: null;
 font-style: inherit;">)</span></span>
 <span><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/pkg/survalis/man/list_survlearners.html">list_survlearners</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">list_survlearners</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -1763,7 +1763,7 @@ font-style: inherit;">mod</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/pkg/survalis/man/fit_coxph.html">fit_coxph</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">fit_coxph</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -1800,7 +1800,7 @@ font-style: inherit;">sp</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/pkg/survalis/man/predict_coxph.html">predict_coxph</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">predict_coxph</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
@@ -1861,7 +1861,7 @@ font-style: inherit;">sp_fine</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/pkg/survalis/man/predict_coxph.html">predict_coxph</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">predict_coxph</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
@@ -1893,7 +1893,7 @@ font-style: inherit;">p</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/pkg/survalis/man/plot_survmat.html">plot_survmat</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">plot_survmat</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
@@ -1972,7 +1972,7 @@ font-style: inherit;">(</span></span>
 background-color: null;
 font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/pkg/survalis/man/cindex_survmat.html">cindex_survmat</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">cindex_survmat</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
@@ -1993,7 +1993,7 @@ font-style: inherit;">survalis</span><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/pkg/survalis/man/brier.html">brier</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">brier</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
@@ -2022,9 +2022,9 @@ font-style: inherit;">)</span></span></code></pre></div></div>
       0.733744       0.134603 </code></pre>
 </div>
 </div>
-<p>Swap <code>fit_coxph</code>/<code>predict_coxph</code> for any other pair in <code><a href="https://rdrr.io/pkg/survalis/man/list_survlearners.html">list_survlearners()</a></code> and every downstream call, <code><a href="https://rdrr.io/pkg/survalis/man/cindex_survmat.html">cindex_survmat()</a></code>, <code><a href="https://rdrr.io/pkg/survival/man/brier.html">brier()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/cv_survlearner.html">cv_survlearner()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/benchmark.html">benchmark()</a></code>, stays exactly the same.</p>
+<p>Swap <code>fit_coxph</code>/<code>predict_coxph</code> for any other pair in <code>list_survlearners()</code> and every downstream call, <code>cindex_survmat()</code>, <code><a href="https://rdrr.io/pkg/survival/man/brier.html">brier()</a></code>, <code>cv_survlearner()</code>, <code>benchmark()</code>, stays exactly the same.</p>
 </section><section id="beyond-prediction-interpretation" class="level2"><h2 class="anchored" data-anchor-id="beyond-prediction-interpretation">Beyond prediction: interpretation</h2>
-<p>Because every learner returns the same survival-probability shape, survalis’s interpretability layer works uniformly across all of them: permutation variable importance (<code><a href="https://rdrr.io/pkg/survalis/man/compute_varimp.html">compute_varimp()</a></code>), accumulated local effects and partial dependence (<code><a href="https://rdrr.io/pkg/survalis/man/compute_ale.html">compute_ale()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/compute_pdp.html">compute_pdp()</a></code>), SHAP-based attribution (<code><a href="https://rdrr.io/pkg/survalis/man/compute_shap.html">compute_shap()</a></code>), pairwise interaction strength (<code><a href="https://rdrr.io/pkg/survalis/man/compute_interactions.html">compute_interactions()</a></code>), counterfactual recommendations (<code><a href="https://rdrr.io/pkg/survalis/man/compute_counterfactual.html">compute_counterfactual()</a></code>), and surrogate-tree explanations (<code><a href="https://rdrr.io/pkg/survalis/man/compute_surrogate.html">compute_surrogate()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/compute_tree_surrogate.html">compute_tree_surrogate()</a></code>), each with a matching <code>plot_*()</code> function.</p>
+<p>Because every learner returns the same survival-probability shape, survalis’s interpretability layer works uniformly across all of them: permutation variable importance (<code>compute_varimp()</code>), accumulated local effects and partial dependence (<code>compute_ale()</code>, <code>compute_pdp()</code>), SHAP-based attribution (<code>compute_shap()</code>), pairwise interaction strength (<code>compute_interactions()</code>), counterfactual recommendations (<code>compute_counterfactual()</code>), and surrogate-tree explanations (<code>compute_surrogate()</code>, <code>compute_tree_surrogate()</code>), each with a matching <code>plot_*()</code> function.</p>
 </section><section id="install" class="level2"><h2 class="anchored" data-anchor-id="install">Install</h2>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;
 background-color: null;

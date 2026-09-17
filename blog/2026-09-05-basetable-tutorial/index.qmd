@@ -1,6 +1,6 @@
 ---
 title: "basetable: A Tutorial"
-subtitle: "A walk through the package README, with more examples for every verb family"
+subtitle: "An expanded tour of the package"
 author: "Imad El Badisy"
 date: "2026-09-05"
 categories: [R, packages, tutorial]
