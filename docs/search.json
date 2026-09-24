@@ -340,7 +340,7 @@
     "href": "index.html",
     "title": "Imad El Badisy, PhD",
     "section": "",
-    "text": "Hi, I’m Imad\n\nI am a research engineer in health data science and computational methodologist building open-source tools and methodology for reproducible health research.\nMy focus is making advanced statistical methods accessible to health researchers. Learn more from the software packages I build.\nGet in touch at elbadisyimad@gmail.com or ielbadisy@cm6.ma."
+    "text": "Hi, I’m Imad\n\nI am a computational methodologist building software for machine learning and computational biostatistics.\nMy focus is turning advanced statistical and machine learning methods into reliable, open-source tools that researchers can use. Learn more from the software packages I build.\nGet in touch at elbadisyimad@gmail.com or ielbadisy@cm6.ma."
   },
   {
     "objectID": "index.html#about-me",
@@ -354,7 +354,7 @@
     "href": "index.html#research",
     "title": "Imad El Badisy, PhD",
     "section": "Research",
-    "text": "Research\nMy research develops computational methods for health data: survival machine learning (individualized prediction, neural survival models, RMST summaries, trajectory phenotyping), missing-data imputation, interpretable ML for clinical reasoning, and agentic data science for analytical workflows."
+    "text": "Research\nMy methodological research centers on four areas:\n\nScientific machine learning: machine learning methods grounded in statistical and scientific structure, with an emphasis on interpretability and reliable inference.\nSurvival analysis: survival machine learning, including individualized prediction, neural survival models, RMST summaries, and trajectory phenotyping.\nMissing data imputation: machine learning imputation methods and their evaluation, particularly for survival outcomes.\nAgentic data science: LLM-based agents that plan and run statistical analysis workflows, and software designed so that these agents can use it correctly, reproducibly, and safely."
   },
   {
     "objectID": "index.html#consulting",

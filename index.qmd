@@ -1,8 +1,8 @@
 ---
 title: "Imad El Badisy, PhD"
 pagetitle: "Imad El Badisy"
-description: "Imad El Badisy, Research Engineer in Health Data Science, PhD."
-subtitle: Research Engineer in Health Data Science
+description: "Imad El Badisy, PhD. Computational methodologist building software for machine learning and computational biostatistics."
+subtitle: Computational Methodologist
 image: profile.jpg
 image-alt: "Imad El Badisy"
 about:
@@ -37,9 +37,9 @@ resources:
 ::: {#hero-heading}
 <div class="h1">Hi, I'm Imad</div>
 
-I am a research engineer in health data science and computational methodologist building open-source tools and methodology for reproducible health research.
+I am a computational methodologist building software for machine learning and computational biostatistics.
 
-My focus is making advanced statistical methods accessible to health researchers. Learn more from the [software packages](packages.qmd) I build.
+My focus is turning advanced statistical and machine learning methods into reliable, open-source tools that researchers can use. Learn more from the [software packages](packages.qmd) I build.
 
 Get in touch at [elbadisyimad@gmail.com](mailto:elbadisyimad@gmail.com) or [ielbadisy@cm6.ma](mailto:ielbadisy@cm6.ma). {{< fa feather-pointed >}}
 
@@ -55,7 +55,12 @@ See my [education and experience](background.qmd) or download my [CV (PDF)](cv/c
 
 ## Research
 
-My research develops computational methods for health data: survival machine learning (individualized prediction, neural survival models, RMST summaries, trajectory phenotyping), missing-data imputation, interpretable ML for clinical reasoning, and agentic data science for analytical workflows.
+My methodological research centers on four areas:
+
+- **Scientific machine learning**: machine learning methods grounded in statistical and scientific structure, with an emphasis on interpretability and reliable inference.
+- **Survival analysis**: survival machine learning, including individualized prediction, neural survival models, RMST summaries, and trajectory phenotyping.
+- **Missing data imputation**: machine learning imputation methods and their evaluation, particularly for survival outcomes.
+- **Agentic data science**: LLM-based agents that plan and run statistical analysis workflows, and software designed so that these agents can use it correctly, reproducibly, and safely.
 
 ## Consulting
 
