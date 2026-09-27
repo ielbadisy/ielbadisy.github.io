@@ -1,8 +1,8 @@
 ---
 title: "Imad El Badisy, PhD"
 pagetitle: "Imad El Badisy"
-description: "Imad El Badisy, PhD. Computational methodologist building software for machine learning and computational biostatistics."
-subtitle: Computational Methodologist
+description: "Imad El Badisy, PhD. Health data scientist and computational methodologist building software for machine learning and computational biostatistics."
+subtitle: "Health Data Scientist & Computational Methodologist"
 image: profile.jpg
 image-alt: "Imad El Badisy"
 about:
@@ -37,7 +37,7 @@ resources:
 ::: {#hero-heading}
 <div class="h1">Hi, I'm Imad</div>
 
-I am a computational methodologist building software for machine learning and computational biostatistics.
+I am a health data scientist and computational methodologist building software for machine learning and computational biostatistics.
 
 My focus is turning advanced statistical and machine learning methods into reliable, open-source tools that researchers can use. Learn more from the [software packages](packages.qmd) I build.
 

@@ -28,7 +28,7 @@ format:
 \begin{minipage}[c]{0.74\textwidth}
 \begin{center}
 {\huge \bfseries Imad EL BADISY}\\[3pt]
-{\large Computational Methodologist}\\[4pt]
+{\large Health Data Scientist \& Computational Methodologist}\\[4pt]
 \href{mailto:elbadisyimad@gmail.com}{elbadisyimad@gmail.com} $\cdot$
 \href{mailto:ielbadisy@cm6.ma}{ielbadisy@cm6.ma} $\cdot$
 \href{https://github.com/ielbadisy}{github.com/ielbadisy} $\cdot$
@@ -49,7 +49,7 @@ format:
 \end{large}
 \vspace{4pt}
 
-Computational methodologist, PhD, building software for machine learning and computational biostatistics. My methodological research centers on scientific machine learning, survival analysis, missing data imputation, and agentic data science. I hold a PhD in Biomedical Sciences from Aix-Marseille University (SESSTIM laboratory) on missing data and machine learning methods for survival analysis. I turn advanced statistical and machine learning methods into reliable, open-source R packages, including tools for survival machine learning, neural survival models, and imputation, and I contribute as a consultant and trainer in biostatistics and machine learning.
+Health data scientist and computational methodologist, PhD, building software for machine learning and computational biostatistics. My methodological research centers on scientific machine learning, survival analysis, missing data imputation, and agentic data science. I hold a PhD in Biomedical Sciences from Aix-Marseille University (SESSTIM laboratory) on missing data and machine learning methods for survival analysis. I turn advanced statistical and machine learning methods into reliable, open-source R packages, including tools for survival machine learning, neural survival models, and imputation, and I contribute as a consultant and trainer in biostatistics and machine learning.
 
 \vspace{6pt}
 
