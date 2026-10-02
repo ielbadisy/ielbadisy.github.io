@@ -27,11 +27,24 @@ format:
   html:
     page-layout: full
 
+listing:
+  id: blog-listing
+  contents:
+    - "blog/*/index.qmd"
+  sort: "date desc"
+  type: default
+  categories: false
+  sort-ui: false
+  filter-ui: false
+  fields: [title, subtitle, date, categories]
+  feed: true
 header-includes: >
   <link rel="stylesheet" href="assets/about.css">
+  <link rel="stylesheet" href="assets/contact.css">
   <meta name="google-site-verification" content="BL7llVzTysRFTmiaUvROhyznMMrs97Muk8fofExd6LI" />
 resources:
   - assets/about.css
+  - assets/contact.css
 ---
 
 ::: {#hero-heading}
@@ -39,7 +52,7 @@ resources:
 
 I am a health data scientist and computational methodologist building software for machine learning and computational biostatistics.
 
-My focus is turning advanced statistical and machine learning methods into reliable, open-source tools that researchers can use. Learn more from the [software packages](packages.qmd) I build.
+My focus is turning advanced statistical and machine learning methods into reliable, open-source tools that researchers can use. Learn more from the [software packages](#software) I build.
 
 Get in touch at [elbadisyimad@gmail.com](mailto:elbadisyimad@gmail.com) or [ielbadisy@cm6.ma](mailto:ielbadisy@cm6.ma). {{< fa feather-pointed >}}
 
@@ -47,11 +60,11 @@ Get in touch at [elbadisyimad@gmail.com](mailto:elbadisyimad@gmail.com) or [ielb
 
 ## About me
 
-I hold a PhD in Biomedical Sciences from Aix-Marseille University (SESSTIM laboratory) on missing data and machine learning methods for survival analysis. I develop software and design agentic workflows that bridge statistical rigor with modern computation. See my full list on the [software](packages.qmd) page.
+I hold a PhD in Biomedical Sciences from Aix-Marseille University (SESSTIM laboratory) on missing data and machine learning methods for survival analysis. I develop software and design agentic workflows that bridge statistical rigor with modern computation. See the full list in the [software](#software) section.
 
 Moroccan and French national, husband and father.
 
-See my [education and experience](background.qmd) or download my [CV (PDF)](cv/cv.pdf).
+See my [education and experience](#background) or download my [CV (PDF)](cv/cv.pdf).
 
 ## Research
 
@@ -72,3 +85,285 @@ I provide independent methodological and statistical consulting for health resea
 - Machine learning prediction for health outcomes
 - Health economics and cost-effectiveness studies
 - Custom R package and tool development
+
+## Background {#background}
+
+Professional experience and education. The full record is in the [CV (PDF)](cv/cv.pdf).
+
+### Experience
+
+| Position | Institution | Period |
+|---|---|---|
+| Head of AI and Data Science Service | CM6RI, Rabat, Morocco | Jan. 2026 – Present |
+| Research Engineer in Health Data Science | CM6RI, Rabat, Morocco | Nov. 2021 – Jan. 2026 |
+| Data Science Education Officer | The GRAPH Network, Switzerland | Sep. 2023 – Dec. 2023 |
+| Research and Development Engineer | IMT Atlantique, Brest, France | Sep. 2019 – Sep. 2021 |
+| Biostatistician | INSERM, Clermont-Ferrand, France | Jan. 2019 – Jun. 2019 |
+| Health Economist Intern | Université de Sherbrooke, Quebec, Canada | Feb. 2017 – Sep. 2017 |
+
+: {tbl-colwidths="[40,40,20]"}
+
+### Education
+
+| Degree | Institution | Period |
+|---|---|---|
+| PhD in Biomedical Sciences | Aix-Marseille University, SESSTIM, Marseille, France | 2021 – 2025 |
+| Master 2, Quantitative Methods for Health Research | Aix-Marseille University, SESSTIM, Marseille, France | 2018 – 2019 |
+| Master 1, Applied Mathematics and Statistics | Université Clermont Auvergne, Clermont-Ferrand, France | 2017 – 2018 |
+| Master 2, Health Economics | Université Clermont Auvergne, CERDI, Clermont-Ferrand, France | 2016 – 2017 |
+
+: {tbl-colwidths="[40,40,20]"}
+
+[{{< fa file-pdf >}} Download full CV (PDF)](cv/cv.pdf)
+
+## Teaching {#teaching}
+
+University courses and independent training in biostatistics, machine learning, and health data science.
+
+### University courses
+
+| Course | Institution | Period |
+|---|---|---|
+| AI for Public Health (ML, NLP, applied AI) | Aix-Marseille University, SESSTIM, Marseille, France | 2022 – present |
+| Introduction to Biostatistics | University Mohammed VI of Health Sciences (UM6SS), Casablanca, Morocco | 2021 – present |
+| Quantitative Epidemiology and Machine Learning | Institut Mines-Télécom, IMT Atlantique, Brest, France | 2020 – present |
+
+: {tbl-colwidths="[45,40,15]"}
+
+### MHDSR: Methods in Health Data Science with R
+
+Outside working hours I organize **MHDSR**, an independent
+training pathway covering applied biostatistics, survival analysis, and
+machine learning with R, delivered live to research teams and open
+cohorts:
+
+- **BIOSTATR**: Applied Biostatistics with R (foundations)
+- **ML4HOR**: Machine Learning for Health Outcomes with R (prediction)
+
+## Software {#software}
+
+Open-source software for survival analysis, machine learning, and functional data analysis in health research.
+
+```{=html}
+<div class="grid">
+<div class="g-col-6 g-col-md-4">
+<div class="card h-100">
+<div class="card-body">
+<h3 class="card-title">functionals</h3>
+<p class="card-text">Functional programming utilities.</p>
+<p class="card-text"><a href="https://cran.r-project.org/package=functionals">CRAN</a> | <a href="https://cran.r-project.org/web/packages/functionals/functionals.pdf">PDF docs</a> | <a href="https://ielbadisy.r-universe.dev/functionals">R-universe</a></p>
+<p class="card-text"><small><strong>Cite:</strong> EL BADISY, I. (2025). <em>functionals: Functional Programming with Parallelism and Progress Tracking</em>. R package version 0.5.1. <a href="https://doi.org/10.32614/CRAN.package.functionals">doi:10.32614/CRAN.package.functionals</a></small></p>
+</div>
+</div>
+</div>
+<div class="g-col-6 g-col-md-4">
+<div class="card h-100">
+<div class="card-body">
+<h3 class="card-title">unsurv</h3>
+<p class="card-text">Unsupervised clustering of individualized survival curves.</p>
+<p class="card-text"><a href="https://cran.r-project.org/package=unsurv">CRAN</a> | <a href="https://cran.r-project.org/web/packages/unsurv/unsurv.pdf">PDF docs</a> | <a href="https://ielbadisy.r-universe.dev/unsurv">R-universe</a></p>
+<p class="card-text"><small><strong>Cite:</strong> EL BADISY, I. (2026). <em>unsurv: Unsupervised Clustering of Individualized Survival Curves</em>. R package version 0.7.2. <a href="https://doi.org/10.32614/CRAN.package.unsurv">doi:10.32614/CRAN.package.unsurv</a></small></p>
+</div>
+</div>
+</div>
+<div class="g-col-6 g-col-md-4">
+<div class="card h-100">
+<div class="card-body">
+<h3 class="card-title">tvrmst</h3>
+<p class="card-text">Time-varying RMST tooling.</p>
+<p class="card-text"><a href="https://cran.r-project.org/package=tvrmst">CRAN</a> | <a href="https://cran.r-project.org/web/packages/tvrmst/tvrmst.pdf">PDF docs</a> | <a href="https://ielbadisy.r-universe.dev/tvrmst">R-universe</a></p>
+<p class="card-text"><small><strong>Cite:</strong> EL BADISY, I. (2026). <em>tvrmst: Time-Varying Restricted Mean Survival Time from Survival Matrices</em>. R package version 0.0.6. <a href="https://doi.org/10.32614/CRAN.package.tvrmst">doi:10.32614/CRAN.package.tvrmst</a></small></p>
+</div>
+</div>
+</div>
+<div class="g-col-6 g-col-md-4">
+<div class="card h-100">
+<div class="card-body">
+<h3 class="card-title">mcstatsim</h3>
+<p class="card-text">Monte Carlo statistical simulation.</p>
+<p class="card-text"><a href="https://cran.r-project.org/package=mcstatsim">CRAN</a> | <a href="https://cran.r-project.org/web/packages/mcstatsim/mcstatsim.pdf">PDF docs</a> | <a href="https://ielbadisy.r-universe.dev/mcstatsim">R-universe</a></p>
+<p class="card-text"><small><strong>Cite:</strong> EL BADISY, I. (2024). <em>mcstatsim: Monte Carlo Statistical Simulation Tools Using a Functional Approach</em>. R package version 0.5.1. <a href="https://doi.org/10.32614/CRAN.package.mcstatsim">doi:10.32614/CRAN.package.mcstatsim</a></small></p>
+</div>
+</div>
+</div>
+<div class="g-col-6 g-col-md-4">
+<div class="card h-100">
+<div class="card-body">
+<h3 class="card-title">missCforest</h3>
+<p class="card-text">Missing-data random forest methods.</p>
+<p class="card-text"><a href="https://cran.r-project.org/package=missCforest">CRAN</a> | <a href="https://cran.r-project.org/web/packages/missCforest/missCforest.pdf">PDF docs</a> | <a href="https://ielbadisy.r-universe.dev/missCforest">R-universe</a></p>
+<p class="card-text"><small><strong>Cite:</strong> El Badisy, I. (2023). <em>missCforest: Ensemble Conditional Trees for Missing Data Imputation</em>. R package version 0.0.8. <a href="https://doi.org/10.32614/CRAN.package.missCforest">doi:10.32614/CRAN.package.missCforest</a></small></p>
+</div>
+</div>
+</div>
+<div class="g-col-6 g-col-md-4">
+<div class="card h-100">
+<div class="card-body">
+<h3 class="card-title">survalis</h3>
+<p class="card-text">Survival machine learning framework.</p>
+<p class="card-text"><a href="https://cran.r-project.org/package=survalis">CRAN</a> | <a href="https://cran.r-project.org/web/packages/survalis/survalis.pdf">PDF docs</a> | <a href="https://ielbadisy.r-universe.dev/survalis">R-universe</a></p>
+<p class="card-text"><small><strong>Cite:</strong> El Badisy, I. (2026). <em>survalis: Interpretable Survival Machine Learning Framework</em>. R package version 1.0.0. <a href="https://doi.org/10.32614/CRAN.package.survalis">doi:10.32614/CRAN.package.survalis</a></small></p>
+</div>
+</div>
+</div>
+<div class="g-col-6 g-col-md-4">
+<div class="card h-100">
+<div class="card-body">
+<h3 class="card-title">funcml</h3>
+<p class="card-text">Functional machine learning framework.</p>
+<p class="card-text"><a href="https://cran.r-project.org/package=funcml">CRAN</a> | <a href="https://cran.r-project.org/web/packages/funcml/funcml.pdf">PDF docs</a> | <a href="https://ielbadisy.r-universe.dev/funcml">R-universe</a></p>
+<p class="card-text"><small><strong>Cite:</strong> EL BADISY, I. (2026). <em>funcml: Functional Machine Learning Framework</em>. R package version 0.9.0. <a href="https://doi.org/10.32614/CRAN.package.funcml">doi:10.32614/CRAN.package.funcml</a></small></p>
+</div>
+</div>
+</div>
+<div class="g-col-6 g-col-md-4">
+<div class="card h-100">
+<div class="card-body">
+<h3 class="card-title">survdnn</h3>
+<p class="card-text">Deep neural networks for right-censored survival analysis.</p>
+<p class="card-text"><a href="https://cran.r-project.org/package=survdnn">CRAN</a> | <a href="https://cran.r-project.org/web/packages/survdnn/survdnn.pdf">PDF docs</a> | <a href="https://ielbadisy.r-universe.dev/survdnn">R-universe</a></p>
+<p class="card-text"><small><strong>Cite:</strong> EL BADISY, I. (2026). <em>survdnn: Deep Neural Networks for Survival Analysis with R 'torch'</em>. R package version 1.0.0. <a href="https://doi.org/10.32614/CRAN.package.survdnn">doi:10.32614/CRAN.package.survdnn</a></small></p>
+</div>
+</div>
+</div>
+<div class="g-col-6 g-col-md-4">
+<div class="card h-100">
+<div class="card-body">
+<h3 class="card-title">mimar</h3>
+<p class="card-text">Compact multiple imputation, assessment, and reporting.</p>
+<p class="card-text"><a href="https://cran.r-project.org/package=mimar">CRAN</a> | <a href="https://cran.r-project.org/web/packages/mimar/mimar.pdf">PDF docs</a> | <a href="https://ielbadisy.r-universe.dev/mimar">R-universe</a></p>
+<p class="card-text"><small><strong>Cite:</strong> EL BADISY, I. (2026). <em>mimar: Compact Multiple Imputation, Assessment, and Reporting</em>. R package version 1.0.0. <a href="https://doi.org/10.32614/CRAN.package.mimar">doi:10.32614/CRAN.package.mimar</a></small></p>
+</div>
+</div>
+</div>
+<div class="g-col-6 g-col-md-4">
+<div class="card h-100">
+<div class="card-body">
+<h3 class="card-title">testflow</h3>
+<p class="card-text">Statistical testing, interpretation, and ggplot2-based visualization.</p>
+<p class="card-text"><a href="https://cran.r-project.org/package=testflow">CRAN</a> | <a href="https://cran.r-project.org/web/packages/testflow/testflow.pdf">PDF docs</a> | <a href="https://ielbadisy.r-universe.dev/testflow">R-universe</a></p>
+<p class="card-text"><small><strong>Cite:</strong> EL BADISY, I. (2026). <em>testflow: A Workflow for Statistical Testing, Interpretation, and 'ggplot2'-Based Visualization</em>. R package version 1.0.0. <a href="https://doi.org/10.32614/CRAN.package.testflow">doi:10.32614/CRAN.package.testflow</a></small></p>
+</div>
+</div>
+</div>
+<div class="g-col-6 g-col-md-4">
+<div class="card h-100">
+<div class="card-body">
+<h3 class="card-title">densemlp</h3>
+<p class="card-text">Dense neural networks for tabular classification and regression.</p>
+<p class="card-text"><a href="https://cran.r-project.org/package=densemlp">CRAN</a> | <a href="https://cran.r-project.org/web/packages/densemlp/densemlp.pdf">PDF docs</a> | <a href="https://ielbadisy.r-universe.dev/densemlp">R-universe</a></p>
+<p class="card-text"><small><strong>Cite:</strong> EL BADISY, I. (2026). <em>densemlp: Dense Neural Networks for Tabular Classification and Regression</em>. R package version 0.7.1. <a href="https://doi.org/10.32614/CRAN.package.densemlp">doi:10.32614/CRAN.package.densemlp</a></small></p>
+</div>
+</div>
+</div>
+<div class="g-col-6 g-col-md-4">
+<div class="card h-100">
+<div class="card-body">
+<h3 class="card-title">CEACT</h3>
+<p class="card-text">Cost-effectiveness analysis toolkit for clinical trials.</p>
+<p class="card-text"><a href="https://cran.r-project.org/package=CEACT">CRAN</a> | <a href="https://cran.r-project.org/web/packages/CEACT/CEACT.pdf">PDF docs</a> | <a href="https://ielbadisy.r-universe.dev/CEACT">R-universe</a></p>
+<p class="card-text"><small><strong>Cite:</strong> EL BADISY, I. (2026). <em>CEACT: Cost-Effectiveness Analysis Toolkit for Clinical Trials</em>. R package version 0.5.0. <a href="https://doi.org/10.32614/CRAN.package.CEACT">doi:10.32614/CRAN.package.CEACT</a></small></p>
+</div>
+</div>
+</div>
+<div class="g-col-6 g-col-md-4">
+<div class="card h-100">
+<div class="card-body">
+<h3 class="card-title">missknn</h3>
+<p class="card-text">Fast masked k-nearest neighbor imputation.</p>
+<p class="card-text"><a href="https://cran.r-project.org/package=missknn">CRAN</a> | <a href="https://cran.r-project.org/web/packages/missknn/missknn.pdf">PDF docs</a> | <a href="https://ielbadisy.r-universe.dev/missknn">R-universe</a></p>
+<p class="card-text"><small><strong>Cite:</strong> EL BADISY, I. (2026). <em>missknn: Fast Masked K-Nearest Neighbor Imputation</em>. R package version 1.1.2. <a href="https://doi.org/10.32614/CRAN.package.missknn">doi:10.32614/CRAN.package.missknn</a></small></p>
+</div>
+</div>
+</div>
+<div class="g-col-6 g-col-md-4">
+<div class="card h-100">
+<div class="card-body">
+<h3 class="card-title">basetable</h3>
+<p class="card-text">Fast and memory-efficient base R table manipulation.</p>
+<p class="card-text"><a href="https://cran.r-project.org/package=basetable">CRAN</a> | <a href="https://cran.r-project.org/web/packages/basetable/basetable.pdf">PDF docs</a> | <a href="https://ielbadisy.r-universe.dev/basetable">R-universe</a></p>
+<p class="card-text"><small><strong>Cite:</strong> EL BADISY, I. (2026). <em>basetable: Fast and Memory-Efficient Base R Table Manipulation</em>. R package version 1.4.2. <a href="https://doi.org/10.32614/CRAN.package.basetable">doi:10.32614/CRAN.package.basetable</a></small></p>
+</div>
+</div>
+</div>
+</div>
+```
+
+## Publications {#publications}
+
+Selected peer-reviewed articles, software papers, and conference talks.
+
+### Selected articles
+
+#### 2026
+
+- **El Badisy I.** (2026). unsurv: Clustering Individualized Survival Curves. *Bioinformatics Advances*, vbag218. [doi:10.1093/bioadv/vbag218](https://doi.org/10.1093/bioadv/vbag218)
+- **El Badisy I.** (2026). SurvDNN: Survival Deep Learning Models for Tabular Data. *The R Journal*, 18(1):384-399. [doi:10.32614/RJ-2026-008](https://doi.org/10.32614/RJ-2026-008)
+- **El Badisy I.** (2026). funcml: Functional Machine Learning Software for R. *Zenodo*. [doi:10.5281/zenodo.20707605](https://doi.org/10.5281/zenodo.20707605)
+- **El Badisy I.**, Assarag B., Belrhiti Z. (2026). Interpretable clinical decision support systems in high-risk pregnancy: a scoping review of models, methods, and implementation. *BMC Pregnancy and Childbirth*, 26(1):125. [doi:10.1186/s12884-025-08614-9](https://doi.org/10.1186/s12884-025-08614-9)
+- Bnimoussa J., Bouaddi O., **El Badisy I.**, Khalis M. (2026). Drivers of youth mental health and wellbeing: a large-scale cross-sectional study in Morocco. *BMJ Open*, 16(6):e110683. [doi:10.1136/bmjopen-2025-110683](https://doi.org/10.1136/bmjopen-2025-110683)
+- Lamchabbek N., Huybrechts I., **El Badisy I.**, et al. (2026). Global assessment of the relationship between breast cancer risk and dietary intake: an ecological study. *American Journal of Health Promotion*, 40(5):591-600. [doi:10.1177/08901171251389792](https://doi.org/10.1177/08901171251389792)
+- Bouaddi O., **El Badisy I.**, Charaka H., et al. (2026). Leveraging the positive deviance approach to drive behavior change in noncommunicable diseases: a scoping review. *Public Health Challenges*, 5(1):e70074. [doi:10.1002/puh2.70074](https://doi.org/10.1002/puh2.70074)
+- Lamchabbek N., Mrah S., Mane N., **El Badisy I.**, et al. (2026). Adherence to WCRF/AICR cancer prevention recommendations and reduction in breast cancer risk: results of a large-scale case-control study in Morocco. *British Journal of Nutrition*. [doi:10.1017/S0007114526106527](https://doi.org/10.1017/S0007114526106527)
+- Bichri K., Chihab Eddine M., Sqalli Houssaini M., Rghioui M., **El Badisy I.**, Ghazi B. (2026). DZIP3 is associated with the cytoskeletal dynamics in glioblastoma and mitochondrial machinery regulation. *Frontiers in Bioinformatics*, 6:1878616. [doi:10.3389/fbinf.2026.1878616](https://doi.org/10.3389/fbinf.2026.1878616)
+
+#### 2025
+
+- Houdou A., Khomsi K., Delle Monache L., **El Badisy I.**, et al. (2025). Enhancing 5-day particulate matter (PM10) forecasts in Morocco using U-net: a deep learning approach. *Atmospheric Research*, 328:108439. [doi:10.1016/j.atmosres.2025.108439](https://doi.org/10.1016/j.atmosres.2025.108439)
+- Kadi C., Ahmadi N., Houdou A., **El Badisy I.**, et al. (2025). Differentiating latent tuberculosis from active tuberculosis through activation phenotypes and chemokine markers HLA-DR, CD38, MCP-1, and RANTES: a systematic review and meta-analysis. *Biomarker Insights*, 20:11772719241312776. [doi:10.1177/11772719241312776](https://doi.org/10.1177/11772719241312776)
+
+#### 2024
+
+- Houdou A., **El Badisy I.**, Khomsi K., et al. (2024). Interpretable machine learning approaches for forecasting and predicting air pollution: a systematic review. *Aerosol and Air Quality Research*, 24(1):230151. [doi:10.4209/aaqr.230151](https://doi.org/10.4209/aaqr.230151)
+- **El Badisy I.**, BenBrahim Z., Khalis M., et al. (2024). Risk factors affecting patient survival with colorectal cancer in Morocco: survival analysis using an interpretable machine learning approach. *Scientific Reports*, 14(1):3556. [doi:10.1038/s41598-024-51304-3](https://doi.org/10.1038/s41598-024-51304-3)
+- **El Badisy I.**, Graffeo N., Khalis M., Giorgi R. (2024). Multi-metric comparison of machine learning imputation methods with application to breast cancer survival. *BMC Medical Research Methodology*, 24(1):191. [doi:10.1186/s12874-024-02305-3](https://doi.org/10.1186/s12874-024-02305-3)
+- Zbiri S., Belghiti Alaoui A., **El Badisy I.**, et al. (2024). Private hospitals in low- and middle-income countries: a typology using the cluster method, the case of Morocco. *BMC Health Services Research*, 24(1):1231. [doi:10.1186/s12913-024-11660-2](https://doi.org/10.1186/s12913-024-11660-2)
+- Abdala S.A., Khomsi K., Houdou A., **El Badisy I.**, et al. (2024). Emission reduction strategies and health: a systematic review on the tools and methods to assess co-benefits. *BMJ Open*, 14(12):e083214. [doi:10.1136/bmjopen-2023-083214](https://doi.org/10.1136/bmjopen-2023-083214)
+
+### Selected talks
+
+- **El Badisy I.** et al. (2023). Comparison of missing data imputation methods in Cox regression with time-varying and non-linear covariate effects. *ISCB 2023*, Rome.
+- **El Badisy I.** et al. (2023). Missing data imputation using a meta-algorithm, metaCART: A simulation study under MCAR. *EpiClin 2023*, Nancy.
+
+[Full publication list &rarr;](cv/cv.pdf)
+
+## Notes {#notes}
+
+Methodological notes connected to my R packages and current projects, written up as short PDFs with equations, code, rendered results, and references.
+
+| Date | Note | Tags |
+|---|---|---|
+| 2026-08-22 | [Deep neural networks for survival analysis with `survdnn`](notes/deep-survival-networks.pdf) | <span class="tag">Survival Analysis</span> <span class="tag">Deep Learning</span> <span class="tag">survdnn</span> |
+| 2026-07-27 | [Survival-trajectory phenotypes with `unsurv`](notes/survival-trajectory-phenotypes.pdf) | <span class="tag">Survival Analysis</span> <span class="tag">Clustering</span> <span class="tag">unsurv</span> |
+| 2026-07-02 | [Masked k-NN imputation with `missknn`](notes/masked-knn-imputation.pdf) | <span class="tag">Missing Data</span> <span class="tag">Imputation</span> <span class="tag">missknn</span> |
+| 2026-06-10 | [Generating time-varying and non-linear covariate effects with `rpsurv`](notes/dgp-tve-nle.pdf) | <span class="tag">Survival Analysis</span> <span class="tag">Simulation</span> <span class="tag">rpsurv</span> |
+
+: {tbl-colwidths="[15,55,30]"}
+
+## Blog {#blog}
+
+Notes and write-ups on the R packages and methods I build, mostly biostatistics, survival analysis, and machine learning for health data.
+
+::: {#blog-listing}
+:::
+
+## Contact {#contact}
+
+Feel free to reach out about collaborations, consulting, or simply to say hello.
+
+I also welcome feedback on my educational materials and R packages, whether something was helpful or could be improved.
+
+<p class="contact-email">
+<a href="mailto:elbadisyimad@gmail.com">{{< fa envelope >}} elbadisyimad@gmail.com</a>
+</p>
+
+<a class="link-dark me-1" href="https://ma.linkedin.com/in/imad-el-badisy-360018281" title="LinkedIn" target="_blank" rel="noopener">{{< fa brands linkedin >}}</a>
+<a class="link-dark me-1" href="https://github.com/ielbadisy" title="GitHub" target="_blank" rel="noopener">{{< fa brands github >}}</a>
+
+### License
+
+Content on this site, including the [notes](#notes), is released under a [Creative Commons Attribution-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-sa/4.0/) unless stated otherwise. Software released under [my packages](https://github.com/ielbadisy) is licensed independently; see each package's repository for its specific license.
+
+### Accessibility
+
+This site uses a color palette meeting WCAG 2.1 AA contrast, alternative text for informative images, readable font faces, and light and dark themes. If you encounter any accessibility barriers, please [get in touch](mailto:elbadisyimad@gmail.com).

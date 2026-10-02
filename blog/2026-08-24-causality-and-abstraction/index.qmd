@@ -14,5 +14,5 @@ So maybe it's not technology versus nature. It's abstraction versus something yo
 <hr>
 
 <footer>
-<a href="../index.qmd">Back to blog</a>
+<a href="../../index.qmd#blog">Back to blog</a>
 </footer>

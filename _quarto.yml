@@ -3,20 +3,11 @@ project:
   output-dir: docs
   render:
     - index.qmd
-    - background.qmd
-    - teaching.qmd
-    - packages.qmd
-    - publications.qmd
-    - contact.qmd
-    - license.qmd
-    - accessibility.qmd
     - 404.qmd
-    - notes/index.qmd
     - notes/deep-survival-networks.qmd
     - notes/survival-trajectory-phenotypes.qmd
     - notes/masked-knn-imputation.qmd
     - notes/dgp-tve-nle.qmd
-    - blog/index.qmd
     - blog/2025-06-01-funcml/index.qmd
     - blog/2025-08-15-mimar/index.qmd
     - blog/2025-10-01-survdnn/index.qmd
@@ -55,22 +46,25 @@ website:
     right:
       - text: Background
         aria-label: "Background"
-        href: background.qmd
+        href: index.qmd#background
       - text: Teaching
         aria-label: "Teaching"
-        href: teaching.qmd
+        href: index.qmd#teaching
       - text: Software
         aria-label: "Software"
-        href: packages.qmd
+        href: index.qmd#software
       - text: Publications
         aria-label: "Publications"
-        href: publications.qmd
+        href: index.qmd#publications
       - text: Notes
         aria-label: "Notes"
-        href: notes/index.qmd
+        href: index.qmd#notes
       - text: Blog
         aria-label: "Blog"
-        href: blog/index.qmd
+        href: index.qmd#blog
+      - text: Contact
+        aria-label: "Contact"
+        href: index.qmd#contact
       - text: CV
         aria-label: "CV"
         href: cv/cv.pdf

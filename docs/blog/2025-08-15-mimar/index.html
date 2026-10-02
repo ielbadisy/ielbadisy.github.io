@@ -298,28 +298,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
 <li class="nav-item">
-    <a class="nav-link" href="../../background.html"> 
+    <a class="nav-link" href="../../index.html#background"> 
 <span class="menu-text">Background</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../teaching.html"> 
+    <a class="nav-link" href="../../index.html#teaching"> 
 <span class="menu-text">Teaching</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../packages.html"> 
+    <a class="nav-link" href="../../index.html#software"> 
 <span class="menu-text">Software</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../publications.html"> 
+    <a class="nav-link" href="../../index.html#publications"> 
 <span class="menu-text">Publications</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../notes/index.html"> 
+    <a class="nav-link" href="../../index.html#notes"> 
 <span class="menu-text">Notes</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../blog/index.html"> 
+    <a class="nav-link" href="../../index.html#blog"> 
 <span class="menu-text">Blog</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html#contact"> 
+<span class="menu-text">Contact</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../cv/cv.pdf" target="_blank"> 
@@ -395,14 +399,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">amp</span><span class="op">$</span><span class="va">data</span><span class="op">)</span>       <span class="co"># the amputed data frame</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
-          &lt;num&gt;       &lt;num&gt;        &lt;num&gt;       &lt;num&gt;  &lt;fctr&gt;
-1:          5.1         3.5          1.4         0.2  setosa
-2:          4.9         3.0           NA         0.2  setosa
-3:          4.7         3.2          1.3         0.2    &lt;NA&gt;
-4:          4.6         3.1          1.5          NA  setosa
-5:           NA         3.6          1.4          NA  setosa
-6:          5.4          NA          1.7         0.4  setosa</code></pre>
+<pre><code># basetable: 6 x 5
+  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+1          5.1         3.5          1.4         0.2  setosa
+2          4.9         3.0           NA         0.2  setosa
+3          4.7         3.2          1.3         0.2    &lt;NA&gt;
+4          4.6         3.1          1.5          NA  setosa
+5           NA         3.6          1.4          NA  setosa
+6          5.4          NA          1.7         0.4  setosa</code></pre>
 </div>
 </div>
 </section><section id="multiple-imputation" class="level2"><h2 class="anchored" data-anchor-id="multiple-imputation">Multiple imputation</h2>
@@ -427,35 +431,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/mimar/man/imputer_registry.html">imputer_registry</a></span><span class="op">(</span><span class="op">)</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"imputer"</span>, <span class="st">"implementation"</span>, <span class="st">"stochastic"</span><span class="op">)</span><span class="op">]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>         imputer implementation stochastic
-          &lt;char&gt;         &lt;char&gt;     &lt;lgcl&gt;
- 1:         mean          mimar      FALSE
- 2:       median          mimar      FALSE
- 3:         mode          mimar      FALSE
- 4:        naive          mimar      FALSE
- 5:         norm          mimar       TRUE
- 6:          pmm          mimar       TRUE
- 7:         spmm          mimar       TRUE
- 8:       logreg          mimar       TRUE
- 9:      polyreg          mimar       TRUE
-10:           rf        wrapped       TRUE
-11:       ranger        wrapped       TRUE
-12:        rpart        wrapped       TRUE
-13:       nbayes        wrapped       TRUE
-14:          svm        wrapped       TRUE
-15:         bart        wrapped       TRUE
-16:       glmnet        wrapped       TRUE
-17:          gbm        wrapped       TRUE
-18:      xgboost        wrapped       TRUE
-19:          knn          mimar       TRUE
-20:      hotdeck          mimar       TRUE
-21:         famd        wrapped       TRUE
-22: superlearner          mimar       TRUE
-23:           sl          mimar       TRUE
-24:     densemlp        wrapped       TRUE
-25:      missknn        wrapped       TRUE
-         imputer implementation stochastic
-          &lt;char&gt;         &lt;char&gt;     &lt;lgcl&gt;</code></pre>
+<pre><code># basetable: 25 x 3
+   imputer implementation stochastic
+1     mean          mimar      FALSE
+2   median          mimar      FALSE
+3     mode          mimar      FALSE
+4    naive          mimar      FALSE
+5     norm          mimar       TRUE
+6      pmm          mimar       TRUE
+7     spmm          mimar       TRUE
+8   logreg          mimar       TRUE
+9  polyreg          mimar       TRUE
+10      rf        wrapped       TRUE
+# 15 more rows</code></pre>
 </div>
 </div>
 </section><section id="evaluation" class="level2"><h2 class="anchored" data-anchor-id="evaluation">Evaluation</h2>
@@ -464,20 +452,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">diag</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/mimar/man/evaluate.html">evaluate</a></span><span class="op">(</span><span class="va">imp_pmm</span><span class="op">)</span></span>
 <span><span class="va">diag</span><span class="op">$</span><span class="va">distribution</span>       <span class="co"># observed vs. imputed means, SDs, unique counts</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>       variable    type missing observed_unique imputed_unique observed_mean
-         &lt;char&gt;  &lt;char&gt;   &lt;int&gt;           &lt;int&gt;          &lt;int&gt;         &lt;num&gt;
-1: Sepal.Length numeric      33              33             28      5.837607
-2:  Sepal.Width numeric      39              22             19      3.075676
-3: Petal.Length numeric      34              42             38      3.755172
-4:  Petal.Width numeric      34              21             21      1.252586
-5:      Species  factor      31               3              3            NA
-   imputed_mean observed_sd imputed_sd
-          &lt;num&gt;       &lt;num&gt;      &lt;num&gt;
-1:     5.987273   0.8377645  0.7791618
-2:     3.035385   0.4509014  0.4011957
-3:     3.770000   1.8037808  1.5557433
-4:     1.076471   0.7519784  0.7701759
-5:           NA          NA         NA</code></pre>
+<pre><code># basetable: 5 x 9
+      variable    type missing observed_unique imputed_unique observed_mean
+1 Sepal.Length numeric      33              33             28      5.837607
+2  Sepal.Width numeric      39              22             19      3.075676
+3 Petal.Length numeric      34              42             38      3.755172
+4  Petal.Width numeric      34              21             21      1.252586
+5      Species  factor      31               3              3            NA
+  imputed_mean observed_sd imputed_sd
+1     5.987273   0.8377645  0.7791618
+2     3.035385   0.4509014  0.4011957
+3     3.770000   1.8037808  1.5557433
+4     1.076471   0.7519784  0.7701759
+5           NA          NA         NA</code></pre>
 </div>
 </div>
 </section><section id="completing-and-pooling" class="level2"><h2 class="anchored" data-anchor-id="completing-and-pooling">Completing and pooling</h2>
@@ -486,14 +473,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">completed</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/mimar/man/complete.html">complete</a></span><span class="op">(</span><span class="va">imp_pmm</span>, which <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">completed</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>   Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
-          &lt;num&gt;       &lt;num&gt;        &lt;num&gt;       &lt;num&gt;     &lt;fctr&gt;
-1:          5.1         3.5          1.4         0.2     setosa
-2:          4.9         3.0          1.4         0.2     setosa
-3:          4.7         3.2          1.3         0.2 versicolor
-4:          4.6         3.1          1.5         0.2     setosa
-5:          5.1         3.6          1.4         0.5     setosa
-6:          5.4         3.3          1.7         0.4     setosa</code></pre>
+<pre><code># basetable: 6 x 5
+  Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
+1          5.1         3.5          1.4         0.2     setosa
+2          4.9         3.0          1.4         0.2     setosa
+3          4.7         3.2          1.3         0.2 versicolor
+4          4.6         3.1          1.5         0.2     setosa
+5          5.1         3.6          1.4         0.5     setosa
+6          5.4         3.3          1.7         0.4     setosa</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># fit a model on each completed dataset, then pool the coefficients</span></span>
 <span><span class="va">completed_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="va">imp_pmm</span><span class="op">$</span><span class="va">m</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">k</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/pkg/mimar/man/complete.html">complete</a></span><span class="op">(</span><span class="va">imp_pmm</span>, which <span class="op">=</span> <span class="va">k</span><span class="op">)</span><span class="op">)</span></span>
@@ -504,24 +491,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span><span class="fu"><a href="https://rdrr.io/pkg/mimar/man/pool.html">pool</a></span><span class="op">(</span><span class="va">betas</span>, variance <span class="op">=</span> <span class="va">vars</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>mimar pooled results
-           term   estimate  std.error statistic    df      p.value   conf.low
-         &lt;char&gt;      &lt;num&gt;      &lt;num&gt;     &lt;num&gt; &lt;num&gt;        &lt;num&gt;      &lt;num&gt;
-1:  (Intercept)  2.1204880 0.23942658  8.856527   Inf 8.254583e-19  1.6512205
-2:  Sepal.Width  0.5861945 0.06375298  9.194779   Inf 3.757668e-20  0.4612410
-3: Petal.Length  0.7034397 0.05719104 12.299822   Inf 9.077385e-35  0.5913473
-4:  Petal.Width -0.5639728 0.12879778 -4.378746   Inf 1.193641e-05 -0.8164118
-    conf.high     m within_variance between_variance total_variance
-        &lt;num&gt; &lt;int&gt;           &lt;num&gt;            &lt;num&gt;          &lt;num&gt;
-1:  2.5897555     5     0.057325087                0    0.057325087
-2:  0.7111480     5     0.004064442                0    0.004064442
-3:  0.8155320     5     0.003270815                0    0.003270815
-4: -0.3115338     5     0.016588867                0    0.016588867
-   relative_increase_variance   rule
-                        &lt;num&gt; &lt;char&gt;
-1:                          0  rubin
-2:                          0  rubin
-3:                          0  rubin
-4:                          0  rubin</code></pre>
+# basetable: 4 x 14
+          term   estimate  std.error statistic  df      p.value   conf.low
+1  (Intercept)  2.1204880 0.23942658  8.856527 Inf 8.254583e-19  1.6512205
+2  Sepal.Width  0.5861945 0.06375298  9.194779 Inf 3.757668e-20  0.4612410
+3 Petal.Length  0.7034397 0.05719104 12.299822 Inf 9.077385e-35  0.5913473
+4  Petal.Width -0.5639728 0.12879778 -4.378746 Inf 1.193641e-05 -0.8164118
+   conf.high m within_variance between_variance total_variance
+1  2.5897555 5     0.057325087                0    0.057325087
+2  0.7111480 5     0.004064442                0    0.004064442
+3  0.8155320 5     0.003270815                0    0.003270815
+4 -0.3115338 5     0.016588867                0    0.016588867
+  relative_increase_variance  rule
+1                          0 rubin
+2                          0 rubin
+3                          0 rubin
+4                          0 rubin</code></pre>
 </div>
 </div>
 </section><section id="when-to-use-mimar" class="level2"><h2 class="anchored" data-anchor-id="when-to-use-mimar">When to use mimar</h2>
@@ -539,7 +524,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
 </ul>
 <hr>
-<footer><a href="../../blog/index.html">Back to blog</a>
+<footer><a href="../../index.html#blog">Back to blog</a>
 </footer>
 
 </section><a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">

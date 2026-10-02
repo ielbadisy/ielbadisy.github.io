@@ -32,6 +32,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./favicon.svg" rel="icon" type="image/svg+xml">
+<script src="site_libs/quarto-listing/list.min.js"></script>
+<script src="site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -73,12 +75,70 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<style>html{ scroll-behavior: smooth; }</style>
-<link rel="stylesheet" href="assets/about.css"> <meta name="google-site-verification" content="BL7llVzTysRFTmiaUvROhyznMMrs97Muk8fofExd6LI">
+<script>
 
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-blog-listing .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-title','listing-subtitle','listing-date','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      
+      searchColumns: ["listing-date","listing-title","listing-author","listing-subtitle","listing-image","listing-description"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-blog-listing'] = new List('listing-blog-listing', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  </script>
+<style>html{ scroll-behavior: smooth; }</style>
+<link rel="stylesheet" href="assets/about.css"> <link rel="stylesheet" href="assets/contact.css"> <meta name="google-site-verification" content="BL7llVzTysRFTmiaUvROhyznMMrs97Muk8fofExd6LI">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="assets/overrides.css">
-<meta property="og:title" content="Imad El Badisy">
+<link rel="alternate" type="application/rss+xml" title="Imad El Badisy" href="index.xml" data-external="1"><meta property="og:title" content="Imad El Badisy">
 <meta property="og:description" content="Imad El Badisy, PhD. Health data scientist and computational methodologist building software for machine learning and computational biostatistics.">
 <meta property="og:image" content="https://elbadisyimad.com/profile.jpg">
 <meta property="og:site_name" content="Imad El Badisy">
@@ -271,28 +331,32 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./background.html"> 
+    <a class="nav-link" href="./index.html#background"> 
 <span class="menu-text">Background</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./teaching.html"> 
+    <a class="nav-link" href="./index.html#teaching"> 
 <span class="menu-text">Teaching</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./packages.html"> 
+    <a class="nav-link" href="./index.html#software"> 
 <span class="menu-text">Software</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./publications.html"> 
+    <a class="nav-link" href="./index.html#publications"> 
 <span class="menu-text">Publications</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./notes/index.html"> 
+    <a class="nav-link" href="./index.html#notes"> 
 <span class="menu-text">Notes</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./blog/index.html"> 
+    <a class="nav-link" href="./index.html#blog"> 
 <span class="menu-text">Blog</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html#contact"> 
+<span class="menu-text">Contact</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./cv/cv.pdf" target="_blank"> 
@@ -358,16 +422,16 @@ ul.task-list li input[type="checkbox"] {
 Hi, I’m Imad
 </div>
 <p>I am a health data scientist and computational methodologist building software for machine learning and computational biostatistics.</p>
-<p>My focus is turning advanced statistical and machine learning methods into reliable, open-source tools that researchers can use. Learn more from the <a href="./packages.html">software packages</a> I build.</p>
+<p>My focus is turning advanced statistical and machine learning methods into reliable, open-source tools that researchers can use. Learn more from the <a href="#software">software packages</a> I build.</p>
 <p>Get in touch at <a href="mailto:elbadisyimad@gmail.com">elbadisyimad@gmail.com</a> or <a href="mailto:ielbadisy@cm6.ma">ielbadisy@cm6.ma</a>. <i class="fa-solid fa-feather-pointed" aria-label="feather-pointed"></i></p>
 </div></div>
 </div>
 
 <section id="about-me" class="level2">
 <h2 data-anchor-id="about-me">About me</h2>
-<p>I hold a PhD in Biomedical Sciences from Aix-Marseille University (SESSTIM laboratory) on missing data and machine learning methods for survival analysis. I develop software and design agentic workflows that bridge statistical rigor with modern computation. See my full list on the <a href="./packages.html">software</a> page.</p>
+<p>I hold a PhD in Biomedical Sciences from Aix-Marseille University (SESSTIM laboratory) on missing data and machine learning methods for survival analysis. I develop software and design agentic workflows that bridge statistical rigor with modern computation. See the full list in the <a href="#software">software</a> section.</p>
 <p>Moroccan and French national, husband and father.</p>
-<p>See my <a href="./background.html">education and experience</a> or download my <a href="cv/cv.pdf">CV (PDF)</a>.</p>
+<p>See my <a href="#background">education and experience</a> or download my <a href="cv/cv.pdf">CV (PDF)</a>.</p>
 </section>
 <section id="research" class="level2">
 <h2 data-anchor-id="research">Research</h2>
@@ -390,9 +454,673 @@ Hi, I’m Imad
 <li>Health economics and cost-effectiveness studies</li>
 <li>Custom R package and tool development</li>
 </ul>
+</section>
+<section id="background" class="level2">
+<h2 data-anchor-id="background">Background</h2>
+<p>Professional experience and education. The full record is in the <a href="cv/cv.pdf">CV (PDF)</a>.</p>
+<section id="experience" class="level3">
+<h3 data-anchor-id="experience">Experience</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 40%">
+<col style="width: 40%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Position</th>
+<th>Institution</th>
+<th>Period</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Head of AI and Data Science Service</td>
+<td>CM6RI, Rabat, Morocco</td>
+<td>Jan.&nbsp;2026 – Present</td>
+</tr>
+<tr class="even">
+<td>Research Engineer in Health Data Science</td>
+<td>CM6RI, Rabat, Morocco</td>
+<td>Nov.&nbsp;2021 – Jan.&nbsp;2026</td>
+</tr>
+<tr class="odd">
+<td>Data Science Education Officer</td>
+<td>The GRAPH Network, Switzerland</td>
+<td>Sep.&nbsp;2023 – Dec.&nbsp;2023</td>
+</tr>
+<tr class="even">
+<td>Research and Development Engineer</td>
+<td>IMT Atlantique, Brest, France</td>
+<td>Sep.&nbsp;2019 – Sep.&nbsp;2021</td>
+</tr>
+<tr class="odd">
+<td>Biostatistician</td>
+<td>INSERM, Clermont-Ferrand, France</td>
+<td>Jan.&nbsp;2019 – Jun.&nbsp;2019</td>
+</tr>
+<tr class="even">
+<td>Health Economist Intern</td>
+<td>Université de Sherbrooke, Quebec, Canada</td>
+<td>Feb.&nbsp;2017 – Sep.&nbsp;2017</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="education" class="level3">
+<h3 data-anchor-id="education">Education</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 40%">
+<col style="width: 40%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Degree</th>
+<th>Institution</th>
+<th>Period</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>PhD in Biomedical Sciences</td>
+<td>Aix-Marseille University, SESSTIM, Marseille, France</td>
+<td>2021 – 2025</td>
+</tr>
+<tr class="even">
+<td>Master 2, Quantitative Methods for Health Research</td>
+<td>Aix-Marseille University, SESSTIM, Marseille, France</td>
+<td>2018 – 2019</td>
+</tr>
+<tr class="odd">
+<td>Master 1, Applied Mathematics and Statistics</td>
+<td>Université Clermont Auvergne, Clermont-Ferrand, France</td>
+<td>2017 – 2018</td>
+</tr>
+<tr class="even">
+<td>Master 2, Health Economics</td>
+<td>Université Clermont Auvergne, CERDI, Clermont-Ferrand, France</td>
+<td>2016 – 2017</td>
+</tr>
+</tbody>
+</table>
+<p><a href="cv/cv.pdf"><i class="fa-solid fa-file-pdf" aria-label="file-pdf"></i> Download full CV (PDF)</a></p>
+</section>
+</section>
+<section id="teaching" class="level2">
+<h2 data-anchor-id="teaching">Teaching</h2>
+<p>University courses and independent training in biostatistics, machine learning, and health data science.</p>
+<section id="university-courses" class="level3">
+<h3 data-anchor-id="university-courses">University courses</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 45%">
+<col style="width: 40%">
+<col style="width: 15%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Course</th>
+<th>Institution</th>
+<th>Period</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>AI for Public Health (ML, NLP, applied AI)</td>
+<td>Aix-Marseille University, SESSTIM, Marseille, France</td>
+<td>2022 – present</td>
+</tr>
+<tr class="even">
+<td>Introduction to Biostatistics</td>
+<td>University Mohammed VI of Health Sciences (UM6SS), Casablanca, Morocco</td>
+<td>2021 – present</td>
+</tr>
+<tr class="odd">
+<td>Quantitative Epidemiology and Machine Learning</td>
+<td>Institut Mines-Télécom, IMT Atlantique, Brest, France</td>
+<td>2020 – present</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="mhdsr-methods-in-health-data-science-with-r" class="level3">
+<h3 data-anchor-id="mhdsr-methods-in-health-data-science-with-r">MHDSR: Methods in Health Data Science with R</h3>
+<p>Outside working hours I organize <strong>MHDSR</strong>, an independent training pathway covering applied biostatistics, survival analysis, and machine learning with R, delivered live to research teams and open cohorts:</p>
+<ul>
+<li><strong>BIOSTATR</strong>: Applied Biostatistics with R (foundations)</li>
+<li><strong>ML4HOR</strong>: Machine Learning for Health Outcomes with R (prediction)</li>
+</ul>
+</section>
+</section>
+<section id="software" class="level2">
+<h2 data-anchor-id="software">Software</h2>
+<p>Open-source software for survival analysis, machine learning, and functional data analysis in health research.</p>
+<div class="grid">
+<div class="g-col-6 g-col-md-4">
+<div class="card h-100">
+<div class="card-body">
+<h3 class="card-title">functionals</h3>
+<p class="card-text">Functional programming utilities.</p>
+<p class="card-text"><a href="https://cran.r-project.org/package=functionals">CRAN</a> | <a href="https://cran.r-project.org/web/packages/functionals/functionals.pdf">PDF docs</a> | <a href="https://ielbadisy.r-universe.dev/functionals">R-universe</a></p>
+<p class="card-text"><small><strong>Cite:</strong> EL BADISY, I. (2025). <em>functionals: Functional Programming with Parallelism and Progress Tracking</em>. R package version 0.5.1. <a href="https://doi.org/10.32614/CRAN.package.functionals">doi:10.32614/CRAN.package.functionals</a></small></p>
+</div>
+</div>
+</div>
+<div class="g-col-6 g-col-md-4">
+<div class="card h-100">
+<div class="card-body">
+<h3 class="card-title">unsurv</h3>
+<p class="card-text">Unsupervised clustering of individualized survival curves.</p>
+<p class="card-text"><a href="https://cran.r-project.org/package=unsurv">CRAN</a> | <a href="https://cran.r-project.org/web/packages/unsurv/unsurv.pdf">PDF docs</a> | <a href="https://ielbadisy.r-universe.dev/unsurv">R-universe</a></p>
+<p class="card-text"><small><strong>Cite:</strong> EL BADISY, I. (2026). <em>unsurv: Unsupervised Clustering of Individualized Survival Curves</em>. R package version 0.7.2. <a href="https://doi.org/10.32614/CRAN.package.unsurv">doi:10.32614/CRAN.package.unsurv</a></small></p>
+</div>
+</div>
+</div>
+<div class="g-col-6 g-col-md-4">
+<div class="card h-100">
+<div class="card-body">
+<h3 class="card-title">tvrmst</h3>
+<p class="card-text">Time-varying RMST tooling.</p>
+<p class="card-text"><a href="https://cran.r-project.org/package=tvrmst">CRAN</a> | <a href="https://cran.r-project.org/web/packages/tvrmst/tvrmst.pdf">PDF docs</a> | <a href="https://ielbadisy.r-universe.dev/tvrmst">R-universe</a></p>
+<p class="card-text"><small><strong>Cite:</strong> EL BADISY, I. (2026). <em>tvrmst: Time-Varying Restricted Mean Survival Time from Survival Matrices</em>. R package version 0.0.6. <a href="https://doi.org/10.32614/CRAN.package.tvrmst">doi:10.32614/CRAN.package.tvrmst</a></small></p>
+</div>
+</div>
+</div>
+<div class="g-col-6 g-col-md-4">
+<div class="card h-100">
+<div class="card-body">
+<h3 class="card-title">mcstatsim</h3>
+<p class="card-text">Monte Carlo statistical simulation.</p>
+<p class="card-text"><a href="https://cran.r-project.org/package=mcstatsim">CRAN</a> | <a href="https://cran.r-project.org/web/packages/mcstatsim/mcstatsim.pdf">PDF docs</a> | <a href="https://ielbadisy.r-universe.dev/mcstatsim">R-universe</a></p>
+<p class="card-text"><small><strong>Cite:</strong> EL BADISY, I. (2024). <em>mcstatsim: Monte Carlo Statistical Simulation Tools Using a Functional Approach</em>. R package version 0.5.1. <a href="https://doi.org/10.32614/CRAN.package.mcstatsim">doi:10.32614/CRAN.package.mcstatsim</a></small></p>
+</div>
+</div>
+</div>
+<div class="g-col-6 g-col-md-4">
+<div class="card h-100">
+<div class="card-body">
+<h3 class="card-title">missCforest</h3>
+<p class="card-text">Missing-data random forest methods.</p>
+<p class="card-text"><a href="https://cran.r-project.org/package=missCforest">CRAN</a> | <a href="https://cran.r-project.org/web/packages/missCforest/missCforest.pdf">PDF docs</a> | <a href="https://ielbadisy.r-universe.dev/missCforest">R-universe</a></p>
+<p class="card-text"><small><strong>Cite:</strong> El Badisy, I. (2023). <em>missCforest: Ensemble Conditional Trees for Missing Data Imputation</em>. R package version 0.0.8. <a href="https://doi.org/10.32614/CRAN.package.missCforest">doi:10.32614/CRAN.package.missCforest</a></small></p>
+</div>
+</div>
+</div>
+<div class="g-col-6 g-col-md-4">
+<div class="card h-100">
+<div class="card-body">
+<h3 class="card-title">survalis</h3>
+<p class="card-text">Survival machine learning framework.</p>
+<p class="card-text"><a href="https://cran.r-project.org/package=survalis">CRAN</a> | <a href="https://cran.r-project.org/web/packages/survalis/survalis.pdf">PDF docs</a> | <a href="https://ielbadisy.r-universe.dev/survalis">R-universe</a></p>
+<p class="card-text"><small><strong>Cite:</strong> El Badisy, I. (2026). <em>survalis: Interpretable Survival Machine Learning Framework</em>. R package version 1.0.0. <a href="https://doi.org/10.32614/CRAN.package.survalis">doi:10.32614/CRAN.package.survalis</a></small></p>
+</div>
+</div>
+</div>
+<div class="g-col-6 g-col-md-4">
+<div class="card h-100">
+<div class="card-body">
+<h3 class="card-title">funcml</h3>
+<p class="card-text">Functional machine learning framework.</p>
+<p class="card-text"><a href="https://cran.r-project.org/package=funcml">CRAN</a> | <a href="https://cran.r-project.org/web/packages/funcml/funcml.pdf">PDF docs</a> | <a href="https://ielbadisy.r-universe.dev/funcml">R-universe</a></p>
+<p class="card-text"><small><strong>Cite:</strong> EL BADISY, I. (2026). <em>funcml: Functional Machine Learning Framework</em>. R package version 0.9.0. <a href="https://doi.org/10.32614/CRAN.package.funcml">doi:10.32614/CRAN.package.funcml</a></small></p>
+</div>
+</div>
+</div>
+<div class="g-col-6 g-col-md-4">
+<div class="card h-100">
+<div class="card-body">
+<h3 class="card-title">survdnn</h3>
+<p class="card-text">Deep neural networks for right-censored survival analysis.</p>
+<p class="card-text"><a href="https://cran.r-project.org/package=survdnn">CRAN</a> | <a href="https://cran.r-project.org/web/packages/survdnn/survdnn.pdf">PDF docs</a> | <a href="https://ielbadisy.r-universe.dev/survdnn">R-universe</a></p>
+<p class="card-text"><small><strong>Cite:</strong> EL BADISY, I. (2026). <em>survdnn: Deep Neural Networks for Survival Analysis with R 'torch'</em>. R package version 1.0.0. <a href="https://doi.org/10.32614/CRAN.package.survdnn">doi:10.32614/CRAN.package.survdnn</a></small></p>
+</div>
+</div>
+</div>
+<div class="g-col-6 g-col-md-4">
+<div class="card h-100">
+<div class="card-body">
+<h3 class="card-title">mimar</h3>
+<p class="card-text">Compact multiple imputation, assessment, and reporting.</p>
+<p class="card-text"><a href="https://cran.r-project.org/package=mimar">CRAN</a> | <a href="https://cran.r-project.org/web/packages/mimar/mimar.pdf">PDF docs</a> | <a href="https://ielbadisy.r-universe.dev/mimar">R-universe</a></p>
+<p class="card-text"><small><strong>Cite:</strong> EL BADISY, I. (2026). <em>mimar: Compact Multiple Imputation, Assessment, and Reporting</em>. R package version 1.0.0. <a href="https://doi.org/10.32614/CRAN.package.mimar">doi:10.32614/CRAN.package.mimar</a></small></p>
+</div>
+</div>
+</div>
+<div class="g-col-6 g-col-md-4">
+<div class="card h-100">
+<div class="card-body">
+<h3 class="card-title">testflow</h3>
+<p class="card-text">Statistical testing, interpretation, and ggplot2-based visualization.</p>
+<p class="card-text"><a href="https://cran.r-project.org/package=testflow">CRAN</a> | <a href="https://cran.r-project.org/web/packages/testflow/testflow.pdf">PDF docs</a> | <a href="https://ielbadisy.r-universe.dev/testflow">R-universe</a></p>
+<p class="card-text"><small><strong>Cite:</strong> EL BADISY, I. (2026). <em>testflow: A Workflow for Statistical Testing, Interpretation, and 'ggplot2'-Based Visualization</em>. R package version 1.0.0. <a href="https://doi.org/10.32614/CRAN.package.testflow">doi:10.32614/CRAN.package.testflow</a></small></p>
+</div>
+</div>
+</div>
+<div class="g-col-6 g-col-md-4">
+<div class="card h-100">
+<div class="card-body">
+<h3 class="card-title">densemlp</h3>
+<p class="card-text">Dense neural networks for tabular classification and regression.</p>
+<p class="card-text"><a href="https://cran.r-project.org/package=densemlp">CRAN</a> | <a href="https://cran.r-project.org/web/packages/densemlp/densemlp.pdf">PDF docs</a> | <a href="https://ielbadisy.r-universe.dev/densemlp">R-universe</a></p>
+<p class="card-text"><small><strong>Cite:</strong> EL BADISY, I. (2026). <em>densemlp: Dense Neural Networks for Tabular Classification and Regression</em>. R package version 0.7.1. <a href="https://doi.org/10.32614/CRAN.package.densemlp">doi:10.32614/CRAN.package.densemlp</a></small></p>
+</div>
+</div>
+</div>
+<div class="g-col-6 g-col-md-4">
+<div class="card h-100">
+<div class="card-body">
+<h3 class="card-title">CEACT</h3>
+<p class="card-text">Cost-effectiveness analysis toolkit for clinical trials.</p>
+<p class="card-text"><a href="https://cran.r-project.org/package=CEACT">CRAN</a> | <a href="https://cran.r-project.org/web/packages/CEACT/CEACT.pdf">PDF docs</a> | <a href="https://ielbadisy.r-universe.dev/CEACT">R-universe</a></p>
+<p class="card-text"><small><strong>Cite:</strong> EL BADISY, I. (2026). <em>CEACT: Cost-Effectiveness Analysis Toolkit for Clinical Trials</em>. R package version 0.5.0. <a href="https://doi.org/10.32614/CRAN.package.CEACT">doi:10.32614/CRAN.package.CEACT</a></small></p>
+</div>
+</div>
+</div>
+<div class="g-col-6 g-col-md-4">
+<div class="card h-100">
+<div class="card-body">
+<h3 class="card-title">missknn</h3>
+<p class="card-text">Fast masked k-nearest neighbor imputation.</p>
+<p class="card-text"><a href="https://cran.r-project.org/package=missknn">CRAN</a> | <a href="https://cran.r-project.org/web/packages/missknn/missknn.pdf">PDF docs</a> | <a href="https://ielbadisy.r-universe.dev/missknn">R-universe</a></p>
+<p class="card-text"><small><strong>Cite:</strong> EL BADISY, I. (2026). <em>missknn: Fast Masked K-Nearest Neighbor Imputation</em>. R package version 1.1.2. <a href="https://doi.org/10.32614/CRAN.package.missknn">doi:10.32614/CRAN.package.missknn</a></small></p>
+</div>
+</div>
+</div>
+<div class="g-col-6 g-col-md-4">
+<div class="card h-100">
+<div class="card-body">
+<h3 class="card-title">basetable</h3>
+<p class="card-text">Fast and memory-efficient base R table manipulation.</p>
+<p class="card-text"><a href="https://cran.r-project.org/package=basetable">CRAN</a> | <a href="https://cran.r-project.org/web/packages/basetable/basetable.pdf">PDF docs</a> | <a href="https://ielbadisy.r-universe.dev/basetable">R-universe</a></p>
+<p class="card-text"><small><strong>Cite:</strong> EL BADISY, I. (2026). <em>basetable: Fast and Memory-Efficient Base R Table Manipulation</em>. R package version 1.4.2. <a href="https://doi.org/10.32614/CRAN.package.basetable">doi:10.32614/CRAN.package.basetable</a></small></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="publications" class="level2">
+<h2 data-anchor-id="publications">Publications</h2>
+<p>Selected peer-reviewed articles, software papers, and conference talks.</p>
+<section id="selected-articles" class="level3">
+<h3 data-anchor-id="selected-articles">Selected articles</h3>
+<section id="section" class="level4">
+<h4 data-anchor-id="section">2026</h4>
+<ul>
+<li><strong>El Badisy I.</strong> (2026). unsurv: Clustering Individualized Survival Curves. <em>Bioinformatics Advances</em>, vbag218. <a href="https://doi.org/10.1093/bioadv/vbag218">doi:10.1093/bioadv/vbag218</a></li>
+<li><strong>El Badisy I.</strong> (2026). SurvDNN: Survival Deep Learning Models for Tabular Data. <em>The R Journal</em>, 18(1):384-399. <a href="https://doi.org/10.32614/RJ-2026-008">doi:10.32614/RJ-2026-008</a></li>
+<li><strong>El Badisy I.</strong> (2026). funcml: Functional Machine Learning Software for R. <em>Zenodo</em>. <a href="https://doi.org/10.5281/zenodo.20707605">doi:10.5281/zenodo.20707605</a></li>
+<li><strong>El Badisy I.</strong>, Assarag B., Belrhiti Z. (2026). Interpretable clinical decision support systems in high-risk pregnancy: a scoping review of models, methods, and implementation. <em>BMC Pregnancy and Childbirth</em>, 26(1):125. <a href="https://doi.org/10.1186/s12884-025-08614-9">doi:10.1186/s12884-025-08614-9</a></li>
+<li>Bnimoussa J., Bouaddi O., <strong>El Badisy I.</strong>, Khalis M. (2026). Drivers of youth mental health and wellbeing: a large-scale cross-sectional study in Morocco. <em>BMJ Open</em>, 16(6):e110683. <a href="https://doi.org/10.1136/bmjopen-2025-110683">doi:10.1136/bmjopen-2025-110683</a></li>
+<li>Lamchabbek N., Huybrechts I., <strong>El Badisy I.</strong>, et al.&nbsp;(2026). Global assessment of the relationship between breast cancer risk and dietary intake: an ecological study. <em>American Journal of Health Promotion</em>, 40(5):591-600. <a href="https://doi.org/10.1177/08901171251389792">doi:10.1177/08901171251389792</a></li>
+<li>Bouaddi O., <strong>El Badisy I.</strong>, Charaka H., et al.&nbsp;(2026). Leveraging the positive deviance approach to drive behavior change in noncommunicable diseases: a scoping review. <em>Public Health Challenges</em>, 5(1):e70074. <a href="https://doi.org/10.1002/puh2.70074">doi:10.1002/puh2.70074</a></li>
+<li>Lamchabbek N., Mrah S., Mane N., <strong>El Badisy I.</strong>, et al.&nbsp;(2026). Adherence to WCRF/AICR cancer prevention recommendations and reduction in breast cancer risk: results of a large-scale case-control study in Morocco. <em>British Journal of Nutrition</em>. <a href="https://doi.org/10.1017/S0007114526106527">doi:10.1017/S0007114526106527</a></li>
+<li>Bichri K., Chihab Eddine M., Sqalli Houssaini M., Rghioui M., <strong>El Badisy I.</strong>, Ghazi B. (2026). DZIP3 is associated with the cytoskeletal dynamics in glioblastoma and mitochondrial machinery regulation. <em>Frontiers in Bioinformatics</em>, 6:1878616. <a href="https://doi.org/10.3389/fbinf.2026.1878616">doi:10.3389/fbinf.2026.1878616</a></li>
+</ul>
+</section>
+<section id="section-1" class="level4">
+<h4 data-anchor-id="section-1">2025</h4>
+<ul>
+<li>Houdou A., Khomsi K., Delle Monache L., <strong>El Badisy I.</strong>, et al.&nbsp;(2025). Enhancing 5-day particulate matter (PM10) forecasts in Morocco using U-net: a deep learning approach. <em>Atmospheric Research</em>, 328:108439. <a href="https://doi.org/10.1016/j.atmosres.2025.108439">doi:10.1016/j.atmosres.2025.108439</a></li>
+<li>Kadi C., Ahmadi N., Houdou A., <strong>El Badisy I.</strong>, et al.&nbsp;(2025). Differentiating latent tuberculosis from active tuberculosis through activation phenotypes and chemokine markers HLA-DR, CD38, MCP-1, and RANTES: a systematic review and meta-analysis. <em>Biomarker Insights</em>, 20:11772719241312776. <a href="https://doi.org/10.1177/11772719241312776">doi:10.1177/11772719241312776</a></li>
+</ul>
+</section>
+<section id="section-2" class="level4">
+<h4 data-anchor-id="section-2">2024</h4>
+<ul>
+<li>Houdou A., <strong>El Badisy I.</strong>, Khomsi K., et al.&nbsp;(2024). Interpretable machine learning approaches for forecasting and predicting air pollution: a systematic review. <em>Aerosol and Air Quality Research</em>, 24(1):230151. <a href="https://doi.org/10.4209/aaqr.230151">doi:10.4209/aaqr.230151</a></li>
+<li><strong>El Badisy I.</strong>, BenBrahim Z., Khalis M., et al.&nbsp;(2024). Risk factors affecting patient survival with colorectal cancer in Morocco: survival analysis using an interpretable machine learning approach. <em>Scientific Reports</em>, 14(1):3556. <a href="https://doi.org/10.1038/s41598-024-51304-3">doi:10.1038/s41598-024-51304-3</a></li>
+<li><strong>El Badisy I.</strong>, Graffeo N., Khalis M., Giorgi R. (2024). Multi-metric comparison of machine learning imputation methods with application to breast cancer survival. <em>BMC Medical Research Methodology</em>, 24(1):191. <a href="https://doi.org/10.1186/s12874-024-02305-3">doi:10.1186/s12874-024-02305-3</a></li>
+<li>Zbiri S., Belghiti Alaoui A., <strong>El Badisy I.</strong>, et al.&nbsp;(2024). Private hospitals in low- and middle-income countries: a typology using the cluster method, the case of Morocco. <em>BMC Health Services Research</em>, 24(1):1231. <a href="https://doi.org/10.1186/s12913-024-11660-2">doi:10.1186/s12913-024-11660-2</a></li>
+<li>Abdala S.A., Khomsi K., Houdou A., <strong>El Badisy I.</strong>, et al.&nbsp;(2024). Emission reduction strategies and health: a systematic review on the tools and methods to assess co-benefits. <em>BMJ Open</em>, 14(12):e083214. <a href="https://doi.org/10.1136/bmjopen-2023-083214">doi:10.1136/bmjopen-2023-083214</a></li>
+</ul>
+</section>
+</section>
+<section id="selected-talks" class="level3">
+<h3 data-anchor-id="selected-talks">Selected talks</h3>
+<ul>
+<li><strong>El Badisy I.</strong> et al.&nbsp;(2023). Comparison of missing data imputation methods in Cox regression with time-varying and non-linear covariate effects. <em>ISCB 2023</em>, Rome.</li>
+<li><strong>El Badisy I.</strong> et al.&nbsp;(2023). Missing data imputation using a meta-algorithm, metaCART: A simulation study under MCAR. <em>EpiClin 2023</em>, Nancy.</li>
+</ul>
+<p><a href="cv/cv.pdf">Full publication list →</a></p>
+</section>
+</section>
+<section id="notes" class="level2">
+<h2 data-anchor-id="notes">Notes</h2>
+<p>Methodological notes connected to my R packages and current projects, written up as short PDFs with equations, code, rendered results, and references.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 55%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Date</th>
+<th>Note</th>
+<th>Tags</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>2026-08-22</td>
+<td><a href="notes/deep-survival-networks.pdf">Deep neural networks for survival analysis with <code>survdnn</code></a></td>
+<td><span class="tag">Survival Analysis</span> <span class="tag">Deep Learning</span> <span class="tag">survdnn</span></td>
+</tr>
+<tr class="even">
+<td>2026-07-27</td>
+<td><a href="notes/survival-trajectory-phenotypes.pdf">Survival-trajectory phenotypes with <code>unsurv</code></a></td>
+<td><span class="tag">Survival Analysis</span> <span class="tag">Clustering</span> <span class="tag">unsurv</span></td>
+</tr>
+<tr class="odd">
+<td>2026-07-02</td>
+<td><a href="notes/masked-knn-imputation.pdf">Masked k-NN imputation with <code>missknn</code></a></td>
+<td><span class="tag">Missing Data</span> <span class="tag">Imputation</span> <span class="tag">missknn</span></td>
+</tr>
+<tr class="even">
+<td>2026-06-10</td>
+<td><a href="notes/dgp-tve-nle.pdf">Generating time-varying and non-linear covariate effects with <code>rpsurv</code></a></td>
+<td><span class="tag">Survival Analysis</span> <span class="tag">Simulation</span> <span class="tag">rpsurv</span></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="blog" class="level2">
+<h2 data-anchor-id="blog">Blog</h2>
+<p>Notes and write-ups on the R packages and methods I build, mostly biostatistics, survival analysis, and machine learning for health data.</p>
+<div id="listing-blog-listing" class="quarto-listing quarto-listing-container-default">
+<div class="list quarto-listing-default">
+<div class="quarto-post image-right" data-index="0" data-categories="UiUyQ3BhY2thZ2VzJTJDdHV0b3JpYWw=" data-listing-date-sort="1788562800000" data-listing-file-modified-sort="1790937768550" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9" data-listing-word-count-sort="1708">
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./blog/2026-09-05-basetable-tutorial/index.html" class="no-external">basetable: A Tutorial</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./blog/2026-09-05-basetable-tutorial/index.html" class="no-external">An expanded tour of the package</a>
+</div>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('cGFja2FnZXM='); return false;">packages</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('dHV0b3JpYWw='); return false;">tutorial</div>
+
+</div>
+</div>
+<div class="metadata">
+<a href="./blog/2026-09-05-basetable-tutorial/index.html" class="no-external">
+<div class="listing-date">
+Sep 5, 2026
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="1" data-categories="UiUyQ21hY2hpbmUtbGVhcm5pbmclMkNlc3NheQ==" data-listing-date-sort="1787785200000" data-listing-file-modified-sort="1790937768550" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1447">
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./blog/2026-08-27-api-design-in-the-era-of-llms/index.html" class="no-external">API Design in the Era of LLMs</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./blog/2026-08-27-api-design-in-the-era-of-llms/index.html" class="no-external">Why interface stability has quietly become a correctness property</a>
+</div>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('bWFjaGluZS1sZWFybmluZw=='); return false;">machine-learning</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('ZXNzYXk='); return false;">essay</div>
+
+</div>
+</div>
+<div class="metadata">
+<a href="./blog/2026-08-27-api-design-in-the-era-of-llms/index.html" class="no-external">
+<div class="listing-date">
+Aug 27, 2026
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="2" data-categories="ZXNzYXk=" data-listing-date-sort="1787526000000" data-listing-file-modified-sort="1790937768549" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="122">
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./blog/2026-08-24-causality-and-abstraction/index.html" class="no-external">Abstraction versus Reality</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./blog/2026-08-24-causality-and-abstraction/index.html" class="no-external">On the fantasy of trading a screen for a farm</a>
+</div>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('ZXNzYXk='); return false;">essay</div>
+
+</div>
+</div>
+<div class="metadata">
+<a href="./blog/2026-08-24-causality-and-abstraction/index.html" class="no-external">
+<div class="listing-date">
+Aug 24, 2026
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="3" data-categories="UiUyQ2NhdXNhbC1pbmZlcmVuY2UlMkNiaW9zdGF0aXN0aWNzJTJDbWFjaGluZS1sZWFybmluZw==" data-listing-date-sort="1787180400000" data-listing-file-modified-sort="1790937768549" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="813">
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./blog/2026-08-20-gmds-biostatistics-competition-2026/index.html" class="no-external">What I Learned from the GMDS Biostatistics Competition 2026</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./blog/2026-08-20-gmds-biostatistics-competition-2026/index.html" class="no-external">Ensembling heterogeneous treatment effect estimators, and where the pipeline breaks when every component is evaluated separately</a>
+</div>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('Y2F1c2FsLWluZmVyZW5jZQ=='); return false;">causal-inference</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('Ymlvc3RhdGlzdGljcw=='); return false;">biostatistics</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('bWFjaGluZS1sZWFybmluZw=='); return false;">machine-learning</div>
+
+</div>
+</div>
+<div class="metadata">
+<a href="./blog/2026-08-20-gmds-biostatistics-competition-2026/index.html" class="no-external">
+<div class="listing-date">
+Aug 20, 2026
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="4" data-categories="UiUyQ3N1cnZpdmFsLWFuYWx5c2lzJTJDbWFjaGluZS1sZWFybmluZyUyQ3BhY2thZ2Vz" data-listing-date-sort="1787007600000" data-listing-file-modified-sort="1790937768541" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="921">
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./blog/2026-08-18-survalis-cran-release/index.html" class="no-external">survalis is now on CRAN</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./blog/2026-08-18-survalis-cran-release/index.html" class="no-external">A unified benchmarking, evaluation, and interpretability interface for survival machine learning in R, from first submission to release</a>
+</div>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('c3Vydml2YWwtYW5hbHlzaXM='); return false;">survival-analysis</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('bWFjaGluZS1sZWFybmluZw=='); return false;">machine-learning</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('cGFja2FnZXM='); return false;">packages</div>
+
+</div>
+</div>
+<div class="metadata">
+<a href="./blog/2026-08-18-survalis-cran-release/index.html" class="no-external">
+<div class="listing-date">
+Aug 18, 2026
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="5" data-categories="UiUyQ3N1cnZpdmFsLWFuYWx5c2lzJTJDbWFjaGluZS1sZWFybmluZyUyQ3BhY2thZ2Vz" data-listing-date-sort="1774825200000" data-listing-file-modified-sort="1790937768541" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="827">
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./blog/2026-03-30-survalis/index.html" class="no-external">survalis: An Interpretable Survival Machine Learning Framework in R</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./blog/2026-03-30-survalis/index.html" class="no-external">One fit/predict contract across 19 survival learners, with benchmarking, calibration, and model-agnostic interpretation built in</a>
+</div>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('c3Vydml2YWwtYW5hbHlzaXM='); return false;">survival-analysis</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('bWFjaGluZS1sZWFybmluZw=='); return false;">machine-learning</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('cGFja2FnZXM='); return false;">packages</div>
+
+</div>
+</div>
+<div class="metadata">
+<a href="./blog/2026-03-30-survalis/index.html" class="no-external">
+<div class="listing-date">
+Mar 30, 2026
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="6" data-categories="UiUyQ3N1cnZpdmFsLWFuYWx5c2lzJTJDY2x1c3RlcmluZyUyQ3BhY2thZ2Vz" data-listing-date-sort="1764543600000" data-listing-file-modified-sort="1790937768541" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="645">
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./blog/2025-12-01-unsurv/index.html" class="no-external">unsurv: Unsupervised Clustering of Individualized Survival Curves</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./blog/2025-12-01-unsurv/index.html" class="no-external">PAM clustering on survival probability matrices with automatic K selection, monotonic enforcement, and plotting</a>
+</div>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('c3Vydml2YWwtYW5hbHlzaXM='); return false;">survival-analysis</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('Y2x1c3RlcmluZw=='); return false;">clustering</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('cGFja2FnZXM='); return false;">packages</div>
+
+</div>
+</div>
+<div class="metadata">
+<a href="./blog/2025-12-01-unsurv/index.html" class="no-external">
+<div class="listing-date">
+Dec 1, 2025
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="7" data-categories="UiUyQ3N1cnZpdmFsLWFuYWx5c2lzJTJDZGVlcC1sZWFybmluZyUyQ3BhY2thZ2Vz" data-listing-date-sort="1759273200000" data-listing-file-modified-sort="1790937768540" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="547">
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./blog/2025-10-01-survdnn/index.html" class="no-external">survdnn: Deep Neural Networks for Survival Analysis in R</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./blog/2025-10-01-survdnn/index.html" class="no-external">Cox, AFT, and CoxTime losses with a formula interface, cross-validation, and calibration, powered by torch</a>
+</div>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('c3Vydml2YWwtYW5hbHlzaXM='); return false;">survival-analysis</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('ZGVlcC1sZWFybmluZw=='); return false;">deep-learning</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('cGFja2FnZXM='); return false;">packages</div>
+
+</div>
+</div>
+<div class="metadata">
+<a href="./blog/2025-10-01-survdnn/index.html" class="no-external">
+<div class="listing-date">
+Oct 1, 2025
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="8" data-categories="UiUyQ21pc3NpbmctZGF0YSUyQ3BhY2thZ2Vz" data-listing-date-sort="1755212400000" data-listing-file-modified-sort="1790937768540" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="386">
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./blog/2025-08-15-mimar/index.html" class="no-external">mimar: Compact Multiple Imputation, Assessment, and Reporting in R</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./blog/2025-08-15-mimar/index.html" class="no-external">Artificial amputation, chained-equations MI with ML imputers, diagnostic evaluation, and pooling, in one package</a>
+</div>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('bWlzc2luZy1kYXRh'); return false;">missing-data</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('cGFja2FnZXM='); return false;">packages</div>
+
+</div>
+</div>
+<div class="metadata">
+<a href="./blog/2025-08-15-mimar/index.html" class="no-external">
+<div class="listing-date">
+Aug 15, 2025
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="9" data-categories="UiUyQ21hY2hpbmUtbGVhcm5pbmclMkNwYWNrYWdlcw==" data-listing-date-sort="1748732400000" data-listing-file-modified-sort="1790937768540" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="436">
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./blog/2025-06-01-funcml/index.html" class="no-external">funcml: A Formula-First Framework for Machine Learning in R</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./blog/2025-06-01-funcml/index.html" class="no-external">One consistent API across 20+ learners, resampling, tuning, interpretation, and causal estimation</a>
+</div>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('bWFjaGluZS1sZWFybmluZw=='); return false;">machine-learning</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('cGFja2FnZXM='); return false;">packages</div>
+
+</div>
+</div>
+<div class="metadata">
+<a href="./blog/2025-06-01-funcml/index.html" class="no-external">
+<div class="listing-date">
+Jun 1, 2025
+</div>
+</a>
+</div>
+</div>
+</div>
+<div class="listing-no-matching d-none">No matching items</div>
+</div>
+</section>
+<section id="contact" class="level2">
+<h2 data-anchor-id="contact">Contact</h2>
+<p>Feel free to reach out about collaborations, consulting, or simply to say hello.</p>
+<p>I also welcome feedback on my educational materials and R packages, whether something was helpful or could be improved.</p>
+<p class="contact-email">
+<a href="mailto:elbadisyimad@gmail.com"><i class="fa-solid fa-envelope" aria-label="envelope"></i> elbadisyimad@gmail.com</a>
+</p>
+<p><a class="link-dark me-1" href="https://ma.linkedin.com/in/imad-el-badisy-360018281" title="LinkedIn" target="_blank" rel="noopener"><i class="fa-brands fa-linkedin" aria-label="linkedin"></i></a> <a class="link-dark me-1" href="https://github.com/ielbadisy" title="GitHub" target="_blank" rel="noopener"><i class="fa-brands fa-github" aria-label="github"></i></a></p>
+<section id="license" class="level3">
+<h3 data-anchor-id="license">License</h3>
+<p>Content on this site, including the <a href="#notes">notes</a>, is released under a <a href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a> unless stated otherwise. Software released under <a href="https://github.com/ielbadisy">my packages</a> is licensed independently; see each package’s repository for its specific license.</p>
+</section>
+<section id="accessibility" class="level3">
+<h3 data-anchor-id="accessibility">Accessibility</h3>
+<p>This site uses a color palette meeting WCAG 2.1 AA contrast, alternative text for informative images, readable font faces, and light and dark themes. If you encounter any accessibility barriers, please <a href="mailto:elbadisyimad@gmail.com">get in touch</a>.</p>
 
 
 
+
+</section>
 </section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->

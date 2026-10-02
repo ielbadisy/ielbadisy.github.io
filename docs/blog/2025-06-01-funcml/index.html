@@ -298,28 +298,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
 <li class="nav-item">
-    <a class="nav-link" href="../../background.html"> 
+    <a class="nav-link" href="../../index.html#background"> 
 <span class="menu-text">Background</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../teaching.html"> 
+    <a class="nav-link" href="../../index.html#teaching"> 
 <span class="menu-text">Teaching</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../packages.html"> 
+    <a class="nav-link" href="../../index.html#software"> 
 <span class="menu-text">Software</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../publications.html"> 
+    <a class="nav-link" href="../../index.html#publications"> 
 <span class="menu-text">Publications</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../notes/index.html"> 
+    <a class="nav-link" href="../../index.html#notes"> 
 <span class="menu-text">Notes</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../blog/index.html"> 
+    <a class="nav-link" href="../../index.html#blog"> 
 <span class="menu-text">Blog</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html#contact"> 
+<span class="menu-text">Contact</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../cv/cv.pdf" target="_blank"> 
@@ -472,12 +476,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/funcml/man/interpret.html">interpret</a></span><span class="op">(</span><span class="va">fit_rf</span>, data <span class="op">=</span> <span class="va">iris</span>, method <span class="op">=</span> <span class="st">"pdp"</span>, features <span class="op">=</span> <span class="st">"Petal.Width"</span><span class="op">)</span><span class="op">$</span><span class="va">result</span><span class="op">$</span><span class="va">curves</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      feature     value     yhat
-1 Petal.Width 0.1000000 5.567361
-2 Petal.Width 0.2142857 5.585780
-3 Petal.Width 0.3285714 5.595121
-4 Petal.Width 0.4428571 5.676712
-5 Petal.Width 0.5571429 5.669333
-6 Petal.Width 0.6714286 5.680577</code></pre>
+1 Petal.Width 0.1000000 5.555846
+2 Petal.Width 0.2142857 5.567275
+3 Petal.Width 0.3285714 5.573585
+4 Petal.Width 0.4428571 5.654030
+5 Petal.Width 0.5571429 5.644077
+6 Petal.Width 0.6714286 5.656769</code></pre>
 </div>
 </div>
 </section><section id="causal-estimation" class="level2"><h2 class="anchored" data-anchor-id="causal-estimation">Causal estimation</h2>
@@ -519,6 +523,7 @@ Estimate: 0.4531 | SE: 0.0156 | 95% normal CI [0.4225, 0.4836]</code></pre>
 7      densemlp     TRUE
 8     e1071_svm     TRUE
 13        earth     TRUE
+26      fastgbm     TRUE
 16          fda     TRUE
 14          gam     TRUE
 10          gbm     TRUE
@@ -535,8 +540,8 @@ Estimate: 0.4531 | SE: 0.0156 | 95% normal CI [0.4225, 0.4836]</code></pre>
 9  randomForest     TRUE
 4        ranger     TRUE
 2         rpart     TRUE
-26     stacking     TRUE
-27 superlearner     TRUE
+27     stacking     TRUE
+28 superlearner     TRUE
 25      xgboost     TRUE</code></pre>
 </div>
 </div>
@@ -561,7 +566,7 @@ Estimate: 0.4531 | SE: 0.0156 | 95% normal CI [0.4225, 0.4836]</code></pre>
 </li>
 </ul>
 <hr>
-<footer><a href="../../blog/index.html">Back to blog</a>
+<footer><a href="../../index.html#blog">Back to blog</a>
 </footer>
 
 </section><a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">

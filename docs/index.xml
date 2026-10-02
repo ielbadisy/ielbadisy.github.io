@@ -6,9 +6,14 @@
       version="2.0">
 <channel>
 <title>Imad El Badisy</title>
-<link>https://elbadisyimad.com/blog/</link>
-<atom:link href="https://elbadisyimad.com/blog/index.xml" rel="self" type="application/rss+xml"/>
+<link>https://elbadisyimad.com/</link>
+<atom:link href="https://elbadisyimad.com/index.xml" rel="self" type="application/rss+xml"/>
 <description>Imad El Badisy, PhD. Health data scientist and computational methodologist building software for machine learning and computational biostatistics.</description>
+<image>
+<url>https://elbadisyimad.com/profile.jpg</url>
+<title>Imad El Badisy</title>
+<link>https://elbadisyimad.com/</link>
+</image>
 <generator>quarto-1.8.24</generator>
 <lastBuildDate>Fri, 04 Sep 2026 23:00:00 GMT</lastBuildDate>
 <item>
@@ -978,7 +983,7 @@ font-style: inherit;">)</span></span></code></pre></div></div>
 </section><section id="status" class="level2"><h2 class="anchored" data-anchor-id="status">Status</h2>
 <p>Every exported function has direct test coverage. Vignettes cover getting started, data manipulation, exploration, a complete function reference, and benchmarks. CI checks release R on Linux, macOS and Windows plus oldrel and devel.</p>
 <hr>
-<footer><a href="../../blog/index.html">Back to blog</a>
+<footer><a href="../../index.html#blog">Back to blog</a>
 </footer>
 
 </section></section><a onclick="window.scrollTo(0, 0); return false;" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a> ]]></description>
@@ -1040,7 +1045,7 @@ font-style: inherit;">)</span></span></code></pre></div></div>
 <p>Wanting to build something that lasts, with few parts and visible joints, has always been partly an aesthetic preference. Now it also happens to be the practical one. If the main reader of your code is going to be a model averaging over your history, the best thing you can do is not give it much history to average over.</p>
 <hr>
 <footer>
-<a href="../../blog/index.html">Back to blog</a>
+<a href="../../index.html#blog">Back to blog</a>
 </footer>
 
 
@@ -1067,7 +1072,7 @@ font-style: inherit;">)</span></span></code></pre></div></div>
 <p>So maybe it’s not technology versus nature. It’s abstraction versus something you can put your hands on. I can live through a screen fine. I just don’t fully believe I’ve done anything until I can touch it.</p>
 <hr>
 <footer>
-<a href="../../blog/index.html">Back to blog</a>
+<a href="../../index.html#blog">Back to blog</a>
 </footer>
 
 
@@ -1128,7 +1133,7 @@ font-style: inherit;">)</span></span></code></pre></div></div>
 <p>That’s probably the real value of entering a competition like this: not the ranking, but finding out exactly where a pipeline that looked fine end-to-end breaks once you check each piece on its own. I’ll be carrying these lessons into the next version.</p>
 <hr>
 <footer>
-<a href="../../blog/index.html">Back to blog</a>
+<a href="../../index.html#blog">Back to blog</a>
 </footer>
 
 
@@ -1165,7 +1170,7 @@ font-style: inherit;">)</span></span></code></pre></div></div>
 <p>This post walks through what changed between the first CRAN submission candidate (0.7.0) and the current release (0.9.0): the new implementations, and the corrections made along the way.</p>
 <section id="one-entry-point-for-benchmarking-benchmark" class="level2"><h2 class="anchored" data-anchor-id="one-entry-point-for-benchmarking-benchmark">One entry point for benchmarking: <code>benchmark()</code>
 </h2>
-<p>Comparing learners used to mean choosing between <code>benchmark_default_survlearners()</code> (plain k-fold CV) and <code>benchmark_tuned_survlearners()</code> (nested CV with per-learner hyperparameter tuning). <code>benchmark()</code> now dispatches to either from a single <code>tune</code> argument:</p>
+<p>Comparing learners used to mean choosing between <code><a href="https://rdrr.io/pkg/survalis/man/benchmark_default_survlearners.html">benchmark_default_survlearners()</a></code> (plain k-fold CV) and <code><a href="https://rdrr.io/pkg/survalis/man/benchmark_tuned_survlearners.html">benchmark_tuned_survlearners()</a></code> (nested CV with per-learner hyperparameter tuning). <code><a href="https://rdrr.io/pkg/survalis/man/benchmark.html">benchmark()</a></code> now dispatches to either from a single <code>tune</code> argument:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw" style="color: #003B4F;
 background-color: null;
@@ -1212,7 +1217,7 @@ font-style: inherit;">res</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">benchmark</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://rdrr.io/pkg/survalis/man/benchmark.html">benchmark</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span></span>
 <span>  <span class="fu" style="color: #4758AB;
@@ -1297,36 +1302,33 @@ font-style: inherit;">)</span></span>
 background-color: null;
 font-style: inherit;">res</span></span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>                         splits     id  fold metric value learner
-                         &lt;list&gt; &lt;char&gt; &lt;int&gt; &lt;char&gt; &lt;num&gt;  &lt;char&gt;
- 1: &lt;vfold_split[109x28x137x8]&gt;  Fold1     1 cindex 0.739   coxph
- 2: &lt;vfold_split[109x28x137x8]&gt;  Fold1     1    ibs 0.173   coxph
- 3: &lt;vfold_split[109x28x137x8]&gt;  Fold2     2 cindex 0.697   coxph
- 4: &lt;vfold_split[109x28x137x8]&gt;  Fold2     2    ibs 0.156   coxph
- 5: &lt;vfold_split[110x27x137x8]&gt;  Fold3     3 cindex 0.703   coxph
- 6: &lt;vfold_split[110x27x137x8]&gt;  Fold3     3    ibs 0.166   coxph
- 7: &lt;vfold_split[110x27x137x8]&gt;  Fold4     4 cindex 0.717   coxph
- 8: &lt;vfold_split[110x27x137x8]&gt;  Fold4     4    ibs 0.168   coxph
- 9: &lt;vfold_split[110x27x137x8]&gt;  Fold5     5 cindex 0.754   coxph
-10: &lt;vfold_split[110x27x137x8]&gt;  Fold5     5    ibs 0.152   coxph
-11: &lt;vfold_split[109x28x137x8]&gt;  Fold1     1 cindex 0.636     rsf
-12: &lt;vfold_split[109x28x137x8]&gt;  Fold1     1    ibs 0.171     rsf
-13: &lt;vfold_split[109x28x137x8]&gt;  Fold2     2 cindex 0.697     rsf
-14: &lt;vfold_split[109x28x137x8]&gt;  Fold2     2    ibs 0.172     rsf
-15: &lt;vfold_split[110x27x137x8]&gt;  Fold3     3 cindex 0.720     rsf
-16: &lt;vfold_split[110x27x137x8]&gt;  Fold3     3    ibs 0.158     rsf
-17: &lt;vfold_split[110x27x137x8]&gt;  Fold4     4 cindex 0.677     rsf
-18: &lt;vfold_split[110x27x137x8]&gt;  Fold4     4    ibs 0.188     rsf
-19: &lt;vfold_split[110x27x137x8]&gt;  Fold5     5 cindex 0.722     rsf
-20: &lt;vfold_split[110x27x137x8]&gt;  Fold5     5    ibs 0.151     rsf
-                         splits     id  fold metric value learner
-                         &lt;list&gt; &lt;char&gt; &lt;int&gt; &lt;char&gt; &lt;num&gt;  &lt;char&gt;</code></pre>
+<pre><code>         splits    id fold metric value learner
+1  list(trt.... Fold1    1 cindex 0.739   coxph
+2  list(trt.... Fold1    1    ibs 0.173   coxph
+3  list(trt.... Fold2    2 cindex 0.697   coxph
+4  list(trt.... Fold2    2    ibs 0.156   coxph
+5  list(trt.... Fold3    3 cindex 0.703   coxph
+6  list(trt.... Fold3    3    ibs 0.166   coxph
+7  list(trt.... Fold4    4 cindex 0.717   coxph
+8  list(trt.... Fold4    4    ibs 0.168   coxph
+9  list(trt.... Fold5    5 cindex 0.754   coxph
+10 list(trt.... Fold5    5    ibs 0.152   coxph
+11 list(trt.... Fold1    1 cindex 0.636     rsf
+12 list(trt.... Fold1    1    ibs 0.171     rsf
+13 list(trt.... Fold2    2 cindex 0.697     rsf
+14 list(trt.... Fold2    2    ibs 0.172     rsf
+15 list(trt.... Fold3    3 cindex 0.720     rsf
+16 list(trt.... Fold3    3    ibs 0.158     rsf
+17 list(trt.... Fold4    4 cindex 0.677     rsf
+18 list(trt.... Fold4    4    ibs 0.188     rsf
+19 list(trt.... Fold5    5 cindex 0.722     rsf
+20 list(trt.... Fold5    5    ibs 0.151     rsf</code></pre>
 </div>
 </div>
-<p><code>tune = TRUE</code> runs the same call as nested CV, dispatching to <code>benchmark_tuned_survlearners()</code> with <code>outer_folds</code>/<code>inner_folds</code> instead. <code>benchmark_default_survlearners()</code> and <code>benchmark_tuned_survlearners()</code> both remain available directly for callers who don’t need the dispatch.</p>
+<p><code>tune = TRUE</code> runs the same call as nested CV, dispatching to <code><a href="https://rdrr.io/pkg/survalis/man/benchmark_tuned_survlearners.html">benchmark_tuned_survlearners()</a></code> with <code>outer_folds</code>/<code>inner_folds</code> instead. <code><a href="https://rdrr.io/pkg/survalis/man/benchmark_default_survlearners.html">benchmark_default_survlearners()</a></code> and <code><a href="https://rdrr.io/pkg/survalis/man/benchmark_tuned_survlearners.html">benchmark_tuned_survlearners()</a></code> both remain available directly for callers who don’t need the dispatch.</p>
 </section><section id="time-dependent-discrimination-timeroc_survmat" class="level2"><h2 class="anchored" data-anchor-id="time-dependent-discrimination-timeroc_survmat">Time-dependent discrimination: <code>timeroc_survmat()</code>
 </h2>
-<p>The C-index and the Brier score summarize discrimination and calibration at a single horizon. <code>timeroc_survmat()</code> adds a vectorized cumulative/dynamic AUC curve over a vector of evaluation times, matching <code>timeROC::timeROC(weighting = "marginal")</code> to about 1e-3 (Uno et al.&nbsp;2007 / Heagerty and Zheng 2005):</p>
+<p>The C-index and the Brier score summarize discrimination and calibration at a single horizon. <code><a href="https://rdrr.io/pkg/survalis/man/timeroc_survmat.html">timeroc_survmat()</a></code> adds a vectorized cumulative/dynamic AUC curve over a vector of evaluation times, matching <code>timeROC::timeROC(weighting = "marginal")</code> to about 1e-3 (Uno et al.&nbsp;2007 / Heagerty and Zheng 2005):</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
 background-color: null;
@@ -1357,7 +1359,7 @@ font-style: inherit;">mod_rsf</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">fit_rsf</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://rdrr.io/pkg/survalis/man/fit_rsf.html">fit_rsf</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -1398,7 +1400,7 @@ font-style: inherit;">sp_rsf</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">predict_rsf</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://rdrr.io/pkg/survalis/man/predict_rsf.html">predict_rsf</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
@@ -1416,7 +1418,7 @@ font-style: inherit;">)</span></span>
 <span></span>
 <span><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">timeroc_survmat</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://rdrr.io/pkg/survalis/man/timeroc_survmat.html">timeroc_survmat</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
@@ -1434,17 +1436,17 @@ font-style: inherit;">)</span></span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  time      auc
 1   30 0.886782
-2   90 0.882498
+2   90 0.882384
 3  180 0.897919</code></pre>
 </div>
 </div>
 </section><section id="a-native-kaplan-meier-plot-plot_survcurve" class="level2"><h2 class="anchored" data-anchor-id="a-native-kaplan-meier-plot-plot_survcurve">A native Kaplan-Meier plot: <code>plot_survcurve()</code>
 </h2>
-<p><code>plot_survcurve()</code> adds a survminer-style Kaplan-Meier curve with a confidence ribbon, a log-rank p-value annotation, and an aligned number-at-risk table, built directly on <code>theme_survalis()</code> / <code>scale_color_survalis()</code> rather than depending on the survminer package. The risk table is composed with <code>patchwork</code>.</p>
+<p><code><a href="https://rdrr.io/pkg/survalis/man/plot_survcurve.html">plot_survcurve()</a></code> adds a survminer-style Kaplan-Meier curve with a confidence ribbon, a log-rank p-value annotation, and an aligned number-at-risk table, built directly on <code><a href="https://rdrr.io/pkg/survalis/man/theme_survalis.html">theme_survalis()</a></code> / <code><a href="https://rdrr.io/pkg/survalis/man/survalis-scales.html">scale_color_survalis()</a></code> rather than depending on the survminer package. The risk table is composed with <code>patchwork</code>.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">plot_survcurve</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://rdrr.io/pkg/survalis/man/plot_survcurve.html">plot_survcurve</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -1475,11 +1477,11 @@ font-style: inherit;">)</span></span></code></pre></div></div>
 </div>
 </div>
 </section><section id="a-consistent-visual-system-theme_survalis-and-the-color-scales" class="level2"><h2 class="anchored" data-anchor-id="a-consistent-visual-system-theme_survalis-and-the-color-scales">A consistent visual system: <code>theme_survalis()</code> and the color scales</h2>
-<p>Every plotting function used to call <code>theme_minimal()</code> with its own <code>base_size</code>, and grouped plots fell back to ggplot2’s default hue palette except for <code>plot_survcurve()</code>. <code>theme_survalis()</code> and the colorblind-friendly <code>scale_color_survalis()</code> / <code>scale_fill_survalis()</code> (ColorBrewer “Dark2”-based, interpolated beyond 8 levels) were retrofitted across every plotting function, <code>plot_ale()</code>, <code>plot_pdp()</code>, <code>plot_shap()</code>, <code>plot_interactions()</code>, <code>plot_calibration()</code>, <code>plot_counterfactual()</code>, <code>plot_surrogate()</code>, <code>plot_tree_surrogate()</code>, <code>plot_varimp()</code>, <code>plot_survmat()</code>, <code>plot_survmetalearner_weights()</code>, <code>plot_benchmark()</code>, <code>cv_plot()</code>, <code>plot_survcurve()</code>, so package figures read as one system instead of thirteen independent styles. Single-series hardcoded colors (<code>"steelblue"</code>, <code>"pink"</code>, <code>"tomato"</code>, ad-hoc green/red hex codes) were replaced the same way, and every plot that can show both positive and negative values now draws a dashed zero-reference line.</p>
+<p>Every plotting function used to call <code>theme_minimal()</code> with its own <code>base_size</code>, and grouped plots fell back to ggplot2’s default hue palette except for <code><a href="https://rdrr.io/pkg/survalis/man/plot_survcurve.html">plot_survcurve()</a></code>. <code><a href="https://rdrr.io/pkg/survalis/man/theme_survalis.html">theme_survalis()</a></code> and the colorblind-friendly <code><a href="https://rdrr.io/pkg/survalis/man/survalis-scales.html">scale_color_survalis()</a></code> / <code><a href="https://rdrr.io/pkg/survalis/man/survalis-scales.html">scale_fill_survalis()</a></code> (ColorBrewer “Dark2”-based, interpolated beyond 8 levels) were retrofitted across every plotting function, <code><a href="https://rdrr.io/pkg/survalis/man/plot_ale.html">plot_ale()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/plot_pdp.html">plot_pdp()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/plot_shap.html">plot_shap()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/plot_interactions.html">plot_interactions()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/plot_calibration.html">plot_calibration()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/plot_counterfactual.html">plot_counterfactual()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/plot_surrogate.html">plot_surrogate()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/plot_tree_surrogate.html">plot_tree_surrogate()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/plot_varimp.html">plot_varimp()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/plot_survmat.html">plot_survmat()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/plot_survmetalearner_weights.html">plot_survmetalearner_weights()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/plot_benchmark.html">plot_benchmark()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/cv_plot.html">cv_plot()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/plot_survcurve.html">plot_survcurve()</a></code>, so package figures read as one system instead of thirteen independent styles. Single-series hardcoded colors (<code>"steelblue"</code>, <code>"pink"</code>, <code>"tomato"</code>, ad-hoc green/red hex codes) were replaced the same way, and every plot that can show both positive and negative values now draws a dashed zero-reference line.</p>
 <p>As of 0.9.0, every one of those functions also takes a <code>title</code> argument: pass a custom string, leave it out for the previous auto-generated title, or pass <code>title = NULL</code> to drop it entirely for journals that require caption-only figures.</p>
 </section><section id="uncertainty-in-variable-importance-plot_varimp" class="level2"><h2 class="anchored" data-anchor-id="uncertainty-in-variable-importance-plot_varimp">Uncertainty in variable importance: <code>plot_varimp()</code>
 </h2>
-<p><code>compute_varimp()</code> computes permutation-based importance by repeating a metric drop over <code>n_repetitions</code> permutations per feature. It used to summarize those repetitions down to a single point estimate and discard them. <code>plot_varimp()</code> now draws the full per-repetition distribution as a boxplot instead of a lone point, and <code>compute_varimp()</code> keeps the raw values as a <code>"raw_scores"</code> attribute so the plot can use them (falling back to the old point-plot for hand-built summary tables without that attribute):</p>
+<p><code><a href="https://rdrr.io/pkg/survalis/man/compute_varimp.html">compute_varimp()</a></code> computes permutation-based importance by repeating a metric drop over <code>n_repetitions</code> permutations per feature. It used to summarize those repetitions down to a single point estimate and discard them. <code><a href="https://rdrr.io/pkg/survalis/man/plot_varimp.html">plot_varimp()</a></code> now draws the full per-repetition distribution as a boxplot instead of a lone point, and <code><a href="https://rdrr.io/pkg/survalis/man/compute_varimp.html">compute_varimp()</a></code> keeps the raw values as a <code>"raw_scores"</code> attribute so the plot can use them (falling back to the old point-plot for hand-built summary tables without that attribute):</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va" style="color: #111111;
 background-color: null;
@@ -1487,7 +1489,7 @@ font-style: inherit;">mod_cox</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">fit_coxph</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://rdrr.io/pkg/survalis/man/fit_coxph.html">fit_coxph</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -1524,7 +1526,7 @@ font-style: inherit;">vi</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">compute_varimp</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://rdrr.io/pkg/survalis/man/compute_varimp.html">compute_varimp</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
@@ -1554,7 +1556,7 @@ font-style: inherit;">p</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">plot_varimp</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://rdrr.io/pkg/survalis/man/plot_varimp.html">plot_varimp</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
@@ -1599,20 +1601,20 @@ font-style: inherit;">p</span></span></code></pre></div></div>
 </div>
 </div>
 </section><section id="migration-to-data.table" class="level2"><h2 class="anchored" data-anchor-id="migration-to-data.table">Migration to data.table</h2>
-<p>Every internal data-manipulation path, the CV/metrics engine (<code>cv_survlearner()</code>, <code>cv_summary()</code>, <code>score_survmodel()</code>), all nineteen <code>tune_*()</code> functions, <code>cv_survmetalearner()</code>, <code>benchmark_tuned_survlearners()</code>, <code>compute_shap()</code>, <code>compute_calibration()</code>, <code>plot_survmat()</code>, <code>compute_varimp()</code>, and the descriptive <code>list_*()</code> helpers, was migrated file by file from dplyr/tidyr/purrr/tibble to data.table. <code>dplyr</code>, <code>tidyr</code>, <code>purrr</code>, and <code>tibble</code> are no longer in <code>Imports</code> at all; data.table is now the sole data-manipulation engine. <code>cv_summary()</code>/<code>score_survmodel()</code> and <code>summarise_benchmark()</code> now round summary statistics to 3 decimals by default, consistently.</p>
+<p>Every internal data-manipulation path, the CV/metrics engine (<code><a href="https://rdrr.io/pkg/survalis/man/cv_survlearner.html">cv_survlearner()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/cv_summary.html">cv_summary()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/score_survmodel.html">score_survmodel()</a></code>), all nineteen <code>tune_*()</code> functions, <code><a href="https://rdrr.io/pkg/survalis/man/cv_survmetalearner.html">cv_survmetalearner()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/benchmark_tuned_survlearners.html">benchmark_tuned_survlearners()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/compute_shap.html">compute_shap()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/compute_calibration.html">compute_calibration()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/plot_survmat.html">plot_survmat()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/compute_varimp.html">compute_varimp()</a></code>, and the descriptive <code>list_*()</code> helpers, was migrated file by file from dplyr/tidyr/purrr/tibble to data.table. <code>dplyr</code>, <code>tidyr</code>, <code>purrr</code>, and <code>tibble</code> are no longer in <code>Imports</code> at all; data.table is now the sole data-manipulation engine. <code><a href="https://rdrr.io/pkg/survalis/man/cv_summary.html">cv_summary()</a></code>/<code><a href="https://rdrr.io/pkg/survalis/man/score_survmodel.html">score_survmodel()</a></code> and <code><a href="https://rdrr.io/pkg/survalis/man/summarise_benchmark.html">summarise_benchmark()</a></code> now round summary statistics to 3 decimals by default, consistently.</p>
 </section><section id="corrections-along-the-way" class="level2"><h2 class="anchored" data-anchor-id="corrections-along-the-way">Corrections along the way</h2>
 <p>A few of these were silent correctness bugs, not just style:</p>
 <ul>
 <li>
-<strong><code>auc_survmat()</code> case definition.</strong> Cases were defined as events with <code>time &lt;= t_star</code> instead of the canonical Uno/timeROC <code>time &lt; t_star</code>. This fed directly into the <code>"auc"</code> metric used throughout <code>score_survmodel()</code>, <code>benchmark_*()</code>, and <code>fit_survmetalearner()</code>, so it was corrected everywhere at once.</li>
+<strong><code><a href="https://rdrr.io/pkg/survalis/man/auc_survmat.html">auc_survmat()</a></code> case definition.</strong> Cases were defined as events with <code>time &lt;= t_star</code> instead of the canonical Uno/timeROC <code>time &lt; t_star</code>. This fed directly into the <code>"auc"</code> metric used throughout <code><a href="https://rdrr.io/pkg/survalis/man/score_survmodel.html">score_survmodel()</a></code>, <code>benchmark_*()</code>, and <code><a href="https://rdrr.io/pkg/survalis/man/fit_survmetalearner.html">fit_survmetalearner()</a></code>, so it was corrected everywhere at once.</li>
 <li>
-<strong>Silently dropped learners in nested tuning.</strong> <code>benchmark_tuned_survlearners()</code> selected tuning-result columns with <code>tuning_results[1, cols, drop = FALSE]</code>, relying on data.frame <code>[</code> semantics; data.table’s <code>[</code> doesn’t select columns from a variable the same way, so every fold for a data.table-migrated learner errored and the learner was quietly dropped with a warning. Fixed with a <code>.select_cols()</code> helper that works for both data.frame/tibble and data.table inputs.</li>
+<strong>Silently dropped learners in nested tuning.</strong> <code><a href="https://rdrr.io/pkg/survalis/man/benchmark_tuned_survlearners.html">benchmark_tuned_survlearners()</a></code> selected tuning-result columns with <code>tuning_results[1, cols, drop = FALSE]</code>, relying on data.frame <code>[</code> semantics; data.table’s <code>[</code> doesn’t select columns from a variable the same way, so every fold for a data.table-migrated learner errored and the learner was quietly dropped with a warning. Fixed with a <code>.select_cols()</code> helper that works for both data.frame/tibble and data.table inputs.</li>
 <li>
 <strong><code>tune_survsvm(refit_best = TRUE)</code> crashes.</strong> A top-ranked grid candidate could fail to refit on the full dataset (a <code>quadprog</code> QP infeasibility that only shows up on certain BLAS backends, including CRAN’s OpenBLAS check machine). It now falls back to the next-best candidate and only errors if every candidate fails.</li>
 <li>
 <strong><code>plot_interactions(type = "heatmap")</code> readability.</strong> The <code>white -&gt; steelblue</code> gradient had too little contrast in the mid-range and the zero-valued diagonal blended into the low end. Switched to a perceptually uniform viridis scale, flipped afterward so high interaction values read as dark rather than bright, matching conventional heatmap reading.</li>
 <li>
-<strong><code>plot_pdp()</code> per-time facets.</strong> Free y-axis scales made survival-probability panels visually incomparable across facets; now fixed to <code>[0, 1]</code> via <code>coord_cartesian()</code>.</li>
+<strong><code><a href="https://rdrr.io/pkg/survalis/man/plot_pdp.html">plot_pdp()</a></code> per-time facets.</strong> Free y-axis scales made survival-probability panels visually incomparable across facets; now fixed to <code>[0, 1]</code> via <code>coord_cartesian()</code>.</li>
 <li>
 <strong>Stale generated docs breaking CI.</strong> Three <code>.Rd</code> files had hand-drifted out of sync with their roxygen source, using <code>\donttest{}</code> (which CI runs) instead of <code>\dontrun{}</code>, causing an example to fail on an undefined object. Regenerated from source and verified with <code>R CMD check --run-donttest</code>.</li>
 </ul></section><section id="links" class="level2"><h2 class="anchored" data-anchor-id="links">Links</h2>
@@ -1622,7 +1624,7 @@ font-style: inherit;">p</span></span></code></pre></div></div>
 </li>
 </ul>
 <hr>
-<footer><a href="../../blog/index.html">Back to blog</a>
+<footer><a href="../../index.html#blog">Back to blog</a>
 </footer>
 
 </section><a onclick="window.scrollTo(0, 0); return false;" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a> ]]></description>
@@ -1646,15 +1648,15 @@ font-style: inherit;">p</span></span></code></pre></div></div>
 <code>fit_*()</code> functions return a standardized <code>mlsurv_model</code> object</li>
 <li>
 <code>predict_*()</code> functions return a <code>data.frame</code> of survival probabilities, one row per subject, one column per requested time (<code>t=100</code>, <code>t=200</code>, …)</li>
-<li>Evaluation is fully modular: any <code>fit_*</code>/<code>predict_*</code> pair plugs into <code>cv_survlearner()</code> or <code>score_survmodel()</code>
+<li>Evaluation is fully modular: any <code>fit_*</code>/<code>predict_*</code> pair plugs into <code><a href="https://rdrr.io/pkg/survalis/man/cv_survlearner.html">cv_survlearner()</a></code> or <code><a href="https://rdrr.io/pkg/survalis/man/score_survmodel.html">score_survmodel()</a></code>
 </li>
 <li>Everything downstream (benchmarking, calibration, interpretation) is designed to work on that same survival-probability matrix, regardless of which learner produced it</li>
 </ul></section><section id="why-explicit-fit_coxph-fit_rsf-instead-of-one-fitlearner-..." class="level2"><h2 class="anchored" data-anchor-id="why-explicit-fit_coxph-fit_rsf-instead-of-one-fitlearner-...">Why explicit <code>fit_coxph()</code> / <code>fit_rsf()</code> instead of one <code>fit(learner = ...)</code>
 </h2>
-<p>This is a deliberate departure from <code>funcml</code>, my general-purpose ML package, where <code>fit(y ~ ., data, learner = "ranger")</code> collapses every learner behind one verb and a string argument. survalis keeps a named function per learner, <code>fit_coxph()</code>, <code>fit_rsf()</code>, <code>fit_survdnn()</code>, and so on, instead of a single dispatcher.</p>
+<p>This is a deliberate departure from <code>funcml</code>, my general-purpose ML package, where <code>fit(y ~ ., data, learner = "ranger")</code> collapses every learner behind one verb and a string argument. survalis keeps a named function per learner, <code><a href="https://rdrr.io/pkg/survalis/man/fit_coxph.html">fit_coxph()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/fit_rsf.html">fit_rsf()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/fit_survdnn.html">fit_survdnn()</a></code>, and so on, instead of a single dispatcher.</p>
 <p>The reason is that the survival setting is not just “regression with a different loss.” Every learner here already has to negotiate right-censoring, risk sets, and time-varying prediction targets on its own terms, and each one leans on a different underlying package (<code>survival</code>, <code>randomForestSRC</code>, <code>xgboost</code>, <code>torch</code>, <code>flexsurv</code>, …) with its own quirks around ties, time horizons, and baseline hazard estimation. Hiding <code>fit_coxph</code> and <code>fit_rsf</code> behind a shared <code>fit(learner = "rsf")</code> string would trade a small amount of typing for a layer of indirection between the call site and the model-specific machinery it actually invokes, machinery that, in survival analysis, is rarely interchangeable enough to be worth hiding. Keeping the learner name in the function name is a compactness choice: the API surface is larger (nineteen <code>fit_*()</code>/<code>predict_*()</code> pairs instead of one), but each call is self-describing and there is one fewer level of abstraction between what you write and what runs.</p>
-<p>What survalis does unify is everything <em>after</em> fitting: <code>predict_*()</code> always returns the same survival-probability matrix shape, so <code>cindex_survmat()</code>, <code><a href="https://rdrr.io/pkg/survival/man/brier.html">brier()</a></code>, <code>cv_survlearner()</code>, and <code>benchmark()</code> never need to know which <code>fit_*()</code> produced it. The genericity lives at the evaluation/interpretation layer, not at the fitting layer.</p>
-<p>That output shape was a deliberate constraint, not an incidental one. A Cox model naturally hands back a linear predictor or a hazard ratio; a random survival forest hands back an ensemble of terminal-node curves; a deep survival network hands back whatever its loss was trained on (a Cox partial likelihood, an AFT loss, a discrete-time hazard). <code>fit_survdnn()</code> itself can predict a linear predictor if asked, since its loss functions include a Cox-style formulation. survalis standardizes on the survival-probability matrix anyway, over times <code>t=100</code>, <code>t=200</code>, and so on, because a matrix is, by construction, a richer object than a scalar: a linear predictor collapses a subject’s entire risk trajectory into one number and one implicit ranking, while a survival curve preserves how that risk actually unfolds over the follow-up window, which is what a fixed-horizon metric, a time-varying AUC, or a calibration curve each need to read back out at a different point. Forcing every <code>predict_*()</code> to that one shape throws away learner-specific detail on the way out (a Cox model’s clean linear score, a forest’s raw ensemble votes), but it is exactly what makes <code>cindex_survmat()</code>, <code><a href="https://rdrr.io/pkg/survival/man/brier.html">brier()</a></code>, <code>timeroc_survmat()</code>, and every interpretation function in the package learner-agnostic, without asking any of them to reconstruct a survival curve from a scalar first. The alternative, keeping each learner’s native output format and writing metric functions that branch on model class, is the design survalis specifically avoids.</p>
+<p>What survalis does unify is everything <em>after</em> fitting: <code>predict_*()</code> always returns the same survival-probability matrix shape, so <code><a href="https://rdrr.io/pkg/survalis/man/cindex_survmat.html">cindex_survmat()</a></code>, <code><a href="https://rdrr.io/pkg/survival/man/brier.html">brier()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/cv_survlearner.html">cv_survlearner()</a></code>, and <code><a href="https://rdrr.io/pkg/survalis/man/benchmark.html">benchmark()</a></code> never need to know which <code>fit_*()</code> produced it. The genericity lives at the evaluation/interpretation layer, not at the fitting layer.</p>
+<p>That output shape was a deliberate constraint, not an incidental one. A Cox model naturally hands back a linear predictor or a hazard ratio; a random survival forest hands back an ensemble of terminal-node curves; a deep survival network hands back whatever its loss was trained on (a Cox partial likelihood, an AFT loss, a discrete-time hazard). <code><a href="https://rdrr.io/pkg/survalis/man/fit_survdnn.html">fit_survdnn()</a></code> itself can predict a linear predictor if asked, since its loss functions include a Cox-style formulation. survalis standardizes on the survival-probability matrix anyway, over times <code>t=100</code>, <code>t=200</code>, and so on, because a matrix is, by construction, a richer object than a scalar: a linear predictor collapses a subject’s entire risk trajectory into one number and one implicit ranking, while a survival curve preserves how that risk actually unfolds over the follow-up window, which is what a fixed-horizon metric, a time-varying AUC, or a calibration curve each need to read back out at a different point. Forcing every <code>predict_*()</code> to that one shape throws away learner-specific detail on the way out (a Cox model’s clean linear score, a forest’s raw ensemble votes), but it is exactly what makes <code><a href="https://rdrr.io/pkg/survalis/man/cindex_survmat.html">cindex_survmat()</a></code>, <code><a href="https://rdrr.io/pkg/survival/man/brier.html">brier()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/timeroc_survmat.html">timeroc_survmat()</a></code>, and every interpretation function in the package learner-agnostic, without asking any of them to reconstruct a survival curve from a scalar first. The alternative, keeping each learner’s native output format and writing metric functions that branch on model class, is the design survalis specifically avoids.</p>
 </section><section id="nineteen-learners-one-interface" class="level2"><h2 class="anchored" data-anchor-id="nineteen-learners-one-interface">Nineteen learners, one interface</h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw" style="color: #003B4F;
@@ -1669,60 +1671,62 @@ background-color: null;
 font-style: inherit;">)</span></span>
 <span><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">list_survlearners</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://rdrr.io/pkg/survalis/man/list_survlearners.html">list_survlearners</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>            learner                 fit                 predict
-             &lt;char&gt;              &lt;char&gt;                  &lt;char&gt;
- 1:           coxph           fit_coxph           predict_coxph
- 2:           aalen           fit_aalen           predict_aalen
- 3:          glmnet          fit_glmnet          predict_glmnet
- 4:       selectcox       fit_selectcox       predict_selectcox
- 5:          aftgee          fit_aftgee          predict_aftgee
- 6:     flexsurvreg     fit_flexsurvreg     predict_flexsurvreg
- 7:           stpm2           fit_stpm2           predict_stpm2
- 8:         bnnsurv         fit_bnnsurv         predict_bnnsurv
- 9:           rpart           fit_rpart           predict_rpart
-10:            bart            fit_bart            predict_bart
-11:         xgboost         fit_xgboost         predict_xgboost
-12:        coxboost        fit_coxboost        predict_coxboost
-13:          ranger          fit_ranger          predict_ranger
-14:             rsf             fit_rsf             predict_rsf
-15:         cforest         fit_cforest         predict_cforest
-16:      blackboost      fit_blackboost      predict_blackboost
-17:         survsvm         fit_survsvm         predict_survsvm
-18:         survdnn         fit_survdnn         predict_survdnn
-19:            orsf            fit_orsf            predict_orsf
-20: survmetalearner fit_survmetalearner predict_survmetalearner
-            learner                 fit                 predict
-             &lt;char&gt;              &lt;char&gt;                  &lt;char&gt;
-                tune has_fit has_predict has_tune available
-              &lt;char&gt;  &lt;lgcl&gt;      &lt;lgcl&gt;   &lt;lgcl&gt;    &lt;lgcl&gt;
- 1:             &lt;NA&gt;    TRUE        TRUE    FALSE      TRUE
- 2:             &lt;NA&gt;    TRUE        TRUE    FALSE      TRUE
- 3:      tune_glmnet    TRUE        TRUE     TRUE      TRUE
- 4:   tune_selectcox    TRUE        TRUE     TRUE      TRUE
- 5:             &lt;NA&gt;    TRUE        TRUE    FALSE      TRUE
- 6: tune_flexsurvreg    TRUE        TRUE     TRUE      TRUE
- 7:             &lt;NA&gt;    TRUE        TRUE    FALSE      TRUE
- 8:     tune_bnnsurv    TRUE        TRUE     TRUE      TRUE
- 9:       tune_rpart    TRUE        TRUE     TRUE      TRUE
-10:        tune_bart    TRUE        TRUE     TRUE      TRUE
-11:     tune_xgboost    TRUE        TRUE     TRUE      TRUE
-12:    tune_coxboost    TRUE        TRUE     TRUE      TRUE
-13:      tune_ranger    TRUE        TRUE     TRUE      TRUE
-14:         tune_rsf    TRUE        TRUE     TRUE      TRUE
-15:     tune_cforest    TRUE        TRUE     TRUE      TRUE
-16:  tune_blackboost    TRUE        TRUE     TRUE      TRUE
-17:     tune_survsvm    TRUE        TRUE     TRUE      TRUE
-18:     tune_survdnn    TRUE        TRUE     TRUE      TRUE
-19:        tune_orsf    TRUE        TRUE     TRUE      TRUE
-20:             &lt;NA&gt;    TRUE        TRUE    FALSE      TRUE
-                tune has_fit has_predict has_tune available
-              &lt;char&gt;  &lt;lgcl&gt;      &lt;lgcl&gt;   &lt;lgcl&gt;    &lt;lgcl&gt;</code></pre>
+<pre><code>           learner                 fit                 predict             tune
+1            coxph           fit_coxph           predict_coxph             &lt;NA&gt;
+2            aalen           fit_aalen           predict_aalen             &lt;NA&gt;
+3           glmnet          fit_glmnet          predict_glmnet      tune_glmnet
+4        selectcox       fit_selectcox       predict_selectcox   tune_selectcox
+5           aftgee          fit_aftgee          predict_aftgee             &lt;NA&gt;
+6      flexsurvreg     fit_flexsurvreg     predict_flexsurvreg tune_flexsurvreg
+7            stpm2           fit_stpm2           predict_stpm2             &lt;NA&gt;
+8          bnnsurv         fit_bnnsurv         predict_bnnsurv     tune_bnnsurv
+9            rpart           fit_rpart           predict_rpart       tune_rpart
+10            bart            fit_bart            predict_bart        tune_bart
+11         xgboost         fit_xgboost         predict_xgboost     tune_xgboost
+12        coxboost        fit_coxboost        predict_coxboost    tune_coxboost
+13         fastgbm         fit_fastgbm         predict_fastgbm             &lt;NA&gt;
+14          ranger          fit_ranger          predict_ranger      tune_ranger
+15             rsf             fit_rsf             predict_rsf         tune_rsf
+16         cforest         fit_cforest         predict_cforest     tune_cforest
+17      blackboost      fit_blackboost      predict_blackboost  tune_blackboost
+18         survsvm         fit_survsvm         predict_survsvm     tune_survsvm
+19         survdnn         fit_survdnn         predict_survdnn     tune_survdnn
+20        densemlp        fit_densemlp        predict_densemlp             &lt;NA&gt;
+21            orsf            fit_orsf            predict_orsf        tune_orsf
+22          rpsurv          fit_rpsurv          predict_rpsurv             &lt;NA&gt;
+23          nbsurv          fit_nbsurv          predict_nbsurv             &lt;NA&gt;
+24 survmetalearner fit_survmetalearner predict_survmetalearner             &lt;NA&gt;
+   has_fit has_predict has_tune available
+1     TRUE        TRUE    FALSE      TRUE
+2     TRUE        TRUE    FALSE      TRUE
+3     TRUE        TRUE     TRUE      TRUE
+4     TRUE        TRUE     TRUE      TRUE
+5     TRUE        TRUE    FALSE      TRUE
+6     TRUE        TRUE     TRUE      TRUE
+7     TRUE        TRUE    FALSE      TRUE
+8     TRUE        TRUE     TRUE      TRUE
+9     TRUE        TRUE     TRUE      TRUE
+10    TRUE        TRUE     TRUE      TRUE
+11    TRUE        TRUE     TRUE      TRUE
+12    TRUE        TRUE     TRUE      TRUE
+13    TRUE        TRUE    FALSE      TRUE
+14    TRUE        TRUE     TRUE      TRUE
+15    TRUE        TRUE     TRUE      TRUE
+16    TRUE        TRUE     TRUE      TRUE
+17    TRUE        TRUE     TRUE      TRUE
+18    TRUE        TRUE     TRUE      TRUE
+19    TRUE        TRUE     TRUE      TRUE
+20    TRUE        TRUE    FALSE      TRUE
+21    TRUE        TRUE     TRUE      TRUE
+22    TRUE        TRUE    FALSE      TRUE
+23    TRUE        TRUE    FALSE      TRUE
+24    TRUE        TRUE    FALSE      TRUE</code></pre>
 </div>
 </div>
 <p>That list spans semiparametric (<code>coxph</code>, <code>aalen</code>), parametric (<code>flexsurvreg</code>, <code>stpm2</code>, <code>aftgee</code>), tree-based and ensemble (<code>rpart</code>, <code>rsf</code>, <code>cforest</code>, <code>orsf</code>), boosting (<code>xgboost</code>, <code>blackboost</code>), kernel (<code>survsvm</code>), and deep-learning (<code>survdnn</code>, <code>bnnsurv</code>) learners, plus <code>survmetalearner</code> for combining several of them. Most also ship a matching <code>tune_*()</code> function for grid or random hyperparameter search.</p>
@@ -1763,7 +1767,7 @@ font-style: inherit;">mod</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">fit_coxph</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://rdrr.io/pkg/survalis/man/fit_coxph.html">fit_coxph</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -1800,7 +1804,7 @@ font-style: inherit;">sp</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">predict_coxph</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://rdrr.io/pkg/survalis/man/predict_coxph.html">predict_coxph</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
@@ -1861,7 +1865,7 @@ font-style: inherit;">sp_fine</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">predict_coxph</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://rdrr.io/pkg/survalis/man/predict_coxph.html">predict_coxph</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
@@ -1893,7 +1897,7 @@ font-style: inherit;">p</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">plot_survmat</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://rdrr.io/pkg/survalis/man/plot_survmat.html">plot_survmat</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
@@ -1972,7 +1976,7 @@ font-style: inherit;">(</span></span>
 background-color: null;
 font-style: inherit;">=</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">cindex_survmat</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://rdrr.io/pkg/survalis/man/cindex_survmat.html">cindex_survmat</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
@@ -1993,7 +1997,7 @@ font-style: inherit;">survalis</span><span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">::</span><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">brier</span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://rdrr.io/pkg/survalis/man/brier.html">brier</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="va" style="color: #111111;
 background-color: null;
@@ -2022,9 +2026,9 @@ font-style: inherit;">)</span></span></code></pre></div></div>
       0.733744       0.134603 </code></pre>
 </div>
 </div>
-<p>Swap <code>fit_coxph</code>/<code>predict_coxph</code> for any other pair in <code>list_survlearners()</code> and every downstream call, <code>cindex_survmat()</code>, <code><a href="https://rdrr.io/pkg/survival/man/brier.html">brier()</a></code>, <code>cv_survlearner()</code>, <code>benchmark()</code>, stays exactly the same.</p>
+<p>Swap <code>fit_coxph</code>/<code>predict_coxph</code> for any other pair in <code><a href="https://rdrr.io/pkg/survalis/man/list_survlearners.html">list_survlearners()</a></code> and every downstream call, <code><a href="https://rdrr.io/pkg/survalis/man/cindex_survmat.html">cindex_survmat()</a></code>, <code><a href="https://rdrr.io/pkg/survival/man/brier.html">brier()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/cv_survlearner.html">cv_survlearner()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/benchmark.html">benchmark()</a></code>, stays exactly the same.</p>
 </section><section id="beyond-prediction-interpretation" class="level2"><h2 class="anchored" data-anchor-id="beyond-prediction-interpretation">Beyond prediction: interpretation</h2>
-<p>Because every learner returns the same survival-probability shape, survalis’s interpretability layer works uniformly across all of them: permutation variable importance (<code>compute_varimp()</code>), accumulated local effects and partial dependence (<code>compute_ale()</code>, <code>compute_pdp()</code>), SHAP-based attribution (<code>compute_shap()</code>), pairwise interaction strength (<code>compute_interactions()</code>), counterfactual recommendations (<code>compute_counterfactual()</code>), and surrogate-tree explanations (<code>compute_surrogate()</code>, <code>compute_tree_surrogate()</code>), each with a matching <code>plot_*()</code> function.</p>
+<p>Because every learner returns the same survival-probability shape, survalis’s interpretability layer works uniformly across all of them: permutation variable importance (<code><a href="https://rdrr.io/pkg/survalis/man/compute_varimp.html">compute_varimp()</a></code>), accumulated local effects and partial dependence (<code><a href="https://rdrr.io/pkg/survalis/man/compute_ale.html">compute_ale()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/compute_pdp.html">compute_pdp()</a></code>), SHAP-based attribution (<code><a href="https://rdrr.io/pkg/survalis/man/compute_shap.html">compute_shap()</a></code>), pairwise interaction strength (<code><a href="https://rdrr.io/pkg/survalis/man/compute_interactions.html">compute_interactions()</a></code>), counterfactual recommendations (<code><a href="https://rdrr.io/pkg/survalis/man/compute_counterfactual.html">compute_counterfactual()</a></code>), and surrogate-tree explanations (<code><a href="https://rdrr.io/pkg/survalis/man/compute_surrogate.html">compute_surrogate()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/compute_tree_surrogate.html">compute_tree_surrogate()</a></code>), each with a matching <code>plot_*()</code> function.</p>
 </section><section id="install" class="level2"><h2 class="anchored" data-anchor-id="install">Install</h2>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;
 background-color: null;
@@ -2042,7 +2046,7 @@ font-style: inherit;">)</span></span></code></pre></div></div>
 </li>
 </ul>
 <hr>
-<footer><a href="../../blog/index.html">Back to blog</a>
+<footer><a href="../../index.html#blog">Back to blog</a>
 </footer>
 
 </section><a onclick="window.scrollTo(0, 0); return false;" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a> ]]></description>
@@ -2502,7 +2506,7 @@ font-style: inherit;">)</span></span>
 background-color: null;
 font-style: inherit;">pred</span></span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1 2 1 2 1</code></pre>
+<pre><code>[1] 1 1 1 1 2</code></pre>
 </div>
 </div>
 </section><section id="plotting" class="level2"><h2 class="anchored" data-anchor-id="plotting">Plotting</h2>
@@ -2740,7 +2744,7 @@ font-style: inherit;">)</span></span></code></pre></div></div>
 </li>
 </ul>
 <hr>
-<footer><a href="../../blog/index.html">Back to blog</a>
+<footer><a href="../../index.html#blog">Back to blog</a>
 </footer>
 
 </section><a onclick="window.scrollTo(0, 0); return false;" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a> ]]></description>
@@ -3380,7 +3384,7 @@ font-style: inherit;">)</span></span></code></pre></div></div>
 </li>
 </ul>
 <hr>
-<footer><a href="../../blog/index.html">Back to blog</a>
+<footer><a href="../../index.html#blog">Back to blog</a>
 </footer>
 
 </section><a onclick="window.scrollTo(0, 0); return false;" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a> ]]></description>
@@ -3480,14 +3484,14 @@ font-style: inherit;">)</span>       <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># the amputed data frame</span></span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
-          &lt;num&gt;       &lt;num&gt;        &lt;num&gt;       &lt;num&gt;  &lt;fctr&gt;
-1:          5.1         3.5          1.4         0.2  setosa
-2:          4.9         3.0           NA         0.2  setosa
-3:          4.7         3.2          1.3         0.2    &lt;NA&gt;
-4:          4.6         3.1          1.5          NA  setosa
-5:           NA         3.6          1.4          NA  setosa
-6:          5.4          NA          1.7         0.4  setosa</code></pre>
+<pre><code># basetable: 6 x 5
+  Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+1          5.1         3.5          1.4         0.2  setosa
+2          4.9         3.0           NA         0.2  setosa
+3          4.7         3.2          1.3         0.2    &lt;NA&gt;
+4          4.6         3.1          1.5          NA  setosa
+5           NA         3.6          1.4          NA  setosa
+6          5.4          NA          1.7         0.4  setosa</code></pre>
 </div>
 </div>
 </section><section id="multiple-imputation" class="level2"><h2 class="anchored" data-anchor-id="multiple-imputation">Multiple imputation</h2>
@@ -3612,35 +3616,19 @@ font-style: inherit;">)</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">]</span></span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>         imputer implementation stochastic
-          &lt;char&gt;         &lt;char&gt;     &lt;lgcl&gt;
- 1:         mean          mimar      FALSE
- 2:       median          mimar      FALSE
- 3:         mode          mimar      FALSE
- 4:        naive          mimar      FALSE
- 5:         norm          mimar       TRUE
- 6:          pmm          mimar       TRUE
- 7:         spmm          mimar       TRUE
- 8:       logreg          mimar       TRUE
- 9:      polyreg          mimar       TRUE
-10:           rf        wrapped       TRUE
-11:       ranger        wrapped       TRUE
-12:        rpart        wrapped       TRUE
-13:       nbayes        wrapped       TRUE
-14:          svm        wrapped       TRUE
-15:         bart        wrapped       TRUE
-16:       glmnet        wrapped       TRUE
-17:          gbm        wrapped       TRUE
-18:      xgboost        wrapped       TRUE
-19:          knn          mimar       TRUE
-20:      hotdeck          mimar       TRUE
-21:         famd        wrapped       TRUE
-22: superlearner          mimar       TRUE
-23:           sl          mimar       TRUE
-24:     densemlp        wrapped       TRUE
-25:      missknn        wrapped       TRUE
-         imputer implementation stochastic
-          &lt;char&gt;         &lt;char&gt;     &lt;lgcl&gt;</code></pre>
+<pre><code># basetable: 25 x 3
+   imputer implementation stochastic
+1     mean          mimar      FALSE
+2   median          mimar      FALSE
+3     mode          mimar      FALSE
+4    naive          mimar      FALSE
+5     norm          mimar       TRUE
+6      pmm          mimar       TRUE
+7     spmm          mimar       TRUE
+8   logreg          mimar       TRUE
+9  polyreg          mimar       TRUE
+10      rf        wrapped       TRUE
+# 15 more rows</code></pre>
 </div>
 </div>
 </section><section id="evaluation" class="level2"><h2 class="anchored" data-anchor-id="evaluation">Evaluation</h2>
@@ -3669,20 +3657,19 @@ font-style: inherit;">distribution</span>       <span class="co" style="color: #
 background-color: null;
 font-style: inherit;"># observed vs. imputed means, SDs, unique counts</span></span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>       variable    type missing observed_unique imputed_unique observed_mean
-         &lt;char&gt;  &lt;char&gt;   &lt;int&gt;           &lt;int&gt;          &lt;int&gt;         &lt;num&gt;
-1: Sepal.Length numeric      33              33             28      5.837607
-2:  Sepal.Width numeric      39              22             19      3.075676
-3: Petal.Length numeric      34              42             38      3.755172
-4:  Petal.Width numeric      34              21             21      1.252586
-5:      Species  factor      31               3              3            NA
-   imputed_mean observed_sd imputed_sd
-          &lt;num&gt;       &lt;num&gt;      &lt;num&gt;
-1:     5.987273   0.8377645  0.7791618
-2:     3.035385   0.4509014  0.4011957
-3:     3.770000   1.8037808  1.5557433
-4:     1.076471   0.7519784  0.7701759
-5:           NA          NA         NA</code></pre>
+<pre><code># basetable: 5 x 9
+      variable    type missing observed_unique imputed_unique observed_mean
+1 Sepal.Length numeric      33              33             28      5.837607
+2  Sepal.Width numeric      39              22             19      3.075676
+3 Petal.Length numeric      34              42             38      3.755172
+4  Petal.Width numeric      34              21             21      1.252586
+5      Species  factor      31               3              3            NA
+  imputed_mean observed_sd imputed_sd
+1     5.987273   0.8377645  0.7791618
+2     3.035385   0.4509014  0.4011957
+3     3.770000   1.8037808  1.5557433
+4     1.076471   0.7519784  0.7701759
+5           NA          NA         NA</code></pre>
 </div>
 </div>
 </section><section id="completing-and-pooling" class="level2"><h2 class="anchored" data-anchor-id="completing-and-pooling">Completing and pooling</h2>
@@ -3715,14 +3702,14 @@ font-style: inherit;">completed</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">)</span></span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>   Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
-          &lt;num&gt;       &lt;num&gt;        &lt;num&gt;       &lt;num&gt;     &lt;fctr&gt;
-1:          5.1         3.5          1.4         0.2     setosa
-2:          4.9         3.0          1.4         0.2     setosa
-3:          4.7         3.2          1.3         0.2 versicolor
-4:          4.6         3.1          1.5         0.2     setosa
-5:          5.1         3.6          1.4         0.5     setosa
-6:          5.4         3.3          1.7         0.4     setosa</code></pre>
+<pre><code># basetable: 6 x 5
+  Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
+1          5.1         3.5          1.4         0.2     setosa
+2          4.9         3.0          1.4         0.2     setosa
+3          4.7         3.2          1.3         0.2 versicolor
+4          4.6         3.1          1.5         0.2     setosa
+5          5.1         3.6          1.4         0.5     setosa
+6          5.4         3.3          1.7         0.4     setosa</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co" style="color: #5E5E5E;
 background-color: null;
@@ -3884,24 +3871,22 @@ background-color: null;
 font-style: inherit;">)</span></span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>mimar pooled results
-           term   estimate  std.error statistic    df      p.value   conf.low
-         &lt;char&gt;      &lt;num&gt;      &lt;num&gt;     &lt;num&gt; &lt;num&gt;        &lt;num&gt;      &lt;num&gt;
-1:  (Intercept)  2.1204880 0.23942658  8.856527   Inf 8.254583e-19  1.6512205
-2:  Sepal.Width  0.5861945 0.06375298  9.194779   Inf 3.757668e-20  0.4612410
-3: Petal.Length  0.7034397 0.05719104 12.299822   Inf 9.077385e-35  0.5913473
-4:  Petal.Width -0.5639728 0.12879778 -4.378746   Inf 1.193641e-05 -0.8164118
-    conf.high     m within_variance between_variance total_variance
-        &lt;num&gt; &lt;int&gt;           &lt;num&gt;            &lt;num&gt;          &lt;num&gt;
-1:  2.5897555     5     0.057325087                0    0.057325087
-2:  0.7111480     5     0.004064442                0    0.004064442
-3:  0.8155320     5     0.003270815                0    0.003270815
-4: -0.3115338     5     0.016588867                0    0.016588867
-   relative_increase_variance   rule
-                        &lt;num&gt; &lt;char&gt;
-1:                          0  rubin
-2:                          0  rubin
-3:                          0  rubin
-4:                          0  rubin</code></pre>
+# basetable: 4 x 14
+          term   estimate  std.error statistic  df      p.value   conf.low
+1  (Intercept)  2.1204880 0.23942658  8.856527 Inf 8.254583e-19  1.6512205
+2  Sepal.Width  0.5861945 0.06375298  9.194779 Inf 3.757668e-20  0.4612410
+3 Petal.Length  0.7034397 0.05719104 12.299822 Inf 9.077385e-35  0.5913473
+4  Petal.Width -0.5639728 0.12879778 -4.378746 Inf 1.193641e-05 -0.8164118
+   conf.high m within_variance between_variance total_variance
+1  2.5897555 5     0.057325087                0    0.057325087
+2  0.7111480 5     0.004064442                0    0.004064442
+3  0.8155320 5     0.003270815                0    0.003270815
+4 -0.3115338 5     0.016588867                0    0.016588867
+  relative_increase_variance  rule
+1                          0 rubin
+2                          0 rubin
+3                          0 rubin
+4                          0 rubin</code></pre>
 </div>
 </div>
 </section><section id="when-to-use-mimar" class="level2"><h2 class="anchored" data-anchor-id="when-to-use-mimar">When to use mimar</h2>
@@ -3919,7 +3904,7 @@ font-style: inherit;">)</span></span></code></pre></div></div>
 </li>
 </ul>
 <hr>
-<footer><a href="../../blog/index.html">Back to blog</a>
+<footer><a href="../../index.html#blog">Back to blog</a>
 </footer>
 
 </section><a onclick="window.scrollTo(0, 0); return false;" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a> ]]></description>
@@ -4199,12 +4184,12 @@ background-color: null;
 font-style: inherit;">)</span></span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      feature     value     yhat
-1 Petal.Width 0.1000000 5.567361
-2 Petal.Width 0.2142857 5.585780
-3 Petal.Width 0.3285714 5.595121
-4 Petal.Width 0.4428571 5.676712
-5 Petal.Width 0.5571429 5.669333
-6 Petal.Width 0.6714286 5.680577</code></pre>
+1 Petal.Width 0.1000000 5.555846
+2 Petal.Width 0.2142857 5.567275
+3 Petal.Width 0.3285714 5.573585
+4 Petal.Width 0.4428571 5.654030
+5 Petal.Width 0.5571429 5.644077
+6 Petal.Width 0.6714286 5.656769</code></pre>
 </div>
 </div>
 </section><section id="causal-estimation" class="level2"><h2 class="anchored" data-anchor-id="causal-estimation">Causal estimation</h2>
@@ -4432,6 +4417,7 @@ font-style: inherit;">]</span></span></code></pre></div></div>
 7      densemlp     TRUE
 8     e1071_svm     TRUE
 13        earth     TRUE
+26      fastgbm     TRUE
 16          fda     TRUE
 14          gam     TRUE
 10          gbm     TRUE
@@ -4448,8 +4434,8 @@ font-style: inherit;">]</span></span></code></pre></div></div>
 9  randomForest     TRUE
 4        ranger     TRUE
 2         rpart     TRUE
-26     stacking     TRUE
-27 superlearner     TRUE
+27     stacking     TRUE
+28 superlearner     TRUE
 25      xgboost     TRUE</code></pre>
 </div>
 </div>
@@ -4494,7 +4480,7 @@ font-style: inherit;">}</span></span></code></pre></div></div>
 </li>
 </ul>
 <hr>
-<footer><a href="../../blog/index.html">Back to blog</a>
+<footer><a href="../../index.html#blog">Back to blog</a>
 </footer>
 
 </section><a onclick="window.scrollTo(0, 0); return false;" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a> ]]></description>

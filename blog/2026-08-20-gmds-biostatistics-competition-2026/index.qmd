@@ -81,5 +81,5 @@ That's probably the real value of entering a competition like this: not the rank
 <hr>
 
 <footer>
-<a href="../index.qmd">Back to blog</a>
+<a href="../../index.qmd#blog">Back to blog</a>
 </footer>

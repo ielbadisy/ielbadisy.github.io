@@ -301,28 +301,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
 <li class="nav-item">
-    <a class="nav-link" href="../../background.html"> 
+    <a class="nav-link" href="../../index.html#background"> 
 <span class="menu-text">Background</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../teaching.html"> 
+    <a class="nav-link" href="../../index.html#teaching"> 
 <span class="menu-text">Teaching</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../packages.html"> 
+    <a class="nav-link" href="../../index.html#software"> 
 <span class="menu-text">Software</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../publications.html"> 
+    <a class="nav-link" href="../../index.html#publications"> 
 <span class="menu-text">Publications</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../notes/index.html"> 
+    <a class="nav-link" href="../../index.html#notes"> 
 <span class="menu-text">Notes</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../blog/index.html"> 
+    <a class="nav-link" href="../../index.html#blog"> 
 <span class="menu-text">Blog</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html#contact"> 
+<span class="menu-text">Contact</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../cv/cv.pdf" target="_blank"> 
@@ -382,68 +386,70 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <code>fit_*()</code> functions return a standardized <code>mlsurv_model</code> object</li>
 <li>
 <code>predict_*()</code> functions return a <code>data.frame</code> of survival probabilities, one row per subject, one column per requested time (<code>t=100</code>, <code>t=200</code>, …)</li>
-<li>Evaluation is fully modular: any <code>fit_*</code>/<code>predict_*</code> pair plugs into <code>cv_survlearner()</code> or <code>score_survmodel()</code>
+<li>Evaluation is fully modular: any <code>fit_*</code>/<code>predict_*</code> pair plugs into <code><a href="https://rdrr.io/pkg/survalis/man/cv_survlearner.html">cv_survlearner()</a></code> or <code><a href="https://rdrr.io/pkg/survalis/man/score_survmodel.html">score_survmodel()</a></code>
 </li>
 <li>Everything downstream (benchmarking, calibration, interpretation) is designed to work on that same survival-probability matrix, regardless of which learner produced it</li>
 </ul></section><section id="why-explicit-fit_coxph-fit_rsf-instead-of-one-fitlearner-..." class="level2"><h2 class="anchored" data-anchor-id="why-explicit-fit_coxph-fit_rsf-instead-of-one-fitlearner-...">Why explicit <code>fit_coxph()</code> / <code>fit_rsf()</code> instead of one <code>fit(learner = ...)</code>
 </h2>
-<p>This is a deliberate departure from <code>funcml</code>, my general-purpose ML package, where <code>fit(y ~ ., data, learner = "ranger")</code> collapses every learner behind one verb and a string argument. survalis keeps a named function per learner, <code>fit_coxph()</code>, <code>fit_rsf()</code>, <code>fit_survdnn()</code>, and so on, instead of a single dispatcher.</p>
+<p>This is a deliberate departure from <code>funcml</code>, my general-purpose ML package, where <code>fit(y ~ ., data, learner = "ranger")</code> collapses every learner behind one verb and a string argument. survalis keeps a named function per learner, <code><a href="https://rdrr.io/pkg/survalis/man/fit_coxph.html">fit_coxph()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/fit_rsf.html">fit_rsf()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/fit_survdnn.html">fit_survdnn()</a></code>, and so on, instead of a single dispatcher.</p>
 <p>The reason is that the survival setting is not just “regression with a different loss.” Every learner here already has to negotiate right-censoring, risk sets, and time-varying prediction targets on its own terms, and each one leans on a different underlying package (<code>survival</code>, <code>randomForestSRC</code>, <code>xgboost</code>, <code>torch</code>, <code>flexsurv</code>, …) with its own quirks around ties, time horizons, and baseline hazard estimation. Hiding <code>fit_coxph</code> and <code>fit_rsf</code> behind a shared <code>fit(learner = "rsf")</code> string would trade a small amount of typing for a layer of indirection between the call site and the model-specific machinery it actually invokes, machinery that, in survival analysis, is rarely interchangeable enough to be worth hiding. Keeping the learner name in the function name is a compactness choice: the API surface is larger (nineteen <code>fit_*()</code>/<code>predict_*()</code> pairs instead of one), but each call is self-describing and there is one fewer level of abstraction between what you write and what runs.</p>
-<p>What survalis does unify is everything <em>after</em> fitting: <code>predict_*()</code> always returns the same survival-probability matrix shape, so <code>cindex_survmat()</code>, <code><a href="https://rdrr.io/pkg/survival/man/brier.html">brier()</a></code>, <code>cv_survlearner()</code>, and <code>benchmark()</code> never need to know which <code>fit_*()</code> produced it. The genericity lives at the evaluation/interpretation layer, not at the fitting layer.</p>
-<p>That output shape was a deliberate constraint, not an incidental one. A Cox model naturally hands back a linear predictor or a hazard ratio; a random survival forest hands back an ensemble of terminal-node curves; a deep survival network hands back whatever its loss was trained on (a Cox partial likelihood, an AFT loss, a discrete-time hazard). <code>fit_survdnn()</code> itself can predict a linear predictor if asked, since its loss functions include a Cox-style formulation. survalis standardizes on the survival-probability matrix anyway, over times <code>t=100</code>, <code>t=200</code>, and so on, because a matrix is, by construction, a richer object than a scalar: a linear predictor collapses a subject’s entire risk trajectory into one number and one implicit ranking, while a survival curve preserves how that risk actually unfolds over the follow-up window, which is what a fixed-horizon metric, a time-varying AUC, or a calibration curve each need to read back out at a different point. Forcing every <code>predict_*()</code> to that one shape throws away learner-specific detail on the way out (a Cox model’s clean linear score, a forest’s raw ensemble votes), but it is exactly what makes <code>cindex_survmat()</code>, <code><a href="https://rdrr.io/pkg/survival/man/brier.html">brier()</a></code>, <code>timeroc_survmat()</code>, and every interpretation function in the package learner-agnostic, without asking any of them to reconstruct a survival curve from a scalar first. The alternative, keeping each learner’s native output format and writing metric functions that branch on model class, is the design survalis specifically avoids.</p>
+<p>What survalis does unify is everything <em>after</em> fitting: <code>predict_*()</code> always returns the same survival-probability matrix shape, so <code><a href="https://rdrr.io/pkg/survalis/man/cindex_survmat.html">cindex_survmat()</a></code>, <code><a href="https://rdrr.io/pkg/survival/man/brier.html">brier()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/cv_survlearner.html">cv_survlearner()</a></code>, and <code><a href="https://rdrr.io/pkg/survalis/man/benchmark.html">benchmark()</a></code> never need to know which <code>fit_*()</code> produced it. The genericity lives at the evaluation/interpretation layer, not at the fitting layer.</p>
+<p>That output shape was a deliberate constraint, not an incidental one. A Cox model naturally hands back a linear predictor or a hazard ratio; a random survival forest hands back an ensemble of terminal-node curves; a deep survival network hands back whatever its loss was trained on (a Cox partial likelihood, an AFT loss, a discrete-time hazard). <code><a href="https://rdrr.io/pkg/survalis/man/fit_survdnn.html">fit_survdnn()</a></code> itself can predict a linear predictor if asked, since its loss functions include a Cox-style formulation. survalis standardizes on the survival-probability matrix anyway, over times <code>t=100</code>, <code>t=200</code>, and so on, because a matrix is, by construction, a richer object than a scalar: a linear predictor collapses a subject’s entire risk trajectory into one number and one implicit ranking, while a survival curve preserves how that risk actually unfolds over the follow-up window, which is what a fixed-horizon metric, a time-varying AUC, or a calibration curve each need to read back out at a different point. Forcing every <code>predict_*()</code> to that one shape throws away learner-specific detail on the way out (a Cox model’s clean linear score, a forest’s raw ensemble votes), but it is exactly what makes <code><a href="https://rdrr.io/pkg/survalis/man/cindex_survmat.html">cindex_survmat()</a></code>, <code><a href="https://rdrr.io/pkg/survival/man/brier.html">brier()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/timeroc_survmat.html">timeroc_survmat()</a></code>, and every interpretation function in the package learner-agnostic, without asking any of them to reconstruct a survival curve from a scalar first. The alternative, keeping each learner’s native output format and writing metric functions that branch on model class, is the design survalis specifically avoids.</p>
 </section><section id="nineteen-learners-one-interface" class="level2"><h2 class="anchored" data-anchor-id="nineteen-learners-one-interface">Nineteen learners, one interface</h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://CRAN.R-project.org/package=survalis">survalis</a></span><span class="op">)</span></span>
-<span><span class="fu">list_survlearners</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="fu"><a href="https://rdrr.io/pkg/survalis/man/list_survlearners.html">list_survlearners</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>            learner                 fit                 predict
-             &lt;char&gt;              &lt;char&gt;                  &lt;char&gt;
- 1:           coxph           fit_coxph           predict_coxph
- 2:           aalen           fit_aalen           predict_aalen
- 3:          glmnet          fit_glmnet          predict_glmnet
- 4:       selectcox       fit_selectcox       predict_selectcox
- 5:          aftgee          fit_aftgee          predict_aftgee
- 6:     flexsurvreg     fit_flexsurvreg     predict_flexsurvreg
- 7:           stpm2           fit_stpm2           predict_stpm2
- 8:         bnnsurv         fit_bnnsurv         predict_bnnsurv
- 9:           rpart           fit_rpart           predict_rpart
-10:            bart            fit_bart            predict_bart
-11:         xgboost         fit_xgboost         predict_xgboost
-12:        coxboost        fit_coxboost        predict_coxboost
-13:          ranger          fit_ranger          predict_ranger
-14:             rsf             fit_rsf             predict_rsf
-15:         cforest         fit_cforest         predict_cforest
-16:      blackboost      fit_blackboost      predict_blackboost
-17:         survsvm         fit_survsvm         predict_survsvm
-18:         survdnn         fit_survdnn         predict_survdnn
-19:            orsf            fit_orsf            predict_orsf
-20: survmetalearner fit_survmetalearner predict_survmetalearner
-            learner                 fit                 predict
-             &lt;char&gt;              &lt;char&gt;                  &lt;char&gt;
-                tune has_fit has_predict has_tune available
-              &lt;char&gt;  &lt;lgcl&gt;      &lt;lgcl&gt;   &lt;lgcl&gt;    &lt;lgcl&gt;
- 1:             &lt;NA&gt;    TRUE        TRUE    FALSE      TRUE
- 2:             &lt;NA&gt;    TRUE        TRUE    FALSE      TRUE
- 3:      tune_glmnet    TRUE        TRUE     TRUE      TRUE
- 4:   tune_selectcox    TRUE        TRUE     TRUE      TRUE
- 5:             &lt;NA&gt;    TRUE        TRUE    FALSE      TRUE
- 6: tune_flexsurvreg    TRUE        TRUE     TRUE      TRUE
- 7:             &lt;NA&gt;    TRUE        TRUE    FALSE      TRUE
- 8:     tune_bnnsurv    TRUE        TRUE     TRUE      TRUE
- 9:       tune_rpart    TRUE        TRUE     TRUE      TRUE
-10:        tune_bart    TRUE        TRUE     TRUE      TRUE
-11:     tune_xgboost    TRUE        TRUE     TRUE      TRUE
-12:    tune_coxboost    TRUE        TRUE     TRUE      TRUE
-13:      tune_ranger    TRUE        TRUE     TRUE      TRUE
-14:         tune_rsf    TRUE        TRUE     TRUE      TRUE
-15:     tune_cforest    TRUE        TRUE     TRUE      TRUE
-16:  tune_blackboost    TRUE        TRUE     TRUE      TRUE
-17:     tune_survsvm    TRUE        TRUE     TRUE      TRUE
-18:     tune_survdnn    TRUE        TRUE     TRUE      TRUE
-19:        tune_orsf    TRUE        TRUE     TRUE      TRUE
-20:             &lt;NA&gt;    TRUE        TRUE    FALSE      TRUE
-                tune has_fit has_predict has_tune available
-              &lt;char&gt;  &lt;lgcl&gt;      &lt;lgcl&gt;   &lt;lgcl&gt;    &lt;lgcl&gt;</code></pre>
+<pre><code>           learner                 fit                 predict             tune
+1            coxph           fit_coxph           predict_coxph             &lt;NA&gt;
+2            aalen           fit_aalen           predict_aalen             &lt;NA&gt;
+3           glmnet          fit_glmnet          predict_glmnet      tune_glmnet
+4        selectcox       fit_selectcox       predict_selectcox   tune_selectcox
+5           aftgee          fit_aftgee          predict_aftgee             &lt;NA&gt;
+6      flexsurvreg     fit_flexsurvreg     predict_flexsurvreg tune_flexsurvreg
+7            stpm2           fit_stpm2           predict_stpm2             &lt;NA&gt;
+8          bnnsurv         fit_bnnsurv         predict_bnnsurv     tune_bnnsurv
+9            rpart           fit_rpart           predict_rpart       tune_rpart
+10            bart            fit_bart            predict_bart        tune_bart
+11         xgboost         fit_xgboost         predict_xgboost     tune_xgboost
+12        coxboost        fit_coxboost        predict_coxboost    tune_coxboost
+13         fastgbm         fit_fastgbm         predict_fastgbm             &lt;NA&gt;
+14          ranger          fit_ranger          predict_ranger      tune_ranger
+15             rsf             fit_rsf             predict_rsf         tune_rsf
+16         cforest         fit_cforest         predict_cforest     tune_cforest
+17      blackboost      fit_blackboost      predict_blackboost  tune_blackboost
+18         survsvm         fit_survsvm         predict_survsvm     tune_survsvm
+19         survdnn         fit_survdnn         predict_survdnn     tune_survdnn
+20        densemlp        fit_densemlp        predict_densemlp             &lt;NA&gt;
+21            orsf            fit_orsf            predict_orsf        tune_orsf
+22          rpsurv          fit_rpsurv          predict_rpsurv             &lt;NA&gt;
+23          nbsurv          fit_nbsurv          predict_nbsurv             &lt;NA&gt;
+24 survmetalearner fit_survmetalearner predict_survmetalearner             &lt;NA&gt;
+   has_fit has_predict has_tune available
+1     TRUE        TRUE    FALSE      TRUE
+2     TRUE        TRUE    FALSE      TRUE
+3     TRUE        TRUE     TRUE      TRUE
+4     TRUE        TRUE     TRUE      TRUE
+5     TRUE        TRUE    FALSE      TRUE
+6     TRUE        TRUE     TRUE      TRUE
+7     TRUE        TRUE    FALSE      TRUE
+8     TRUE        TRUE     TRUE      TRUE
+9     TRUE        TRUE     TRUE      TRUE
+10    TRUE        TRUE     TRUE      TRUE
+11    TRUE        TRUE     TRUE      TRUE
+12    TRUE        TRUE     TRUE      TRUE
+13    TRUE        TRUE    FALSE      TRUE
+14    TRUE        TRUE     TRUE      TRUE
+15    TRUE        TRUE     TRUE      TRUE
+16    TRUE        TRUE     TRUE      TRUE
+17    TRUE        TRUE     TRUE      TRUE
+18    TRUE        TRUE     TRUE      TRUE
+19    TRUE        TRUE     TRUE      TRUE
+20    TRUE        TRUE    FALSE      TRUE
+21    TRUE        TRUE     TRUE      TRUE
+22    TRUE        TRUE    FALSE      TRUE
+23    TRUE        TRUE    FALSE      TRUE
+24    TRUE        TRUE    FALSE      TRUE</code></pre>
 </div>
 </div>
 <p>That list spans semiparametric (<code>coxph</code>, <code>aalen</code>), parametric (<code>flexsurvreg</code>, <code>stpm2</code>, <code>aftgee</code>), tree-based and ensemble (<code>rpart</code>, <code>rsf</code>, <code>cforest</code>, <code>orsf</code>), boosting (<code>xgboost</code>, <code>blackboost</code>), kernel (<code>survsvm</code>), and deep-learning (<code>survdnn</code>, <code>bnnsurv</code>) learners, plus <code>survmetalearner</code> for combining several of them. Most also ship a matching <code>tune_*()</code> function for grid or random hyperparameter search.</p>
@@ -453,8 +459,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span></span>
 <span><span class="va">times</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">90</span>, <span class="fl">180</span>, <span class="fl">270</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu">fit_coxph</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html">Surv</a></span><span class="op">(</span><span class="va">time</span>, <span class="va">status</span><span class="op">)</span> <span class="op">~</span> <span class="va">age</span> <span class="op">+</span> <span class="va">karno</span> <span class="op">+</span> <span class="va">celltype</span>, data <span class="op">=</span> <span class="va">veteran</span><span class="op">)</span></span>
-<span><span class="va">sp</span> <span class="op">&lt;-</span> <span class="fu">predict_coxph</span><span class="op">(</span><span class="va">mod</span>, newdata <span class="op">=</span> <span class="va">veteran</span>, times <span class="op">=</span> <span class="va">times</span><span class="op">)</span></span>
+<span><span class="va">mod</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/survalis/man/fit_coxph.html">fit_coxph</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html">Surv</a></span><span class="op">(</span><span class="va">time</span>, <span class="va">status</span><span class="op">)</span> <span class="op">~</span> <span class="va">age</span> <span class="op">+</span> <span class="va">karno</span> <span class="op">+</span> <span class="va">celltype</span>, data <span class="op">=</span> <span class="va">veteran</span><span class="op">)</span></span>
+<span><span class="va">sp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/survalis/man/predict_coxph.html">predict_coxph</a></span><span class="op">(</span><span class="va">mod</span>, newdata <span class="op">=</span> <span class="va">veteran</span>, times <span class="op">=</span> <span class="va">times</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">sp</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -469,9 +475,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">times_fine</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">300</span>, by <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
-<span><span class="va">sp_fine</span> <span class="op">&lt;-</span> <span class="fu">predict_coxph</span><span class="op">(</span><span class="va">mod</span>, newdata <span class="op">=</span> <span class="va">veteran</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">8</span>, <span class="op">]</span>, times <span class="op">=</span> <span class="va">times_fine</span><span class="op">)</span></span>
+<span><span class="va">sp_fine</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/survalis/man/predict_coxph.html">predict_coxph</a></span><span class="op">(</span><span class="va">mod</span>, newdata <span class="op">=</span> <span class="va">veteran</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">8</span>, <span class="op">]</span>, times <span class="op">=</span> <span class="va">times_fine</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu">plot_survmat</span><span class="op">(</span><span class="va">sp_fine</span><span class="op">)</span></span>
+<span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/survalis/man/plot_survmat.html">plot_survmat</a></span><span class="op">(</span><span class="va">sp_fine</span><span class="op">)</span></span>
 <span><span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave</a></span><span class="op">(</span><span class="st">"featured.png"</span>, <span class="va">p</span>, width <span class="op">=</span> <span class="fl">7</span>, height <span class="op">=</span> <span class="fl">4.5</span>, dpi <span class="op">=</span> <span class="fl">150</span><span class="op">)</span></span>
 <span><span class="va">p</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
@@ -486,17 +492,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/survival/man/Surv.html">Surv</a></span><span class="op">(</span><span class="va">veteran</span><span class="op">$</span><span class="va">time</span>, <span class="va">veteran</span><span class="op">$</span><span class="va">status</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
-<span>  cindex <span class="op">=</span> <span class="fu">cindex_survmat</span><span class="op">(</span><span class="va">y</span>, <span class="va">sp</span>, t_star <span class="op">=</span> <span class="fl">180</span><span class="op">)</span>,</span>
-<span>  brier  <span class="op">=</span> <span class="fu">survalis</span><span class="fu">::</span><span class="fu">brier</span><span class="op">(</span><span class="va">y</span>, <span class="va">sp</span><span class="op">[[</span><span class="st">"t=180"</span><span class="op">]</span><span class="op">]</span>, t_star <span class="op">=</span> <span class="fl">180</span><span class="op">)</span></span>
+<span>  cindex <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/survalis/man/cindex_survmat.html">cindex_survmat</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">sp</span>, t_star <span class="op">=</span> <span class="fl">180</span><span class="op">)</span>,</span>
+<span>  brier  <span class="op">=</span> <span class="fu">survalis</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/survalis/man/brier.html">brier</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">sp</span><span class="op">[[</span><span class="st">"t=180"</span><span class="op">]</span><span class="op">]</span>, t_star <span class="op">=</span> <span class="fl">180</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>cindex.C index    brier.brier 
       0.733744       0.134603 </code></pre>
 </div>
 </div>
-<p>Swap <code>fit_coxph</code>/<code>predict_coxph</code> for any other pair in <code>list_survlearners()</code> and every downstream call, <code>cindex_survmat()</code>, <code><a href="https://rdrr.io/pkg/survival/man/brier.html">brier()</a></code>, <code>cv_survlearner()</code>, <code>benchmark()</code>, stays exactly the same.</p>
+<p>Swap <code>fit_coxph</code>/<code>predict_coxph</code> for any other pair in <code><a href="https://rdrr.io/pkg/survalis/man/list_survlearners.html">list_survlearners()</a></code> and every downstream call, <code><a href="https://rdrr.io/pkg/survalis/man/cindex_survmat.html">cindex_survmat()</a></code>, <code><a href="https://rdrr.io/pkg/survival/man/brier.html">brier()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/cv_survlearner.html">cv_survlearner()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/benchmark.html">benchmark()</a></code>, stays exactly the same.</p>
 </section><section id="beyond-prediction-interpretation" class="level2"><h2 class="anchored" data-anchor-id="beyond-prediction-interpretation">Beyond prediction: interpretation</h2>
-<p>Because every learner returns the same survival-probability shape, survalis’s interpretability layer works uniformly across all of them: permutation variable importance (<code>compute_varimp()</code>), accumulated local effects and partial dependence (<code>compute_ale()</code>, <code>compute_pdp()</code>), SHAP-based attribution (<code>compute_shap()</code>), pairwise interaction strength (<code>compute_interactions()</code>), counterfactual recommendations (<code>compute_counterfactual()</code>), and surrogate-tree explanations (<code>compute_surrogate()</code>, <code>compute_tree_surrogate()</code>), each with a matching <code>plot_*()</code> function.</p>
+<p>Because every learner returns the same survival-probability shape, survalis’s interpretability layer works uniformly across all of them: permutation variable importance (<code><a href="https://rdrr.io/pkg/survalis/man/compute_varimp.html">compute_varimp()</a></code>), accumulated local effects and partial dependence (<code><a href="https://rdrr.io/pkg/survalis/man/compute_ale.html">compute_ale()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/compute_pdp.html">compute_pdp()</a></code>), SHAP-based attribution (<code><a href="https://rdrr.io/pkg/survalis/man/compute_shap.html">compute_shap()</a></code>), pairwise interaction strength (<code><a href="https://rdrr.io/pkg/survalis/man/compute_interactions.html">compute_interactions()</a></code>), counterfactual recommendations (<code><a href="https://rdrr.io/pkg/survalis/man/compute_counterfactual.html">compute_counterfactual()</a></code>), and surrogate-tree explanations (<code><a href="https://rdrr.io/pkg/survalis/man/compute_surrogate.html">compute_surrogate()</a></code>, <code><a href="https://rdrr.io/pkg/survalis/man/compute_tree_surrogate.html">compute_tree_surrogate()</a></code>), each with a matching <code>plot_*()</code> function.</p>
 </section><section id="install" class="level2"><h2 class="anchored" data-anchor-id="install">Install</h2>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"survalis"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section><section id="links" class="level2"><h2 class="anchored" data-anchor-id="links">Links</h2>
@@ -506,7 +512,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
 </ul>
 <hr>
-<footer><a href="../../blog/index.html">Back to blog</a>
+<footer><a href="../../index.html#blog">Back to blog</a>
 </footer>
 
 </section><a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">

@@ -74,5 +74,5 @@ Wanting to build something that lasts, with few parts and visible joints, has al
 <hr>
 
 <footer>
-<a href="../index.qmd">Back to blog</a>
+<a href="../../index.qmd#blog">Back to blog</a>
 </footer>

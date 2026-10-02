@@ -112,5 +112,5 @@ pool(betas, variance = vars)
 <hr>
 
 <footer>
-<a href="../index.qmd">Back to blog</a>
+<a href="../../index.qmd#blog">Back to blog</a>
 </footer>
