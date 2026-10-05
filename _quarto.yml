@@ -18,6 +18,7 @@ project:
     - blog/2026-08-24-causality-and-abstraction/index.qmd
     - blog/2026-08-27-api-design-in-the-era-of-llms/index.qmd
     - blog/2026-09-05-basetable-tutorial/index.qmd
+    - blog/2026-10-05-iscb-gmds-2026/index.qmd
   resources:
     - cv/cv.pdf
     - notes/img/**

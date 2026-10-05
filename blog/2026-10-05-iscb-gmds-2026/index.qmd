@@ -1,0 +1,102 @@
+---
+title: "Hazards, p-values and hybrid models: notes from ISCB GMDS 2026"
+subtitle: "What I learned in Freiburg, and why I came back thinking about health data infrastructure in Morocco"
+author: "Imad El Badisy"
+date: "2026-10-05"
+categories: [conferences, biostatistics, survival-analysis, machine-learning, causal-inference]
+citation: false
+---
+
+## From Casablanca to Freiburg
+
+I flew from Casablanca to Frankfurt, walked from the terminal to the airport's long-distance train station, and took the ICE south to Freiburg im Breisgau: about two hours along the Rhine valley, with the Black Forest rising on the left. Strangely, after spending almost a third of my life in France, this was my first time in Germany. I had heard about German train delays and did not quite believe it. Both my trains changed times, and the return was the more stressful one.
+
+The conference theme was **"BIG DATA, small data, Your Data: Transitions in the age of biomedical AI"**. Over four days, one idea kept coming back to me, and it had less to do with methods than with where data comes from. I start there.
+
+## Health data as national infrastructure
+
+Cathie Sudlow's opening keynote, *Future of Population Health Research: a UK Health Data Perspective*, described how the UK linked national health datasets and built secure data environments covering the whole population of England. Her underlying message: health data is any data relevant to our health, and it should be treated as **shared national infrastructure** with common sharing principles, not as a pile of separate project datasets.
+
+I kept translating this to Morocco. Our data is fragmented across hospitals, national programmes and research teams, with no common layer connecting them. A Moroccan initiative in the spirit of Health Data Research UK, would be a major opportunity: researchers contributing data under shared principles, a common access framework, and eventually an agent layer that lets people query that data in natural language. None of this works without well-curated data, which is a practical problem I want to help solve.
+
+The rest of this post covers the talks that stayed with me.
+
+## Are hazard ratios really hazardous?
+
+Hernán's 2010 commentary *The hazards of hazard ratios* argued that Cox hazard ratios carry a built-in selection bias: a hazard ratio that declines over follow-up may only reflect latent frailty, not a waning treatment effect. Many people have been uneasy about Cox regression since.
+
+In the STRATOS symposium, Michal Abrahamowicz (*How important are the Hazards of Hazard Ratios?*) revisited the argument with extensive simulations. The selection bias turns out to be modest unless unmeasured frailty has a very strong effect. In simulations mimicking the trial Hernán discussed, an unmeasured risk factor alone could practically not reproduce the observed decline in the hazard ratio. Declining adherence and biological changes under prolonged treatment are more plausible explanations. Their conclusion: the concern is largely overstated.
+
+This matters for anyone working on time-varying effects, as I do. A time-varying hazard ratio is often a real signal worth modelling, not an artefact to explain away. It also made me want to look again at alternatives to the classical proportional hazards test, and at reporting several models rather than one.
+
+## What are p-values good for?
+
+In the same session, James Carpenter (*P-values and hypothesis testing: beyond polemics to practical solutions*) moved past the debate that has run since the 2019 *Nature* call to retire statistical significance. **P-values are often used to justify a result rather than answer a question**, and on their own they are not reproducible. As an attendee pointed out, neither are confidence intervals. The useful part was organising good practice around the goal of the analysis (description, prediction or causal explanation), supported by registration, initial data analysis and transparent reporting.
+
+The point I liked most: in model building, a p-value can be a legitimate **tuning parameter**, for example as a selection threshold. Used that way it is a knob in an algorithm, not a claim about truth, and I think that distinction deserves more attention.
+
+## How much nonlinearity should a model be allowed?
+
+My favourite methods talk was Tom Splittgerber's *LiD-GLM: Lipschitz-constrained Deep Generalized Linear Models* (with Marvin N. Wright, Niklas Koenen and Werner Brannath). The model passes covariates through an invertible residual neural network before a GLM, and hard-constrains the network's **Lipschitz constant**. That constant becomes an explicit dial between "this is just the GLM" and "this is a free neural network". The model is initialised from a fitted GLM, so if nonlinearity adds nothing, you simply get the GLM back. In the summary slide's words, the Lipschitz constant quantifies the compromise between expressiveness and interpretability, and tells you whether your problem needs complex ML at all.
+
+In the same spirit, Ester Rosa's poster on *Interpretable Kolmogorov-Arnold Networks via Penalized Splines for Clinical Prediction Modeling* showed KANs entering clinical prediction. KANs with spline edges sit naturally between additive models and neural networks, which is the space I am working in now for survival.
+
+## Can explanations inherit bias?
+
+A thread that ran through several sessions: **SHAP values explain the model, not the data-generating process**, so they can carry over confounding. When predictors are correlated or causally ordered, standard Shapley attributions can mislead. Asymmetric Shapley values, which respect a causal ordering (for example genetics before clinical variables), are one principled answer.
+
+It left me thinking about variable importance for meaningful *groups* of variables (genomic, clinical, epidemiological) rather than single features.
+
+## Do our metrics behave badly?
+
+Three talks fit together well. In the fairness session, Gary Collins (*A Fractured Landscape: Evaluating Fairness in Clinical Prediction Models*) pointed out that the c-statistic and calibration slope are non-collapsible, so an apparent subgroup "unfairness" can simply reflect case mix. Junfeng Wang showed that population-level net benefit can favour adopting a model even when overall utility does not improve. At STRATOS, Ben Van Calster scored 32 performance measures on properness and focus: only 17 pass both, and F1 fails both. His minimal reporting set is AUROC, a calibration plot, net benefit with a decision curve, and the distribution of predicted risks.
+
+My takeaway: we spend a lot of effort building models and much less checking whether our metrics measure what we think. Fairness at the level of the individual, not only of groups, seems underexplored.
+
+## Causal inference for survival outcomes
+
+Causal survival analysis still has real gaps. Two talks (at least was I was able to attend) approached them from very different angles: Yuan Liu's two-step approach for survival outcomes under time-varying latent confounding, and Xinyuan Song's conditional GANs for individualized causal mediation with survival outcomes. Both made me think about estimands. Hazard contrasts are hard to read causally, whereas restricted mean survival time is collapsible and easy to explain to clinicians. I would like to explore more causal survival work built on that kind of estimand, combined with flexible machine learning.
+
+## Other things I noted
+
+- **Sample size for ML.** The *pmsims* R package (Olaniran, Carr and colleagues) estimates sample size by simulation with an *assurance* criterion: hitting target performance with high probability, not only on average. A natural framework to extend to survival models.
+- **Conformal prediction is not calibration.** Giulia Zamagni showed that models with very different calibration can give similar conformal coverage and interval widths. Report both.
+- **Calibration with censoring.** David van Klaveren's LOESS for censored data gives calibration curves that hold up when censoring depends on predicted risk.
+- **Missing data in bioequivalence.** Jakob Winkler simulated how missing PK sampling times affect AUC, Cmax and bioequivalence conclusions in 2x2 crossover trials: a small, concrete and important problem.
+- **Spline choices.** My recurring question in spline talks: were the degrees of freedom and knot placement tuned? They shape the curve as much as the method does.
+- **Statistical analysis plans.** Marianne Huebner's SAPI checklist made me wonder why ML projects almost never have a statistical analysis plan?
+
+## Two impressions
+
+Some of my best discussions happened at posters, and several deserved an oral slot, perhaps more than a few talks that felt less prepared. One example: Kerstin Rubarth and colleagues (FeMaR project) are replacing Germany's 1986 rule-based pregnancy risk system with models trained on more than 110,000 pregnancies, with prospective validation under way. Very relevant to maternal health work in Morocco and great collaboration opportunity. 
+
+Talks on agentic AI, and agentic data science in particular, felt classic, even dated. The field moves faster than a submission cycle, and presenters likely stuck to abstracts written months earlier. Having built agentic data science tools myself, I expected the questions that matter now: how to evaluate an agent's analysis against a known truth, how to keep every step reproducible and auditable, and how to control false positives when an agent iterates over analyses until something looks good. That last one is a classic multiplicity problem, and statisticians are well placed to solve it.
+
+## Coming home
+
+I came for survival methods and machine learning, and I got plenty of both. What I kept thinking about on the train back to Frankfurt, though, was Sudlow's keynote: good methods need data that exists, is connected, and can be trusted. Building that in Morocco is the part I most want to work on next.
+
+Thanks to the organisers for this great management, in particular conference presidents Nadine Binder and Harald Binder, and to the ISCB and GMDS teams for an excellent week in Freiburg.
+
+---
+
+## Talks mentioned
+
+| Talk | Speaker (authors) | When and where |
+|---|---|---|
+| Future of Population Health Research: a UK Health Data Perspective (keynote) | Cathie Sudlow | Mon 28.09, 09:45-10:30, Rolf Böhme Saal |
+| Simulating the effect of imputing missing pharmacokinetic sampling time points on bioequivalence assessment in typical early phase clinical trials | Jakob Winkler (with Markus Waser) | Mon 28.09, 12:00-12:15, Room N1 |
+| A Flexible, Simulation-Based Approach to Sample Size Estimation for Prediction Modelling and Machine Learning: The pmsims R Package | Oyebayo Ridwan Olaniran, Ewan Carr (with Diana Shamsutdinova, Sarah Markham, Daniel Stahl, Gordon Forbes) | Mon 28.09, 13:45-14:00, Runder Saal |
+| Locally Estimated Scatterplot Smoothing for Censored Survival Data | David van Klaveren (with Peter C. Austin, Patrick W. Serruys, Ben Van Calster, Frank E. Harrell Jr.) | Mon 28.09, 16:30-16:45, Runder Saal |
+| Conformal prediction under miscalibration: what coverage and interval width do not capture | Giulia Zamagni (with Giulia Barbati) | Tue 29.09, 11:45-12:00, Runder Saal |
+| CGAN for individualized causal mediation analysis with survival outcome | Xinyuan Song (with Cheng Huan, Hongwei Yuan) | Tue 29.09, 12:00-12:30, Rolf Böhme Saal |
+| Interpretable Kolmogorov-Arnold Networks via Penalized Splines for Clinical Prediction Modeling (poster 29-P2-04) | Ester Rosa (with Stefania Lando, Gloria Brigiari, Dario Gregori) | Tue 29.09, poster session P2 |
+| A two-step causal inference approach for survival outcomes under time-varying latent confounding | Yuan Liu (with Marta Fiocco, Johannes H.M. Merks, Marta Spreafico) | Wed 30.09, 10:00-10:15, Room N1 |
+| LiD-GLM: Lipschitz-constrained Deep Generalized Linear Models | Tom Splittgerber (with Marvin N. Wright, Niklas Koenen, Werner Brannath) | Wed 30.09, 11:00-11:15, Room K2 |
+| A Fractured Landscape: Evaluating Fairness in Clinical Prediction Models | Gary Collins | Wed 30.09, 14:00-14:30, Rolf Böhme Saal |
+| When Net Benefit Misleads the Decision: A Cautionary Note on Population-Level Decision Curve Analysis in the Presence of Subgroups | Junfeng Wang (with Kim Zhipei Wang, Ben Van Calster, Nan van Geloven, Ewout Steyerberg, Laure Wynants) | Wed 30.09, 14:30-15:00, Rolf Böhme Saal |
+| Beyond Rule-Based Risk Assessment: Data-Driven Prediction of Pregnancy and Birth Complications in the FeMaR Project (poster 30-P2-05) | Kerstin Rubarth and colleagues | Wed 30.09, poster session P2 |
+| P-values and hypothesis testing: beyond polemics to practical solutions | James Carpenter | Thu 01.10, 09:10-09:35, Runder Saal (STRATOS) |
+| How important are the Hazards of Hazard Ratios? | Michal Abrahamowicz (with Marie-Eve Beauchamp, Emily Roberts, Jeremy Taylor) | Thu 01.10, 09:35-10:00, Runder Saal (STRATOS) |
+| Statistical analysis plan with initial data analysis (SAPI): Validating the SAPI checklist in analysis projects | Marianne Huebner | Thu 01.10, 11:00-11:25, Runder Saal (STRATOS) |
+| Performance evaluation of predictive AI models to support medical decisions: overview and guidance | Ben Van Calster (with Ewout Steyerberg) | Thu 01.10, 14:27-14:44, STRATOS |
