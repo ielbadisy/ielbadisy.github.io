@@ -35,6 +35,10 @@
 <h2 class="anchored" data-anchor-id="health-data-as-national-infrastructure">Health data as national infrastructure</h2>
 <p>Cathie Sudlow’s opening keynote, <em>Future of Population Health Research: a UK Health Data Perspective</em>, described how the UK linked national health datasets and built secure data environments covering the whole population of England. Her underlying message: health data is any data relevant to our health, and it should be treated as <strong>shared national infrastructure</strong> with common sharing principles, not as a pile of separate project datasets.</p>
 <p>I kept translating this to Morocco. Our data is fragmented across hospitals, national programmes and research teams, with no common layer connecting them. A Moroccan initiative in the spirit of Health Data Research UK, would be a major opportunity: researchers contributing data under shared principles, a common access framework, and eventually an agent layer that lets people query that data in natural language. None of this works without well-curated data, which is a practical problem I want to help solve.</p>
+</section>
+<section id="my-poster-interpretability-as-an-estimand" class="level2">
+<h2 class="anchored" data-anchor-id="my-poster-interpretability-as-an-estimand">My poster: interpretability as an estimand</h2>
+<p>I presented <em>A Framework for Assessing Imputation Methods for Survival Prediction Models via Interpretability Distortion</em> (with Roch Giorgi). The starting point: when a model is used to understand the outcome-covariate relationship, its interpretability summaries (partial dependence, time-dependent SHAP, permutation importance, calibration and Brier curves) are quantities we estimate, so they should be treated as <strong>estimands</strong>. That makes it possible to measure how much imputation distorts them relative to a complete-data reference, for machine learning models and not only for regression coefficients. In our benchmark, some methods preserved variable rankings while altering effect sizes: good prediction did not guarantee a stable interpretation.</p>
 <p>The rest of this post covers the talks that stayed with me.</p>
 </section>
 <section id="are-hazard-ratios-really-hazardous" class="level2">
@@ -111,76 +115,81 @@
 <td>Mon 28.09, 09:45-10:30, Rolf Böhme Saal</td>
 </tr>
 <tr class="even">
+<td>A Framework for Assessing Imputation Methods for Survival Prediction Models via Interpretability Distortion (poster 28-P2-12)</td>
+<td>Imad El Badisy (with Roch Giorgi)</td>
+<td>Mon 28.09, poster session P2</td>
+</tr>
+<tr class="odd">
 <td>Simulating the effect of imputing missing pharmacokinetic sampling time points on bioequivalence assessment in typical early phase clinical trials</td>
 <td>Jakob Winkler (with Markus Waser)</td>
 <td>Mon 28.09, 12:00-12:15, Room N1</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>A Flexible, Simulation-Based Approach to Sample Size Estimation for Prediction Modelling and Machine Learning: The pmsims R Package</td>
 <td>Oyebayo Ridwan Olaniran, Ewan Carr (with Diana Shamsutdinova, Sarah Markham, Daniel Stahl, Gordon Forbes)</td>
 <td>Mon 28.09, 13:45-14:00, Runder Saal</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Locally Estimated Scatterplot Smoothing for Censored Survival Data</td>
 <td>David van Klaveren (with Peter C. Austin, Patrick W. Serruys, Ben Van Calster, Frank E. Harrell Jr.)</td>
 <td>Mon 28.09, 16:30-16:45, Runder Saal</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>Conformal prediction under miscalibration: what coverage and interval width do not capture</td>
 <td>Giulia Zamagni (with Giulia Barbati)</td>
 <td>Tue 29.09, 11:45-12:00, Runder Saal</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>CGAN for individualized causal mediation analysis with survival outcome</td>
 <td>Xinyuan Song (with Cheng Huan, Hongwei Yuan)</td>
 <td>Tue 29.09, 12:00-12:30, Rolf Böhme Saal</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>Interpretable Kolmogorov-Arnold Networks via Penalized Splines for Clinical Prediction Modeling (poster 29-P2-04)</td>
 <td>Ester Rosa (with Stefania Lando, Gloria Brigiari, Dario Gregori)</td>
 <td>Tue 29.09, poster session P2</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>A two-step causal inference approach for survival outcomes under time-varying latent confounding</td>
 <td>Yuan Liu (with Marta Fiocco, Johannes H.M. Merks, Marta Spreafico)</td>
 <td>Wed 30.09, 10:00-10:15, Room N1</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>LiD-GLM: Lipschitz-constrained Deep Generalized Linear Models</td>
 <td>Tom Splittgerber (with Marvin N. Wright, Niklas Koenen, Werner Brannath)</td>
 <td>Wed 30.09, 11:00-11:15, Room K2</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>A Fractured Landscape: Evaluating Fairness in Clinical Prediction Models</td>
 <td>Gary Collins</td>
 <td>Wed 30.09, 14:00-14:30, Rolf Böhme Saal</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>When Net Benefit Misleads the Decision: A Cautionary Note on Population-Level Decision Curve Analysis in the Presence of Subgroups</td>
 <td>Junfeng Wang (with Kim Zhipei Wang, Ben Van Calster, Nan van Geloven, Ewout Steyerberg, Laure Wynants)</td>
 <td>Wed 30.09, 14:30-15:00, Rolf Böhme Saal</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Beyond Rule-Based Risk Assessment: Data-Driven Prediction of Pregnancy and Birth Complications in the FeMaR Project (poster 30-P2-05)</td>
 <td>Kerstin Rubarth and colleagues</td>
 <td>Wed 30.09, poster session P2</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>P-values and hypothesis testing: beyond polemics to practical solutions</td>
 <td>James Carpenter</td>
 <td>Thu 01.10, 09:10-09:35, Runder Saal (STRATOS)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>How important are the Hazards of Hazard Ratios?</td>
 <td>Michal Abrahamowicz (with Marie-Eve Beauchamp, Emily Roberts, Jeremy Taylor)</td>
 <td>Thu 01.10, 09:35-10:00, Runder Saal (STRATOS)</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>Statistical analysis plan with initial data analysis (SAPI): Validating the SAPI checklist in analysis projects</td>
 <td>Marianne Huebner</td>
 <td>Thu 01.10, 11:00-11:25, Runder Saal (STRATOS)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Performance evaluation of predictive AI models to support medical decisions: overview and guidance</td>
 <td>Ben Van Calster (with Ewout Steyerberg)</td>
 <td>Thu 01.10, 14:27-14:44, STRATOS</td>

@@ -19,6 +19,10 @@ Cathie Sudlow's opening keynote, *Future of Population Health Research: a UK Hea
 
 I kept translating this to Morocco. Our data is fragmented across hospitals, national programmes and research teams, with no common layer connecting them. A Moroccan initiative in the spirit of Health Data Research UK, would be a major opportunity: researchers contributing data under shared principles, a common access framework, and eventually an agent layer that lets people query that data in natural language. None of this works without well-curated data, which is a practical problem I want to help solve.
 
+## My poster: interpretability as an estimand
+
+I presented *A Framework for Assessing Imputation Methods for Survival Prediction Models via Interpretability Distortion* (with Roch Giorgi). The starting point: when a model is used to understand the outcome-covariate relationship, its interpretability summaries (partial dependence, time-dependent SHAP, permutation importance, calibration and Brier curves) are quantities we estimate, so they should be treated as **estimands**. That makes it possible to measure how much imputation distorts them relative to a complete-data reference, for machine learning models and not only for regression coefficients. In our benchmark, some methods preserved variable rankings while altering effect sizes: good prediction did not guarantee a stable interpretation.
+
 The rest of this post covers the talks that stayed with me.
 
 ## Are hazard ratios really hazardous?
@@ -85,6 +89,7 @@ Thanks to the organisers for this great management, in particular conference pre
 | Talk | Speaker (authors) | When and where |
 |---|---|---|
 | Future of Population Health Research: a UK Health Data Perspective (keynote) | Cathie Sudlow | Mon 28.09, 09:45-10:30, Rolf Böhme Saal |
+| A Framework for Assessing Imputation Methods for Survival Prediction Models via Interpretability Distortion (poster 28-P2-12) | Imad El Badisy (with Roch Giorgi) | Mon 28.09, poster session P2 |
 | Simulating the effect of imputing missing pharmacokinetic sampling time points on bioequivalence assessment in typical early phase clinical trials | Jakob Winkler (with Markus Waser) | Mon 28.09, 12:00-12:15, Room N1 |
 | A Flexible, Simulation-Based Approach to Sample Size Estimation for Prediction Modelling and Machine Learning: The pmsims R Package | Oyebayo Ridwan Olaniran, Ewan Carr (with Diana Shamsutdinova, Sarah Markham, Daniel Stahl, Gordon Forbes) | Mon 28.09, 13:45-14:00, Runder Saal |
 | Locally Estimated Scatterplot Smoothing for Censored Survival Data | David van Klaveren (with Peter C. Austin, Patrick W. Serruys, Ben Van Calster, Frank E. Harrell Jr.) | Mon 28.09, 16:30-16:45, Runder Saal |
