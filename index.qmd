@@ -370,6 +370,7 @@ Selected peer-reviewed articles, software papers, and conference talks.
 
 ### Selected talks
 
+- **El Badisy I.**, Giorgi R. (2026). A framework for assessing imputation methods for survival prediction models via interpretability distortion. *ISCB GMDS 2026*, Freiburg.
 - **El Badisy I.** et al. (2023). Comparison of missing data imputation methods in Cox regression with time-varying and non-linear covariate effects. *ISCB 2023*, Rome.
 - **El Badisy I.** et al. (2023). Missing data imputation using a meta-algorithm, metaCART: A simulation study under MCAR. *EpiClin 2023*, Nancy.
 

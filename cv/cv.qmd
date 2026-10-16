@@ -395,6 +395,13 @@ Thesis: \href{https://theses.fr/s381025}{Missing Data and Machine Learning Metho
 \end{large}
 \vspace{4pt}
 
+A framework for assessing imputation methods for survival prediction models via interpretability distortion \hfill 2026
+
+\vspace{-0.1cm}
+\textit{ISCB GMDS 2026, Freiburg} · El Badisy I., Giorgi R.
+
+\vspace{3pt}
+
 Comparison of missing data imputation methods in Cox regression with time-varying effects \hfill 2023
 
 \vspace{-0.1cm}
