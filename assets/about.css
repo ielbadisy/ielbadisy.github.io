@@ -23,6 +23,11 @@
   border: none !important;  
 }
 
+/* The page description is kept for metadata but would repeat the intro text */
+.about-entity .description {
+  display: none;
+}
+
 /* about area */
 .about-entity {
   background-color: var(--spc-bg-1);

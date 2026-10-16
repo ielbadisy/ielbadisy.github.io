@@ -219,7 +219,7 @@ Thesis: \href{https://theses.fr/s381025}{Missing Data and Machine Learning Metho
 
 \begin{multicols}{2}
 \begin{flushleft}{\bf \href{https://cran.r-project.org/web/packages/survalis/index.html}{survalis}}: Interpretable Survival Machine Learning Framework\end{flushleft}
-\begin{flushright}CRAN · v0.7.1\end{flushright}
+\begin{flushright}CRAN · v1.0.0\end{flushright}
 \end{multicols}
 \vspace{-0.16cm}
 * 19 Survival learners, 7 evaluation metrics, 8 interpretability methods · Maintainer
@@ -228,7 +228,7 @@ Thesis: \href{https://theses.fr/s381025}{Missing Data and Machine Learning Metho
 
 \begin{multicols}{2}
 \begin{flushleft}{\bf \href{https://CRAN.R-project.org/package=funcml}{funcml}}: Functional Machine Learning Framework\end{flushleft}
-\begin{flushright}CRAN · v0.7.1\end{flushright}
+\begin{flushright}CRAN · v0.9.0\end{flushright}
 \end{multicols}
 \vspace{-0.16cm}
 * Unified framework for functional machine learning in R · Maintainer
@@ -237,7 +237,7 @@ Thesis: \href{https://theses.fr/s381025}{Missing Data and Machine Learning Metho
 
 \begin{multicols}{2}
 \begin{flushleft}{\bf \href{https://CRAN.R-project.org/package=survdnn}{survdnn}}: Deep Neural Networks for Survival Analysis (R torch)\end{flushleft}
-\begin{flushright}CRAN · v0.7.6\end{flushright}
+\begin{flushright}CRAN · v1.0.0\end{flushright}
 \end{multicols}
 \vspace{-0.16cm}
 * Cox, AFT, and discrete-time neural survival models · Maintainer
@@ -255,7 +255,7 @@ Thesis: \href{https://theses.fr/s381025}{Missing Data and Machine Learning Metho
 
 \begin{multicols}{2}
 \begin{flushleft}{\bf \href{https://CRAN.R-project.org/package=unsurv}{unsurv}}: Unsupervised Clustering of Individualized Survival Curves\end{flushleft}
-\begin{flushright}CRAN · v0.5.0\end{flushright}
+\begin{flushright}CRAN · v0.7.2\end{flushright}
 \end{multicols}
 \vspace{-0.16cm}
 * Phenotyping patients from predicted survival curves · Maintainer
@@ -264,7 +264,7 @@ Thesis: \href{https://theses.fr/s381025}{Missing Data and Machine Learning Metho
 
 \begin{multicols}{2}
 \begin{flushleft}{\bf \href{https://CRAN.R-project.org/package=mcstatsim}{mcstatsim}}: Monte Carlo Statistical Simulation Tools\end{flushleft}
-\begin{flushright}CRAN · v0.5.0\end{flushright}
+\begin{flushright}CRAN · v0.5.1\end{flushright}
 \end{multicols}
 \vspace{-0.16cm}
 * Functional approach to monte carlo simulation studies in R · Maintainer
@@ -282,7 +282,7 @@ Thesis: \href{https://theses.fr/s381025}{Missing Data and Machine Learning Metho
 
 \begin{multicols}{2}
 \begin{flushleft}{\bf \href{https://CRAN.R-project.org/package=functionals}{functionals}}: Functional Programming with Parallelism and Progress Tracking\end{flushleft}
-\begin{flushright}CRAN · v0.5.0\end{flushright}
+\begin{flushright}CRAN · v0.5.1\end{flushright}
 \end{multicols}
 \vspace{-0.16cm}
 * Functional programming utilities with parallelism and progress tracking · Maintainer
@@ -291,7 +291,7 @@ Thesis: \href{https://theses.fr/s381025}{Missing Data and Machine Learning Metho
 
 \begin{multicols}{2}
 \begin{flushleft}{\bf \href{https://CRAN.R-project.org/package=mimar}{mimar}}: Compact Multiple Imputation, Assessment, and Reporting\end{flushleft}
-\begin{flushright}CRAN · v0.8.0\end{flushright}
+\begin{flushright}CRAN · v1.0.0\end{flushright}
 \end{multicols}
 \vspace{-0.16cm}
 * Streamlined multiple imputation workflow with assessment and reporting · Maintainer
@@ -299,8 +299,8 @@ Thesis: \href{https://theses.fr/s381025}{Missing Data and Machine Learning Metho
 \vspace{2pt}
 
 \begin{multicols}{2}
-\begin{flushleft}{\bf \href{https://CRAN.R-project.org/package=testflow}{testflow}}: Statistical Testing, Interpretation, and 'ggplot2'-Based Visualization\end{flushleft}
-\begin{flushright}CRAN · v0.9.0\end{flushright}
+\begin{flushleft}{\bf \href{https://CRAN.R-project.org/package=testflow}{testflow}}: A Workflow for Statistical Testing and Interpretation\end{flushleft}
+\begin{flushright}CRAN · v1.0.0\end{flushright}
 \end{multicols}
 \vspace{-0.16cm}
 * Workflow for statistical testing, interpretation, and visualization · Maintainer
@@ -308,11 +308,11 @@ Thesis: \href{https://theses.fr/s381025}{Missing Data and Machine Learning Metho
 \vspace{2pt}
 
 \begin{multicols}{2}
-\begin{flushleft}{\bf \href{https://CRAN.R-project.org/package=densemlp}{densemlp}}: Dense Neural Networks for Tabular Classification and Regression\end{flushleft}
-\begin{flushright}CRAN · v0.5.0\end{flushright}
+\begin{flushleft}{\bf \href{https://CRAN.R-project.org/package=densemlp}{densemlp}}: Dense Neural Networks for Tabular Regression, Classification and Survival\end{flushleft}
+\begin{flushright}CRAN · v0.7.1\end{flushright}
 \end{multicols}
 \vspace{-0.16cm}
-* Dense neural network models for tabular data · Maintainer
+* Dense neural networks for tabular data, without a torch dependency · Maintainer
 
 \vspace{2pt}
 
@@ -327,10 +327,64 @@ Thesis: \href{https://theses.fr/s381025}{Missing Data and Machine Learning Metho
 
 \begin{multicols}{2}
 \begin{flushleft}{\bf \href{https://CRAN.R-project.org/package=missknn}{missknn}}: Fast Masked K-Nearest Neighbor Imputation\end{flushleft}
-\begin{flushright}CRAN · v1.0.0\end{flushright}
+\begin{flushright}CRAN · v1.1.2\end{flushright}
 \end{multicols}
 \vspace{-0.16cm}
 * Fast masked k-nearest neighbor imputation · Maintainer
+
+\vspace{2pt}
+
+\begin{multicols}{2}
+\begin{flushleft}{\bf \href{https://CRAN.R-project.org/package=basetable}{basetable}}: Fast and Memory-Efficient Base R Table Manipulation\end{flushleft}
+\begin{flushright}CRAN · v1.4.2\end{flushright}
+\end{multicols}
+\vspace{-0.16cm}
+* Base R-style table manipulation with a multithreaded C++ engine · Maintainer
+
+\vspace{2pt}
+
+\begin{multicols}{2}
+\begin{flushleft}{\bf \href{https://CRAN.R-project.org/package=panglm}{panglm}}: Generalized Linear Models for Panel Data\end{flushleft}
+\begin{flushright}CRAN · v1.1.4\end{flushright}
+\end{multicols}
+\vspace{-0.16cm}
+* Pooled, fixed-effects, and random-effects GLMs for panel data · Maintainer
+
+\vspace{2pt}
+
+\begin{multicols}{2}
+\begin{flushleft}{\bf \href{https://CRAN.R-project.org/package=fastgbm}{fastgbm}}: Fast Histogram Gradient Boosting\end{flushleft}
+\begin{flushright}CRAN · v0.6.1\end{flushright}
+\end{multicols}
+\vspace{-0.16cm}
+* Gradient boosting for regression, classification, and survival analysis · Maintainer
+
+\vspace{2pt}
+
+\begin{multicols}{2}
+\begin{flushleft}{\bf \href{https://CRAN.R-project.org/package=rpsurv}{rpsurv}}: Fast Royston-Parmar Flexible Parametric Survival Models\end{flushleft}
+\begin{flushright}CRAN · v0.7.1\end{flushright}
+\end{multicols}
+\vspace{-0.16cm}
+* Flexible parametric survival models with time-varying effects · Maintainer
+
+\vspace{2pt}
+
+\begin{multicols}{2}
+\begin{flushleft}{\bf \href{https://CRAN.R-project.org/package=nbsurv}{nbsurv}}: Conditional Naive Bayes Survival Modelling\end{flushleft}
+\begin{flushright}CRAN · v0.5.1\end{flushright}
+\end{multicols}
+\vspace{-0.16cm}
+* Censored naive Bayes models for horizon-specific survival prediction · Maintainer
+
+\vspace{2pt}
+
+\begin{multicols}{2}
+\begin{flushleft}{\bf \href{https://CRAN.R-project.org/package=phynotype}{phynotype}}: Clustering and Consensus Meta-Clustering\end{flushleft}
+\begin{flushright}CRAN · v0.6.2\end{flushright}
+\end{multicols}
+\vspace{-0.16cm}
+* Clustering workflow with consensus meta-clustering and validation · Maintainer
 
 \vspace{6pt}
 
