@@ -21,6 +21,13 @@
     "text": "Health data as national infrastructure\nCathie Sudlow’s opening keynote, Future of Population Health Research: a UK Health Data Perspective, described how the UK linked national health datasets and built secure data environments covering the whole population of England. Her underlying message: health data is any data relevant to our health, and it should be treated as shared national infrastructure with common sharing principles, not as a pile of separate project datasets.\nI kept translating this to Morocco. Our data is fragmented across hospitals, national programmes and research teams, with no common layer connecting them. A Moroccan initiative in the spirit of Health Data Research UK, would be a major opportunity: researchers contributing data under shared principles, a common access framework, and eventually an agent layer that lets people query that data in natural language. None of this works without well-curated data, which is a practical problem I want to help solve."
   },
   {
+    "objectID": "blog/2026-10-05-iscb-gmds-2026/index.html#my-poster-interpretability-as-an-estimand",
+    "href": "blog/2026-10-05-iscb-gmds-2026/index.html#my-poster-interpretability-as-an-estimand",
+    "title": "Hazards, p-values and hybrid models: notes from ISCB GMDS 2026",
+    "section": "My poster: interpretability as an estimand",
+    "text": "My poster: interpretability as an estimand\nI presented A Framework for Assessing Imputation Methods for Survival Prediction Models via Interpretability Distortion (with Roch Giorgi). The starting point: when a model is used to understand the outcome-covariate relationship, its interpretability summaries (partial dependence, time-dependent SHAP, permutation importance, calibration and Brier curves) are quantities we estimate, so they should be treated as estimands. That makes it possible to measure how much imputation distorts them relative to a complete-data reference, for machine learning models and not only for regression coefficients. In our benchmark, some methods preserved variable rankings while altering effect sizes: good prediction did not guarantee a stable interpretation.\nThe rest of this post covers the talks that stayed with me."
+  },
+  {
     "objectID": "blog/2026-10-05-iscb-gmds-2026/index.html#are-hazard-ratios-really-hazardous",
     "href": "blog/2026-10-05-iscb-gmds-2026/index.html#are-hazard-ratios-really-hazardous",
     "title": "Hazards, p-values and hybrid models: notes from ISCB GMDS 2026",
@@ -382,7 +389,7 @@
     "href": "index.html#background",
     "title": "Imad El Badisy, PhD",
     "section": "Background",
-    "text": "Background\nProfessional experience and education. The full record is in the CV (PDF).\n\nExperience\n\n\n\n\n\n\n\n\nPosition\nInstitution\nPeriod\n\n\n\n\nHead of AI and Data Science Service\nCM6RI, Rabat, Morocco\nJan. 2026 – Present\n\n\nResearch Engineer in Health Data Science\nCM6RI, Rabat, Morocco\nNov. 2021 – Jan. 2026\n\n\nData Science Education Officer\nThe GRAPH Network, Switzerland\nSep. 2023 – Dec. 2023\n\n\nResearch and Development Engineer\nIMT Atlantique, Brest, France\nSep. 2019 – Sep. 2021\n\n\nBiostatistician\nINSERM, Clermont-Ferrand, France\nJan. 2019 – Jun. 2019\n\n\nHealth Economist Intern\nUniversité de Sherbrooke, Quebec, Canada\nFeb. 2017 – Sep. 2017\n\n\n\n\n\nEducation\n\n\n\n\n\n\n\n\nDegree\nInstitution\nPeriod\n\n\n\n\nPhD in Biomedical Sciences\nAix-Marseille University, SESSTIM, Marseille, France\n2021 – 2025\n\n\nMaster 2, Quantitative Methods for Health Research\nAix-Marseille University, SESSTIM, Marseille, France\n2018 – 2019\n\n\nMaster 1, Applied Mathematics and Statistics\nUniversité Clermont Auvergne, Clermont-Ferrand, France\n2017 – 2018\n\n\nMaster 2, Health Economics\nUniversité Clermont Auvergne, CERDI, Clermont-Ferrand, France\n2016 – 2017\n\n\n\n Download full CV (PDF)"
+    "text": "Background\nProfessional experience and education. The full record is in the CV (PDF).\n\nExperience\n\n\n\n\n\n\n\n\nPosition\nInstitution\nPeriod\n\n\n\n\nHead of AI and Data Science Service\nCM6RI, Rabat, Morocco\nJan. 2026 – Present\n\n\nResearch Engineer in Health Data Science\nCM6RI, Rabat, Morocco\nNov. 2021 – Jan. 2026\n\n\nData Science Education Officer\nThe GRAPH Network, Switzerland\nSep. 2023 – Dec. 2023\n\n\nResearch and Development Engineer\nIMT Atlantique, Brest, France\nSep. 2019 – Sep. 2021\n\n\nBiostatistician\nINSERM, Clermont-Ferrand, France\nJan. 2019 – Jun. 2019\n\n\nFull-time Contract High School Teacher (professeur contractuel), Economic and Social Sciences (SES)\nLycée René Descartes, 63800 Cournon-d’Auvergne, France\nMar. 2017 – Jul. 2019\n\n\nHealth Economist Intern\nUniversité de Sherbrooke, Quebec, Canada\nFeb. 2017 – Sep. 2017\n\n\n\n\n\nEducation\n\n\n\n\n\n\n\n\nDegree\nInstitution\nPeriod\n\n\n\n\nPhD in Biomedical Sciences\nAix-Marseille University, SESSTIM, Marseille, France\n2021 – 2025\n\n\nMaster 2, Quantitative Methods for Health Research\nAix-Marseille University, SESSTIM, Marseille, France\n2018 – 2019\n\n\nMaster 1, Applied Mathematics and Statistics\nUniversité Clermont Auvergne, Clermont-Ferrand, France\n2017 – 2018\n\n\nMaster 2, Health Economics\nUniversité Clermont Auvergne, CERDI, Clermont-Ferrand, France\n2016 – 2017\n\n\n\n Download full CV (PDF)"
   },
   {
     "objectID": "index.html#teaching",
@@ -705,12 +712,5 @@
     "title": "basetable: A Tutorial",
     "section": "Status",
     "text": "Status\nEvery exported function has direct test coverage. Vignettes cover getting started, data manipulation, exploration, a complete function reference, and benchmarks. CI checks release R on Linux, macOS and Windows plus oldrel and devel.\n\nBack to blog"
-  },
-  {
-    "objectID": "blog/2026-10-05-iscb-gmds-2026/index.html#my-poster-interpretability-as-an-estimand",
-    "href": "blog/2026-10-05-iscb-gmds-2026/index.html#my-poster-interpretability-as-an-estimand",
-    "title": "Hazards, p-values and hybrid models: notes from ISCB GMDS 2026",
-    "section": "My poster: interpretability as an estimand",
-    "text": "My poster: interpretability as an estimand\nI presented A Framework for Assessing Imputation Methods for Survival Prediction Models via Interpretability Distortion (with Roch Giorgi). The starting point: when a model is used to understand the outcome-covariate relationship, its interpretability summaries (partial dependence, time-dependent SHAP, permutation importance, calibration and Brier curves) are quantities we estimate, so they should be treated as estimands. That makes it possible to measure how much imputation distorts them relative to a complete-data reference, for machine learning models and not only for regression coefficients. In our benchmark, some methods preserved variable rankings while altering effect sizes: good prediction did not guarantee a stable interpretation.\nThe rest of this post covers the talks that stayed with me."
   }
 ]

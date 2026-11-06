@@ -125,6 +125,14 @@ Health data scientist and computational methodologist, PhD, building software fo
 
 \vspace{3pt}
 
+\cvrow{{\bf Lycée René Descartes}}{63800 Cournon-d'Auvergne, France}
+\vspace{-0.17cm}
+\cvrow{\textit{Full-time Contract Teacher, Economic and Social Sciences (SES)}}{Mar. 2017 – Jul. 2019}
+\vspace{-0.16cm}
+* High school teacher (professeur contractuel) · Head teacher (professeur principal) of a Terminale class
+
+\vspace{3pt}
+
 \cvrow{{\bf Université de Sherbrooke}}{Sherbrooke, Quebec, Canada}
 \vspace{-0.17cm}
 \cvrow{\textit{Health Economist Intern}}{Feb. 2017 – Sep. 2017}
