@@ -21,6 +21,7 @@ project:
     - blog/2026-10-05-iscb-gmds-2026/index.qmd
   resources:
     - cv/cv.pdf
+    - talks/*.pdf
     - notes/img/**
     - CNAME
     - robots.txt
