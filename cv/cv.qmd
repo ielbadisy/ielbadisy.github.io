@@ -403,6 +403,13 @@ Thesis: \href{https://theses.fr/s381025}{Missing Data and Machine Learning Metho
 \end{large}
 \vspace{4pt}
 
+Mécanismes innovants de financement de la santé : une scoping review \hfill 2026
+
+\vspace{-0.1cm}
+\textit{XIIe Congrès SMEPS, Rabat} · El Badisy I.
+
+\vspace{3pt}
+
 Agentic compactness: measuring the cost of machine learning workflows in R \hfill 2026
 
 \vspace{-0.1cm}
