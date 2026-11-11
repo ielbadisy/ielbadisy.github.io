@@ -8,6 +8,8 @@ project:
     - notes/survival-trajectory-phenotypes.qmd
     - notes/masked-knn-imputation.qmd
     - notes/dgp-tve-nle.qmd
+    - notes/functional-ml-r.qmd
+    - notes/dynamic-rmst.qmd
     - blog/2025-06-01-funcml/index.qmd
     - blog/2025-08-15-mimar/index.qmd
     - blog/2025-10-01-survdnn/index.qmd

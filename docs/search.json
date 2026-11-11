@@ -417,7 +417,7 @@
     "href": "index.html#notes",
     "title": "Imad El Badisy, PhD",
     "section": "Notes",
-    "text": "Notes\nMethodological notes connected to my R packages and current projects, written up as short PDFs with equations, code, rendered results, and references.\n\n\n\n\n\n\n\n\nDate\nNote\nTags\n\n\n\n\n2026-08-22\nDeep neural networks for survival analysis with survdnn\nSurvival Analysis Deep Learning survdnn\n\n\n2026-07-27\nSurvival-trajectory phenotypes with unsurv\nSurvival Analysis Clustering unsurv\n\n\n2026-07-02\nMasked k-NN imputation with missknn\nMissing Data Imputation missknn\n\n\n2026-06-10\nGenerating time-varying and non-linear covariate effects with rpsurv\nSurvival Analysis Simulation rpsurv"
+    "text": "Notes\nMethodological notes connected to my R packages and current projects, written up as short PDFs with equations, code, rendered results, and references.\n\n\n\n\n\n\n\n\nDate\nNote\nTags\n\n\n\n\n2026-08-22\nDeep neural networks for survival analysis with survdnn\nSurvival Analysis Deep Learning survdnn\n\n\n2026-07-27\nSurvival-trajectory phenotypes with unsurv\nSurvival Analysis Clustering unsurv\n\n\n2026-07-02\nMasked k-NN imputation with missknn\nMissing Data Imputation missknn\n\n\n2026-06-10\nGenerating time-varying and non-linear covariate effects with rpsurv\nSurvival Analysis Simulation rpsurv\n\n\n2026-04-25\nFunctional machine learning workflows with funcml\nMachine Learning Workflows funcml\n\n\n2026-04-04\nDynamic RMST from predicted survival curves with tvrmst\nSurvival Analysis RMST tvrmst"
   },
   {
     "objectID": "index.html#blog",

@@ -387,6 +387,8 @@ Methodological notes connected to my R packages and current projects, written up
 | 2026-07-27 | [Survival-trajectory phenotypes with `unsurv`](notes/survival-trajectory-phenotypes.pdf) | <span class="tag">Survival Analysis</span> <span class="tag">Clustering</span> <span class="tag">unsurv</span> |
 | 2026-07-02 | [Masked k-NN imputation with `missknn`](notes/masked-knn-imputation.pdf) | <span class="tag">Missing Data</span> <span class="tag">Imputation</span> <span class="tag">missknn</span> |
 | 2026-06-10 | [Generating time-varying and non-linear covariate effects with `rpsurv`](notes/dgp-tve-nle.pdf) | <span class="tag">Survival Analysis</span> <span class="tag">Simulation</span> <span class="tag">rpsurv</span> |
+| 2026-04-25 | [Functional machine learning workflows with `funcml`](notes/functional-ml-r.pdf) | <span class="tag">Machine Learning</span> <span class="tag">Workflows</span> <span class="tag">funcml</span> |
+| 2026-04-04 | [Dynamic RMST from predicted survival curves with `tvrmst`](notes/dynamic-rmst.pdf) | <span class="tag">Survival Analysis</span> <span class="tag">RMST</span> <span class="tag">tvrmst</span> |
 
 : {tbl-colwidths="[15,55,30]"}
 
