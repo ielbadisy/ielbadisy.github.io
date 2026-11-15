@@ -398,7 +398,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section><section id="nineteen-learners-one-interface" class="level2"><h2 class="anchored" data-anchor-id="nineteen-learners-one-interface">Nineteen learners, one interface</h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://elbadisyimad.com/survalis/">survalis</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://elbadisyimad.com/survalis/reference/survalis-deprecated.html">list_survlearners</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span><span class="fu">list_survlearners</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>           learner                 fit                 predict             tune
 1            coxph           fit_coxph           predict_coxph             &lt;NA&gt;
@@ -500,7 +500,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       0.733744       0.134603 </code></pre>
 </div>
 </div>
-<p>Swap <code>fit_coxph</code>/<code>predict_coxph</code> for any other pair in <code><a href="https://elbadisyimad.com/survalis/reference/survalis-deprecated.html">list_survlearners()</a></code> and every downstream call, <code>cindex_survmat()</code>, <code><a href="https://rdrr.io/pkg/survival/man/brier.html">brier()</a></code>, <code>cv_survlearner()</code>, <code>benchmark()</code>, stays exactly the same.</p>
+<p>Swap <code>fit_coxph</code>/<code>predict_coxph</code> for any other pair in <code>list_survlearners()</code> and every downstream call, <code>cindex_survmat()</code>, <code><a href="https://rdrr.io/pkg/survival/man/brier.html">brier()</a></code>, <code>cv_survlearner()</code>, <code>benchmark()</code>, stays exactly the same.</p>
 </section><section id="beyond-prediction-interpretation" class="level2"><h2 class="anchored" data-anchor-id="beyond-prediction-interpretation">Beyond prediction: interpretation</h2>
 <p>Because every learner returns the same survival-probability shape, survalis’s interpretability layer works uniformly across all of them: permutation variable importance (<code>compute_varimp()</code>), accumulated local effects and partial dependence (<code>compute_ale()</code>, <code>compute_pdp()</code>), SHAP-based attribution (<code>compute_shap()</code>), pairwise interaction strength (<code>compute_interactions()</code>), counterfactual recommendations (<code>compute_counterfactual()</code>), and surrogate-tree explanations (<code>compute_surrogate()</code>, <code>compute_tree_surrogate()</code>), each with a matching <code>plot_*()</code> function.</p>
 </section><section id="install" class="level2"><h2 class="anchored" data-anchor-id="install">Install</h2>

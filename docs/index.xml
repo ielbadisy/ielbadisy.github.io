@@ -1864,7 +1864,7 @@ background-color: null;
 font-style: inherit;">)</span></span>
 <span><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://elbadisyimad.com/survalis/reference/survalis-deprecated.html">list_survlearners</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;">list_survlearners</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -2219,7 +2219,7 @@ font-style: inherit;">)</span></span></code></pre></div></div>
       0.733744       0.134603 </code></pre>
 </div>
 </div>
-<p>Swap <code>fit_coxph</code>/<code>predict_coxph</code> for any other pair in <code><a href="https://elbadisyimad.com/survalis/reference/survalis-deprecated.html">list_survlearners()</a></code> and every downstream call, <code>cindex_survmat()</code>, <code><a href="https://rdrr.io/pkg/survival/man/brier.html">brier()</a></code>, <code>cv_survlearner()</code>, <code>benchmark()</code>, stays exactly the same.</p>
+<p>Swap <code>fit_coxph</code>/<code>predict_coxph</code> for any other pair in <code>list_survlearners()</code> and every downstream call, <code>cindex_survmat()</code>, <code><a href="https://rdrr.io/pkg/survival/man/brier.html">brier()</a></code>, <code>cv_survlearner()</code>, <code>benchmark()</code>, stays exactly the same.</p>
 </section><section id="beyond-prediction-interpretation" class="level2"><h2 class="anchored" data-anchor-id="beyond-prediction-interpretation">Beyond prediction: interpretation</h2>
 <p>Because every learner returns the same survival-probability shape, survalis’s interpretability layer works uniformly across all of them: permutation variable importance (<code>compute_varimp()</code>), accumulated local effects and partial dependence (<code>compute_ale()</code>, <code>compute_pdp()</code>), SHAP-based attribution (<code>compute_shap()</code>), pairwise interaction strength (<code>compute_interactions()</code>), counterfactual recommendations (<code>compute_counterfactual()</code>), and surrogate-tree explanations (<code>compute_surrogate()</code>, <code>compute_tree_surrogate()</code>), each with a matching <code>plot_*()</code> function.</p>
 </section><section id="install" class="level2"><h2 class="anchored" data-anchor-id="install">Install</h2>
@@ -3787,7 +3787,7 @@ font-style: inherit;">)</span></span></code></pre></div></div>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/pkg/mimar/man/imputer_registry.html">imputer_registry</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://rdrr.io/pkg/mimar/man/mimar-deprecated.html">imputer_registry</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -4581,7 +4581,7 @@ Estimate: 0.4531 | SE: 0.0156 | 95% normal CI [0.4225, 0.4836]</code></pre>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10" style="background: #f1f3f5;"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;"><a href="https://rdrr.io/pkg/funcml/man/list_learners.html">list_learners</a></span><span class="op" style="color: #5E5E5E;
+font-style: inherit;"><a href="https://rdrr.io/pkg/funcml/man/funcml-deprecated.html">list_learners</a></span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">(</span><span class="op" style="color: #5E5E5E;
 background-color: null;
