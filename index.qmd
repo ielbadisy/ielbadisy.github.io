@@ -1,8 +1,8 @@
 ---
 title: "Imad El Badisy, PhD"
 pagetitle: "Imad El Badisy"
-description: "Imad El Badisy, PhD. Health data scientist and computational methodologist building software for machine learning and computational biostatistics."
-subtitle: "Health Data Scientist & Computational Methodologist"
+description: "Imad El Badisy, PhD. Computational methodologist and health data scientist building software for machine learning and computational biostatistics."
+subtitle: "Computational Methodologist & Health Data Scientist"
 image: profile.jpg
 image-alt: "Imad El Badisy"
 about:
