@@ -216,6 +216,12 @@ Thesis: \href{https://theses.fr/s381025}{Missing Data and Machine Learning Metho
 \vspace{-0.17cm}
 \cvrow{\textit{Master 2 in Health Economics}}{2017}
 
+\vspace{3pt}
+
+\cvrow{{\bf CPGE - option: ECT}}{Tangier, Morocco}
+\vspace{-0.17cm}
+\cvrow{}{2010 – 2012}
+
 \vspace{6pt}
 
 <!-- SOFTWARE -->

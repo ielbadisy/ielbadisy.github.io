@@ -103,6 +103,10 @@ Training in applied statistics, mathematical modeling, and data analysis.
 
 Specialization in health econometrics and economic evaluation.
 
+### CPGE - option: ECT  
+**Tangier, Morocco**  
+**2010 – 2012**
+
 ---
 
 ## Teaching
