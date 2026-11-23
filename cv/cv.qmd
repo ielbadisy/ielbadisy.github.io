@@ -88,7 +88,7 @@ Computational methodologist and health data scientist, PhD, building software fo
 
 \cvrow{{\bf Mohammed VI Center for Research and Innovation (CM6RI)}}{Rabat, Morocco}
 \vspace{-0.17cm}
-\cvrow{\textit{Research Engineer in Health Data Science}}{Nov. 2021 – Jan. 2026}
+\cvrow{\textit{Research Engineer in Biostatistics}}{Nov. 2021 – Jan. 2026}
 \vspace{-0.16cm}
 * Conducted methodological and applied research in health (oncology, fertility, other biomedical domains)
 * Provided methodological support to researchers in computational biostatistics, statistical modeling, and machine learning
