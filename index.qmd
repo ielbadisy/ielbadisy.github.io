@@ -150,7 +150,7 @@ Open-source software for survival analysis, machine learning, and functional dat
 <h3 class="card-title">functionals</h3>
 <p class="card-text">Functional programming utilities.</p>
 <p class="card-text"><a href="https://cran.r-project.org/package=functionals">CRAN</a> | <a href="https://cran.r-project.org/web/packages/functionals/functionals.pdf">PDF docs</a> | <a href="https://ielbadisy.r-universe.dev/functionals">R-universe</a></p>
-<p class="card-text"><small><strong>Cite:</strong> EL BADISY, I. (2025). <em>functionals: Functional Programming with Parallelism and Progress Tracking</em>. R package version 0.5.1. <a href="https://doi.org/10.32614/CRAN.package.functionals">doi:10.32614/CRAN.package.functionals</a></small></p>
+<p class="card-text"><small><strong>Cite:</strong> El Badisy, I. (2026). <em>functionals: Functional Programming with Parallelism and Progress Tracking</em>. <a href="https://doi.org/10.32614/CRAN.package.functionals">doi:10.32614/CRAN.package.functionals</a></small></p>
 </div>
 </div>
 </div>
@@ -160,7 +160,7 @@ Open-source software for survival analysis, machine learning, and functional dat
 <h3 class="card-title">unsurv</h3>
 <p class="card-text">Unsupervised clustering of individualized survival curves.</p>
 <p class="card-text"><a href="https://cran.r-project.org/package=unsurv">CRAN</a> | <a href="https://cran.r-project.org/web/packages/unsurv/unsurv.pdf">PDF docs</a> | <a href="https://ielbadisy.r-universe.dev/unsurv">R-universe</a></p>
-<p class="card-text"><small><strong>Cite:</strong> EL BADISY, I. (2026). <em>unsurv: Unsupervised Clustering of Individualized Survival Curves</em>. R package version 0.7.2. <a href="https://doi.org/10.32614/CRAN.package.unsurv">doi:10.32614/CRAN.package.unsurv</a></small></p>
+<p class="card-text"><small><strong>Cite:</strong> El Badisy, I. (2026). <em>unsurv: Unsupervised Clustering of Individualized Survival Curves</em>. <a href="https://doi.org/10.32614/CRAN.package.unsurv">doi:10.32614/CRAN.package.unsurv</a></small></p>
 </div>
 </div>
 </div>
@@ -170,7 +170,7 @@ Open-source software for survival analysis, machine learning, and functional dat
 <h3 class="card-title">tvrmst</h3>
 <p class="card-text">Time-varying RMST tooling.</p>
 <p class="card-text"><a href="https://cran.r-project.org/package=tvrmst">CRAN</a> | <a href="https://cran.r-project.org/web/packages/tvrmst/tvrmst.pdf">PDF docs</a> | <a href="https://ielbadisy.r-universe.dev/tvrmst">R-universe</a></p>
-<p class="card-text"><small><strong>Cite:</strong> EL BADISY, I. (2026). <em>tvrmst: Time-Varying Restricted Mean Survival Time from Survival Matrices</em>. R package version 0.0.6. <a href="https://doi.org/10.32614/CRAN.package.tvrmst">doi:10.32614/CRAN.package.tvrmst</a></small></p>
+<p class="card-text"><small><strong>Cite:</strong> El Badisy, I. (2026). <em>tvrmst: Time-Varying Restricted Mean Survival Time from Survival Matrices</em>. <a href="https://doi.org/10.32614/CRAN.package.tvrmst">doi:10.32614/CRAN.package.tvrmst</a></small></p>
 </div>
 </div>
 </div>
@@ -180,7 +180,7 @@ Open-source software for survival analysis, machine learning, and functional dat
 <h3 class="card-title">mcstatsim</h3>
 <p class="card-text">Monte Carlo statistical simulation.</p>
 <p class="card-text"><a href="https://cran.r-project.org/package=mcstatsim">CRAN</a> | <a href="https://cran.r-project.org/web/packages/mcstatsim/mcstatsim.pdf">PDF docs</a> | <a href="https://ielbadisy.r-universe.dev/mcstatsim">R-universe</a></p>
-<p class="card-text"><small><strong>Cite:</strong> EL BADISY, I. (2024). <em>mcstatsim: Monte Carlo Statistical Simulation Tools Using a Functional Approach</em>. R package version 0.5.1. <a href="https://doi.org/10.32614/CRAN.package.mcstatsim">doi:10.32614/CRAN.package.mcstatsim</a></small></p>
+<p class="card-text"><small><strong>Cite:</strong> El Badisy, I. (2026). <em>mcstatsim: Monte Carlo Statistical Simulation Tools Using a Functional Approach</em>. <a href="https://doi.org/10.32614/CRAN.package.mcstatsim">doi:10.32614/CRAN.package.mcstatsim</a></small></p>
 </div>
 </div>
 </div>
@@ -190,7 +190,7 @@ Open-source software for survival analysis, machine learning, and functional dat
 <h3 class="card-title">missCforest</h3>
 <p class="card-text">Missing-data random forest methods.</p>
 <p class="card-text"><a href="https://cran.r-project.org/package=missCforest">CRAN</a> | <a href="https://cran.r-project.org/web/packages/missCforest/missCforest.pdf">PDF docs</a> | <a href="https://ielbadisy.r-universe.dev/missCforest">R-universe</a></p>
-<p class="card-text"><small><strong>Cite:</strong> El Badisy, I. (2023). <em>missCforest: Ensemble Conditional Trees for Missing Data Imputation</em>. R package version 0.0.8. <a href="https://doi.org/10.32614/CRAN.package.missCforest">doi:10.32614/CRAN.package.missCforest</a></small></p>
+<p class="card-text"><small><strong>Cite:</strong> El Badisy, I. (2023). <em>missCforest: Ensemble Conditional Trees for Missing Data Imputation</em>. <a href="https://doi.org/10.32614/CRAN.package.missCforest">doi:10.32614/CRAN.package.missCforest</a></small></p>
 </div>
 </div>
 </div>
@@ -200,7 +200,7 @@ Open-source software for survival analysis, machine learning, and functional dat
 <h3 class="card-title">survalis</h3>
 <p class="card-text">Survival machine learning framework.</p>
 <p class="card-text"><a href="https://cran.r-project.org/package=survalis">CRAN</a> | <a href="https://cran.r-project.org/web/packages/survalis/survalis.pdf">PDF docs</a> | <a href="https://ielbadisy.r-universe.dev/survalis">R-universe</a></p>
-<p class="card-text"><small><strong>Cite:</strong> El Badisy, I. (2026). <em>survalis: Interpretable Survival Machine Learning Framework</em>. R package version 1.0.0. <a href="https://doi.org/10.32614/CRAN.package.survalis">doi:10.32614/CRAN.package.survalis</a></small></p>
+<p class="card-text"><small><strong>Cite:</strong> El Badisy, I. (2026). <em>survalis: Interpretable Survival Machine Learning Framework</em>. <a href="https://doi.org/10.32614/CRAN.package.survalis">doi:10.32614/CRAN.package.survalis</a></small></p>
 </div>
 </div>
 </div>
@@ -210,7 +210,7 @@ Open-source software for survival analysis, machine learning, and functional dat
 <h3 class="card-title">funcml</h3>
 <p class="card-text">Functional machine learning framework.</p>
 <p class="card-text"><a href="https://cran.r-project.org/package=funcml">CRAN</a> | <a href="https://cran.r-project.org/web/packages/funcml/funcml.pdf">PDF docs</a> | <a href="https://ielbadisy.r-universe.dev/funcml">R-universe</a></p>
-<p class="card-text"><small><strong>Cite:</strong> EL BADISY, I. (2026). <em>funcml: Functional Machine Learning Framework</em>. R package version 0.9.0. <a href="https://doi.org/10.32614/CRAN.package.funcml">doi:10.32614/CRAN.package.funcml</a></small></p>
+<p class="card-text"><small><strong>Cite:</strong> El Badisy, I. (2026). <em>funcml: Functional Machine Learning Framework</em>. <a href="https://doi.org/10.32614/CRAN.package.funcml">doi:10.32614/CRAN.package.funcml</a></small></p>
 </div>
 </div>
 </div>
@@ -220,7 +220,7 @@ Open-source software for survival analysis, machine learning, and functional dat
 <h3 class="card-title">survdnn</h3>
 <p class="card-text">Deep neural networks for right-censored survival analysis.</p>
 <p class="card-text"><a href="https://cran.r-project.org/package=survdnn">CRAN</a> | <a href="https://cran.r-project.org/web/packages/survdnn/survdnn.pdf">PDF docs</a> | <a href="https://ielbadisy.r-universe.dev/survdnn">R-universe</a></p>
-<p class="card-text"><small><strong>Cite:</strong> EL BADISY, I. (2026). <em>survdnn: Deep Neural Networks for Survival Analysis with R 'torch'</em>. R package version 1.0.0. <a href="https://doi.org/10.32614/CRAN.package.survdnn">doi:10.32614/CRAN.package.survdnn</a></small></p>
+<p class="card-text"><small><strong>Cite:</strong> El Badisy, I. (2026). <em>survdnn: Deep Neural Networks for Survival Analysis with R 'torch'</em>. <a href="https://doi.org/10.32614/CRAN.package.survdnn">doi:10.32614/CRAN.package.survdnn</a></small></p>
 </div>
 </div>
 </div>
@@ -230,7 +230,7 @@ Open-source software for survival analysis, machine learning, and functional dat
 <h3 class="card-title">mimar</h3>
 <p class="card-text">Compact multiple imputation, assessment, and reporting.</p>
 <p class="card-text"><a href="https://cran.r-project.org/package=mimar">CRAN</a> | <a href="https://cran.r-project.org/web/packages/mimar/mimar.pdf">PDF docs</a> | <a href="https://ielbadisy.r-universe.dev/mimar">R-universe</a></p>
-<p class="card-text"><small><strong>Cite:</strong> EL BADISY, I. (2026). <em>mimar: Compact Multiple Imputation, Assessment, and Reporting</em>. R package version 1.0.0. <a href="https://doi.org/10.32614/CRAN.package.mimar">doi:10.32614/CRAN.package.mimar</a></small></p>
+<p class="card-text"><small><strong>Cite:</strong> El Badisy, I. (2026). <em>mimar: Compact Multiple Imputation, Assessment, and Reporting</em>. <a href="https://doi.org/10.32614/CRAN.package.mimar">doi:10.32614/CRAN.package.mimar</a></small></p>
 </div>
 </div>
 </div>
@@ -240,7 +240,7 @@ Open-source software for survival analysis, machine learning, and functional dat
 <h3 class="card-title">testflow</h3>
 <p class="card-text">Statistical testing, interpretation, and ggplot2-based visualization.</p>
 <p class="card-text"><a href="https://cran.r-project.org/package=testflow">CRAN</a> | <a href="https://cran.r-project.org/web/packages/testflow/testflow.pdf">PDF docs</a> | <a href="https://ielbadisy.r-universe.dev/testflow">R-universe</a></p>
-<p class="card-text"><small><strong>Cite:</strong> EL BADISY, I. (2026). <em>testflow: A Workflow for Statistical Testing, Interpretation, and 'ggplot2'-Based Visualization</em>. R package version 1.0.0. <a href="https://doi.org/10.32614/CRAN.package.testflow">doi:10.32614/CRAN.package.testflow</a></small></p>
+<p class="card-text"><small><strong>Cite:</strong> El Badisy, I. (2026). <em>testflow: A Workflow for Statistical Testing and Interpretation</em>. <a href="https://doi.org/10.32614/CRAN.package.testflow">doi:10.32614/CRAN.package.testflow</a></small></p>
 </div>
 </div>
 </div>
@@ -250,7 +250,7 @@ Open-source software for survival analysis, machine learning, and functional dat
 <h3 class="card-title">densemlp</h3>
 <p class="card-text">Dense neural networks for tabular regression, classification, and survival.</p>
 <p class="card-text"><a href="https://cran.r-project.org/package=densemlp">CRAN</a> | <a href="https://cran.r-project.org/web/packages/densemlp/densemlp.pdf">PDF docs</a> | <a href="https://ielbadisy.r-universe.dev/densemlp">R-universe</a></p>
-<p class="card-text"><small><strong>Cite:</strong> EL BADISY, I. (2026). <em>densemlp: Dense Neural Networks for Tabular Regression, Classification and Survival</em>. R package version 0.7.1. <a href="https://doi.org/10.32614/CRAN.package.densemlp">doi:10.32614/CRAN.package.densemlp</a></small></p>
+<p class="card-text"><small><strong>Cite:</strong> El Badisy, I. (2026). <em>densemlp: Dense Neural Networks for Tabular Regression, Classification and Survival</em>. <a href="https://doi.org/10.32614/CRAN.package.densemlp">doi:10.32614/CRAN.package.densemlp</a></small></p>
 </div>
 </div>
 </div>
@@ -260,7 +260,7 @@ Open-source software for survival analysis, machine learning, and functional dat
 <h3 class="card-title">CEACT</h3>
 <p class="card-text">Cost-effectiveness analysis toolkit for clinical trials.</p>
 <p class="card-text"><a href="https://cran.r-project.org/package=CEACT">CRAN</a> | <a href="https://cran.r-project.org/web/packages/CEACT/CEACT.pdf">PDF docs</a> | <a href="https://ielbadisy.r-universe.dev/CEACT">R-universe</a></p>
-<p class="card-text"><small><strong>Cite:</strong> EL BADISY, I. (2026). <em>CEACT: Cost-Effectiveness Analysis Toolkit for Clinical Trials</em>. R package version 0.5.0. <a href="https://doi.org/10.32614/CRAN.package.CEACT">doi:10.32614/CRAN.package.CEACT</a></small></p>
+<p class="card-text"><small><strong>Cite:</strong> El Badisy, I. (2026). <em>CEACT: Cost-Effectiveness Analysis Toolkit for Clinical Trials</em>. <a href="https://doi.org/10.32614/CRAN.package.CEACT">doi:10.32614/CRAN.package.CEACT</a></small></p>
 </div>
 </div>
 </div>
@@ -270,7 +270,7 @@ Open-source software for survival analysis, machine learning, and functional dat
 <h3 class="card-title">missknn</h3>
 <p class="card-text">Fast masked k-nearest neighbor imputation.</p>
 <p class="card-text"><a href="https://cran.r-project.org/package=missknn">CRAN</a> | <a href="https://cran.r-project.org/web/packages/missknn/missknn.pdf">PDF docs</a> | <a href="https://ielbadisy.r-universe.dev/missknn">R-universe</a></p>
-<p class="card-text"><small><strong>Cite:</strong> EL BADISY, I. (2026). <em>missknn: Fast Masked K-Nearest Neighbor Imputation</em>. R package version 1.1.2. <a href="https://doi.org/10.32614/CRAN.package.missknn">doi:10.32614/CRAN.package.missknn</a></small></p>
+<p class="card-text"><small><strong>Cite:</strong> El Badisy, I. (2026). <em>missknn: Fast Masked K-Nearest Neighbor Imputation</em>. <a href="https://doi.org/10.32614/CRAN.package.missknn">doi:10.32614/CRAN.package.missknn</a></small></p>
 </div>
 </div>
 </div>
@@ -280,7 +280,7 @@ Open-source software for survival analysis, machine learning, and functional dat
 <h3 class="card-title">basetable</h3>
 <p class="card-text">Fast and memory-efficient base R table manipulation.</p>
 <p class="card-text"><a href="https://cran.r-project.org/package=basetable">CRAN</a> | <a href="https://cran.r-project.org/web/packages/basetable/basetable.pdf">PDF docs</a> | <a href="https://ielbadisy.r-universe.dev/basetable">R-universe</a></p>
-<p class="card-text"><small><strong>Cite:</strong> EL BADISY, I. (2026). <em>basetable: Fast and Memory-Efficient Base R Table Manipulation</em>. R package version 1.4.2. <a href="https://doi.org/10.32614/CRAN.package.basetable">doi:10.32614/CRAN.package.basetable</a></small></p>
+<p class="card-text"><small><strong>Cite:</strong> El Badisy, I. (2026). <em>basetable: Fast and Memory-Efficient Base R Table Manipulation</em>. <a href="https://doi.org/10.32614/CRAN.package.basetable">doi:10.32614/CRAN.package.basetable</a></small></p>
 </div>
 </div>
 </div>
@@ -290,7 +290,7 @@ Open-source software for survival analysis, machine learning, and functional dat
 <h3 class="card-title">panglm</h3>
 <p class="card-text">Generalized linear models for panel data.</p>
 <p class="card-text"><a href="https://cran.r-project.org/package=panglm">CRAN</a> | <a href="https://cran.r-project.org/web/packages/panglm/panglm.pdf">PDF docs</a> | <a href="https://ielbadisy.r-universe.dev/panglm">R-universe</a></p>
-<p class="card-text"><small><strong>Cite:</strong> EL BADISY, I. (2026). <em>panglm: Generalized Linear Models for Panel Data</em>. R package version 1.1.4. <a href="https://doi.org/10.32614/CRAN.package.panglm">doi:10.32614/CRAN.package.panglm</a></small></p>
+<p class="card-text"><small><strong>Cite:</strong> El Badisy, I. (2026). <em>panglm: Generalized Linear Models for Panel Data</em>. <a href="https://doi.org/10.32614/CRAN.package.panglm">doi:10.32614/CRAN.package.panglm</a></small></p>
 </div>
 </div>
 </div>
@@ -300,7 +300,7 @@ Open-source software for survival analysis, machine learning, and functional dat
 <h3 class="card-title">fastgbm</h3>
 <p class="card-text">Fast histogram gradient boosting for regression, classification, and survival.</p>
 <p class="card-text"><a href="https://cran.r-project.org/package=fastgbm">CRAN</a> | <a href="https://cran.r-project.org/web/packages/fastgbm/fastgbm.pdf">PDF docs</a> | <a href="https://ielbadisy.r-universe.dev/fastgbm">R-universe</a></p>
-<p class="card-text"><small><strong>Cite:</strong> EL BADISY, I. (2026). <em>fastgbm: Fast Histogram Gradient Boosting for Regression, Classification, and Survival Analysis</em>. R package version 0.6.1. <a href="https://doi.org/10.32614/CRAN.package.fastgbm">doi:10.32614/CRAN.package.fastgbm</a></small></p>
+<p class="card-text"><small><strong>Cite:</strong> El Badisy, I. (2026). <em>fastgbm: Fast Histogram Gradient Boosting for Regression, Classification, and Survival Analysis</em>. <a href="https://doi.org/10.32614/CRAN.package.fastgbm">doi:10.32614/CRAN.package.fastgbm</a></small></p>
 </div>
 </div>
 </div>
@@ -310,7 +310,7 @@ Open-source software for survival analysis, machine learning, and functional dat
 <h3 class="card-title">rpsurv</h3>
 <p class="card-text">Fast Royston-Parmar flexible parametric survival models.</p>
 <p class="card-text"><a href="https://cran.r-project.org/package=rpsurv">CRAN</a> | <a href="https://cran.r-project.org/web/packages/rpsurv/rpsurv.pdf">PDF docs</a> | <a href="https://ielbadisy.r-universe.dev/rpsurv">R-universe</a></p>
-<p class="card-text"><small><strong>Cite:</strong> EL BADISY, I. (2026). <em>rpsurv: Fast Royston-Parmar Flexible Parametric Survival Models</em>. R package version 0.7.1. <a href="https://doi.org/10.32614/CRAN.package.rpsurv">doi:10.32614/CRAN.package.rpsurv</a></small></p>
+<p class="card-text"><small><strong>Cite:</strong> El Badisy, I. (2026). <em>rpsurv: Fast Royston-Parmar Flexible Parametric Survival Models</em>. <a href="https://doi.org/10.32614/CRAN.package.rpsurv">doi:10.32614/CRAN.package.rpsurv</a></small></p>
 </div>
 </div>
 </div>
@@ -320,7 +320,7 @@ Open-source software for survival analysis, machine learning, and functional dat
 <h3 class="card-title">nbsurv</h3>
 <p class="card-text">Conditional naive Bayes survival modelling for right-censored data.</p>
 <p class="card-text"><a href="https://cran.r-project.org/package=nbsurv">CRAN</a> | <a href="https://cran.r-project.org/web/packages/nbsurv/nbsurv.pdf">PDF docs</a> | <a href="https://ielbadisy.r-universe.dev/nbsurv">R-universe</a></p>
-<p class="card-text"><small><strong>Cite:</strong> EL BADISY, I. (2026). <em>nbsurv: Conditional Naive Bayes Survival Modelling for Right-Censored Data</em>. R package version 0.5.1. <a href="https://doi.org/10.32614/CRAN.package.nbsurv">doi:10.32614/CRAN.package.nbsurv</a></small></p>
+<p class="card-text"><small><strong>Cite:</strong> El Badisy, I. (2026). <em>nbsurv: Conditional Naive Bayes Survival Modelling for Right-Censored Data</em>. <a href="https://doi.org/10.32614/CRAN.package.nbsurv">doi:10.32614/CRAN.package.nbsurv</a></small></p>
 </div>
 </div>
 </div>
@@ -330,7 +330,7 @@ Open-source software for survival analysis, machine learning, and functional dat
 <h3 class="card-title">phynotype</h3>
 <p class="card-text">Clustering and consensus meta-clustering.</p>
 <p class="card-text"><a href="https://cran.r-project.org/package=phynotype">CRAN</a> | <a href="https://cran.r-project.org/web/packages/phynotype/phynotype.pdf">PDF docs</a> | <a href="https://ielbadisy.r-universe.dev/phynotype">R-universe</a></p>
-<p class="card-text"><small><strong>Cite:</strong> EL BADISY, I. (2026). <em>phynotype: Clustering and Consensus Meta-Clustering</em>. R package version 0.6.2. <a href="https://doi.org/10.32614/CRAN.package.phynotype">doi:10.32614/CRAN.package.phynotype</a></small></p>
+<p class="card-text"><small><strong>Cite:</strong> El Badisy, I. (2026). <em>phynotype: Clustering and Consensus Meta-Clustering</em>. <a href="https://doi.org/10.32614/CRAN.package.phynotype">doi:10.32614/CRAN.package.phynotype</a></small></p>
 </div>
 </div>
 </div>

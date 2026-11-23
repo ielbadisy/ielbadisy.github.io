@@ -231,174 +231,43 @@ Thesis: \href{https://theses.fr/s381025}{Missing Data and Machine Learning Metho
 \end{large}
 \vspace{4pt}
 
-\begin{multicols}{2}
-\begin{flushleft}{\bf \href{https://cran.r-project.org/web/packages/survalis/index.html}{survalis}}: Interpretable Survival Machine Learning Framework\end{flushleft}
-\begin{flushright}CRAN · v1.0.0\end{flushright}
-\end{multicols}
-\vspace{-0.16cm}
-* 19 Survival learners, 7 evaluation metrics, 8 interpretability methods · Maintainer
+1. **El Badisy I.** (2026). survalis: Interpretable Survival Machine Learning Framework. \newline \href{https://doi.org/10.32614/CRAN.package.survalis}{\nolinkurl{doi:10.32614/CRAN.package.survalis}}.
 
-\vspace{2pt}
+2. **El Badisy I.** (2026). funcml: Functional Machine Learning Framework. \newline \href{https://doi.org/10.32614/CRAN.package.funcml}{\nolinkurl{doi:10.32614/CRAN.package.funcml}}.
 
-\begin{multicols}{2}
-\begin{flushleft}{\bf \href{https://CRAN.R-project.org/package=funcml}{funcml}}: Functional Machine Learning Framework\end{flushleft}
-\begin{flushright}CRAN · v0.9.0\end{flushright}
-\end{multicols}
-\vspace{-0.16cm}
-* Unified framework for functional machine learning in R · Maintainer
+3. **El Badisy I.** (2026). survdnn: Deep Neural Networks for Survival Analysis with R 'torch'. \newline \href{https://doi.org/10.32614/CRAN.package.survdnn}{\nolinkurl{doi:10.32614/CRAN.package.survdnn}}.
 
-\vspace{2pt}
+4. **El Badisy I.** (2026). tvrmst: Time-Varying Restricted Mean Survival Time from Survival Matrices. \newline \href{https://doi.org/10.32614/CRAN.package.tvrmst}{\nolinkurl{doi:10.32614/CRAN.package.tvrmst}}.
 
-\begin{multicols}{2}
-\begin{flushleft}{\bf \href{https://CRAN.R-project.org/package=survdnn}{survdnn}}: Deep Neural Networks for Survival Analysis (R torch)\end{flushleft}
-\begin{flushright}CRAN · v1.0.0\end{flushright}
-\end{multicols}
-\vspace{-0.16cm}
-* Cox, AFT, and discrete-time neural survival models · Maintainer
+5. **El Badisy I.** (2026). unsurv: Unsupervised Clustering of Individualized Survival Curves. \newline \href{https://doi.org/10.32614/CRAN.package.unsurv}{\nolinkurl{doi:10.32614/CRAN.package.unsurv}}.
 
-\vspace{2pt}
+6. **El Badisy I.** (2026). mcstatsim: Monte Carlo Statistical Simulation Tools Using a Functional Approach. \newline \href{https://doi.org/10.32614/CRAN.package.mcstatsim}{\nolinkurl{doi:10.32614/CRAN.package.mcstatsim}}.
 
-\begin{multicols}{2}
-\begin{flushleft}{\bf \href{https://CRAN.R-project.org/package=tvrmst}{tvrmst}}: Time-Varying RMST from Survival Matrices\end{flushleft}
-\begin{flushright}CRAN · v0.0.6\end{flushright}
-\end{multicols}
-\vspace{-0.16cm}
-* Dynamic RMST summaries for individualized survival curves · Maintainer
+7. **El Badisy I.** (2023). missCforest: Ensemble Conditional Trees for Missing Data Imputation. \newline \href{https://doi.org/10.32614/CRAN.package.missCforest}{\nolinkurl{doi:10.32614/CRAN.package.missCforest}}.
 
-\vspace{2pt}
+8. **El Badisy I.** (2026). functionals: Functional Programming with Parallelism and Progress Tracking. \newline \href{https://doi.org/10.32614/CRAN.package.functionals}{\nolinkurl{doi:10.32614/CRAN.package.functionals}}.
 
-\begin{multicols}{2}
-\begin{flushleft}{\bf \href{https://CRAN.R-project.org/package=unsurv}{unsurv}}: Unsupervised Clustering of Individualized Survival Curves\end{flushleft}
-\begin{flushright}CRAN · v0.7.2\end{flushright}
-\end{multicols}
-\vspace{-0.16cm}
-* Phenotyping patients from predicted survival curves · Maintainer
+9. **El Badisy I.** (2026). mimar: Compact Multiple Imputation, Assessment, and Reporting. \newline \href{https://doi.org/10.32614/CRAN.package.mimar}{\nolinkurl{doi:10.32614/CRAN.package.mimar}}.
 
-\vspace{2pt}
+10. **El Badisy I.** (2026). testflow: A Workflow for Statistical Testing and Interpretation. \newline \href{https://doi.org/10.32614/CRAN.package.testflow}{\nolinkurl{doi:10.32614/CRAN.package.testflow}}.
 
-\begin{multicols}{2}
-\begin{flushleft}{\bf \href{https://CRAN.R-project.org/package=mcstatsim}{mcstatsim}}: Monte Carlo Statistical Simulation Tools\end{flushleft}
-\begin{flushright}CRAN · v0.5.1\end{flushright}
-\end{multicols}
-\vspace{-0.16cm}
-* Functional approach to monte carlo simulation studies in R · Maintainer
+11. **El Badisy I.** (2026). densemlp: Dense Neural Networks for Tabular Regression, Classification and Survival. \newline \href{https://doi.org/10.32614/CRAN.package.densemlp}{\nolinkurl{doi:10.32614/CRAN.package.densemlp}}.
 
-\vspace{2pt}
+12. **El Badisy I.** (2026). CEACT: Cost-Effectiveness Analysis Toolkit for Clinical Trials. \newline \href{https://doi.org/10.32614/CRAN.package.CEACT}{\nolinkurl{doi:10.32614/CRAN.package.CEACT}}.
 
-\begin{multicols}{2}
-\begin{flushleft}{\bf \href{https://CRAN.R-project.org/package=missCforest}{missCforest}}: Ensemble Conditional Trees for Missing Data Imputation\end{flushleft}
-\begin{flushright}CRAN · v0.0.8\end{flushright}
-\end{multicols}
-\vspace{-0.16cm}
-* Missing data imputation using conditional forest ensembles · Maintainer
+13. **El Badisy I.** (2026). missknn: Fast Masked K-Nearest Neighbor Imputation. \newline \href{https://doi.org/10.32614/CRAN.package.missknn}{\nolinkurl{doi:10.32614/CRAN.package.missknn}}.
 
-\vspace{2pt}
+14. **El Badisy I.** (2026). basetable: Fast and Memory-Efficient Base R Table Manipulation. \newline \href{https://doi.org/10.32614/CRAN.package.basetable}{\nolinkurl{doi:10.32614/CRAN.package.basetable}}.
 
-\begin{multicols}{2}
-\begin{flushleft}{\bf \href{https://CRAN.R-project.org/package=functionals}{functionals}}: Functional Programming with Parallelism and Progress Tracking\end{flushleft}
-\begin{flushright}CRAN · v0.5.1\end{flushright}
-\end{multicols}
-\vspace{-0.16cm}
-* Functional programming utilities with parallelism and progress tracking · Maintainer
+15. **El Badisy I.** (2026). panglm: Generalized Linear Models for Panel Data. \newline \href{https://doi.org/10.32614/CRAN.package.panglm}{\nolinkurl{doi:10.32614/CRAN.package.panglm}}.
 
-\vspace{2pt}
+16. **El Badisy I.** (2026). fastgbm: Fast Histogram Gradient Boosting for Regression, Classification, and Survival Analysis. \newline \href{https://doi.org/10.32614/CRAN.package.fastgbm}{\nolinkurl{doi:10.32614/CRAN.package.fastgbm}}.
 
-\begin{multicols}{2}
-\begin{flushleft}{\bf \href{https://CRAN.R-project.org/package=mimar}{mimar}}: Compact Multiple Imputation, Assessment, and Reporting\end{flushleft}
-\begin{flushright}CRAN · v1.0.0\end{flushright}
-\end{multicols}
-\vspace{-0.16cm}
-* Streamlined multiple imputation workflow with assessment and reporting · Maintainer
+17. **El Badisy I.** (2026). rpsurv: Fast Royston-Parmar Flexible Parametric Survival Models. \newline \href{https://doi.org/10.32614/CRAN.package.rpsurv}{\nolinkurl{doi:10.32614/CRAN.package.rpsurv}}.
 
-\vspace{2pt}
+18. **El Badisy I.** (2026). nbsurv: Conditional Naive Bayes Survival Modelling for Right-Censored Data. \newline \href{https://doi.org/10.32614/CRAN.package.nbsurv}{\nolinkurl{doi:10.32614/CRAN.package.nbsurv}}.
 
-\begin{multicols}{2}
-\begin{flushleft}{\bf \href{https://CRAN.R-project.org/package=testflow}{testflow}}: A Workflow for Statistical Testing and Interpretation\end{flushleft}
-\begin{flushright}CRAN · v1.0.0\end{flushright}
-\end{multicols}
-\vspace{-0.16cm}
-* Workflow for statistical testing, interpretation, and visualization · Maintainer
-
-\vspace{2pt}
-
-\begin{multicols}{2}
-\begin{flushleft}{\bf \href{https://CRAN.R-project.org/package=densemlp}{densemlp}}: Dense Neural Networks for Tabular Regression, Classification and Survival\end{flushleft}
-\begin{flushright}CRAN · v0.7.1\end{flushright}
-\end{multicols}
-\vspace{-0.16cm}
-* Dense neural networks for tabular data, without a torch dependency · Maintainer
-
-\vspace{2pt}
-
-\begin{multicols}{2}
-\begin{flushleft}{\bf \href{https://CRAN.R-project.org/package=CEACT}{CEACT}}: Cost-Effectiveness Analysis Toolkit for Clinical Trials\end{flushleft}
-\begin{flushright}CRAN · v0.5.0\end{flushright}
-\end{multicols}
-\vspace{-0.16cm}
-* Cost-effectiveness analysis toolkit for clinical trial data · Maintainer
-
-\vspace{2pt}
-
-\begin{multicols}{2}
-\begin{flushleft}{\bf \href{https://CRAN.R-project.org/package=missknn}{missknn}}: Fast Masked K-Nearest Neighbor Imputation\end{flushleft}
-\begin{flushright}CRAN · v1.1.2\end{flushright}
-\end{multicols}
-\vspace{-0.16cm}
-* Fast masked k-nearest neighbor imputation · Maintainer
-
-\vspace{2pt}
-
-\begin{multicols}{2}
-\begin{flushleft}{\bf \href{https://CRAN.R-project.org/package=basetable}{basetable}}: Fast and Memory-Efficient Base R Table Manipulation\end{flushleft}
-\begin{flushright}CRAN · v1.4.2\end{flushright}
-\end{multicols}
-\vspace{-0.16cm}
-* Base R-style table manipulation with a multithreaded C++ engine · Maintainer
-
-\vspace{2pt}
-
-\begin{multicols}{2}
-\begin{flushleft}{\bf \href{https://CRAN.R-project.org/package=panglm}{panglm}}: Generalized Linear Models for Panel Data\end{flushleft}
-\begin{flushright}CRAN · v1.1.4\end{flushright}
-\end{multicols}
-\vspace{-0.16cm}
-* Pooled, fixed-effects, and random-effects GLMs for panel data · Maintainer
-
-\vspace{2pt}
-
-\begin{multicols}{2}
-\begin{flushleft}{\bf \href{https://CRAN.R-project.org/package=fastgbm}{fastgbm}}: Fast Histogram Gradient Boosting\end{flushleft}
-\begin{flushright}CRAN · v0.6.1\end{flushright}
-\end{multicols}
-\vspace{-0.16cm}
-* Gradient boosting for regression, classification, and survival analysis · Maintainer
-
-\vspace{2pt}
-
-\begin{multicols}{2}
-\begin{flushleft}{\bf \href{https://CRAN.R-project.org/package=rpsurv}{rpsurv}}: Fast Royston-Parmar Flexible Parametric Survival Models\end{flushleft}
-\begin{flushright}CRAN · v0.7.1\end{flushright}
-\end{multicols}
-\vspace{-0.16cm}
-* Flexible parametric survival models with time-varying effects · Maintainer
-
-\vspace{2pt}
-
-\begin{multicols}{2}
-\begin{flushleft}{\bf \href{https://CRAN.R-project.org/package=nbsurv}{nbsurv}}: Conditional Naive Bayes Survival Modelling\end{flushleft}
-\begin{flushright}CRAN · v0.5.1\end{flushright}
-\end{multicols}
-\vspace{-0.16cm}
-* Censored naive Bayes models for horizon-specific survival prediction · Maintainer
-
-\vspace{2pt}
-
-\begin{multicols}{2}
-\begin{flushleft}{\bf \href{https://CRAN.R-project.org/package=phynotype}{phynotype}}: Clustering and Consensus Meta-Clustering\end{flushleft}
-\begin{flushright}CRAN · v0.6.2\end{flushright}
-\end{multicols}
-\vspace{-0.16cm}
-* Clustering workflow with consensus meta-clustering and validation · Maintainer
+19. **El Badisy I.** (2026). phynotype: Clustering and Consensus Meta-Clustering. \newline \href{https://doi.org/10.32614/CRAN.package.phynotype}{\nolinkurl{doi:10.32614/CRAN.package.phynotype}}.
 
 \vspace{6pt}
 
